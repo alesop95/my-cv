@@ -1,0 +1,38 @@
+# Materiali privati e non versionati
+_notes/
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Estratti temporanei
+_notes/.tmp-docx-*/
+.tmp-docx-*/
+
+# LaTeX: derivati da compilazione (il .tex e' la fonte)
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+
+# Il PDF e' l'output del CV: scegliere se committarlo o no.
+# Se si compila in CI o si vuole versionare il PDF builded, rimuovere la riga.
+# *.pdf
+
+# Ambiente
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
+desktop.ini
