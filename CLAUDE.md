@@ -1,0 +1,74 @@
+# my-cv
+
+> Istruzioni di team, versionate. Questo file e' l'indice del progetto.
+
+## Cos'e' questo progetto
+
+`my-cv` e' il Curriculum Vitae in formato LaTeX di Alessio Sopranzi. Il CV e' scritto a mano e
+aggiornato manualmente: non si genera automaticamente da nessuna pipeline. La tassonomia delle
+competenze IT in `skills-repo` e' pero' la fonte di verita' per selezionare, nominare e descrivere
+le skill da includere: quando si aggiunge o rimuove una competenza, si verifica prima che il nome
+sia coerente con come quella skill compare nel sito pubblico `alesop95.github.io/skills/`. Il grafo
+interattivo a `alesop95.github.io/skills/graphify-out/graph.html` (141 nodi, 195 archi, 14
+comunita') e' lo strumento di lettura per capire i cluster di competenze e decidere cosa enfatizzare.
+
+`skills-repo` vive localmente a `$env:LETTERDOC_SKILLS_REPO`. La pipeline che lo popola parte da
+`lettore-doc` (E:\lettore-doc). `my-cv` non chiama nessuna pipeline: legge come riferimento.
+
+## Procedura di ripresa in una sessione nuova
+
+Leggere per primo `.claude/memory/index.md` (branch, commit di riferimento, stato di verifica delle
+schede, punto di ripresa). Leggere poi `.claude/context/current-work.md` se c'e' una sezione del CV
+in lavorazione. Invocare la skill `sync-context` per verificare il drift tra schede e sorgente LaTeX.
+Leggere solo le schede pertinenti al task, mai tutte insieme. Il work-log `.claude/memory/progress.md`
+e il registro `.claude/memory/decisions.md` (in particolare ADR-001 sull'engine e ADR-002 sulla classe
+CV) forniscono la storia e le decisioni quando servono.
+
+Per riprendere da zero: invocare `/onboard`.
+Per compilare il PDF: `/latex-build`.
+
+## Indice dei file satellite tracciati
+
+Memoria e meta-stato, sotto `.claude/memory/`, letti sempre a inizio sessione.
+
+```
+.claude/memory/index.md       snapshot e tabella di sincronizzazione, da leggere per primo
+.claude/memory/progress.md    work-log append-only di passi e compilazioni
+.claude/memory/decisions.md   registro ADR-lite (engine, classe CV, scelta PDF versionato)
+```
+
+Schede tecniche, sotto `.claude/context/`, con frontmatter di riconciliazione.
+
+```
+.claude/context/STACK.md          stack LaTeX, distribuzione, flussi di build
+.claude/context/deployment.md     come buildare e distribuire il PDF
+.claude/context/dev-testing.md    ciclo modifica-compila-verifica, errori comuni
+.claude/context/current-work.md   sezione CV in lavorazione, definition of done
+.claude/context/roadmap.md        fasi di sviluppo e direzione
+```
+
+Build LaTeX, sotto `scripts/` e nella radice.
+
+```
+scripts/build.ps1       compila il documento (Windows)
+scripts/build.sh        compila il documento (Unix/macOS)
+scripts/setup-tex.ps1   installa TinyTeX e i pacchetti (Windows)
+scripts/setup-tex.sh    installa TinyTeX e i pacchetti (Unix/macOS)
+.latexmkrc              fissa engine pdflatex e opzioni di compilazione
+tex-packages.txt        manifesto dei pacchetti tlmgr (fonte riproducibile dell'ambiente)
+```
+
+Skill richiamabili, sotto `.claude/skills/`.
+
+```
+.claude/skills/latex-build/SKILL.md    build e setup dell'ambiente LaTeX
+.claude/skills/sync-context/SKILL.md   verifica drift schede vs sorgente
+.claude/skills/onboard/SKILL.md        spiegazione completa del progetto
+```
+
+## Vincoli di team
+
+Le operazioni di `git add`, commit e push restano sempre manuali. L'identita' git e' quella
+personale: `alesop95` / `alessio.sopranzi.95@gmail.com` / alias SSH `github-personal`. Lo stile
+di documentazione e di interazione segue `.claude/rules/interaction-style.md`. Claude non scrive
+autonomamente nei file di memoria e di contesto: li aggiorna solo su richiesta esplicita.

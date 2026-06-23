@@ -1,0 +1,31 @@
+# Manifesto dei pacchetti LaTeX per my-cv.
+# Una voce per riga col nome del pacchetto tlmgr; righe vuote e con # ignorate.
+# Aggiornare quando si aggiunge un \usepackage al .tex, poi rieseguire setup-tex.ps1.
+
+# Strumento di build
+latexmk
+
+# Base tipografica
+geometry
+hyperref
+xcolor
+microtype
+lm
+cm-super
+
+# Encoding e lingua
+babel-italian
+hyphen-italian
+
+# Layout e liste
+enumitem
+parskip
+titlesec
+
+# Icone e simboli (comuni nei CV moderni)
+fontawesome5
+
+# Aggiungere qui il pacchetto della classe CV scelta, ad esempio:
+#   moderncv      # classe moderncv
+#   europasscv    # classe europasscv
+#   altacv        # altacv (richiede lualatex, non pdflatex: aggiornare .latexmkrc)
