@@ -1,5 +1,6 @@
 # Materiali privati e non versionati
 _notes/
+attachments/
 CLAUDE.local.md
 .claude/settings.local.json
 
@@ -24,10 +25,20 @@ _notes/.tmp-docx-*/
 *.nav
 *.snm
 *.vrb
+*.xmpi
 
-# Il PDF e' l'output del CV: scegliere se committarlo o no.
-# Se si compila in CI o si vuole versionare il PDF builded, rimuovere la riga.
-# *.pdf
+# PDF: cv-sopranzi-alessio-{en,it,es}.pdf versionati deliberatamente (ADR-004, 2026-07-06,
+# esteso alle tre lingue il 2026-07-08), per avere un link stabile e sempre allineato al CV
+# compilato in ciascuna lingua direttamente su GitHub. Rigenerati insieme da scripts/build.ps1
+# (o .sh): da lanciare prima di ogni commit che tocca main.tex, cosi' le tre lingue non si
+# disallineano mai tra loro. Riga *.pdf NON attivata di proposito.
+
+# Le istantanee datate per lingua (scripts/build-multilang.ps1/.sh) restano invece locali: si
+# accumulano nel tempo (tre file nuovi per ogni giorno di build), a differenza di main.pdf che e'
+# un singolo file che si aggiorna. Archivio personale, non pensato per finire in git (ADR-005 in
+# .claude/memory/decisions.md). Raccolte in dated-builds/<lingua>/ dal 2026-07-07 invece che
+# sciolte nella radice, per non mescolarle dopo settimane di build.
+dated-builds/
 
 # Ambiente
 .venv/

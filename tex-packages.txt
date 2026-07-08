@@ -25,7 +25,44 @@ titlesec
 # Icone e simboli (comuni nei CV moderni)
 fontawesome5
 
-# Aggiungere qui il pacchetto della classe CV scelta, ad esempio:
-#   moderncv      # classe moderncv
-#   europasscv    # classe europasscv
-#   altacv        # altacv (richiede lualatex, non pdflatex: aggiornare .latexmkrc)
+# Classe CV (ADR-002): altaCV, con fallback pdflatex via roboto/lato (vedi
+# .claude/context/altacv-reference.md, sezione Font). Nessun cambio di engine richiesto.
+# NOTA: altacv non e' un pacchetto CTAN/tlmgr, quindi NON va installato con setup-tex.ps1:
+# altacv.cls e' vendorizzato nella root del progetto (tracciato in git), scaricato da
+# https://raw.githubusercontent.com/liantze/AltaCV/master/altacv.cls (v1.7.4, LPPL), fonte
+# confermata dall'utente il 2026-07-06. Aggiornarlo manualmente in caso di nuova versione.
+paracol
+roboto
+lato
+extsizes
+
+# Dipendenze dirette di altacv.cls non gia' coperte sopra (vedi \RequirePackage nel .cls).
+# tabularx e afterpage sono gia' forniti dal pacchetto "tools" (base LaTeX, sempre presente),
+# non hanno una voce tlmgr propria: non vanno aggiunti qui. trimclip.sty e' fornito dal
+# pacchetto tlmgr "adjustbox", non da un pacchetto chiamato "trimclip".
+pdfx
+accsupp
+tcolorbox
+adjustbox
+dashrule
+multirow
+
+# Dipendenze transitive di pdfx (vedi \RequirePackage in pdfx.sty)
+everyshi
+colorprofiles
+xmpincl
+
+# Ramo pdflatex di altacv.cls (righe 81-89, blocco \else di \iftutex)
+cmap
+
+# Richiesto dall'opzione documentclass "ragged2e" (altacv.cls riga 93)
+ragged2e
+
+# Richiesto dalla libreria "skins" di tcolorbox (usata da altacv.cls)
+tikzfill
+
+# Richiesto da dashrule
+ifmtarg
+
+# Richiesto da roboto e lato (font pdflatex del blocco \iftutex in main.tex)
+fontaxes

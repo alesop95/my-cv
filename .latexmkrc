@@ -7,4 +7,4 @@ $pdf_mode = 1;   # 1 = pdflatex (non lualatex/xelatex)
 $pdflatex = 'pdflatex -interaction=nonstopmode -halt-on-error -synctex=1 -file-line-error %O %S';
 
 # Estensioni ausiliarie da rimuovere con `latexmk -c` / `-C` (coerenti col .gitignore).
-$clean_ext = 'synctex.gz aux fdb_latexmk fls run.xml bcf nav snm vrb out toc lof lot';
+$clean_ext = 'synctex.gz aux fdb_latexmk fls run.xml bcf nav snm vrb out toc lof lot xmpi';
