@@ -50,12 +50,16 @@ Schede tecniche, sotto `.claude/context/`, con frontmatter di riconciliazione.
 Build LaTeX, sotto `scripts/` e nella radice.
 
 ```
-scripts/build.ps1       compila il documento (Windows)
-scripts/build.sh        compila il documento (Unix/macOS)
-scripts/setup-tex.ps1   installa TinyTeX e i pacchetti (Windows)
-scripts/setup-tex.sh    installa TinyTeX e i pacchetti (Unix/macOS)
-.latexmkrc              fissa engine pdflatex e opzioni di compilazione
-tex-packages.txt        manifesto dei pacchetti tlmgr (fonte riproducibile dell'ambiente)
+scripts/build.ps1              compila i tre PDF stabili EN/IT/ES, sempre insieme (Windows)
+scripts/build.sh               compila i tre PDF stabili EN/IT/ES, sempre insieme (Unix/macOS)
+scripts/setup-tex.ps1          installa TinyTeX e i pacchetti (Windows)
+scripts/setup-tex.sh           installa TinyTeX e i pacchetti (Unix/macOS)
+scripts/check-skill-links.ps1  verifica i link a skills-repo citati nel .tex (Windows)
+scripts/check-skill-links.sh   verifica i link a skills-repo citati nel .tex (Unix/macOS)
+scripts/build-multilang.ps1    compila i tre PDF datati EN/IT/ES (Windows)
+scripts/build-multilang.sh     compila i tre PDF datati EN/IT/ES (Unix/macOS)
+.latexmkrc                     fissa engine pdflatex e opzioni di compilazione
+tex-packages.txt               manifesto dei pacchetti tlmgr (fonte riproducibile dell'ambiente)
 ```
 
 Skill richiamabili, sotto `.claude/skills/`.

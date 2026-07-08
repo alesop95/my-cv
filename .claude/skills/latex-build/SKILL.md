@@ -61,8 +61,13 @@ Su Unix/macOS:
 sh scripts/build.sh
 ```
 
-Se nella radice c'e' un solo `.tex` viene usato quello; altrimenti passare `-Main` / `--main
-<file.tex>`. La pulizia degli ausiliari e' `-Clean` (lascia il PDF) o `-CleanAll` (rimuove anche il PDF).
+In questo progetto (`my-cv`) `scripts/build.ps1`/`.sh` sono stati specializzati (2026-07-08,
+ADR-006 in `memory/decisions.md`) e non seguono piu' il contratto generico sopra descritto:
+compilano sempre `main.tex` in tutte e tre le lingue (EN/IT/ES, via `\CVlanguage`) in un'unica
+esecuzione, producendo `cv-sopranzi-alessio-{en,it,es}.pdf` nella radice, senza flag `-Main`/
+`-CleanAll`. `-Clean`/`--clean` rimuove i tre PDF e i relativi ausiliari. Un progetto che adotti
+questa skill da zero, senza il vincolo trilingue, puo' invece mantenere il flusso generico a
+documento singolo con auto-rilevamento del `.tex` e i flag `-Main`/`-Clean`/`-CleanAll`.
 
 ### 3. Aggiungere un pacchetto
 

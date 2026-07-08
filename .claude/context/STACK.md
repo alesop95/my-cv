@@ -16,7 +16,9 @@ last-verified-commit: PENDING-FIRST-COMMIT
 
 Linguaggio: LaTeX (pdflatex, fissato in `.latexmkrc`).
 Distribuzione: TinyTeX user-local (`%APPDATA%\TinyTeX` su Windows), condivisa fra i progetti.
-Build: latexmk, invocato via `scripts/build.ps1` (Windows) o `scripts/build.sh` (Unix).
+Build: pdflatex diretto (non latexmk dal 2026-07-08, ADR-006), invocato via `scripts/build.ps1`
+(Windows) o `scripts/build.sh` (Unix); compila sempre le tre lingue EN/IT/ES in un'unica
+esecuzione, sovrascrivendo `cv-sopranzi-alessio-{en,it,es}.pdf` nella radice.
 Manifesto pacchetti: `tex-packages.txt` (fonte riproducibile dell'ambiente).
 Classe CV: da scegliere (vedi `memory/decisions.md`, ADR-002).
 
