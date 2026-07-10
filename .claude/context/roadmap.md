@@ -62,6 +62,21 @@ Stato aggiornato al 2026-07-06:
   nell'archivio e non vengono integrati in `main.tex`. Motivazione dichiarata: non e' ancora
   stata svolta ne' consulenza ne' coaching in forma formale, quindi il contenuto sarebbe
   prematuro.
+- Aggiornamento del 2026-07-10 sul frammento Consultant: aveva in realta' contenuto reale (un
+  progetto di trasformazione digitale per una palestra, cliente reale tracciato solo in
+  `_notes/consulting-and-fiscal-tracking-2026-07-10.md`, non pubblico), ma la decisione
+  dell'utente e' di escluderlo dal CV in modo piu' definitivo di un semplice "rimandato": non sta
+  facendo consulenza e non puo' farla al momento in modo fiscalmente corretto. Nessuna modifica a
+  `main.tex` necessaria, perche' il frammento non era mai stato integrato.
+- Lavoro derivato dalla stessa indagine, in repository esterno: nasce `E:\fiscal-toolkit`
+  (remoto `github.com/alesop95/fiscal-toolkit`), strumento personale per l'analisi fiscale della
+  retribuzione nella ricerca di lavoro (netto da RAL, dipendente vs partita IVA), collegato a
+  `E:\legal-consultant` per gli aggiornamenti normativi. Solo scaffolding iniziale (README,
+  CLAUDE.md, `.gitignore`, identita' git e remoto), nessuna implementazione ancora: da riprendere
+  in una sessione dedicata a quel progetto. Contestualmente valutata e scartata l'idea di
+  costruire uno scraper per le offerte di lavoro su LinkedIn (rischio concreto di ban
+  dell'account, nessuna API accessibile a un privato): si useranno i Job Alert nativi di LinkedIn
+  piu' l'API pubblica di Adzuna come complemento.
 - Risolto: "Private projects/applications" riscritta come lista sintetica raggruppata per area
   tematica (infrastruttura/self-hosting, AI e automazione, web app, audio/hardware, strumenti
   dati personali) invece di un bullet per singolo progetto, dopo una ricognizione di ~25
