@@ -76,6 +76,16 @@ non ancora inizializzato a git dall'utente) e un footer con icone social (Linked
 Telegram/email) aggiunto sia li' sia a `E:\skills`. Nel CV stesso e' stato aggiunto un link al
 blog personale (`\faBlog`, campo `\blog{}` in `main.tex`) vicino ai riferimenti di contatto.
 
+Aggiornamento del 2026-07-10: nuovo repository esterno `E:\fiscal-toolkit` (remoto
+`github.com/alesop95/fiscal-toolkit`, identita' e remoto git gia' configurati, commit iniziale
+non ancora fatto dall'utente), nato da una ricognizione del materiale fiscale/consulenza
+dell'utente (dettagli non pubblici in `_notes/consulting-and-fiscal-tracking-2026-07-10.md`).
+Collegato concettualmente a `E:\legal-consultant` per gli aggiornamenti normativi. Nessuna
+sezione "Consultant" e' stata aggiunta al CV: la decisione e' di escluderla in modo definitivo
+per motivi fiscali attuali, non solo di rimandarla (vedi `roadmap.md`, Fase 2). Scartata anche
+l'idea di uno scraper per le offerte LinkedIn dopo una ricerca sui rischi legali/di ban: si
+useranno i Job Alert nativi di LinkedIn e l'API pubblica di Adzuna.
+
 ### Da committare
 
 Nulla di quanto sopra e' stato ancora versionato: dal bootstrap (3485498) il repository ha
