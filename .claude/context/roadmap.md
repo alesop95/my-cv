@@ -96,6 +96,10 @@ Stato aggiornato al 2026-07-06:
   `blog-alessio`. Nessuna pagina e' stata costruita: e' solo una lista di candidati.
 - Ancora da fare, non affrontato in questa sessione: l'intera sezione "Ongoing studies" (titolo
   segnaposto `........` e due voci `aaaaaaa`).
+- Rivalutato il 2026-07-10: confermato di lasciare la sezione disattivata (`\iffalse`/`\fi` in
+  `main.tex`) senza toccarla ora. Non e' un item scaduto o abbandonato: resta contenuto sempre
+  disponibile da riprendere e revisionare voce per voce quando l'utente avra' materiale reale da
+  scriverci, con lo stesso approccio "punto per punto" gia' usato oggi per altre sezioni.
 
 ## Fase 3 — Gestione documentale degli allegati
 
