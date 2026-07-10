@@ -351,7 +351,7 @@
 }
 
 \newcommand{\cvtag}[1]{%
-  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=1ex,inner ysep =0.75ex,text height=1.5ex,text depth=.25ex]{#1};
+  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=0.6ex,inner ysep =0.5ex,text height=1.5ex,text depth=.25ex]{#1};
 }
 
 % v1.6: Use accsupp so that the actual numeric value is copied/pasted
