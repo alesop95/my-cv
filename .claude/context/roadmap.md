@@ -269,3 +269,8 @@ Il CV e' sia un documento tradizionale (PDF per invio diretto) sia un pezzo del 
 pubblico. Il grafo delle skill a `alesop95.github.io/skills/graphify-out/graph.html` e' il
 complemento interattivo: il CV dichiara le competenze, il grafo le contestualizza con le relazioni
 semantiche e i progetti che le evidenziano.
+
+Idea futura segnalata dall'utente il 2026-07-10, non implementata: valutare se accomodare alcune
+delle Soft Skills attualmente elencate per intero nel CV anche dentro `skills-repo`, sullo stesso
+modello delle Capability tecniche. Da riprendere quando si torna a lavorare su `skills-repo` in
+una sessione dedicata a quel progetto, non qui.

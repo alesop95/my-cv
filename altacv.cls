@@ -341,10 +341,13 @@
 % caso "Full IT Infrastructure end-to-end transformation" con "tion" isolato a capo).
 \let\altacv@titleraggedright\raggedright
 
-% v1.7: adds accsupp for the icon as well
+% v1.7 aggiungeva accsupp anche per l'icona con ActualText={#1: }: essendo #1 il comando icona
+% stesso (es. \faHeartbeat), il testo copiabile/screen-reader riportava il nome letterale del
+% comando invece di una descrizione sensata. Rimosso il 2026-07-13: l'icona resta puramente
+% decorativa (nessun testo accessibile associato), niente da correggere nel copia-incolla.
 \newcommand{\cvachievement}[3]{%
   \begin{tabularx}{\linewidth}{@{}p{2em} @{\hspace{1ex}} >{\raggedright\arraybackslash}X@{}}
-  \multirow{2}{*}{\Large\color{accent}\BeginAccSupp{method=escape,ActualText={#1: }}#1\EndAccSupp{}} & {\altacv@titleraggedright\bfseries\textcolor{emphasis}{#2}}\\
+  \multirow{2}{*}{\Large\color{accent}#1} & {\altacv@titleraggedright\bfseries\textcolor{emphasis}{#2}}\\
   & #3
   \end{tabularx}%
   \smallskip
@@ -413,7 +416,7 @@
 
             % Draw the data labels
             % v1.6: Use accsupp so that the numeric number is copied/pasted too
-            \draw  [*-,thin,emphasis] node [append after command={(\midangle:\midradius pt) -- (\midangle:\outerradius + 1ex) -- (\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [xshift=\labelshiftdir*0.5cm,inner sep=1ex, outer sep=0pt, text width=\width,anchor=\textanchor,align=\textalign,font=\small,text=body]{\BeginAccSupp{method=pdfstringdef,ActualText={\name: \value}}\name\EndAccSupp{}};
+            \draw  [*-,thin,emphasis] node [append after command={(\midangle:\midradius pt) -- (\midangle:\outerradius + 1ex) -- (\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [xshift=\labelshiftdir*0.5cm,inner sep=1ex, outer sep=0pt, text width=\width,anchor=\textanchor,align=\textalign,font=\footnotesize,text=body]{\BeginAccSupp{method=pdfstringdef,ActualText={\name: \value}}\name\EndAccSupp{}};
             % Set the old cumulated angle to the new value
             \global\let\cumnum=\newcumnum
         }
