@@ -52,6 +52,18 @@
   \fi
 }
 
+% Variante di \bloglink che rende cliccabile il contenuto stesso (#3, tipicamente il titolo di
+% una voce) invece di aggiungere un'iconcina separata dopo di esso: usata in "Interessi" dal
+% 2026-07-14 per togliere le 14 iconcine ripetute a cartella e affidarsi al testo sottolineato
+% come segnale di link, coerente con la nota di condivisione in _notes/cv-sharing-snippet.md.
+\newcommand{\bloglinkwrap}[3]{%
+  \ifx\CVlanguage\CVlangIT
+    \href{https://alesop95.github.io/blog/it/tag/#1}{#3}%
+  \else
+    \href{https://alesop95.github.io/blog/en/tags/#2}{#3}%
+  \fi
+}
+
 % Enfasi uniforme per le date scritte a mano dentro il testo dei bullet (non le date generate da
 % \cvevent tramite \cvDateMarker, quelle restano come sono). Prima di questo comando erano
 % incoerenti: \small in "Academic projects" (ambiente non wrappato in cveventblock), footnotesize
@@ -97,6 +109,9 @@
 % Margini ridotti da 1.15/0.9cm a 1.0/0.7cm il 2026-07-09 (obiettivo CV a 1 pagina, combinato con
 % columnratio 0.7 sotto): 1.0/0.7cm resta un margine di stampa sicuro; sotto questo valore
 % (provato 0.85/0.6cm) non si ottiene alcun beneficio ulteriore sul conteggio pagine.
+% columnsep ridotto da 1.0cm a 0.6cm il 2026-07-14 (richiesta esplicita): meno spazio bianco tra
+% le colonne, e siccome riduce il gutter (non i margini di stampa) allarga anche leggermente la
+% larghezza utile di entrambe le colonne, quindi e' un guadagno netto, non un compromesso.
 \geometry{left=1.0cm,right=1.0cm,top=0.7cm,bottom=0.7cm,columnsep=1.0cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -133,8 +148,12 @@
 % in modo proporzionale alla densita' tipografica), quindi riportato a 0.925.
 \linespread{0.925}
 
-\renewcommand{\namefont}{\Huge\rmfamily\bfseries}
-\renewcommand{\personalinfofont}{\footnotesize}
+% Rimpicciolito di un gradino, da \Huge a \huge, il 2026-07-14 (richiesta esplicita, CV a 1 pagina).
+\renewcommand{\namefont}{\huge\rmfamily\bfseries}
+% Rimpicciolito da \footnotesize a \scriptsize il 2026-07-14 (obiettivo CV a 1 pagina): con la
+% riga Telegram rimossa restava una singola voce (projectsSite) sola sulla propria riga; a
+% \scriptsize ci sta piu' testo per riga e le voci si compattano meglio.
+\renewcommand{\personalinfofont}{\scriptsize}
 \renewcommand{\cvsectionfont}{\large\rmfamily\bfseries}
 \renewcommand{\cvsubsectionfont}{\large\bfseries}
 
@@ -197,12 +216,17 @@
 }
 \name{Alessio Sopranzi}
 % \tagline{IT Manager \& Full-stack Engineer}
-\tagline{\LARGE \color{DarkBlue} IT manager, Software architect, Sysadmin}
+% Rimpicciolita di un gradino, da \LARGE a \Large, il 2026-07-14 (richiesta esplicita, CV a 1 pagina).
+\tagline{\Large \color{DarkBlue} IT manager, Software architect, Sysadmin}
 %% You can add multiple photos on the left or right
-% Ridotta da 4.8cm il 2026-07-06: il blocco nome/tagline/personalinfo era piu' basso della foto,
-% quindi l'altezza della testata era dettata dalla foto, con spazio bianco sotto la nota
-% "Interactive .pdf" fino al bordo inferiore della foto.
-\photoR{3.6cm}{attachments/Template e photos/photo-me-gemini.jpeg}
+% Ridotta da 4.8cm il 2026-07-06, poi da 3.6cm il 2026-07-13, poi da 3.2cm e 2.9cm il 2026-07-14
+% (rimossa la riga Telegram e il blocco contatti compattato da 3 a 2 righe): stesso motivo ogni
+% volta, la foto non deve dettare l'altezza della testata quando il testo accanto e' piu' basso
+% di lei. Ritaglio manuale piu' stretto sul volto (photo-me-gemini-cropped.jpeg) provato e
+% scartato il 2026-07-14: \photoR usa gia' "fill overzoom image" di tikz (object-fit: cover),
+% quindi ritaglia e centra automaticamente dall'immagine originale - il ritaglio manuale tagliava
+% via la camicia che con l'auto-crop restava visibile. Tornato a photo-me-gemini.jpeg originale.
+\photoR{2.6cm}{attachments/Template e photos/photo-me-gemini.jpeg}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % INFORMAZIONI PERSONALI LINKATE (ED ALLEGATI EXTRA)
@@ -219,9 +243,12 @@
   \githubCorp{asopranzi-intrawelt}
   \blog{alesop95.github.io/blog}
   \projectsSite{alesop95.github.io/projects}
-  \printinfo{\faTelegramPlane}{@alesop95}[https://t.me/alesop95]
-    \\[5pt] % spazio extra per farlo staccare dal blocco precedente
-\printinfo{\scalebox{1.5}{\faHandPointer}}{\color{accent}{\textbf{\cvtext{PDF interattivo: alcuni elementi sono cliccabili e aprono risorse esterne}{PDF interactivo: algunos elementos son clicables y abren recursos externos}{Interactive .pdf: some elements are clickable and open external resources}}}}
+  % Riga Telegram rimossa il 2026-07-14 (obiettivo CV a 1 pagina, richiesta esplicita): resta
+  % commentata, non cancellata.
+  % \printinfo{\faTelegramPlane}{@alesop95}[https://t.me/alesop95]
+  % Riga "PDF interattivo" rimossa il 2026-07-13 (obiettivo CV a 1 pagina): la cliccabilita' del
+  % documento va comunicata nel messaggio/email di invio del CV, non dentro il PDF stesso - vedi
+  % _notes/cv-sharing-snippet.md per il testo pronto da incollare in IT/EN/ES.
 }
 
 \makecvheader
@@ -249,22 +276,30 @@
 
 \begin{cveventblock}
 
+% Ruolo e azienda uniti sulla stessa riga con un trattino il 2026-07-14 (richiesta esplicita):
+% prima erano due righe separate (titolo \large, azienda in grassetto accent sotto), ora una sola.
 \cvevent
-    {\textbf{IT Manager}}
-    {\href{https://intrawelt.com}{Intrawelt}}
+    {\textbf{IT Manager} - \textbf{\color{accent}\href{https://intrawelt.com}{Intrawelt}}}
+    {}
     {10/2024 -- \cvtext{In corso}{En curso}{Ongoing}}
     {\href{https://tinyurl.com/Intrawelt-location}{Intrawelt}}
 
 {
     \footnotesize
-\begin{itemize}
-\item \textbf{\href{https://alesop95.github.io/skills/management/project-planning-scheduling/}{\cvtext{IT governance, pianificazione e knowledge management}{Gobierno de TI, planificación y gestión del conocimiento}{IT governance, planning and knowledge management}}}: \cvtext{certificazione qualità, fatturazione e amministrazione IT, scheduling e controllo progetti, documentazione tecnica.}{certificación de calidad, facturación y administración de TI, planificación y control de proyectos, documentación técnica.}{quality certification, IT administration and billing, project scheduling and control, technical documentation.}
-\item \textbf{\href{https://alesop95.github.io/skills/infrastructure/infrastructure-virtualization/}{\cvtext{Infrastruttura, cloud e networking}{Infraestructura, cloud y redes}{Infrastructure, cloud and networking}}}: \cvtext{virtualizzazione, piattaforme cloud, reti e sicurezza, backup e disaster recovery, amministrazione di sistema, helpdesk avanzato.}{virtualización, plataformas cloud, redes y seguridad, backup y recuperación ante desastres, administración de sistemas, soporte técnico avanzado.}{virtualization, cloud platforms, networking and security, backup and disaster recovery, system administration, advanced helpdesk.}
-\item \textbf{\href{https://alesop95.github.io/skills/management/leadership-management/}{\cvtext{Leadership e responsabilità trasversali}{Liderazgo y responsabilidades transversales}{Leadership and cross-cutting responsibilities}}}: \cvtext{management di team, imprenditorialità tecnica.}{gestión de equipos, emprendimiento técnico.}{team management, technical entrepreneurship.}
-\item \textbf{\href{https://alesop95.github.io/skills/software-engineering/fullstack-development-devops/}{\cvtext{Sviluppo full-stack, DevOps e AI generativa}{Desarrollo full-stack, DevOps e IA generativa}{Full-stack development, DevOps and generative AI}}}: \cvtext{piattaforme SaaS, LLM e progetti AI su misura, ERP e applicazioni aziendali, progetti sperimentali.}{plataformas SaaS, LLMs y proyectos de IA a medida, ERP y aplicaciones empresariales, proyectos experimentales.}{SaaS platforms, LLMs and custom AI projects, ERP and business applications, experimental projects.}
-\item \textbf{\href{https://alesop95.github.io/skills/security/cybersecurity-it-governance/}{\cvtext{Cybersecurity, licenze e dati}{Ciberseguridad, licencias y datos}{Cybersecurity, licensing and data}}}: \cvtext{responsabile interno ISO/IEC 27001, \textbf{CompTIA Security+} in preparazione, gestione licenze software e presenze, analytics e reportistica.}{responsable interno de ISO/IEC 27001, \textbf{CompTIA Security+} en preparación, gestión de licencias de software y asistencia, analítica e informes.}{internal ISO/IEC 27001 lead, \textbf{CompTIA Security+} in progress, software license and attendance management, analytics and reporting.}
-\item[] \footnotesize \cvtext{Dettagli completi}{Detalles completos}{Full details} \href{https://alesop95.github.io/skills/}{\faFolderOpen}
-\end{itemize}
+% Da itemize (5 bullet, un pallino/indentatura ciascuno) a paragrafo discorsivo il 2026-07-14:
+% stesso contenuto e stessi link alla skill-repo sui titoli in grassetto, ma il testo usa tutta
+% la larghezza di colonna invece di quella ridotta dall'indentatura, andando a capo meno spesso.
+\noindent
+% Link aggiornati con il prefisso /technical/ il 2026-07-14: skills-repo ha spostato le
+% Capability tecniche sotto docs/technical/ per lasciare spazio a una sezione /soft/ dedicata
+% (vedi Soft skills piu' in basso), URL vecchi senza /technical/ non esistono piu'.
+\textbf{\href{https://alesop95.github.io/skills/technical/management/project-planning-scheduling/}{\cvtext{IT governance, pianificazione e knowledge management}{Gobierno de TI, planificación y gestión del conocimiento}{IT governance, planning and knowledge management}}}: \cvtext{certificazione qualità, fatturazione e amministrazione IT, scheduling e controllo progetti, documentazione tecnica.}{certificación de calidad, facturación y administración de TI, planificación y control de proyectos, documentación técnica.}{quality certification, IT administration and billing, project scheduling and control, technical documentation.}
+\textbf{\href{https://alesop95.github.io/skills/technical/infrastructure/infrastructure-virtualization/}{\cvtext{Infrastruttura, cloud e networking}{Infraestructura, cloud y redes}{Infrastructure, cloud and networking}}}: \cvtext{virtualizzazione, piattaforme cloud, reti e sicurezza, backup e disaster recovery, amministrazione di sistema, helpdesk avanzato.}{virtualización, plataformas cloud, redes y seguridad, backup y recuperación ante desastres, administración de sistemas, soporte técnico avanzado.}{virtualization, cloud platforms, networking and security, backup and disaster recovery, system administration, advanced helpdesk.}
+\textbf{\href{https://alesop95.github.io/skills/technical/management/leadership-management/}{\cvtext{Leadership e responsabilità trasversali}{Liderazgo y responsabilidades transversales}{Leadership and cross-cutting responsibilities}}}: \cvtext{management di team, imprenditorialità tecnica.}{gestión de equipos, emprendimiento técnico.}{team management, technical entrepreneurship.}
+\textbf{\href{https://alesop95.github.io/skills/technical/software-engineering/fullstack-development-devops/}{\cvtext{Sviluppo full-stack, DevOps e AI generativa}{Desarrollo full-stack, DevOps e IA generativa}{Full-stack development, DevOps and generative AI}}}: \cvtext{piattaforme SaaS, LLM e progetti AI su misura, ERP e applicazioni aziendali, progetti sperimentali.}{plataformas SaaS, LLMs y proyectos de IA a medida, ERP y aplicaciones empresariales, proyectos experimentales.}{SaaS platforms, LLMs and custom AI projects, ERP and business applications, experimental projects.}
+\textbf{\href{https://alesop95.github.io/skills/technical/security/cybersecurity-it-governance/}{\cvtext{Cybersecurity, licenze e dati}{Ciberseguridad, licencias y datos}{Cybersecurity, licensing and data}}}: \cvtext{responsabile interno ISO/IEC 27001, CompTIA Security+ in preparazione, gestione licenze software e presenze, analytics e reportistica.}{responsable interno de ISO/IEC 27001, CompTIA Security+ en preparación, gestión de licencias de software y asistencia, analítica e informes.}{internal ISO/IEC 27001 lead, CompTIA Security+ in progress, software license and attendance management, analytics and reporting.}
+\ \cvtext{Dettagli completi}{Detalles completos}{Full details} \href{https://alesop95.github.io/skills/}{\faFolderOpen}
+\par
 }
 
 \end{cveventblock}
@@ -274,19 +309,17 @@
 \begin{cveventblock}
 
 \cvevent
-    {\textbf{Product Manager}}
-    {\href{https://tinyurl.com/clementoni-site}{Clementoni S.p.A.}}
+    {\textbf{Product Manager} - \textbf{\color{accent}\href{https://tinyurl.com/clementoni-site}{Clementoni S.p.A.}}}
+    {}
     {09/2023 -- 10/2024}
     {\href{https://tinyurl.com/clementoni-location}{Clementoni}}
 {
     \footnotesize
-\begin{itemize}
-\item \cvtext{Definizione di nuovi prodotti: analisi di mercato, competitor, obiettivi di roadmap.}{Definición de nuevos productos: análisis de mercado, competencia, objetivos de roadmap.}{Definition of new products: market analysis, competitors, roadmap objectives.}
-\item \cvtext{Sviluppo di esperienze di gioco innovative (UX, approccio pedagogico), monitorate via PLM.}{Desarrollo de experiencias de juego innovadoras (UX, enfoque pedagógico), con seguimiento PLM.}{Development of innovative gaming experiences (UX, pedagogical approach), monitored via PLM.}
-\item \cvtext{Individuazione e gestione di fornitori esteri.}{Identificación y gestión de proveedores extranjeros.}{Identification and management of foreign suppliers.}
-\item \cvtext{Collaborazione trasversale con tutte le funzioni aziendali (Operations, Marketing, Vendite).}{Colaboración transversal con todas las funciones de la empresa (Operaciones, Marketing, Ventas).}{Cross-functional collaboration across all company functions (Operations, Marketing, Sales).}
-\item \cvtext{Report a stakeholder e CEO; analisi e revisione dei costi.}{Informes a stakeholders y CEO; análisis y revisión de costes.}{Reports to stakeholders and CEO; cost analysis and review.}
-\end{itemize}
+% Da itemize (2 bullet) a paragrafo discorsivo il 2026-07-14, stesso trattamento di Intrawelt.
+\noindent
+\cvtext{Definizione nuovi prodotti (mercato, competitor, roadmap); sviluppo di esperienze di gioco innovative (UX, approccio pedagogico), monitorate via PLM.}{Definición de nuevos productos (mercado, competencia, roadmap); desarrollo de experiencias de juego innovadoras (UX, enfoque pedagógico), con seguimiento PLM.}{Definition of new products (market, competitors, roadmap); development of innovative gaming experiences (UX, pedagogical approach), monitored via PLM.}
+\cvtext{Gestione fornitori esteri e collaborazione trasversale (Operations, Marketing, Vendite); report a stakeholder/CEO, analisi costi.}{Gestión de proveedores extranjeros y colaboración transversal (Operaciones, Marketing, Ventas); informes a stakeholders/CEO, análisis de costes.}{Foreign supplier management and cross-functional collaboration (Operations, Marketing, Sales); stakeholder/CEO reporting, cost analysis.}
+\par
 }
 
 \end{cveventblock}
@@ -296,57 +329,44 @@
 \begin{cveventblock}
 
 \cvevent
-    {\textbf{\cvtext{Ingegnere di prodotto elettroacustico}{Ingeniero de producto electroacústico}{Electroacoustic product engineer}}}
-    {\href{https://tinyurl.com/elettromedia-site}{Elettromedia S.p.A.}}
+    {\textbf{\cvtext{Ingegnere di prodotto elettroacustico}{Ingeniero de producto electroacústico}{Electroacoustic product engineer}} - \textbf{\color{accent}\href{https://tinyurl.com/elettromedia-site}{Elettromedia S.p.A.}}}
+    {}
     {09/2020 -- 09/2023}
     {\href{https://tinyurl.com/elettromedia-location}{Elettromedia}}
 
 {
     \footnotesize
-\begin{itemize}
-\item \cvtext{Progettazione e sviluppo diffusori per clienti internazionali, intero ciclo produttivo.}{Diseño y desarrollo de altavoces para clientes internacionales, ciclo completo de producción.}{Engineering and development of loudspeakers for international clients, full production cycle.}
-\item \cvtext{Traduzione dei requisiti tecnici di prodotto in opzioni progettuali.}{Traducción de los requisitos técnicos del producto en opciones de diseño.}{Translating product technical requirements into design options.}
-\item \cvtext{Messa a punto elettrica/acustica per automotive, nautico e audio professionale (PA).}{Ajuste eléctrico/acústico para automoción, náutico y audio profesional (PA).}{Electrical/acoustic tuning for automotive, marine and professional audio (PA).}
-\item \cvtext{Valutazione qualità e configurazione di sistemi audio complessi.}{Evaluación de calidad y configuración de sistemas de audio complejos.}{Quality assessment and setup of complex audio systems.}
-\item \cvtext{Gestione flussi di progetto con team di produzione esteri.}{Gestión de flujos de proyecto con equipos de producción en el extranjero.}{Managing project workflows with overseas production teams.}
-\end{itemize}
+% Da itemize (2 bullet) a paragrafo discorsivo il 2026-07-14, stesso trattamento di Intrawelt.
+\noindent
+\cvtext{Progettazione e sviluppo diffusori per clienti internazionali (intero ciclo di sviluppo), traducendo requisiti tecnici in opzioni progettuali.}{Diseño y desarrollo de altavoces para clientes internacionales (ciclo completo de desarrollo), traduciendo requisitos técnicos en opciones de diseño.}{Engineering and development of loudspeakers for international clients (full development cycle), translating technical requirements into design options.}
+\cvtext{Messa a punto elettrica/acustica (automotive, nautico, PA), valutazione qualità sistemi complessi, gestione flussi con team di produzione esteri.}{Ajuste eléctrico/acústico (automoción, náutico, PA), evaluación de calidad de sistemas complejos, gestión de flujos con equipos de producción en el extranjero.}{Electrical/acoustic tuning (automotive, marine, PA), quality assessment of complex systems, project workflow management with overseas production teams.}
+\par
 }
 
 \end{cveventblock}
 
 \smallskip
 
+% Labilia e Caffè del teatro Cerolini accorpati in un unico cveventblock il 2026-07-13: due
+% lavori part-time del periodo universitario, peso minore rispetto alle esperienze professionali
+% sopra (richiesta esplicita dell'utente) - un solo blocco invece di due riduce anche l'overhead
+% strutturale di \cvevent (titolo/org/data/location + smallskip) per due voci minori.
 \begin{cveventblock}
 
+% Titolo e voci rimpiccioliti il 2026-07-14 (richiesta esplicita, sezione minore): titolo a
+% \small invece del \large predefinito di \cvevent, voci da \footnotesize a \scriptsize cosi'
+% ciascuna descrizione rientra piu' facilmente su una riga.
 \cvevent
-    {{\cvtext{Addetto produzione eventi}{Personal de producción de eventos}{Event production staff} \small (\cvtext{a contratto}{contrato}{contract})}}
-    {\href{https://www.labilia.it/}{Labilia}}
-    {08/2018 -- 10/2019}
-    {}  % Per non stampare l'icona se non c'è la location
+    {\small\textbf{\cvtext{Lavori part-time / a chiamata durante gli studi}{Trabajos a tiempo parcial / a demanda durante los estudios}{Part-time / on-call jobs during university}}}
+    {}
+    {06/2013 -- 10/2019}
+    {}
 
 {
-    \footnotesize
+    \scriptsize
 \begin{itemize}
-\item \cvtext{Logistica eventi (operazioni sul campo, allestimento, supervisione e risoluzione di problemi durante gli eventi, gestendo attrezzature e materiali tecnici e adattandosi rapidamente a imprevisti)}{Logística de eventos (operaciones in situ, montaje, supervisión y resolución de problemas durante los eventos, gestionando equipos y materiales técnicos y adaptándome rápidamente a imprevistos)}{Event logistics (on-site operations, setup, supervision, and troubleshooting during events managing technical gear and materials and adapting quickly to unexpected issues)}
-\end{itemize}
-}
-
-\end{cveventblock}
-
-\smallskip
-
-\begin{cveventblock}
-
-\cvevent
-    {{\cvtext{Barista, Cameriere}{Camarero de barra, Camarero de sala}{Bar attendant, Waiter} \small (\cvtext{a contratto}{contrato}{contract})}}
-    {Caffè del teatro Cerolini}
-    {06/2013 -- 08/2017}
-    {\href{https://tinyurl.com/cerolini}{Caffè del teatro}}
-
-{
-    \footnotesize
-\begin{itemize}
-\item \cvtext{Servizio bar e sala, somministrazione di caffè e gelato artigianale.}{Servicio de barra y mesa, sirviendo café y helado artesanal.}{Bar and table service, served coffee and artisan ice cream.}
+\item \textbf{\cvtext{Addetto produzione eventi}{Personal de producción de eventos}{Event production staff}}, \href{https://www.labilia.it/}{Labilia} \itemdate{(08/2018 -- 10/2019)}: \cvtext{logistica eventi, allestimento, gestione imprevisti.}{logística de eventos, montaje, gestión de imprevistos.}{event logistics, setup, troubleshooting.}
+\item \textbf{\cvtext{Barista, Cameriere}{Camarero de barra y mesa}{Bar attendant, Waiter}}, \href{https://tinyurl.com/cerolini}{Caffè del teatro Cerolini} \itemdate{(06/2013 -- 08/2017)}: \cvtext{servizio bar e sala, gelato artigianale.}{servicio de barra y mesa, helado artesanal.}{bar and table service, artisan ice cream.}
 \end{itemize}
 }
 
@@ -358,8 +378,13 @@
 
 \cvevent{\normalsize \textbf{\cvtext{Progetti aziendali}{Proyectos de la empresa}{Company-related Projects}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/company/}{\faFolderOpen}}{}{09/2024 – \cvtext{in corso}{en curso}{ongoing}}{}
 \begin{itemize}
-    \item \small \textbf{\textsc{\cvtext{Sviluppo portale SaaS}{Desarrollo de portal SaaS}{SaaS portal development}}}: \footnotesize \cvtext{scenia® (\href{https://scenia.it/}{scenia.it}), portale SaaS multilingua per un servizio di traduzione, architettura full-stack domain-driven.}{scenia® (\href{https://scenia.it/}{scenia.it}), portal SaaS multilingüe para un servicio de traducción, arquitectura full-stack domain-driven.}{scenia® (\href{https://scenia.it/}{scenia.it}), a multilingual SaaS portal for a translation service, full-stack domain-driven architecture.}
-    \item \small \textbf{\textsc{Qdrant + Ollama + n8n Self-Hosted Knowledge Management}}: \footnotesize \cvtext{sistema RAG on-premise (3.000 pagine), workflow n8n per helpdesk context-aware.}{sistema RAG on-premise (3.000 páginas), flujos n8n para helpdesk sensible al contexto.}{on-premise RAG system (3,000 pages), n8n workflows for context-aware helpdesk.}
+    % Restrutturata il 2026-07-14 su richiesta esplicita: "scenia\textregistered" (nome prodotto)
+    % come testa in grassetto invece di un titolo generico, link sul dominio subito dopo.
+    \item \small \textbf{scenia\textregistered} \footnotesize(\href{https://scenia.it/}{scenia.it}): \cvtext{portale SaaS per servizio di traduzione multilingua, architettura full-stack domain-driven.}{portal SaaS para servicio de traducción multilingüe, arquitectura full-stack domain-driven.}{SaaS portal for a multilingual translation service, full-stack domain-driven architecture.}
+    % Restrutturata il 2026-07-14 su richiesta esplicita: "Intralino" (nome del progetto) come
+    % testa in grassetto, stesso trattamento di scenia. Tolto "per helpdesk context-aware": non
+    % descrive piu' correttamente lo scopo, il sistema sta diventando anche un client MCP e altro.
+    \item \small \textbf{Intralino}: \footnotesize \cvtext{sistema self-hosted (Ollama, Qdrant) con RAG on-premise su un corpus tecnico di 3.000 pagine scritte da me, workflow n8n e client MCP full-stack.}{sistema autoalojado (Ollama, Qdrant) con RAG on-premise sobre un corpus técnico de 3.000 páginas escrito por mí, flujos n8n y un cliente MCP full-stack.}{self-hosted system (Ollama, Qdrant) with on-premise RAG over a 3,000-page technical corpus I wrote myself, n8n workflows and a full-stack MCP client.}
 
 \end{itemize}
 
@@ -369,32 +394,41 @@
 \begin{itemize}
     \item \small \textbf{\textsc{\cvtext{App per pianificare matrimoni}{App de planificación de bodas}{Wedding planner app}}}: \footnotesize \cvtext{App full-stack React/Firebase per la pianificazione di matrimoni; in sviluppo attivo.}{App full-stack React/Firebase para la planificación de bodas; en desarrollo activo.}{Full-stack React/Firebase wedding-planning app; in active development.}
     \item \small \textbf{\textsc{\cvtext{Infrastruttura e self-hosting}{Infraestructura y autoalojamiento}{Infrastructure \& self-hosting}}}: \footnotesize \cvtext{Vaultwarden, Caddy/TLS, DNS dinamico, Oracle Cloud; snapshot/ripristino stato Windows; segmentazione rete home-lab.}{Vaultwarden, Caddy/TLS, DNS dinámico, Oracle Cloud; snapshot/restauración de estado Windows; segmentación de red home-lab.}{Vaultwarden, Caddy/TLS, dynamic DNS, Oracle Cloud; Windows state snapshot/restore; home-lab network segmentation.}
-    \item \small \textbf{\textsc{\cvtext{Strumenti di AI e automazione}{Herramientas de IA y automatización}{AI \& automation tools}}}: \footnotesize \cvtext{assistente legale locale (server MCP); trascrizione audio offline (WhisperX); trading bot algoritmico; bot Telegram custom.}{asistente legal local (servidor MCP); transcripción de audio offline (WhisperX); bot de trading algorítmico; bot de Telegram personalizado.}{local legal-research assistant (MCP server); offline audio transcription (WhisperX); algorithmic trading bot; custom Telegram bot.}
-    \item \small \textbf{\textsc{\cvtext{Web app e strumenti}{Aplicaciones web y herramientas}{Web apps \& tools}}}: \footnotesize \cvtext{blog bilingue (Next.js); team-builder Pokémon; app itinerari di viaggio; generatore di cruciverba.}{blog bilingüe (Next.js); creador de equipos Pokémon; app de itinerarios de viaje; generador de crucigramas.}{bilingual blog (Next.js); Pokémon team-builder; travel-itinerary app; crossword generator.}
+    % "Strumenti di AI e automazione" e "Strumenti per dati personali" accorpati il 2026-07-14
+    % (richiesta esplicita per risparmiare una riga intera di itemize): stesso contenuto, un
+    % solo titolo con due gruppi di sotto-voci separati da punto e virgola.
+    \item \small \textbf{\textsc{\cvtext{Strumenti di AI, automazione e dati personali}{Herramientas de IA, automatización y datos personales}{AI, automation \& personal data tools}}}: \footnotesize \cvtext{assistente legale locale (server MCP); trascrizione audio offline (WhisperX); trading bot algoritmico; bot Telegram custom; sincronizzazione transazioni PayPal; tracker collezione carte con prezzi live.}{asistente legal local (servidor MCP); transcripción de audio offline (WhisperX); bot de trading algorítmico; bot de Telegram personalizado; sincronización de transacciones PayPal; rastreador de colección de cartas con precios en vivo.}{local legal-research assistant (MCP server); offline audio transcription (WhisperX); algorithmic trading bot; custom Telegram bot; PayPal transaction sync; trading-card collection tracker with live pricing.}
+    % Accorciata il 2026-07-14: l'elenco completo dei progetti passa alla pagina di dettaglio
+    % (categorizzata e ampliata su alesop95.github.io/projects/personal/), qui basta il rimando.
+    \item \small \textbf{\textsc{\cvtext{Web app e strumenti}{Aplicaciones web y herramientas}{Web apps \& tools}}}: \footnotesize \cvtext{blog bilingue, team-builder Pokémon, itinerari di viaggio, cruciverba.}{blog bilingüe, creador de equipos Pokémon, itinerarios de viaje, crucigramas.}{bilingual blog, Pokémon team-builder, travel itineraries, crosswords.}
     \item \small \textbf{\textsc{\cvtext{Audio e hardware}{Audio y hardware}{Audio \& hardware}}}: \footnotesize \cvtext{reverse engineering ampli/DAC USB; digitalizzazione e restauro VHS con AI; monitor da studio DIY; personalizzazione device Android.}{ingeniería inversa de ampli/DAC USB; digitalización y restauración VHS con IA; monitores DIY; personalización de dispositivo Android.}{headphone-amp/USB-DAC reverse engineering; AI-upscaled VHS digitization; DIY studio monitors; deep Android customization.}
-    \item \small \textbf{\textsc{\cvtext{Strumenti per dati personali}{Herramientas de datos personales}{Personal data tools}}}: \footnotesize \cvtext{sincronizzazione transazioni PayPal; tracker collezione carte con prezzi live.}{sincronización de transacciones PayPal; rastreador de colección de cartas con precios en vivo.}{PayPal transaction sync; trading-card collection tracker with live pricing.}
 
 \end{itemize}
 
 \smallskip
 
-\cvevent{\normalsize \textbf{\cvtext{Progetti accademici}{Proyectos académicos}{Academic projects}}}{}{09/2017 – 02/2021}{}
-\begin{itemize}
-        \item \small \textbf{\textsc{\cvtext{Dispositivi non lineari in diffusori per chitarra}{Dispositivos no lineales en altavoces de guitarra}{Nonlinear devices in Guitar Speakers}}} \itemdate{(01/2021 – 05/2021)}: \footnotesize \cvtext{Progetto universitario UNIVPM, \href{https://guide.univpm.it/af.php?af=113475}{Multirate DSP and Adaptive Filterbanks} (AA 2020/2021): algoritmi MATLAB/C++ con serie di Volterra ed exponential sweep.}{Proyecto universitario UNIVPM, \href{https://guide.univpm.it/af.php?af=113475}{Multirate DSP and Adaptive Filterbanks} (curso 2020/2021): algoritmos MATLAB/C++ con series de Volterra y exponential sweep.}{UNIVPM university project, \href{https://guide.univpm.it/af.php?af=113475}{Multirate DSP and Adaptive Filterbanks} (AY 2020/2021): MATLAB/C++ algorithms using Volterra series and exponential sweep.}
-        \item \small \textbf{\textsc{\cvtext{Sviluppo di un'app per test di ascolto}{Desarrollo de una app para pruebas de escucha}{Developing app for listening test}}} \itemdate{(01/2020 - 02/2020)}: \footnotesize \cvtext{\href{https://github.com/alesop95/feature-based_characterization_loudspeakers}{GUI MATLAB} per test di ascolto sulla percezione dei diffusori, tesi magistrale \href{https://tinyurl.com/Tesi-magistrale}{Feature-based characterization of loudspeakers}: valutazione soggettiva con riproduzione via OSC/Reaper.}{\href{https://github.com/alesop95/feature-based_characterization_loudspeakers}{GUI en MATLAB} para pruebas de escucha sobre percepción de altavoces, tesis de máster \href{https://tinyurl.com/Tesi-magistrale}{Feature-based characterization of loudspeakers}: evaluación subjetiva con reproducción vía OSC/Reaper.}{\href{https://github.com/alesop95/feature-based_characterization_loudspeakers}{MATLAB GUI} for a controlled listening test on loudspeaker perception, master's thesis \href{https://tinyurl.com/Tesi-magistrale}{Feature-based characterization of loudspeakers}: subjective evaluation with OSC/Reaper playback.}
-        \item \small \textbf{\textsc{Harmonic Tension Extractor}} \itemdate{(03/2019 - 08/2019)}: \footnotesize \cvtext{\href{https://github.com/alesop95/harmonic-tension-vst3}{Plugin VST3} di modellazione geometrica dell'armonia tonale (\href{https://drive.google.com/file/d/1zAWtISx8ASWQVDsE84zTjYZjaEvbSz6l/view?usp=sharing}{modello Spiral Array}, framework JUCE) per illuminazione intelligente al \href{https://www.youtube.com/watch?v=wB-U9s4ASQo}{palco Festivalle, Valle dei Templi (08/2019)}.}{\href{https://github.com/alesop95/harmonic-tension-vst3}{Plugin VST3} de modelado geométrico de la armonía tonal (\href{https://drive.google.com/file/d/1zAWtISx8ASWQVDsE84zTjYZjaEvbSz6l/view?usp=sharing}{modelo Spiral Array}, framework JUCE) para iluminación inteligente en el \href{https://www.youtube.com/watch?v=wB-U9s4ASQo}{escenario Festivalle, Valle dei Templi (08/2019)}.}{\href{https://github.com/alesop95/harmonic-tension-vst3}{VST3 plugin} for geometrical tonal-harmony modeling (\href{https://drive.google.com/file/d/1zAWtISx8ASWQVDsE84zTjYZjaEvbSz6l/view?usp=sharing}{Spiral Array model}, JUCE framework) for intelligent lighting at the \href{https://www.youtube.com/watch?v=wB-U9s4ASQo}{Festivalle stage, Valle dei Templi (08/2019)}.}
-        \item \small \textbf{\textsc{EOLO tv spot}} \itemdate{(09/2019 - 12/2019)}: \footnotesize \href{https://drive.google.com/file/d/1N0UwI3dExQAdXNcg4RRWr1Z4s7J45c5S/view?usp=sharing}{\cvtext{Sound design e post-produzione audio di uno spot pubblicitario ufficiale}{Diseño de sonido y posproducción de audio de un anuncio publicitario oficial}{Sound design and reinforcement of official commercial advertizing spot}}
-        \item \small \textbf{\textsc{Gesture Glove Harmonizer}} \itemdate{(2018)}: \footnotesize \href{https://github.com/alesop95/gesture_glove_harmonizer?tab=readme-ov-file}{\cvtext{web app che interagisce con un microcontrollore}{aplicación web que interactúa con un microcontrolador}{web app interacting with microcontroller}}
-        \item \small \textbf{\textsc{Channel Estimation and Equalization for MIMO Systems}} \itemdate{(2017)}: \footnotesize  \href{https://drive.google.com/file/d/1rcLwkmahByoFxohc8-fUiOFDsGwrRSnk/view?usp=sharing}{\cvtext{schema matriciale intelligente per un problema di DSP statistico}{esquema matricial inteligente para un problema de DSP estadístico}{smart matrix frame for a statistical DSP problem}}
-\end{itemize}
-
-
-\smallskip
+% Ridotto a una riga generica con link il 2026-07-14 su richiesta esplicita, stesso trattamento
+% di Progetti aziendali/personali: il contenuto completo e descrittivo (con tutti i link, la
+% versione honesty-corrected di "Dispositivi non lineari" incluso) si e' trasferito su
+% E:\projects\docs\academic\, non e' stato perso, solo spostato fuori dal CV.
+\cvevent{\normalsize \textbf{\cvtext{Progetti accademici}{Proyectos académicos}{Academic projects}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/academic/}{\faFolderOpen}}{}{09/2017 – 02/2021}{}
+% Rimossa la data ripetuta il 2026-07-14: la data c'e' gia' nel campo Date del \cvevent sopra.
+% "VST3/embedded" sostituito con "VST3, embedded" il 2026-07-14: lo slash senza spazi non offre
+% un punto di rottura, la riga superava il margine di 11pt in EN dopo la rimozione della data.
+% "universitari e accademici" -> "Sei progetti" il 2026-07-15 (richiesta esplicita: gia' detto
+% dal titolo di sezione); aggiunta "statistica" per riempire la riga liberata (copre Channel
+% Estimation, gia' tra i sei progetti, non ancora rappresentato nell'elenco).
+% "Sei progetti:" tolto il 2026-07-15 su richiesta esplicita: superfluo, il numero non aggiunge
+% informazione utile qui.
+{\small \cvtext{Elaborazione dei segnali, audio engineering, sviluppo VST3, embedded, statistica.}{Procesamiento de señales, ingeniería de audio, desarrollo VST3, embebido, estadística.}{Signal processing, audio engineering, VST3, embedded development, statistics.}\par}
 
 % "Ongoing studies" disattivata: contenuto rimandato dall'utente il 2026-07-06, sezione
 % complessa da trattare in una sessione dedicata (vedi current-work.md). Nascosta con \iffalse
 % invece di essere cancellata, cosi' e' immediata da riattivare quando il contenuto e' pronto:
 % basta rimuovere \iffalse e il corrispondente \fi qui sotto.
+% I due \smallskip che stavano prima/dopo questo blocco rimossi il 2026-07-14: con la sezione
+% disattivata producevano un doppio spazio vuoto ingiustificato prima di "Una giornata tipo",
+% che ha gia' il proprio \bigskip da \cvsection.
 \iffalse
 \cvsection{Ongoing studies}
 
@@ -406,26 +440,25 @@
 \end{itemize}
 \fi
 
-
-\smallskip
-
-
 %
 %%%%%%%% WHEELCHART
 %
 
 \cvsection{\cvtext{Una giornata tipo}{Un día típico}{A Weekday of My Life}}
 \hspace*{-1.5cm}
-% Rimpicciolito il piu' possibile il 2026-07-09 (obiettivo CV a 1 pagina): raggio esterno da
-% 1.5cm a 0.95cm, raggio interno da 0.5cm a 0.35cm (~35% di riduzione lineare), mantenendo lo
-% stesso rapporto. Wheelchart tenuto (non rimosso) su richiesta esplicita dell'utente.
-\wheelchart{0.95cm}{0.35cm}{%
-  2/16em/accent!50/\cvtext{Pasti e relax}{Comidas y relax}{Meals and relaxation},
-  2/16em/accent/{\cvtext{Sport o musica}{Deporte o música}{Sport or Playing music}},
-  4/16em/accent!20/\cvtext{Tempo con amici \\ e famiglia}{Tiempo con amigos \\ y familia}{Spending time with \\ friends {\&} family},
-  8/8em/accent!60/\cvtext{Lavoro}{Trabajo}{Daytime job},
-  7/8em/accent!30/\cvtext{Sonno}{Sueño}{Sleep},
-  1/8em/accent!40/\cvtext{Studio}{Estudio}{Studying}
+% Rimpicciolito il 2026-07-09 (raggio 1.5cm->0.95cm) e di nuovo il 2026-07-13 per l'obiettivo
+% CV a 1 pagina: raggio esterno 0.95cm->0.7cm, interno 0.35cm->0.26cm (stesso rapporto ~0.37).
+% Ulteriore rimpicciolimento a 0.6cm/0.22cm provato e scartato il 2026-07-14: zero effetto sul
+% conteggio pagine (identico byte per byte), lo spazio occupato non dipende dal raggio del
+% cerchio - inutile un cambio visivo senza beneficio. Etichette a \scriptsize (altacv.cls).
+% Wheelchart tenuto (non rimosso) su richiesta esplicita dell'utente.
+\wheelchart{0.7cm}{0.26cm}{%
+  2/12em/accent!50/\cvtext{Pasti e relax}{Comidas y relax}{Meals and relaxation},
+  2/12em/accent/{\cvtext{Sport o musica}{Deporte o música}{Sport or Playing music}},
+  4/12em/accent!20/\cvtext{Tempo con amici \\ e famiglia}{Tiempo con amigos \\ y familia}{Spending time with \\ friends {\&} family},
+  8/6em/accent!60/\cvtext{Lavoro}{Trabajo}{Daytime job},
+  7/6em/accent!30/\cvtext{Sonno}{Sueño}{Sleep},
+  1/6em/accent!40/\cvtext{Studio}{Estudio}{Studying}
 }
 
 \smallskip
@@ -436,27 +469,22 @@
 % COURSES AND EVENTS ATTENDED
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Da 2x (\cvevent titolo-solo + itemize) a due paragrafi discorsivi il 2026-07-14 (ultimo giro
+% verso la pagina singola, EN/IT quasi arrivate): un \cvevent con #2/#3/#4 vuoti costa comunque
+% \large+\smallskip+\medskip solo per un'etichetta di sottosezione, overhead evitabile con un
+% semplice \textbf inline. Stesso contenuto e stessi link.
 \cvsection{\cvtext{Corsi ed eventi}{Cursos y eventos}{Courses and Events}}
-\begin{cveventblock}
+{\scriptsize
+\noindent\textbf{\cvtext{Competenze tecniche e professionali}{Competencias técnicas y profesionales}{Technical and professional skills}}: \textbf{\textsc{Odoo ERP development}} \href{https://www.openforce.it/}{(Openforce Pedaso)} \itemdate{(Nov 2024 – Jan 2025)}, \cvtext{altri seminari audio}{otros seminarios de audio}{other audio seminars}: \href{https://www.klippel.de/fileadmin/klippel/Files/News/VIRTUAL%20LECTURE%202022.pdf}{Klippel}, \href{https://drive.google.com/file/d/1W6TS1cJAvJIVbbDPXks47_ELpmxMrD7K/view}{Masterclass}, \href{https://drive.google.com/file/d/1mBimN4uUJW4we3oNSqjRNWTAyJeGdqY9/view}{K-ACADEMY}, K-ARRAY/B\&C Speakers.
 
-{
-
-\smallskip
-
-\cvevent{\normalsize \textbf{\cvtext{Competenze tecniche e professionali}{Competencias técnicas y profesionales}{Technical and professional skills}}}{}{}{}
-\begin{itemize}
-    \item \footnotesize \textbf{\textsc{Odoo ERP development}}: \scriptsize \cvtext{Corso con \href{https://www.openforce.it/}{Openforce Pedaso (FM)}}{Programa con \href{https://www.openforce.it/}{Openforce Pedaso (FM)}}{Training program with \href{https://www.openforce.it/}{Openforce Pedaso (FM)}} \itemdate{(Nov 2024 – Jan 2025)}: \cvtext{intero ciclo di vita dell'applicazione.}{todo el ciclo de vida de la aplicación.}{full application lifecycle.}
-    \item \scriptsize \cvtext{Altri seminari/workshop audio}{Otros seminarios/talleres de audio}{Other audio seminars/workshops}: \href{https://www.klippel.de/fileadmin/klippel/Files/News/VIRTUAL%20LECTURE%202022.pdf}{Klippel Virtual Lecture}, \href{https://drive.google.com/file/d/1W6TS1cJAvJIVbbDPXks47_ELpmxMrD7K/view}{\cvtext{Masterclass arrangiamento/registrazione}{Masterclass de arreglos/grabación}{Arrangement/recording masterclass}}, \href{https://drive.google.com/file/d/1mBimN4uUJW4we3oNSqjRNWTAyJeGdqY9/view}{K-ACADEMY \cvtext{workshop diffusione sonora}{taller de sistemas de altavoces}{loudspeaker systems workshop}}, \cvtext{seminari K-ARRAY e B\&C Speakers}{seminarios K-ARRAY y B\&C Speakers}{K-ARRAY and B\&C Speakers seminars}
-\end{itemize}
-
-\cvevent{\normalsize \textbf{\cvtext{Discipline umanistiche e crescita personale}{Humanidades y desarrollo personal}{Humanities and personal development}}}{}{}{}
-\begin{itemize}
-    \item \scriptsize \textbf{\footnotesize \cvtext{Recitazione, teatro e public speaking}{Actuación, teatro y oratoria}{Acting, Theatre and Public speaking}} \itemdate{(09/2025 -- 07/2026)}: \href{https://www.contemporanea2-0.it/landing-dizione/}{\cvtext{corso di dizione e public speaking}{curso de oratoria y dicción}{public speaking and diction course}} \cvtext{e}{y}{and} \href{https://www.youtube.com/watch?v=RFfEyYXSV2s}{\cvtext{spettacolo teatrale pubblico come narratore}{actuación pública como narrador}{public stage performance as narrator}} (\textit{Callaghan}). \href{https://drive.google.com/file/d/1SY_hhVEVb_BRHdIC3KPAX9xB0RloQlUj/view?usp=sharing}{\cvtext{Recensione}{Reseña}{Review}} \cvtext{e}{y}{and} \href{https://drive.google.com/file/d/1FzGM9FFX__uIk8BlBm7w7u2bP4W2Jv8Z/view?usp=sharing}{\cvtext{certificato}{certificado}{certificate}}
-    \item \scriptsize \textbf{\footnotesize ``Hold Me Tight'' EFT couples workshop}, \href{https://drive.google.com/file/d/1eS5HOIdAQOYIgZ6Zu7NUIhUQN49fZtlT/view?usp=sharing}{Sue Johnson}, Fano \itemdate{(12/2025)} \href{https://drive.google.com/file/d/19jc-MpTL5mdlmXTW2RFm_myuLzoeXkg7/view?usp=sharing}{\faFolderOpen}
-\end{itemize}
-
-}
-\end{cveventblock}
+% "Callaghan" tolto e sostituito con il genere (giallo comico) il 2026-07-15: non e' corretto
+% nominare un solo titolo, gli spettacoli fatti sono due ("La morte viene a cena" e "Callaghan"),
+% entrambi gialli comici.
+% Link a certificato/recensione del corso e a Sue Johnson (EFT) ripristinati il 2026-07-15: erano
+% nella versione originale, persi durante la compattazione senza essere segnalati esplicitamente
+% (vedi audit link della sessione).
+\textbf{\cvtext{Discipline umanistiche e crescita personale}{Humanidades y desarrollo personal}{Humanities and personal development}}: \href{https://www.contemporanea2-0.it/landing-dizione/}{\cvtext{Public speaking e dizione}{Oratoria y dicción}{Public speaking and diction}} \itemdate{(09/2025 -- 07/2026)}~\href{https://drive.google.com/file/d/1FzGM9FFX__uIk8BlBm7w7u2bP4W2Jv8Z/view?usp=sharing}{\faFolderOpen}~\href{https://drive.google.com/file/d/1SY_hhVEVb_BRHdIC3KPAX9xB0RloQlUj/view?usp=sharing}{\faFolderOpen}, \href{https://www.youtube.com/watch?v=RFfEyYXSV2s}{\cvtext{Spettacolo teatrale}{Actuación teatral}{Stage performance}} (\textit{\cvtext{giallo comico}{comedia policial}{comedic whodunit}}), \href{https://drive.google.com/file/d/19jc-MpTL5mdlmXTW2RFm_myuLzoeXkg7/view?usp=sharing}{``Hold Me Tight'' EFT workshop} (\href{https://drive.google.com/file/d/1eS5HOIdAQOYIgZ6Zu7NUIhUQN49fZtlT/view?usp=sharing}{\cvtext{Sue Johnson}{Sue Johnson}{Sue Johnson}}) \itemdate{(12/2025)}.
+\par}
 
 
 % "Competenze trasversali/Soft skills" spostata in fondo alla colonna destra il 2026-07-09
@@ -494,22 +522,39 @@
 
 \cvsection{\cvtext{Istruzione}{Educación}{Education}}
 
-\cvevent{\textbf{\cvtext{Laurea magistrale in}{Máster en}{M.Sc. in} \href{https://drive.google.com/file/d/1AuoxhnFKHdG9JOFLe0lWNDtXxuUiniGc/view?usp=sharing}{\cvtext{Ingegneria delle telecomunicazioni}{Ingeniería de telecomunicaciones}{Telecommunications engineering}}}}{Politecnico di Milano}{09/2017 -- 06/2020}{}
-% {\footnotesize Thesis: Feature-based characterization of loudspeakers}
-{\scriptsize \cvtext{Tesi}{Tesis}{Thesis}: \href{https://tinyurl.com/Tesi-magistrale}{Feature-based characterization of loudspeakers}
+% Righe "Tesi:" ripristinate il 2026-07-14 (erano state rimosse il 2026-07-13, testo originale
+% recuperato da HEAD via git show, mai committato lo stato senza): con lo spazio guadagnato
+% altrove ora c'e' di nuovo margine per tenerle.
+% Titoli in \normalsize invece del \large predefinito di \cvevent (2026-07-14): a \large questi
+% titoli lunghi vanno a capo nella colonna stretta (es. "Ingegne-ria" spezzato); stesso trattamento
+% gia' usato altrove nel documento (Corsi ed eventi, Progetti principali) per lo stesso motivo.
+% "Laurea" tolto davanti a "magistrale"/"triennale" il 2026-07-14 su richiesta esplicita (solo
+% IT: ES/ES gia' senza equivalente ridondante, "Máster en"/"M.Sc. in" restano invariati).
+% Portato a \small (era \normalsize) il 2026-07-15 su richiesta esplicita: stessa dimensione
+% del Master ISTAO sotto, che era gia' a \small e risultava disomogeneo rispetto a questi due.
+\cvevent{\small\textbf{\cvtext{Magistrale in}{Máster en}{M.Sc. in} \href{https://drive.google.com/file/d/1AuoxhnFKHdG9JOFLe0lWNDtXxuUiniGc/view?usp=sharing}{\cvtext{Ingegneria delle telecomunicazioni}{Ingeniería de telecomunicaciones}{Telecommunications engineering}}}}{Politecnico di Milano}{09/2017 -- 06/2020}{}
+% Titolo sostituito con icona cartellina il 2026-07-14 (richiesta esplicita): la tesi e' anche
+% il progetto "Sviluppo di un'app per test di ascolto" gia' linkato da Progetti accademici, il
+% titolo per esteso qui era ridondante - stesso link di prima, solo testo del link piu' corto.
+{\scriptsize \cvtext{Tesi}{Tesis}{Thesis}: \href{https://tinyurl.com/Tesi-magistrale}{\faFolderOpen}
 }
 
-% \divider
-% \smallskip
 \smallskip
 
-\cvevent{\textbf{\cvtext{Laurea triennale in Ingegneria elettronica}{Grado en Ingeniería electrónica}{B.Sc. in Electronic engineering}}}{Università politecnica delle Marche}{09/2014 -- 07/2017}{}
-
-{\scriptsize \cvtext{Tesi}{Tesis}{Thesis}: \href{https://tinyurl.com/Tesi-trienn}{Study} \href{https://tinyurl.com/Tesi-trienn}{and} \href{https://tinyurl.com/Tesi-trienn}{development} \href{https://tinyurl.com/Tesi-trienn}{of} \href{https://tinyurl.com/Tesi-trienn}{synchronization} \href{https://tinyurl.com/Tesi-trienn}{systems} \href{https://tinyurl.com/Tesi-trienn}{performances} \href{https://tinyurl.com/Tesi-trienn}{for} \href{https://tinyurl.com/Tesi-trienn}{gps-based} \href{https://tinyurl.com/Tesi-trienn}{WSN}
+\cvevent{\small\textbf{\cvtext{Triennale in Ingegneria elettronica}{Grado en Ingeniería electrónica}{B.Sc. in Electronic engineering}}}{Università politecnica delle Marche}{09/2014 -- 07/2017}{}
+% Titolo (prima spezzato parola per parola, ciascuna nel suo \href) sostituito con icona
+% cartellina il 2026-07-14 (richiesta esplicita): stesso motivo della magistrale sopra.
+{\scriptsize \cvtext{Tesi}{Tesis}{Thesis}: \href{https://tinyurl.com/Tesi-trienn}{\faFolderOpen}
 }
 
+% Aggiunto uno \smallskip il 2026-07-15 (richiesta esplicita): mancava del tutto tra la tesi
+% triennale e il Master ISTAO, a differenza dello spazio gia' presente tra magistrale e triennale.
+\smallskip
+
+% Titolo ISTAO ridotto a \small (era \normalsize) il 2026-07-14: "Master part-time in Strategia
+% Aziendale e Management - 3ª edizione" resta lungo anche a \normalsize.
 \cvevent
-  {\textbf{\href{https://drive.google.com/file/d/1bDc5zx8FScL6RPJToyWeVkla9M2eFoVI/view?usp=sharing}{\cvtext{Master part-time in Strategia Aziendale e Management}{Máster a tiempo parcial en Estrategia Empresarial y Management}{Part time Master in Business Strategy and Management}} \cvtext{- 3ª edizione}{- 3ª edición}{- 3rd Edition}}} % Titolo
+  {\small\textbf{\href{https://drive.google.com/file/d/1bDc5zx8FScL6RPJToyWeVkla9M2eFoVI/view?usp=sharing}{\cvtext{Master part-time in Strategia Aziendale e Management}{Máster a tiempo parcial en Estrategia Empresarial y Management}{Part time Master in Business Strategy and Management}} \cvtext{- 3ª edizione}{- 3ª edición}{- 3rd Edition}}} % Titolo
   {ISTAO} % Istituto
   {04/2023 -- 01/2024} % Date
   {} % Posizione / location (vuoto)
@@ -522,7 +567,8 @@
 % \divider
 \smallskip
 
-\cvevent{\textbf{\href{https://drive.google.com/file/d/10Fix2VgkGGppyMpVO5t98uLWLYiw4mk2/view?usp=sharing}{\cvtext{Percorso formativo 24 CFU}{Itinerario formativo de 24 créditos (CFU)}{24CFU Educational Path}}}}{Università di Camerino}{06/2020 -- 07/2020}{}
+% Portato a \small anche questo per coerenza con gli altri tre titoli di Istruzione (2026-07-15).
+\cvevent{\small\textbf{\href{https://drive.google.com/file/d/10Fix2VgkGGppyMpVO5t98uLWLYiw4mk2/view?usp=sharing}{\cvtext{Percorso formativo 24 CFU}{Itinerario formativo de 24 créditos (CFU)}{24CFU Educational Path}}}}{Università di Camerino}{06/2020 -- 07/2020}{}
 % {\footnotesize Thesis: Feature-based characterization of loudspeakers}
 {\scriptsize \cvtext{Antropologia, psicologia e metodologie didattiche pedagogiche}{Antropología, psicología y metodologías didácticas pedagógicas}{Anthropology, psychology, and pedagogy teaching methodologies}
 \\
@@ -530,8 +576,7 @@
   % \hspace{2em} \faCertificate\ \href{https://drive.google.com/file/d/10Fix2VgkGGppyMpVO5t98uLWLYiw4mk2/view?usp=sharing}{Certificate of completion}
 }
 
-\smallskip
-
+% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MOST PROUD OF
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -539,33 +584,48 @@
 
 \cvsection{\cvtext{Di cosa sono fiero}{Mis logros}{Most Proud of}}
 
-\cvachievement{\faNetworkWired}{\small \cvtext{Trasformazione completa dell'infrastruttura IT end-to-end}{Transformación completa de la infraestructura de TI de extremo a extremo}{Full IT Infrastructure end-to-end transformation}}{\scriptsize \cvtext{Server, rete, storage, backup e disaster recovery.}{Servidores, red, almacenamiento, backup y recuperación ante desastres.}{Servers, network, storage, backup and disaster recovery.} \href{https://alesop95.github.io/projects/company/network-infrastructure-documentation/}{\faFolderOpen}}
+% Convertito da \cvachievement (tabularx per voce) a itemize semplice il 2026-07-13, stesso
+% trattamento di Interessi/Corsi ed eventi: risparmio dell'overhead strutturale per l'obiettivo
+% CV a 1 pagina.
+\begin{itemize}
+% Riquadrata come \cvtag (stesso stile pillola delle Soft skills) e resa essa stessa il link,
+% cosi' entra su una sola riga e si legge come elemento cliccabile invece che come testo piano
+% seguito da un'iconcina separata (richiesta del 2026-07-14).
+% Fix 2026-07-14: col badge \cvtag la riga del titolo e' piu' larga di prima, quindi la
+% descrizione dopo i due punti si spezzava a meta' (es. "server," restava in coda alla riga del
+% badge, il resto andava sotto). Forzato un a-capo esplicito dopo i due punti cosi' l'intera
+% descrizione riparte da una riga pulita ed entra tutta su una sola riga.
+% Uniformato tutto a \footnotesize il 2026-07-14 (era un misto di \footnotesize/\scriptsize/\tiny
+% tra titoli e descrizioni, "completamente sballato" secondo l'utente). Riquadro su Infrastruttura
+% IT end-to-end lasciato com'e' per il momento.
+% ":" dopo il badge portato a \footnotesize il 2026-07-15 (richiesta esplicita): stava fuori dal
+% gruppo di \cvtag, quindi ereditava la dimensione ambiente (piu' grande), diverso dagli altri due.
+% Ristrutturato il 2026-07-15 su richiesta esplicita: niente piu' riquadro \cvtag, struttura
+% identica agli altri due (icona, titolo in grassetto, descrizione, icona cartellina cliccabile
+% legata alla fine), niente due punti in nessuno dei tre.
+% Aggiunti "virtualizzazione, cloud" il 2026-07-15 (richiesta esplicita, la riga andava comunque
+% a capo quindi tanto vale riempirla): stessi elementi gia' citati nel bullet Intrawelt sopra.
+\item \faNetworkWired\ \footnotesize\textbf{\cvtext{Infrastruttura IT end-to-end}{Infraestructura IT end-to-end}{IT Infrastructure end-to-end}} \cvtext{server, rete, storage, virtualizzazione, cloud, backup, disaster~recovery.}{servidores, red, almacenamiento, virtualización, cloud, backup, recuperación.}{servers, network, storage, virtualization, cloud, backup, disaster~recovery.}~\href{https://alesop95.github.io/projects/company/network-infrastructure-documentation/}{\faFolderOpen}
+% Titoli uniformati a \footnotesize il 2026-07-14 (stessa dimensione del badge sopra, che usa
+% \footnotesize dentro \cvtag): prima erano a dimensione predefinita, piu' grandi e disomogenei.
+% Descrizioni portate a \footnotesize (erano \scriptsize) per uniformita' col titolo. Icona finale
+% legata con "~" all'ultima parola: prima poteva andare a capo isolata su una riga propria.
+\item \faChild\ \footnotesize\textbf{\cvtext{Le mie prime 100 parole}{Le mie prime 100 parole}{Le mie prime 100 parole}} \cvtext{ciclo di vita completo del prodotto, dal concept al~lancio.}{ciclo de vida completo del producto, desde el concepto hasta el~lanzamiento.}{complete product lifecycle, from concept to~launch.}~\href{https://tinyurl.com/hundredwords}{\faFolderOpen}
+\item \faVolumeUp\ \footnotesize\textbf{Hertz HTX 8 M-CL-W / -C} \cvtext{sviluppo end-to-end dei diffusori a~colonna.}{desarrollo end-to-end de los altavoces de~columna.}{end-to-end clamp tower speaker~development.}~\href{https://www.rgsound.it/stampa/p-id-45507.html}{\faFolderOpen}
+\end{itemize}
 
-\smallskip
-
-\cvachievement{\faChild}{\small Le mie prime 100 parole}{\scriptsize \cvtext{Ciclo di vita completo del prodotto "\href{https://tinyurl.com/hundredwords}{Le mie prime 100 parole}", dal concept al lancio.}{Ciclo de vida completo del producto "\href{https://tinyurl.com/hundredwords}{Le mie prime 100 parole}", desde el concepto hasta el lanzamiento.}{Complete product lifecycle of "\href{https://tinyurl.com/hundredwords}{Le mie prime 100 parole}", from concept to launch.}}
-
-\smallskip
-
-\cvachievement{\faVolumeUp}{\small Hertz HTX 8 M-CL-W / -C}{\scriptsize \cvtext{Sviluppo end-to-end dei diffusori a colonna \href{https://www.rgsound.it/stampa/p-id-45507.html}{Hertz HTX 8 M-CL-W/C}.}{Desarrollo end-to-end de los altavoces de columna \href{https://www.rgsound.it/stampa/p-id-45507.html}{Hertz HTX 8 M-CL-W/C}.}{End-to-end development of \href{https://www.rgsound.it/stampa/p-id-45507.html}{Hertz HTX 8 M-CL-W/C} clamp tower speakers.}}
-
-
-\smallskip
-
-
+% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip, stesso
+% pattern gia' diagnosticato piu' volte in questo documento (Interessi, Soft skills, ecc.).
 \cvsection{\cvtext{Lingue}{Idiomas}{Languages}}
-\noindent\textcolor{emphasis}{\large\textbf{\cvtext{Italiano}{Italiano}{Italian}}}\hfill\footnotesize\textit{\cvtext{Madrelingua}{Lengua materna}{Native speaker}}\par
+% Nomi lingua uniformati a \small maiuscolo il 2026-07-14 (erano \large/\normalsize disomogenei):
+% risparmio verticale e uniformita' con lo stile MakeUppercase gia' usato per i titoli di sezione.
+\noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Italiano}{Italiano}{Italian}}}}\hfill\footnotesize\textit{\cvtext{Madrelingua}{Lengua materna}{Native speaker}}\par
 \smallskip
-\noindent\textcolor{emphasis}{\large\textbf{\cvtext{Inglese}{Inglés}{English}}}\hfill\footnotesize\textit{B2 \cvtext{(autovalutato)}{(autoevaluado)}{(self-assessed)}}\par
+\noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Inglese}{Inglés}{English}}}}\hfill\footnotesize\textit{B2 \cvtext{(autovalutato)}{(autoevaluado)}{(self-assessed)}}\par
 \smallskip
-\noindent\textcolor{emphasis}{\normalsize\textbf{\cvtext{Spagnolo}{Español}{Spanish}}}\hfill\footnotesize\textit{A1 \cvtext{(autovalutato}{(autoevaluado}{(self-assessed}, \href{https://drive.google.com/drive/u/1/folders/12BgdsaPS-rXPPI41lwpU4a3ZHbshTCNi}{\cvtext{studio in corso}{estudio en curso}{ongoing study}})}\par
+\noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Spagnolo}{Español}{Spanish}}}}\hfill\footnotesize\textit{A1 \cvtext{(autovalutato}{(autoevaluado}{(self-assessed}, \href{https://drive.google.com/drive/u/1/folders/12BgdsaPS-rXPPI41lwpU4a3ZHbshTCNi}{\cvtext{studio in corso}{estudio en curso}{ongoing study}})}\par
 
-\smallskip
-
-
-
-% \divider
-
+% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip.
 \cvsection{\cvtext{Interessi}{Intereses}{Interests}}
 
 % Spaziatura tra le voci compattata il 2026-07-06: \cvachievement include gia' un \smallskip
@@ -576,58 +636,77 @@
 % unico elenco denso, stesso trattamento gia' usato in "Corsi ed eventi": risparmio verticale
 % sostanziale per l'obiettivo CV a 1 pagina (2026-07-09). Testo integrale precedente archiviato
 % in _notes/cv-content-archive-2026-07-09.md.
-\begin{itemize}
-\item \faGuitar\ \textbf{\cvtext{Chitarra e teoria armonica}{Guitarra y teoría armónica}{Guitar \& harmony theory}}: \footnotesize \cvtext{solista dal 2008, live e studio; libro in scrittura su \href{https://github.com/alesop95/harmony-book}{armonia occidentale}.}{solista desde 2008, directo y estudio; libro en curso sobre \href{https://github.com/alesop95/harmony-book}{armonía occidental}.}{lead guitarist since 2008, live and studio; book in progress on \href{https://github.com/alesop95/harmony-book}{western harmony}.} \bloglink{musica}{music}
-\item \faHeadphones\ \textbf{\cvtext{Audiofilia}{Audiofilia}{Audiophile}}: \footnotesize \cvtext{catena audio hi-fi, DAC esterni, ascolto critico.}{cadena de audio hi-fi, DACs externos, escucha crítica.}{hi-fi audio chain, external DACs, critical listening.} \bloglink{audiofilia}{audiophile}
-\item \faChartLine\ \textbf{\cvtext{Finanza}{Finanzas}{Personal finance}}: \footnotesize \cvtext{gestione autonoma del portfolio; studio di finanza quantitativa.}{gestión autónoma de cartera; finanzas cuantitativas.}{self-managed portfolio; quantitative finance study.} \bloglink{finanza-personale}{personal-finance}
-\item \faGamepad\ \textbf{\cvtext{Videogiochi}{Videojuegos}{Gaming}}: \footnotesize \cvtext{franchise Pokémon dal 1999, platform e action RPG.}{franquicia Pokémon desde 1999, plataformas y RPG de acción.}{Pokémon franchise since 1999, platformers and action RPGs.} \bloglink{videogiochi}{gaming}
-\item \faArchive\ \textbf{\cvtext{Carte Pokémon}{Cartas Pokémon}{Pokémon cards}}: \footnotesize \cvtext{set WOTC/EX; tool locale di tracking valore.}{sets WOTC/EX; herramienta local de seguimiento.}{WOTC/EX sets; local value-tracking tool.} \bloglink{collezionismo}{collecting}
-\item \faChalkboard\ \textbf{\cvtext{Ripetizioni private}{Clases particulares}{Private teaching}}: \footnotesize \cvtext{Analisi Matematica, Elettronica, Informatica, TLC, Fisica.}{Cálculo, Electrónica, Informática, TLC, Física.}{Calculus, Electronics, IT, TLC, Physics.} \bloglink{ripetizioni}{teaching}
-\item \faBrain\ \textbf{\cvtext{Psicologia}{Psicología}{Psychology}}: \footnotesize \cvtext{neurodiversità/ASD; percorso di terapia di coppia EFT.}{neurodiversidad/TEA; terapia de pareja EFT.}{neurodiversity/ASD; EFT couples therapy.} \bloglink{psicologia}{psychology}
-\item \faTools\ \textbf{\cvtext{Ottimizzazione domestica}{Optimización del hogar}{Home optimization}}: \footnotesize \cvtext{assicurazioni, utenze, manutenzione, documentazione.}{seguros, suministros y mantenimiento.}{insurance, utilities, maintenance, documentation.} \bloglink{ottimizzazione-domestica}{home-optimization}
-\item \faLinux\ \textbf{\cvtext{Ubuntu e Linux}{Ubuntu y Linux}{Ubuntu \& Linux}}: \footnotesize \cvtext{configurazione e personalizzazione di più distribuzioni.}{configuración y personalización de varias distribuciones.}{configuring and customizing multiple distributions.} \bloglink{linux}{linux}
-\item \faCloud\ \textbf{\cvtext{Ecosistema Samsung/Microsoft}{Ecosistema Samsung/Microsoft}{Samsung/Microsoft ecosystem}}: \footnotesize \cvtext{sync cross-device, privacy e gestione permessi.}{sincronización entre dispositivos, privacidad y permisos.}{cross-device sync, privacy and permission management.} \bloglink{ecosistema-digitale}{digital-ecosystem}
-\item \faAndroid\ \textbf{\cvtext{Personalizzazione Android}{Personalización de Android}{Android customization}}: \footnotesize \cvtext{ROM custom, fastboot, fotografia digitale.}{ROM personalizada, fastboot, fotografía digital.}{custom ROMs, fastboot, digital photography.} \bloglink{android}{android}
-\item \faCube\ \textbf{\cvtext{Stampa 3D}{Impresión 3D}{3D printing}}: \footnotesize \cvtext{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{prototipi decorativi} in PLA, post-processing e finitura.}{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{prototipos decorativos} en PLA, acabado y post-procesado.}{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{decorative prototypes} in PLA, post-processing and finishing.} \bloglink{stampa-3d}{3d-printing}
-\item \faChartBar\ \textbf{\cvtext{Statistica applicata}{Estadística aplicada}{Applied statistics}}: \footnotesize \cvtext{modelli Excel; diagnostica batterie monopattini.}{modelos Excel; diagnóstico de baterías de patinetes.}{Excel models; e-scooter battery diagnostics.} \bloglink{analisi-dati}{data-analysis}
-\item \faPuzzlePiece\ \textbf{\cvtext{Puzzle}{Rompecabezas}{Jigsaw puzzles}}: \footnotesize \cvtext{tipicamente 1500 pezzi, per un reset cognitivo.}{normalmente 1500 piezas, para un reinicio cognitivo.}{typically 1500 pieces, for a cognitive reset.} \bloglink{puzzle}{puzzles}
-\item \faBookOpen\ \textbf{\cvtext{Bisogni Educativi Speciali}{Necesidades Educativas Especiales}{Special Education Needs}}: \footnotesize \cvtext{studio di \href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{Scienze dell'Educazione} per interesse personale.}{estudio de \href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{Ciencias de la Educación} por interés personal.}{personal study of \href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{Educational Sciences}.} \bloglink{pedagogia}{education-theory}
-\item \faMusic\ \textbf{\cvtext{Scrittura di canzoni}{Composición de canciones}{Songwriting}}: \footnotesize \cvtext{testi e melodia su armonie di chitarra acustica.}{letras y melodía sobre armonías de guitarra acústica.}{lyrics and melody over acoustic guitar harmonies.} \bloglink{songwriting}{songwriting}
-\end{itemize}
+% Descrizioni rimosse il 2026-07-13 (obiettivo CV a 1 pagina, "senza perdita di informazioni"):
+% il testo completo vive ora nella topic page del blog linkata da \bloglink (ADR-018 di
+% E:\blog-alessio), quindi ogni voce resta icona+titolo+link invece di icona+titolo+riga di testo.
+% Da itemize (un interesse per riga) a elenco discorsivo in linea il 2026-07-14: stesso
+% contenuto (icona+titolo+bloglink per voce), ma le voci scorrono nel paragrafo separate da
+% virgola invece di occupare ciascuna una riga propria, risparmio verticale sostanziale.
+% Legatura "~" (spazio non interrompibile) solo tra icona e titolo, cosi' il paragrafo resta
+% libero di andare a capo altrove (fix 2026-07-14: un \mbox per voce intera creava overfull
+% hbox fino a 63pt perche' impediva ogni a-capo interno).
+% Iconcina a cartella ripetuta dopo ogni nome rimossa il 2026-07-14: il titolo stesso e' ora il
+% link (colore accent = cliccabile, stessa convenzione di tutti gli altri link del documento via
+% \hypersetup{colorlinks=true,allcolors=accent}), tramite \bloglinkwrap. I due elementi che gia'
+% linkano un file esterno (Stampa 3D, Bisogni Educativi Speciali) mantengono quel link e perdono
+% solo il rimando secondario al tag del blog, dato che un titolo puo' avere un solo target.
+% \LaTeXraggedright (vero \raggedright del kernel, catturato da ragged2e prima che main.tex lo
+% ridefinisca come \justifying - stesso trucco gia' usato per le Soft skills): necessario perche'
+% i titoli sono ora atomici (href non spezzabile internamente) e in un paragrafo giustificato
+% l'algoritmo di spaziatura andava in overfull fino a 23pt non trovando abbastanza punti di rottura.
+{\LaTeXraggedright
+\noindent
+% Link cambiato da bloglink (tag blog "musica") a link diretto alla pagina progetto harmony-book
+% il 2026-07-15: e' il progetto reale a cui questo interesse fa riferimento (repository pubblica
+% del sistema di scrittura del libro), stesso trattamento gia' usato per Stampa 3D e Bisogni
+% Educativi Speciali (titolo -> risorsa primaria, si perde solo il rimando secondario al blog).
+\faGuitar~\textbf{\href{https://alesop95.github.io/projects/personal/harmony-book/}{\cvtext{Chitarra e teoria armonica}{Guitarra y teoría armónica}{Guitar \& harmony theory}}}, %
+\faHeadphones~\bloglinkwrap{audiofilia}{audiophile}{\textbf{\cvtext{Audiofilia}{Audiofilia}{Audiophile}}}, %
+\faChartLine~\bloglinkwrap{finanza-personale}{personal-finance}{\textbf{\cvtext{Finanza}{Finanzas}{Personal finance}}}, %
+\faGamepad~\bloglinkwrap{videogiochi}{gaming}{\textbf{\cvtext{Videogiochi}{Videojuegos}{Gaming}}}, %
+\faArchive~\bloglinkwrap{collezionismo}{collecting}{\textbf{\cvtext{Carte Pokémon}{Cartas Pokémon}{Pokémon cards}}}, %
+\faChalkboard~\bloglinkwrap{ripetizioni}{teaching}{\textbf{\cvtext{Ripetizioni private}{Clases particulares}{Private teaching}}}, %
+\faBrain~\bloglinkwrap{psicologia}{psychology}{\textbf{\cvtext{Psicologia}{Psicología}{Psychology}}}, %
+\faTools~\bloglinkwrap{ottimizzazione-domestica}{home-optimization}{\textbf{\cvtext{Ottimizzazione domestica}{Optimización del hogar}{Home optimization}}}, %
+\faLinux~\bloglinkwrap{linux}{linux}{\textbf{\cvtext{Ubuntu e Linux}{Ubuntu y Linux}{Ubuntu \& Linux}}}, %
+\faCloud~\bloglinkwrap{ecosistema-digitale}{digital-ecosystem}{\textbf{\cvtext{Ecosistema Samsung/Microsoft}{Ecosistema Samsung/Microsoft}{Samsung/Microsoft ecosystem}}}, %
+\faAndroid~\bloglinkwrap{android}{android}{\textbf{\cvtext{Personalizzazione Android}{Personalización de Android}{Android customization}}}, %
+\faCube~\textbf{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{\cvtext{Stampa 3D}{Impresión 3D}{3D printing}}}, %
+\faChartBar~\bloglinkwrap{analisi-dati}{data-analysis}{\textbf{\cvtext{Statistica applicata}{Estadística aplicada}{Applied statistics}}}, %
+\faPuzzlePiece~\bloglinkwrap{puzzle}{puzzles}{\textbf{\cvtext{Puzzle}{Rompecabezas}{Jigsaw puzzles}}}, %
+\faBookOpen~\textbf{\href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{\cvtext{Bisogni Educativi Speciali}{Necesidades Educativas Especiales}{Special Education Needs}}}, %
+\faMusic~\bloglinkwrap{songwriting}{songwriting}{\textbf{\cvtext{Scrittura di canzoni}{Composición de canciones}{Songwriting}}}.
+\par}
 
 \cvsection{\cvtext{Volontariato}{Voluntariado}{Volunteering}}
 
+\begin{itemize}
+\item \faHeartbeat\ \textbf{\cvtext{Donatore di midollo osseo, ADMO}{Donante de médula ósea, ADMO}{Bone-marrow donor, ADMO}}: \scriptsize \cvtext{tipizzato HLA dal 2019; organizzatore eventi e consigliere regionale per tre anni.}{tipificado por HLA desde 2019; organizador de eventos y consejero regional durante tres años.}{HLA-typed since 2019; event organizer and regional councilor for three years.}
+\item \faUsers\ \textbf{\cvtext{Educatore}{Educador}{Educator}}: \scriptsize \cvtext{supporto alle attività catechistiche nella mia parrocchia dal 09/2023.}{apoyo a las actividades de catequesis en mi parroquia desde 09/2023.}{support for catechism activities in my local parish since 09/2023.}
+\end{itemize}
 
-% \faHandsHelping
-\cvachievement{\faHeartbeat}{\footnotesize \cvtext{Donatore di midollo osseo, ADMO}{Donante de médula ósea, ADMO}{Bone-marrow donor, ADMO}}{\scriptsize \cvtext{Donatore tipizzato HLA dal 2019; organizzatore di eventi ADMO e consigliere regionale per tre anni.}{Donante tipificado por HLA desde 2019; organizador de eventos de ADMO y consejero regional durante tres años.}{HLA-typed donor since 2019; ADMO event organizer and regional councilor for three years.}}
+% \smallskip esplicito rimosso il 2026-07-14 (obiettivo CV a 1 pagina): \cvsection inserisce
+% gia' un \bigskip prima del titolo (altacv.cls riga 305), quindi era spazio raddoppiato,
+% stesso pattern gia' diagnosticato per Interessi/cvachievement (vedi commento riga 549).
 
-\smallskip
-
-\cvachievement{\faUsers}{\footnotesize \cvtext{Educatore}{Educador}{Educator}}{\scriptsize \cvtext{Supporto alle attività catechistiche nella mia parrocchia dal 09/2023.}{Apoyo a las actividades de catequesis en mi parroquia desde 09/2023.}{Support for catechism activities in my local parish since 09/2023.}}
-
-\smallskip
-
-\cvsection{\cvtext{Soft skills}{Soft skills}{Soft skills}}
+% Elenco tag ridotto da 17 a un sottoinsieme rappresentativo il 2026-07-14: l'elenco completo,
+% raggruppato per tema e motivato con esperienza reale (non solo etichette), vive ora nella nuova
+% sezione /soft/ di skills-repo, stesso trattamento gia' usato per "Dettagli completi" di Intrawelt.
+% Titolo "Soft skills" -> "Skills" il 2026-07-15 (richiesta esplicita): il link "Dettagli
+% completi" ora punta alla home di skills-repo, che indicizza sia le competenze tecniche che
+% quelle soft, quindi il titolo di sezione non deve piu' promettere solo "soft". Le tag qui
+% restano lo stesso sottoinsieme di prima, invariato.
+\cvsection{\cvtext{Skills}{Skills}{Skills}}
 
 {\LaTeXraggedright
 \scriptsize
-\cvtag{\cvtext{Spirito di squadra}{Espíritu de equipo}{Teamwork oriented}}
-\cvtag{\cvtext{Buon ascoltatore}{Buen oyente}{Good listener}}
-\cvtag{\cvtext{Buon comunicatore}{Buen comunicador}{Good comunicator}}
-\cvtag{\cvtext{Pensiero critico}{Pensamiento crítico}{Critical thinking}}
-\cvtag{\cvtext{Gestione del tempo}{Gestión del tiempo}{Time management}}
-\cvtag{\cvtext{Flessibilità}{Flexibilidad}{Flexibility}}
-\cvtag{\cvtext{Problem-solving}{Resolución de problemas}{Problem-solving}}
-\cvtag{\cvtext{Visione strategica}{Visión estratégica}{Strategic vision}}
-\cvtag{\cvtext{Negoziazione}{Negociación}{Negotiation}}
-\cvtag{\cvtext{Attenzione ai dettagli}{Atención al detalle}{Eye for detail}}
 \cvtag{\cvtext{Leadership tecnica}{Liderazgo técnico}{Technical Leadership}}
-\cvtag{\cvtext{Resilienza}{Resiliencia}{Resilience}}
+\cvtag{\cvtext{Pensiero critico}{Pensamiento crítico}{Critical thinking}}
+\cvtag{\cvtext{Problem-solving}{Resolución de problemas}{Problem-solving}}
 \cvtag{\cvtext{Capacità decisionale}{Toma de decisiones}{Decision-Making}}
-\cvtag{\cvtext{Intelligenza emotiva}{Inteligencia emocional}{Emotional Intelligence}}
+\cvtag{\cvtext{Gestione del tempo}{Gestión del tiempo}{Time management}}
 \cvtag{\cvtext{Adattabilità}{Adaptabilidad}{Adaptability}}
-\cvtag{\cvtext{Apprendimento continuo}{Aprendizaje continuo}{Continuous Learning}}
-\cvtag{\cvtext{Atteggiamento proattivo}{Actitud proactiva}{Proactive attitude}}
+~\cvtext{Dettagli~completi}{Detalles~completos}{Full~details}~\href{https://alesop95.github.io/skills/}{\faFolderOpen}
 \par}
 
 \end{paracol}

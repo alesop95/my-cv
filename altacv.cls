@@ -318,16 +318,22 @@
 \newcommand{\cvevent}[4]{%
   {\large\color{emphasis}#1\par}
   \smallskip\normalsize
+  % #2 (istituzione/azienda) rimpicciolito da \normalsize a \small il 2026-07-15 (richiesta
+  % esplicita): usato ormai solo da Istruzione (Esperienza lavorativa passa sempre {} qui, il
+  % nome azienda e' stato unito al titolo #1 il 2026-07-14), effetto quindi limitato a quella sezione.
   \ifstrequal{#2}{}{}{
-  \textbf{\color{accent}#2}\par
+  {\small\textbf{\color{accent}#2}\par}
   \smallskip}
+  % Data/location rimpicciolite da \small a \footnotesize il 2026-07-14, poi a \scriptsize lo
+  % stesso giorno (richiesta esplicita, ulteriore giro): \cvevent e' condiviso da tutte le sezioni
+  % con date (Esperienza lavorativa, Istruzione, Progetti, Corsi ed eventi), effetto uniforme.
   \ifstrequal{#3}{}{}{%
-    {\small\makebox[0.5\linewidth][l]%
+    {\scriptsize\makebox[0.5\linewidth][l]%
       {\BeginAccSupp{method=pdfstringdef,ActualText={\datename:}}\cvDateMarker\EndAccSupp{}%
       ~#3}%
     }}%
   \ifstrequal{#4}{}{}{%
-    {\small\makebox[0.5\linewidth][l]%
+    {\scriptsize\makebox[0.5\linewidth][l]%
       {\BeginAccSupp{method=pdfstringdef,ActualText={\locationname:}}\cvLocationMarker\EndAccSupp{}%
         ~#4}%
     }}\par
@@ -354,7 +360,7 @@
 }
 
 \newcommand{\cvtag}[1]{%
-  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=0.6ex,inner ysep =0.5ex,text height=1.5ex,text depth=.25ex]{#1};
+  \tikz[baseline]\node[anchor=base,draw=body!30,rounded corners,inner xsep=0.5ex,inner ysep =0.3ex,text height=1.3ex,text depth=.2ex]{#1};
 }
 
 % v1.6: Use accsupp so that the actual numeric value is copied/pasted
@@ -416,7 +422,7 @@
 
             % Draw the data labels
             % v1.6: Use accsupp so that the numeric number is copied/pasted too
-            \draw  [*-,thin,emphasis] node [append after command={(\midangle:\midradius pt) -- (\midangle:\outerradius + 1ex) -- (\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [xshift=\labelshiftdir*0.5cm,inner sep=1ex, outer sep=0pt, text width=\width,anchor=\textanchor,align=\textalign,font=\footnotesize,text=body]{\BeginAccSupp{method=pdfstringdef,ActualText={\name: \value}}\name\EndAccSupp{}};
+            \draw  [*-,thin,emphasis] node [append after command={(\midangle:\midradius pt) -- (\midangle:\outerradius + 1ex) -- (\tikzlastnode)}] at (\midangle:\outerradius + 1ex) [xshift=\labelshiftdir*0.5cm,inner sep=1ex, outer sep=0pt, text width=\width,anchor=\textanchor,align=\textalign,font=\scriptsize,text=body]{\BeginAccSupp{method=pdfstringdef,ActualText={\name: \value}}\name\EndAccSupp{}};
             % Set the old cumulated angle to the new value
             \global\let\cumnum=\newcumnum
         }
