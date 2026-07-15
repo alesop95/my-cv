@@ -112,7 +112,16 @@
 % columnsep ridotto da 1.0cm a 0.6cm il 2026-07-14 (richiesta esplicita): meno spazio bianco tra
 % le colonne, e siccome riduce il gutter (non i margini di stampa) allarga anche leggermente la
 % larghezza utile di entrambe le colonne, quindi e' un guadagno netto, non un compromesso.
-\geometry{left=1.0cm,right=1.0cm,top=0.7cm,bottom=0.7cm,columnsep=1.0cm}
+% top/bottom ritentati da 0.7cm a 0.5cm il 2026-07-15 (ha portato EN a 1 pagina): il margine
+% verticale non era stato ritestato da quando sono cambiati tutti i contenuti di questo giro.
+% ES restava a 2 pagine per una coda residua di "Corsi ed eventi" che si spostava per intero
+% (verificato con un test diagnostico: non un problema di conteggio caratteri, il blocco non si
+% divideva mai gradualmente). Risolto spostando il contenuto completo su
+% E:\projects\docs\courses\ (stesso trattamento di Progetti aziendali/personali/accademici);
+% con la sezione ridotta a una riga, 0.3cm di margine verticale porta anche ES a 1 pagina (0.4cm
+% non bastava). 0.3cm resta un margine di stampa accettabile ma ai limiti inferiori: verificare
+% alla prima stampa reale che non ci sia clipping su stampanti senza bordo zero.
+\geometry{left=1.0cm,right=1.0cm,top=0.3cm,bottom=0.3cm,columnsep=1.0cm}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %           GESTIONE COLONNE
@@ -294,7 +303,7 @@
 % Capability tecniche sotto docs/technical/ per lasciare spazio a una sezione /soft/ dedicata
 % (vedi Soft skills piu' in basso), URL vecchi senza /technical/ non esistono piu'.
 \textbf{\href{https://alesop95.github.io/skills/technical/management/project-planning-scheduling/}{\cvtext{IT governance, pianificazione e knowledge management}{Gobierno de TI, planificación y gestión del conocimiento}{IT governance, planning and knowledge management}}}: \cvtext{certificazione qualità, fatturazione e amministrazione IT, scheduling e controllo progetti, documentazione tecnica.}{certificación de calidad, facturación y administración de TI, planificación y control de proyectos, documentación técnica.}{quality certification, IT administration and billing, project scheduling and control, technical documentation.}
-\textbf{\href{https://alesop95.github.io/skills/technical/infrastructure/infrastructure-virtualization/}{\cvtext{Infrastruttura, cloud e networking}{Infraestructura, cloud y redes}{Infrastructure, cloud and networking}}}: \cvtext{virtualizzazione, piattaforme cloud, reti e sicurezza, backup e disaster recovery, amministrazione di sistema, helpdesk avanzato.}{virtualización, plataformas cloud, redes y seguridad, backup y recuperación ante desastres, administración de sistemas, soporte técnico avanzado.}{virtualization, cloud platforms, networking and security, backup and disaster recovery, system administration, advanced helpdesk.}
+\textbf{\href{https://alesop95.github.io/skills/technical/infrastructure/infrastructure-virtualization/}{\cvtext{Infrastruttura, cloud e networking}{Infraestructura, cloud y redes}{Infrastructure, cloud and networking}}}: \cvtext{virtualizzazione, piattaforme cloud, reti e sicurezza, backup e disaster recovery, amministrazione di sistema, helpdesk avanzato.}{virtualización, plataformas cloud, redes y seguridad, backup y recuperación, administración de sistemas, soporte técnico avanzado.}{virtualization, cloud platforms, networking and security, backup and disaster recovery, system administration, advanced helpdesk.}
 \textbf{\href{https://alesop95.github.io/skills/technical/management/leadership-management/}{\cvtext{Leadership e responsabilità trasversali}{Liderazgo y responsabilidades transversales}{Leadership and cross-cutting responsibilities}}}: \cvtext{management di team, imprenditorialità tecnica.}{gestión de equipos, emprendimiento técnico.}{team management, technical entrepreneurship.}
 \textbf{\href{https://alesop95.github.io/skills/technical/software-engineering/fullstack-development-devops/}{\cvtext{Sviluppo full-stack, DevOps e AI generativa}{Desarrollo full-stack, DevOps e IA generativa}{Full-stack development, DevOps and generative AI}}}: \cvtext{piattaforme SaaS, LLM e progetti AI su misura, ERP e applicazioni aziendali, progetti sperimentali.}{plataformas SaaS, LLMs y proyectos de IA a medida, ERP y aplicaciones empresariales, proyectos experimentales.}{SaaS platforms, LLMs and custom AI projects, ERP and business applications, experimental projects.}
 \textbf{\href{https://alesop95.github.io/skills/technical/security/cybersecurity-it-governance/}{\cvtext{Cybersecurity, licenze e dati}{Ciberseguridad, licencias y datos}{Cybersecurity, licensing and data}}}: \cvtext{responsabile interno ISO/IEC 27001, CompTIA Security+ in preparazione, gestione licenze software e presenze, analytics e reportistica.}{responsable interno de ISO/IEC 27001, CompTIA Security+ en preparación, gestión de licencias de software y asistencia, analítica e informes.}{internal ISO/IEC 27001 lead, CompTIA Security+ in progress, software license and attendance management, analytics and reporting.}
@@ -318,7 +327,7 @@
 % Da itemize (2 bullet) a paragrafo discorsivo il 2026-07-14, stesso trattamento di Intrawelt.
 \noindent
 \cvtext{Definizione nuovi prodotti (mercato, competitor, roadmap); sviluppo di esperienze di gioco innovative (UX, approccio pedagogico), monitorate via PLM.}{Definición de nuevos productos (mercado, competencia, roadmap); desarrollo de experiencias de juego innovadoras (UX, enfoque pedagógico), con seguimiento PLM.}{Definition of new products (market, competitors, roadmap); development of innovative gaming experiences (UX, pedagogical approach), monitored via PLM.}
-\cvtext{Gestione fornitori esteri e collaborazione trasversale (Operations, Marketing, Vendite); report a stakeholder/CEO, analisi costi.}{Gestión de proveedores extranjeros y colaboración transversal (Operaciones, Marketing, Ventas); informes a stakeholders/CEO, análisis de costes.}{Foreign supplier management and cross-functional collaboration (Operations, Marketing, Sales); stakeholder/CEO reporting, cost analysis.}
+\cvtext{Gestione fornitori esteri e collaborazione trasversale (Operations, Marketing, Vendite); report a stakeholder/CEO, analisi costi.}{Gestión de proveedores extranjeros, colaboración transversal (Operaciones, Marketing, Ventas); informes a stakeholders, análisis de costes.}{Foreign supplier management and cross-functional collaboration (Operations, Marketing, Sales); stakeholder/CEO reporting, cost analysis.}
 \par
 }
 
@@ -339,7 +348,7 @@
 % Da itemize (2 bullet) a paragrafo discorsivo il 2026-07-14, stesso trattamento di Intrawelt.
 \noindent
 \cvtext{Progettazione e sviluppo diffusori per clienti internazionali (intero ciclo di sviluppo), traducendo requisiti tecnici in opzioni progettuali.}{Diseño y desarrollo de altavoces para clientes internacionales (ciclo completo de desarrollo), traduciendo requisitos técnicos en opciones de diseño.}{Engineering and development of loudspeakers for international clients (full development cycle), translating technical requirements into design options.}
-\cvtext{Messa a punto elettrica/acustica (automotive, nautico, PA), valutazione qualità sistemi complessi, gestione flussi con team di produzione esteri.}{Ajuste eléctrico/acústico (automoción, náutico, PA), evaluación de calidad de sistemas complejos, gestión de flujos con equipos de producción en el extranjero.}{Electrical/acoustic tuning (automotive, marine, PA), quality assessment of complex systems, project workflow management with overseas production teams.}
+\cvtext{Messa a punto elettrica/acustica (automotive, nautico, PA), valutazione qualità sistemi complessi, gestione flussi con team di produzione esteri.}{Ajuste eléctrico/acústico (automoción, náutico, PA), evaluación de calidad de sistemas complejos, gestión de equipos de producción extranjeros.}{Electrical/acoustic tuning (automotive, marine, PA), quality assessment of complex systems, project workflow management with overseas production teams.}
 \par
 }
 
@@ -393,15 +402,15 @@
 \cvevent{\normalsize \textbf{\cvtext{Progetti/applicazioni personali}{Proyectos/aplicaciones personales}{Private projects/applications}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/personal/}{\faFolderOpen}}{}{09/2023 – \cvtext{in corso}{en curso}{ongoing}}{}
 \begin{itemize}
     \item \small \textbf{\textsc{\cvtext{App per pianificare matrimoni}{App de planificación de bodas}{Wedding planner app}}}: \footnotesize \cvtext{App full-stack React/Firebase per la pianificazione di matrimoni; in sviluppo attivo.}{App full-stack React/Firebase para la planificación de bodas; en desarrollo activo.}{Full-stack React/Firebase wedding-planning app; in active development.}
-    \item \small \textbf{\textsc{\cvtext{Infrastruttura e self-hosting}{Infraestructura y autoalojamiento}{Infrastructure \& self-hosting}}}: \footnotesize \cvtext{Vaultwarden, Caddy/TLS, DNS dinamico, Oracle Cloud; snapshot/ripristino stato Windows; segmentazione rete home-lab.}{Vaultwarden, Caddy/TLS, DNS dinámico, Oracle Cloud; snapshot/restauración de estado Windows; segmentación de red home-lab.}{Vaultwarden, Caddy/TLS, dynamic DNS, Oracle Cloud; Windows state snapshot/restore; home-lab network segmentation.}
+    \item \small \textbf{\textsc{\cvtext{Infrastruttura e self-hosting}{Infraestructura y autoalojamiento}{Infrastructure \& self-hosting}}}: \footnotesize \cvtext{Vaultwarden, Caddy/TLS, DNS dinamico, Oracle Cloud; snapshot/ripristino stato Windows; segmentazione rete home-lab.}{Vaultwarden, Caddy/TLS, DNS dinámico, Oracle Cloud; snapshot/restauración estado Windows; segmentación red home-lab.}{Vaultwarden, Caddy/TLS, dynamic DNS, Oracle Cloud; Windows state snapshot/restore; home-lab network segmentation.}
     % "Strumenti di AI e automazione" e "Strumenti per dati personali" accorpati il 2026-07-14
     % (richiesta esplicita per risparmiare una riga intera di itemize): stesso contenuto, un
     % solo titolo con due gruppi di sotto-voci separati da punto e virgola.
-    \item \small \textbf{\textsc{\cvtext{Strumenti di AI, automazione e dati personali}{Herramientas de IA, automatización y datos personales}{AI, automation \& personal data tools}}}: \footnotesize \cvtext{assistente legale locale (server MCP); trascrizione audio offline (WhisperX); trading bot algoritmico; bot Telegram custom; sincronizzazione transazioni PayPal; tracker collezione carte con prezzi live.}{asistente legal local (servidor MCP); transcripción de audio offline (WhisperX); bot de trading algorítmico; bot de Telegram personalizado; sincronización de transacciones PayPal; rastreador de colección de cartas con precios en vivo.}{local legal-research assistant (MCP server); offline audio transcription (WhisperX); algorithmic trading bot; custom Telegram bot; PayPal transaction sync; trading-card collection tracker with live pricing.}
+    \item \small \textbf{\textsc{\cvtext{Strumenti di AI, automazione e dati personali}{Herramientas de IA, automatización y datos personales}{AI, automation \& personal data tools}}}: \footnotesize \cvtext{assistente legale locale (server MCP); trascrizione audio offline (WhisperX); trading bot algoritmico; bot Telegram custom; sincronizzazione transazioni PayPal; tracker collezione carte con prezzi live.}{asistente legal local (servidor MCP); transcripción audio offline (WhisperX); bot de trading algorítmico; bot de Telegram; sincronización transacciones PayPal; rastreador de cartas con precios en vivo.}{local legal-research assistant (MCP server); offline audio transcription (WhisperX); algorithmic trading bot; custom Telegram bot; PayPal transaction sync; trading-card collection tracker with live pricing.}
     % Accorciata il 2026-07-14: l'elenco completo dei progetti passa alla pagina di dettaglio
     % (categorizzata e ampliata su alesop95.github.io/projects/personal/), qui basta il rimando.
     \item \small \textbf{\textsc{\cvtext{Web app e strumenti}{Aplicaciones web y herramientas}{Web apps \& tools}}}: \footnotesize \cvtext{blog bilingue, team-builder Pokémon, itinerari di viaggio, cruciverba.}{blog bilingüe, creador de equipos Pokémon, itinerarios de viaje, crucigramas.}{bilingual blog, Pokémon team-builder, travel itineraries, crosswords.}
-    \item \small \textbf{\textsc{\cvtext{Audio e hardware}{Audio y hardware}{Audio \& hardware}}}: \footnotesize \cvtext{reverse engineering ampli/DAC USB; digitalizzazione e restauro VHS con AI; monitor da studio DIY; personalizzazione device Android.}{ingeniería inversa de ampli/DAC USB; digitalización y restauración VHS con IA; monitores DIY; personalización de dispositivo Android.}{headphone-amp/USB-DAC reverse engineering; AI-upscaled VHS digitization; DIY studio monitors; deep Android customization.}
+    \item \small \textbf{\textsc{\cvtext{Audio e hardware}{Audio y hardware}{Audio \& hardware}}}: \footnotesize \cvtext{reverse engineering ampli/DAC USB; digitalizzazione e restauro VHS con AI; monitor da studio DIY; personalizzazione device Android.}{ingeniería inversa ampli/DAC USB; digitalización y restauración VHS con IA; monitores DIY; personalización dispositivo Android.}{headphone-amp/USB-DAC reverse engineering; AI-upscaled VHS digitization; DIY studio monitors; deep Android customization.}
 
 \end{itemize}
 
@@ -473,18 +482,15 @@
 % verso la pagina singola, EN/IT quasi arrivate): un \cvevent con #2/#3/#4 vuoti costa comunque
 % \large+\smallskip+\medskip solo per un'etichetta di sottosezione, overhead evitabile con un
 % semplice \textbf inline. Stesso contenuto e stessi link.
-\cvsection{\cvtext{Corsi ed eventi}{Cursos y eventos}{Courses and Events}}
-{\scriptsize
-\noindent\textbf{\cvtext{Competenze tecniche e professionali}{Competencias técnicas y profesionales}{Technical and professional skills}}: \textbf{\textsc{Odoo ERP development}} \href{https://www.openforce.it/}{(Openforce Pedaso)} \itemdate{(Nov 2024 – Jan 2025)}, \cvtext{altri seminari audio}{otros seminarios de audio}{other audio seminars}: \href{https://www.klippel.de/fileadmin/klippel/Files/News/VIRTUAL%20LECTURE%202022.pdf}{Klippel}, \href{https://drive.google.com/file/d/1W6TS1cJAvJIVbbDPXks47_ELpmxMrD7K/view}{Masterclass}, \href{https://drive.google.com/file/d/1mBimN4uUJW4we3oNSqjRNWTAyJeGdqY9/view}{K-ACADEMY}, K-ARRAY/B\&C Speakers.
-
-% "Callaghan" tolto e sostituito con il genere (giallo comico) il 2026-07-15: non e' corretto
-% nominare un solo titolo, gli spettacoli fatti sono due ("La morte viene a cena" e "Callaghan"),
-% entrambi gialli comici.
-% Link a certificato/recensione del corso e a Sue Johnson (EFT) ripristinati il 2026-07-15: erano
-% nella versione originale, persi durante la compattazione senza essere segnalati esplicitamente
-% (vedi audit link della sessione).
-\textbf{\cvtext{Discipline umanistiche e crescita personale}{Humanidades y desarrollo personal}{Humanities and personal development}}: \href{https://www.contemporanea2-0.it/landing-dizione/}{\cvtext{Public speaking e dizione}{Oratoria y dicción}{Public speaking and diction}} \itemdate{(09/2025 -- 07/2026)}~\href{https://drive.google.com/file/d/1FzGM9FFX__uIk8BlBm7w7u2bP4W2Jv8Z/view?usp=sharing}{\faFolderOpen}~\href{https://drive.google.com/file/d/1SY_hhVEVb_BRHdIC3KPAX9xB0RloQlUj/view?usp=sharing}{\faFolderOpen}, \href{https://www.youtube.com/watch?v=RFfEyYXSV2s}{\cvtext{Spettacolo teatrale}{Actuación teatral}{Stage performance}} (\textit{\cvtext{giallo comico}{comedia policial}{comedic whodunit}}), \href{https://drive.google.com/file/d/19jc-MpTL5mdlmXTW2RFm_myuLzoeXkg7/view?usp=sharing}{``Hold Me Tight'' EFT workshop} (\href{https://drive.google.com/file/d/1eS5HOIdAQOYIgZ6Zu7NUIhUQN49fZtlT/view?usp=sharing}{\cvtext{Sue Johnson}{Sue Johnson}{Sue Johnson}}) \itemdate{(12/2025)}.
-\par}
+% Ridotto a una riga generica con link il 2026-07-15 (ultimo passo per la pagina singola su
+% EN/ES): il blocco completo, verificato con un test diagnostico, si spostava per intero su
+% pagina 2 in ES indipendentemente da margini/contenuto/penalita' di paragrafo provati (non era
+% un problema di conteggio caratteri ma di come questo blocco specifico si comportava in pagina).
+% Contenuto completo, con tutti i link (compresi certificato/recensione/Sue Johnson ripristinati
+% poco prima), trasferito su E:\projects\docs\courses\, stesso trattamento di Progetti
+% aziendali/personali/accademici.
+\cvsection{\cvtext{Corsi ed eventi}{Cursos y eventos}{Courses and Events}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/courses/}{\faFolderOpen}}
+{\small \cvtext{Odoo ERP development, seminari audio (Klippel, K-ACADEMY...), public speaking, teatro, workshop EFT.}{Odoo ERP development, seminarios de audio (Klippel, K-ACADEMY...), oratoria, teatro, workshop EFT.}{Odoo ERP development, audio seminars (Klippel, K-ACADEMY...), public speaking, theatre, EFT workshop.}\par}
 
 
 % "Competenze trasversali/Soft skills" spostata in fondo alla colonna destra il 2026-07-09
@@ -559,7 +565,10 @@
   {04/2023 -- 01/2024} % Date
   {} % Posizione / location (vuoto)
   {\scriptsize
-  \cvtext{Strategia e pianificazione aziendale, analisi KPI economico-finanziaria, leadership e gestione team, marketing/vendite B2B, negoziazione per l'espansione internazionale, principi Lean.}{Estrategia y planificación empresarial, análisis de KPI económico-financiero, liderazgo y gestión de equipos, marketing/ventas B2B, negociación para la expansión internacional, principios Lean.}{Business strategy and planning, financial KPI analysis, team leadership, B2B marketing/sales, negotiation for international expansion, Lean principles.}
+  % ES accorciato il 2026-07-15 (era il divario piu' grande con EN in tutto il documento, 42
+  % caratteri): "empresarial"/"economico-financiero"/"y gestion de equipos" tagliati, stesso
+  % livello di dettaglio della versione EN (che gia' dice solo "financial KPI analysis").
+  \cvtext{Strategia e pianificazione aziendale, analisi KPI economico-finanziaria, leadership e gestione team, marketing/vendite B2B, negoziazione per l'espansione internazionale, principi Lean.}{Estrategia y planificación, análisis KPI financiero, liderazgo de equipos, marketing/ventas B2B, negociación de expansión internacional, principios Lean.}{Business strategy and planning, financial KPI analysis, team leadership, B2B marketing/sales, negotiation for international expansion, Lean principles.}
   \\
   \smallskip
   }
@@ -610,7 +619,7 @@
 % \footnotesize dentro \cvtag): prima erano a dimensione predefinita, piu' grandi e disomogenei.
 % Descrizioni portate a \footnotesize (erano \scriptsize) per uniformita' col titolo. Icona finale
 % legata con "~" all'ultima parola: prima poteva andare a capo isolata su una riga propria.
-\item \faChild\ \footnotesize\textbf{\cvtext{Le mie prime 100 parole}{Le mie prime 100 parole}{Le mie prime 100 parole}} \cvtext{ciclo di vita completo del prodotto, dal concept al~lancio.}{ciclo de vida completo del producto, desde el concepto hasta el~lanzamiento.}{complete product lifecycle, from concept to~launch.}~\href{https://tinyurl.com/hundredwords}{\faFolderOpen}
+\item \faChild\ \footnotesize\textbf{\cvtext{Le mie prime 100 parole}{Le mie prime 100 parole}{Le mie prime 100 parole}} \cvtext{ciclo di vita completo del prodotto, dal concept al~lancio.}{ciclo de vida del producto, del concepto al~lanzamiento.}{complete product lifecycle, from concept to~launch.}~\href{https://tinyurl.com/hundredwords}{\faFolderOpen}
 \item \faVolumeUp\ \footnotesize\textbf{Hertz HTX 8 M-CL-W / -C} \cvtext{sviluppo end-to-end dei diffusori a~colonna.}{desarrollo end-to-end de los altavoces de~columna.}{end-to-end clamp tower speaker~development.}~\href{https://www.rgsound.it/stampa/p-id-45507.html}{\faFolderOpen}
 \end{itemize}
 
