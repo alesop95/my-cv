@@ -1,7 +1,7 @@
 #!/bin/sh
 # Verifica che i link a skills-repo citati nel .tex principale siano ancora raggiungibili.
 # Sezione "Fase 4" di .claude/context/roadmap.md: la tassonomia di skills-repo
-# (alesop95.github.io/skills/) non e' congelata, le pagine Capability possono essere
+# (alesop95.github.io/skills/) non è congelata, le pagine Capability possono essere
 # rinominate, spostate o rimosse. Estrae ogni URL https://alesop95.github.io/skills/...
 # citato nel file .tex e verifica con una richiesta HTTP HEAD (curl) che risponda 2xx.
 # Da eseguire prima di ogni build definitiva del CV, o periodicamente: non fa parte della
@@ -31,7 +31,7 @@ if [ -z "$MAIN" ]; then
   elif [ "$#" -eq 0 ] || [ ! -f "$1" ]; then
     echo "[check-skill-links] Nessun .tex nella radice: specifica --main." >&2; exit 1
   else
-    echo "[check-skill-links] Piu' .tex nella radice: specifica --main FILE.tex." >&2; exit 1
+    echo "[check-skill-links] Più .tex nella radice: specifica --main FILE.tex." >&2; exit 1
   fi
 elif [ ! -f "$MAIN" ]; then
   MAIN="$PROJECT_ROOT/$MAIN"

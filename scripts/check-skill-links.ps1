@@ -4,13 +4,13 @@
   Verifica che i link a skills-repo citati nel .tex principale siano ancora raggiungibili.
 .DESCRIPTION
   Sezione "Fase 4" di .claude/context/roadmap.md: la tassonomia di skills-repo
-  (alesop95.github.io/skills/) non e' congelata, le pagine Capability possono essere
+  (alesop95.github.io/skills/) non è congelata, le pagine Capability possono essere
   rinominate, spostate o rimosse. Questo script estrae ogni URL
   https://alesop95.github.io/skills/... citato nel file .tex e verifica con una richiesta
   HTTP HEAD che risponda 2xx. Da eseguire prima di ogni build definitiva del CV, o
   periodicamente, non fa parte della build stessa.
 .PARAMETER Main
-  File .tex da analizzare. Se omesso e nella radice c'e' un solo .tex, usa quello.
+  File .tex da analizzare. Se omesso e nella radice c'è un solo .tex, usa quello.
 .EXAMPLE
   pwsh scripts/check-skill-links.ps1
 #>
@@ -27,7 +27,7 @@ if (-not $Main) {
     $texFiles = Get-ChildItem -Path $ProjectRoot -Filter '*.tex' -File
     if ($texFiles.Count -eq 1) { $Main = $texFiles[0].FullName }
     elseif ($texFiles.Count -eq 0) { throw "[check-skill-links] Nessun .tex nella radice: specifica -Main." }
-    else { throw "[check-skill-links] Piu' .tex nella radice: specifica -Main <file.tex>." }
+    else { throw "[check-skill-links] Più .tex nella radice: specifica -Main <file.tex>." }
 } elseif (-not (Test-Path $Main)) {
     $Main = Join-Path $ProjectRoot $Main
 }

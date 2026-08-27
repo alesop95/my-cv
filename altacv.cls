@@ -320,12 +320,12 @@
   \smallskip\normalsize
   % #2 (istituzione/azienda) rimpicciolito da \normalsize a \small il 2026-07-15 (richiesta
   % esplicita): usato ormai solo da Istruzione (Esperienza lavorativa passa sempre {} qui, il
-  % nome azienda e' stato unito al titolo #1 il 2026-07-14), effetto quindi limitato a quella sezione.
+  % nome azienda è stato unito al titolo #1 il 2026-07-14), effetto quindi limitato a quella sezione.
   \ifstrequal{#2}{}{}{
   {\small\textbf{\color{accent}#2}\par}
   \smallskip}
   % Data/location rimpicciolite da \small a \footnotesize il 2026-07-14, poi a \scriptsize lo
-  % stesso giorno (richiesta esplicita, ulteriore giro): \cvevent e' condiviso da tutte le sezioni
+  % stesso giorno (richiesta esplicita, ulteriore giro): \cvevent è condiviso da tutte le sezioni
   % con date (Esperienza lavorativa, Istruzione, Progetti, Corsi ed eventi), effetto uniforme.
   \ifstrequal{#3}{}{}{%
     {\scriptsize\makebox[0.5\linewidth][l]%
@@ -342,7 +342,7 @@
 
 % Cattura il vero \raggedright PRIMA che main.tex lo ridefinisca (per la giustificazione del
 % corpo, vedi altacv-reference.md sezione "Testo giustificato"): il titolo di \cvachievement deve
-% restare sempre ragged-right anche quando la descrizione giustifica, perche' giustificare una
+% restare sempre ragged-right anche quando la descrizione giustifica, perché giustificare una
 % riga di titolo corta che va a capo produce una spaziatura innaturale (osservato il 2026-07-06,
 % caso "Full IT Infrastructure end-to-end transformation" con "tion" isolato a capo).
 \let\altacv@titleraggedright\raggedright

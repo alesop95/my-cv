@@ -4,7 +4,7 @@ description: >
   Produce una spiegazione completa e strutturata del progetto a partire dal suo sistema di
   contesto versionato, per chi apre il progetto da zero o vi torna dopo molto tempo. Legge
   CLAUDE.md, memory/index.md, context/current-work.md, le schede di context/ e
-  memory/decisions.md. E' di sola lettura: non modifica file e non esegue git.
+  memory/decisions.md. È di sola lettura: non modifica file e non esegue git.
 disable-model-invocation: true
 ---
 
@@ -14,7 +14,7 @@ disable-model-invocation: true
 
 ## Scopo
 
-Questa skill da' il quadro completo del progetto a chi parte da zero. E' distinta dalla procedura di ripresa in `CLAUDE.md`, che e' veloce e mirata alla prossima azione. `onboard` invece ricostruisce l'intero quadro per chi non conosce ancora il progetto.
+Questa skill da' il quadro completo del progetto a chi parte da zero. È distinta dalla procedura di ripresa in `CLAUDE.md`, che è veloce e mirata alla prossima azione. `onboard` invece ricostruisce l'intero quadro per chi non conosce ancora il progetto.
 
 ## Cosa legge, e in quest'ordine
 
@@ -27,8 +27,8 @@ Questa skill da' il quadro completo del progetto a chi parte da zero. E' distint
 
 ## Cosa produce
 
-Una spiegazione discorsiva che copre: cos'e' il progetto e a cosa serve; lo stack LaTeX (distribuzione, engine, classe CV, pacchetti principali); la struttura del documento e le scelte di layout; lo stato attuale (branch, commit, sezioni complete e mancanti); le decisioni rilevanti con la motivazione; come si builda il PDF; i punti aperti. Chiude indicando la prossima azione concreta da `index.md`.
+Una spiegazione discorsiva che copre: cos'è il progetto e a cosa serve; lo stack LaTeX (distribuzione, engine, classe CV, pacchetti principali); la struttura del documento e le scelte di layout; lo stato attuale (branch, commit, sezioni complete e mancanti); le decisioni rilevanti con la motivazione; come si builda il PDF; i punti aperti. Chiude indicando la prossima azione concreta da `index.md`.
 
 ## Vincoli
 
-Sola lettura. Non inventa: se una scheda manca o e' vuota, lo si dichiara. Se il sistema di contesto non e' presente, segnalare che il progetto non e' ancora inizializzato.
+Sola lettura. Non inventa: se una scheda manca o è vuota, lo si dichiara. Se il sistema di contesto non è presente, segnalare che il progetto non è ancora inizializzato.

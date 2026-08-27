@@ -34,7 +34,7 @@ Per ciascuna scheda presente in `.claude/context/`:
 
 - Leggere `last-verified-commit` e `covers-paths` dal frontmatter.
 - Eseguire `git diff --name-only <last-verified-commit>..HEAD -- <covers-paths>`.
-- Classificare: aggiornata (nessun file coperto cambiato), stale (almeno un file cambiato), obsoleta (rename o delete di moduli interi, o la scheda cita simboli che non esistono piu').
+- Classificare: aggiornata (nessun file coperto cambiato), stale (almeno un file cambiato), obsoleta (rename o delete di moduli interi, o la scheda cita simboli che non esistono più).
 
 ### 2. Mostrare un report all'utente
 

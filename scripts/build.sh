@@ -1,9 +1,9 @@
 #!/bin/sh
 # Compila main.tex nelle tre lingue (EN/IT/ES), sovrascrivendo i tre PDF stabili versionati.
 #
-# Sostituisce la build a lingua singola (via latexmk) del 2026-07-06: da quando main.tex e'
+# Sostituisce la build a lingua singola (via latexmk) del 2026-07-06: da quando main.tex è
 # parametrizzato per lingua (\CVlanguage), l'utente ha chiesto (2026-07-08) che ogni
-# ricompilazione aggiorni sempre e comunque tutte e tre le lingue insieme, cosi' che un commit
+# ricompilazione aggiorni sempre e comunque tutte e tre le lingue insieme, così che un commit
 # non possa mai lasciarne una disallineata dalle altre.
 #
 # Produce cv-sopranzi-alessio-en.pdf, cv-sopranzi-alessio-it.pdf, cv-sopranzi-alessio-es.pdf nella
@@ -11,10 +11,10 @@
 # diretto e sempre aggiornato al CV in ciascuna lingua (estende ADR-004 alle tre lingue). Diverso
 # da scripts/build-multilang.sh, che produce invece istantanee DATATE in dated-builds/<lingua>/,
 # un archivio storico locale non versionato (ADR-005): i due script coesistono per due scopi
-# diversi, build.sh e' quello da lanciare prima di ogni commit.
+# diversi, build.sh è quello da lanciare prima di ogni commit.
 #
 # Compila con pdflatex direttamente (due passaggi fissi), non con latexmk, per lo stesso motivo di
-# build-multilang.sh: l'argomento "-jobname" iniettato non e' un vero nome di file e
+# build-multilang.sh: l'argomento "-jobname" iniettato non è un vero nome di file e
 # comprometterebbe l'analisi delle dipendenze di latexmk.
 #
 # Uso:

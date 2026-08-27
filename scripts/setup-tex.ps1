@@ -7,7 +7,7 @@
   user-local condivisa fra i progetti), e se assente lo installa; poi installa i
   pacchetti elencati in tex-packages.txt con tlmgr, e verifica con una compilazione
   minima. Non attiva shell interattive: invoca i binari dell'ambiente per percorso,
-  cosi' il comportamento e' identico in locale e in CI.
+  così il comportamento è identico in locale e in CI.
 .PARAMETER Reinstall
   Rimuove l'installazione TinyTeX esistente e la ricrea da zero.
 .PARAMETER TexDir

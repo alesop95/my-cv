@@ -11,7 +11,7 @@ disable-model-invocation: true
 
 ## Premessa
 
-Questa skill non duplica logica: si appoggia ai file versionati del progetto. La fonte di verita' dell'ambiente e' il manifesto `tex-packages.txt`; la distribuzione TeX (TinyTeX) e' invece esterna al repository, installata user-local e condivisa fra i progetti, quindi non versionata. Gli script invocano i binari dell'ambiente per percorso, senza attivazione interattiva, cosi' il comportamento e' identico in locale e in CI.
+Questa skill non duplica logica: si appoggia ai file versionati del progetto. La fonte di verità dell'ambiente è il manifesto `tex-packages.txt`; la distribuzione TeX (TinyTeX) è invece esterna al repository, installata user-local e condivisa fra i progetti, quindi non versionata. Gli script invocano i binari dell'ambiente per percorso, senza attivazione interattiva, così il comportamento è identico in locale e in CI.
 
 Gli script non eseguono operazioni git: preparano e compilano soltanto. Commit e push restano manuali dell'utente.
 
@@ -51,11 +51,11 @@ Su Unix/macOS:
 sh scripts/build.sh
 ```
 
-In questo progetto (`my-cv`) `scripts/build.ps1`/`.sh` sono stati specializzati (2026-07-08, ADR-006 in `memory/decisions.md`) e non seguono piu' il contratto generico sopra descritto: compilano sempre `main.tex` in tutte e tre le lingue (EN/IT/ES, via `\CVlanguage`) in un'unica esecuzione, producendo `cv-sopranzi-alessio-{en,it,es}.pdf` nella radice, senza flag `-Main`/ `-CleanAll`. `-Clean`/`--clean` rimuove i tre PDF e i relativi ausiliari. Un progetto che adotti questa skill da zero, senza il vincolo trilingue, puo' invece mantenere il flusso generico a documento singolo con auto-rilevamento del `.tex` e i flag `-Main`/`-Clean`/`-CleanAll`.
+In questo progetto (`my-cv`) `scripts/build.ps1`/`.sh` sono stati specializzati (2026-07-08, ADR-006 in `memory/decisions.md`) e non seguono più il contratto generico sopra descritto: compilano sempre `main.tex` in tutte e tre le lingue (EN/IT/ES, via `\CVlanguage`) in un'unica esecuzione, producendo `cv-sopranzi-alessio-{en,it,es}.pdf` nella radice, senza flag `-Main`/ `-CleanAll`. `-Clean`/`--clean` rimuove i tre PDF e i relativi ausiliari. Un progetto che adotti questa skill da zero, senza il vincolo trilingue, può invece mantenere il flusso generico a documento singolo con auto-rilevamento del `.tex` e i flag `-Main`/`-Clean`/`-CleanAll`.
 
 ### 3. Aggiungere un pacchetto
 
-Aggiungere il nome tlmgr al manifesto `tex-packages.txt` (una voce per riga), poi rieseguire il setup: installa solo cio' che manca. Il manifesto resta la fonte riproducibile dell'ambiente.
+Aggiungere il nome tlmgr al manifesto `tex-packages.txt` (una voce per riga), poi rieseguire il setup: installa solo ciò che manca. Il manifesto resta la fonte riproducibile dell'ambiente.
 
 ## Note di manutenzione
 

@@ -1,14 +1,14 @@
 #!/bin/sh
 # Compila main.tex nelle tre lingue (EN/IT/ES) producendo tre PDF datati e nominati.
-# Sezione "Fase 5" di .claude/context/roadmap.md: main.tex e' parametrizzato per lingua tramite
+# Sezione "Fase 5" di .claude/context/roadmap.md: main.tex è parametrizzato per lingua tramite
 # \CVlanguage (\providecommand, default "en") e la macro \cvtext{italiano}{spagnolo}{inglese}.
 # Compila una volta per lingua iniettando "\providecommand\CVlanguage{<lingua>}\input{main.tex}"
 # come argomento di pdflatex al posto del nome file (main.tex usa \providecommand, non
-# \newcommand, quindi l'iniezione esterna vince senza errori "gia' definito").
+# \newcommand, quindi l'iniezione esterna vince senza errori "già definito").
 #
 # Compila con pdflatex direttamente, non con latexmk: due passaggi fissi, sufficienti per questo
 # documento (hyperref/pdfx richiedono un secondo passaggio, osservato nelle build reali). Non usa
-# latexmk perche' l'argomento iniettato non e' un vero nome di file, comprometterebbe la sua
+# latexmk perché l'argomento iniettato non è un vero nome di file, comprometterebbe la sua
 # analisi delle dipendenze, comunque inutile per una singola build pulita come questa.
 #
 # I PDF prodotti si chiamano cv-sopranzi-alessio-<lingua>-<AAAA-MM-GG>.pdf, raccolti in
@@ -16,8 +16,8 @@
 # differenza di main.pdf (un solo file che si aggiorna, versionato per ADR-004), questi PDF
 # datati si accumulano nel tempo, e le sottocartelle per lingua evitano che si mescolino tutti
 # insieme dopo settimane di build (richiesta del 2026-07-07). Il nome del file mantiene comunque
-# la lingua, cosi' resta riconoscibile anche se estratto dalla cartella. Senza componente oraria
-# nel nome, rilanciare lo script piu' volte lo stesso giorno sovrascrive semplicemente il file di
+# la lingua, così resta riconoscibile anche se estratto dalla cartella. Senza componente oraria
+# nel nome, rilanciare lo script più volte lo stesso giorno sovrascrive semplicemente il file di
 # quel giorno, mentre le date diverse restano distinte come istantanee storiche.
 #
 # Uso:
@@ -77,7 +77,7 @@ for lang in en it es; do
   [ -f "$JOBNAME.pdf" ] || { echo "[build-multilang] PDF non prodotto per la lingua $lang: $JOBNAME.pdf" >&2; exit 1; }
   # Sposta TUTTI i file di questo jobname (pdf, aux, log, out, synctex.gz), non solo il pdf:
   # pdflatex li scrive sempre in MAIN_DIR (la radice del progetto), e senza questo spostamento
-  # restavano li' a sporcare la root a ogni build (richiesta del 2026-07-08).
+  # restavano lì a sporcare la root a ogni build (richiesta del 2026-07-08).
   for f in "$JOBNAME".*; do
     [ -f "$f" ] && mv -f "$f" "$LANG_DIR/$f"
   done

@@ -1,0 +1,5 @@
+## File esclusi dalla normalizzazione dei trattini in questo progetto.
+## Una riga per percorso, con il motivo dopo il cancelletto.
+
+altacv.cls # codice di classe LaTeX: un trattino puo' essere sintatticamente significativo
+dated-builds # cartella di uscite datate, si rigenera
