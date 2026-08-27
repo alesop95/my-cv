@@ -6,47 +6,53 @@
 
 ```
 Branch attivo:         main
-Commit di riferimento: 3485498 (2026-07-06, bootstrap del template)
-Data snapshot:         2026-07-08
+Commit di riferimento: 828275c (2026-08-07, "Linter dei comandi: heredoc idiomatico in bash non e' un errore")
+Data snapshot:         2026-08-27
 ```
 
-Nessun commit e' stato fatto da 3485498 in poi: tutto il lavoro descritto in questo file (CV completo e trilingue, riorganizzazione dell'output PDF, scheda di ogni fase della roadmap) vive ancora nel working tree, non versionato. Vedi "Da committare" in fondo per l'elenco.
+Dal bootstrap (3485498) sono arrivati diciotto commit. Il CV è completo, trilingue e sta su una pagina sola in tutte e tre le lingue. Alla data di questo snapshot lo stato su disco era avanti rispetto al commit di riferimento: i tre gruppi di modifiche e l'ordine in cui sono stati versionati stanno in fondo a questo file.
 
 ## Stato di verifica delle schede
 
-Nessuna scheda e' ancora ancorabile a un commit reale (nulla e' stato committato dal bootstrap): "verificata" qui significa riletta e allineata al working tree attuale il 2026-07-08, non a un commit.
+Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un commit reale. Le tre che portavano ancora il segnaposto `PENDING-FIRST-COMMIT`, cioè `STACK.md`, `deployment.md` e `dev-testing.md`, sono state ancorate il 2026-08-27 come prescrive il passo 0 della skill `sync-context`.
 
 | Scheda | last-verified | Stato |
 |---|---|---|
-| index.md (questo file) | working tree 2026-07-08 | riallineato allo stato reale |
-| decisions.md | working tree 2026-07-08 | verificata (ADR-006 aggiunta) |
-| progress.md | working tree 2026-07-08 | verificata (nuova voce in testa) |
-| roadmap.md | working tree 2026-07-08 | verificata parzialmente (vedi nota sotto) |
-| current-work.md | working tree 2026-07-08 | verificata |
-| deployment.md | working tree 2026-07-08 | verificata (riscritta) |
-| dev-testing.md | working tree 2026-07-08 | verificata (riscritta) |
-| STACK.md | working tree 2026-07-08 | verificata parzialmente (riga build corretta, resto della scheda ancora generico/mai popolato: cita ancora `cv.tex`/`sections/`/`assets/` che non esistono in questo progetto) |
-| altacv-reference.md | 3485498 (2026-07-06) | non riverificata in questa sessione, nessun segnale di drift noto |
-
-Nota su roadmap.md: la Fase 2 contiene ancora una shortlist di 8 progetti candidati per "un'eventuale pagina web statica dedicata ai progetti... da costruire come attivita' separata e successiva" — questa pagina e' stata nel frattempo effettivamente costruita, ma come repository a se stante (`E:\projects`, non parte di questo repository), con una copertura molto piu' ampia (29 progetti personali auto-scoperti da GitHub, non la shortlist di 8). La sezione non e' stata riscritta in questo passaggio per restare nello scope richiesto (riallineare `index.md`); da aggiornare quando si tocca `roadmap.md` di nuovo.
+| index.md (questo file) | 828275c | riscritto il 2026-08-27 |
+| decisions.md | 828275c | verificata, nessun ADR nuovo: due note di precisazione ad ADR-001 e ADR-003 |
+| progress.md | 828275c | verificata, voce nuova in testa |
+| STACK.md | 828275c | riscritta: albero dei file reale, classe scelta, `.latexmkrc` vestigiale, foto sotto `attachments/` |
+| deployment.md | 828275c | verificata, aggiunta la sezione su `check-skill-links` |
+| dev-testing.md | 828275c | verificata, aggiunti i controlli documentali e il vincolo a una pagina |
+| altacv-reference.md | 828275c | verificata, aggiunte le macro locali di collegamento e l'esito a una pagina |
+| current-work.md | 828275c | riallineata: sezione di stato in testa, il resto marcato come cronologia |
+| roadmap.md | 828275c | verificata, corrette Fase 2 (pagina dei progetti) e Fase 5 (numero di pagine) |
+| external-links.md | aa8284d | non ancora tracciata da git, descrive già il working tree: si riancora al commit che la introdurrà |
+| external-dependencies.md | aa8284d | come sopra |
 
 ## Punto di ripresa
 
-Il CV e' sostanzialmente completo nel suo stato attuale: struttura a due colonne su classe altaCV vendorizzata, contenuto trilingue (IT/EN/ES) tramite `\CVlanguage`/`\cvtext{}{}{}`, skill allineate alla tassonomia di `skills-repo` con script di verifica link, e un'architettura di output PDF ridisegnata due volte (vedi ADR-004, 005, 006 in `decisions.md`) fino all'assetto attuale: tre PDF stabili `cv-sopranzi-alessio-{en,it,es}.pdf` versionati in root, sempre rigenerati insieme da `scripts/build.ps1`, piu' un archivio storico datato separato in `dated-builds/` (non versionato).
+Il CV è completo e non ha sezioni in lavorazione: struttura a due colonne su classe altaCV vendorizzata, contenuto trilingue IT/EN/ES tramite `\CVlanguage` e `\cvtext{}{}{}`, skill allineate alla tassonomia di `skills-repo` con script di verifica dei link, tre PDF stabili `cv-sopranzi-alessio-{en,it,es}.pdf` versionati in radice e sempre rigenerati insieme da `scripts/build.ps1`, più un archivio storico datato in `dated-builds/` non versionato (ADR-004, 005 e 006 in `decisions.md`). Il formato attuale è una pagina sola in tutte e tre le lingue: ogni aggiunta di contenuto va compensata con un taglio altrove, e va verificata prima sullo spagnolo, che è la lingua che sconfina per prima.
 
-Fasi della roadmap (dettaglio completo in `roadmap.md`):
+Fasi della roadmap, con il dettaglio completo in `roadmap.md`.
 
 - Fase 1 (bootstrap tecnico): completata il 2026-07-06.
-- Fase 2 (contenuti pendenti): in gran parte fatta (placeholder di "Work experience" rimossi, link ad "Academic projects" e "Acting/Theatre" popolati, "Private projects" riscritta come lista sintetica). Restano aperti, deliberatamente rimandati o non ancora affrontati: i due frammenti Coaching (Onova S.p.A. / Intracademy) e Consultant (rimandati esplicitamente, manca esperienza reale da raccontare), l'intera sezione "Ongoing studies" (ancora segnaposto `........`/`aaaaaaa`).
-- Fase 3 (migrazione allegati a Proton Drive): non affrontata, indipendente dal codice LaTeX, da fare sostituendo i link uno alla volta quando si riprende.
-- Fase 4 (allineamento skill a skills-repo): in gran parte completata il 2026-07-06, con `scripts/check-skill-links.ps1`/`.sh` a verifica automatica dei link (23/23 raggiungibili all'ultima verifica).
-- Fase 5 (multilingua): completata. Traduzione integrale eseguita il 2026-07-07, bug di `\ifdefstring` non edef-safe diagnosticato e corretto (sostituito con `\ifx`), verificata con build reale nelle tre lingue. Deliberatamente non fatto: revisione madrelingua dello spagnolo (rischio da valutare prima di un uso professionale reale della versione ES).
-- Fase 6 (ATS-safety): rimandata esplicitamente a data da destinarsi, non e' un'esigenza attiva secondo l'utente.
+- Fase 2 (contenuti pendenti): quasi chiusa. Restano fuori "Ongoing studies", ancora disattivata con `\iffalse` e `\fi` e piena di segnaposto `aaaaaaa`, e i frammenti Coaching (Onova S.p.A. e Intracademy), rimandati per mancanza di esperienza reale da raccontare. La sezione Consultant è invece esclusa in via definitiva per motivi fiscali, non rimandata.
+- Fase 3 (migrazione allegati a Proton Drive): avviata nel working tree, non ancora nel commit di riferimento. A `828275c` il sorgente ha ancora sette link Google Drive e nessun link Proton, mentre su disco tre link su dieci sono già migrati. L'inventario e la procedura stanno in `context/external-links.md`.
+- Fase 4 (allineamento skill a skills-repo): in gran parte completata il 2026-07-06, con `scripts/check-skill-links.ps1` e `.sh` a verifica automatica dei link.
+- Fase 5 (multilingua): completata. Traduzione integrale il 2026-07-07, bug di `\ifdefstring` non edef-safe diagnosticato e corretto con `\ifx`, verificata con build reali nelle tre lingue. Deliberatamente non fatta la revisione madrelingua dello spagnolo: resta un rischio da sciogliere prima di un uso professionale reale di quella versione.
+- Fase 6 (ATS-safety del layout): rimandata a data da destinarsi come esigenza di layout. Un controllo pragmatico sul layer testuale del PDF è però stato fatto nel working tree, con `\decoicon` e le etichette esplicite di `\printinfo`, e va registrato quando quel lavoro verrà committato.
 
-Lavoro correlato svolto nella stessa sessione ma in repository distinti, per contesto: un navigator dei progetti personali e aziendali (`E:\projects`, MkDocs, palette del CV, trilingue, non ancora inizializzato a git dall'utente) e un footer con icone social (LinkedIn/GitHub/ Telegram/email) aggiunto sia li' sia a `E:\skills`. Nel CV stesso e' stato aggiunto un link al blog personale (`\faBlog`, campo `\blog{}` in `main.tex`) vicino ai riferimenti di contatto.
+Repository correlati, tutti sotto `E:` e distinti da questo, citati dal CV: `skills-repo` (tassonomia delle competenze, pubblicata su `alesop95.github.io/skills/`), `projects` (navigator dei progetti personali e aziendali, ventinove progetti auto-scoperti), il blog personale, e `fiscal-toolkit` insieme a `legal-consultant` per il materiale fiscale e normativo. Le dipendenze verso questi siti, e cosa fare quando cambiano, stanno in `context/external-dependencies.md`.
 
-Aggiornamento del 2026-07-10: nuovo repository esterno `E:\fiscal-toolkit` (remoto `github.com/alesop95/fiscal-toolkit`, identita' e remoto git gia' configurati, commit iniziale non ancora fatto dall'utente), nato da una ricognizione del materiale fiscale/consulenza dell'utente (dettagli non pubblici in `_notes/consulting-and-fiscal-tracking-2026-07-10.md`). Collegato concettualmente a `E:\legal-consultant` per gli aggiornamenti normativi. Nessuna sezione "Consultant" e' stata aggiunta al CV: la decisione e' di escluderla in modo definitivo per motivi fiscali attuali, non solo di rimandarla (vedi `roadmap.md`, Fase 2). Scartata anche l'idea di uno scraper per le offerte LinkedIn dopo una ricerca sui rischi legali/di ban: si useranno i Job Alert nativi di LinkedIn e l'API pubblica di Adzuna.
+### Lavoro versionato il 2026-08-27
 
-### Da committare
+Il working tree accumulato dopo `828275c` conteneva tre gruppi di modifiche distinti, separati in tre commit invece di uno solo perché rispondono a intenti diversi.
 
-Nulla di quanto sopra e' stato ancora versionato: dal bootstrap (3485498) il repository ha accumulato modifiche a `main.tex` (intero contenuto trilingue), `altacv.cls` (patch `\cvachievement`), tutti gli script di build (riscritti per ADR-006, piu' `build-multilang.*` e `check-skill-links.*` nuovi), `.gitignore`, `.latexmkrc`, `CLAUDE.md`, tutte le schede `.claude/context/*` e `.claude/memory/*`, e i tre PDF stabili in root. Prossimo passo pratico: revisione e commit manuale (a cura dell'utente, come da vincoli di team), presumibilmente in piu' commit logici invece di uno solo, prima di riprendere il backlog di contenuti Fase 2/3.
+Il primo è una normalizzazione tipografica che ha toccato 36 file tracciati, circa 349 inserimenti e 332 rimozioni: accenti scritti con l'apostrofo convertiti in accenti veri, accenti mancanti ripristinati, trattini lunghi normalizzati a trattini brevi. Gli strumenti che l'hanno prodotta sono `tools/fix-accents.py`, `tools/fix-dashes.py` e `tools/fix-missing-accents.py` con la lista di esclusioni `tools/dashes-exclude.txt`, versionati nello stesso commit. Avvertenza verificata: questi strumenti non preservano la fine riga dei file su cui passano, e hanno convertito `main.tex` da LF a CRLF gonfiandone il diff da 41 righe reali a 1462. Il file è stato riportato a LF il 2026-08-27, gli strumenti non sono ancora stati corretti.
+
+Il secondo riguarda `main.tex` nel merito, ed è il lavoro sostanziale non ancora committato: l'accessibilità del layer testuale del PDF, con il comando `\decoicon` che azzera l'`ActualText` delle icone decorative e le etichette esplicite passate a `\printinfo` per Email e Indirizzo, e la migrazione di tre link su dieci da Google Drive a Proton Drive.
+
+Il terzo è documentale: le due schede nuove `context/external-links.md` e `context/external-dependencies.md`, l'indice di `CLAUDE.md` esteso per elencarle, e le schede riallineate dalla passata di sync del 2026-08-27, questo file compreso.
+
+Commit e push restano manuali dell'utente, come da vincoli di team.

@@ -40,11 +40,14 @@ Memoria e meta-stato, sotto `.claude/memory/`, letti sempre a inizio sessione.
 Schede tecniche, sotto `.claude/context/`, con frontmatter di riconciliazione.
 
 ```
-.claude/context/STACK.md          stack LaTeX, distribuzione, flussi di build
-.claude/context/deployment.md     come buildare e distribuire il PDF
-.claude/context/dev-testing.md    ciclo modifica-compila-verifica, errori comuni
-.claude/context/current-work.md   sezione CV in lavorazione, definition of done
-.claude/context/roadmap.md        fasi di sviluppo e direzione
+.claude/context/STACK.md                stack LaTeX, distribuzione, flussi di build
+.claude/context/deployment.md           come buildare e distribuire il PDF
+.claude/context/dev-testing.md          ciclo modifica-compila-verifica, errori comuni
+.claude/context/current-work.md         sezione CV in lavorazione, definition of done
+.claude/context/roadmap.md              fasi di sviluppo e direzione
+.claude/context/external-links.md       inventario di ogni link esterno citato nel CV, per categoria
+.claude/context/external-dependencies.md dipendenze verso skills-repo/projects/blog/Drive, come
+                                         verificarle e cosa fare quando cambiano
 ```
 
 Build LaTeX, sotto `scripts/` e nella radice.
