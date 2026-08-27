@@ -4,16 +4,16 @@ generated-from-branch: main
 generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
-last-verified-commit: 828275c
+last-verified-commit: c994a08
 ---
 
 # Feature attiva
 
-## Stato al 828275c (verificato il 2026-08-27)
+## Stato al c994a08 (verificato il 2026-08-27)
 
-Non c'è nessuna sezione del CV in lavorazione. Il documento è completo, compila nelle tre lingue e sta su una pagina sola in tutte e tre: quello, non le tre pagine citate ripetutamente nelle cronache qui sotto, è il formato corrente, raggiunto con i commit `07921cc`, `aef38eb` e `aa8284d`.
+Non c'è nessuna sezione del CV in lavorazione. Il documento è completo, compila nelle tre lingue e sta su una pagina sola in tutte e tre: quello, non le tre pagine citate ripetutamente nelle cronache qui sotto, è il formato corrente, raggiunto con i commit `07921cc`, `aef38eb` e `aa8284d`. Il layer testuale del PDF è stato reso pulito con `7ea1955`, e tre dei dieci allegati su Google Drive sono passati a Proton Drive con lo stesso commit.
 
-Tutto ciò che segue in questa scheda è cronologia archiviata delle sessioni del 2026-07-06 e 2026-07-07, conservata perché contiene il razionale di scelte grafiche ancora in vigore. Va letta come storia, non come lavoro aperto, e ogni riferimento a "3 pagine" al suo interno è superato.
+Tutto ciò che segue in questa scheda resta cronologia archiviata delle sessioni del 2026-07-06 e 2026-07-07, conservata perché contiene il razionale di scelte grafiche ancora in vigore. Va letta come storia, non come lavoro aperto, e ogni riferimento a "3 pagine" al suo interno è superato.
 
 Decisione ancora in vigore, da non rimettere in discussione senza motivo: il tagline in testata ("IT manager, Software architect, Sysadmin") non si traduce e resta invariato in tutte e tre le lingue.
 

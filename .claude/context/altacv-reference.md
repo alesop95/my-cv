@@ -5,7 +5,7 @@ generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
   - "altacv.cls"
-last-verified-commit: 828275c
+last-verified-commit: c994a08
 ---
 
 # Riferimento tecnico: la classe altaCV
@@ -116,6 +116,27 @@ Le icone associate a `\cvLocationMarker` e `\cvDateMarker` dentro `\cvevent` son
 ```
 
 Una traduzione completa del documento richiede tre passaggi distinti: tradurre manualmente tutto il contenuto (titoli, descrizioni, esperienza), ridefinire le etichette automatiche della classe come sopra, e caricare `babel` con l'opzione `italian`. Questo è rilevante per la Fase 5 della roadmap (multilingua): se si introduce un layer di contenuto parametrizzato per lingua, le etichette di classe vanno parametrizzate allo stesso modo del contenuto, non lasciate fisse in inglese.
+
+## Layer testuale del PDF: icone senza testo spurio, campi con etichetta vera
+
+Le etichette rinominabili della sezione precedente risolvono solo metà del problema. L'altra metà è che ogni icona FontAwesome, quando il PDF viene copiato o dato in pasto a un parser, contribuisce comunque un carattere al testo estratto: un glifo del font senza mappatura Unicode sensata. Verificato concretamente il 2026-07-15 estraendo il testo del PDF, dove al posto delle icone della sezione "Di cosa sono fiero" comparivano `Z`, `\'B9` e `\DH`.
+
+Il rimedio è `accsupp`, che permette di dichiarare quale testo un elemento grafico rappresenta davvero. Per un'icona puramente decorativa il valore corretto è la stringa vuota, non l'assenza dell'attributo: vuoto significa "questo elemento non contribuisce alcun carattere", assente significa che il parser si arrangia e ricade sul glifo grezzo.
+
+```latex
+\newcommand{\decoicon}[1]{\BeginAccSupp{method=plain,ActualText={}}#1\EndAccSupp{}}
+```
+
+Una trappola già incontrata, da non ripetere: un primo tentativo del 2026-07-13 usava `ActualText={#1: }`, cioè il contenuto stesso come etichetta. Senza un'etichetta esplicita quel pattern ricade sul `\detokenize` del comando icona, e nel testo estratto compare la stringa letterale `\faEnvelope :` invece di una parola leggibile. È stato rimosso.
+
+Lo stesso bug viveva nella riga dei contatti, dove `\printinfo` chiamato senza il primo argomento opzionale ricadeva anch'esso sul detokenize dell'icona. Lì però la soluzione non è la stringa vuota ma un'etichetta vera, tradotta insieme al resto del documento, perché quelle icone accompagnano un dato reale e non sono ornamento.
+
+```latex
+\printinfo[\cvtext{Email}{Correo}{Email}]{\faEnvelope}{...}
+\printinfo[\cvtext{Indirizzo}{Dirección}{Address}]{\faMapMarker}{...}
+```
+
+La regola pratica che ne esce, valida per ogni icona aggiunta in futuro: se accompagna un dato reale prende l'etichetta di quel dato, se è ornamento prende la stringa vuota tramite `\decoicon`, e in nessun caso resta senza `ActualText`. La motivazione della decisione sta in ADR-007 di `memory/decisions.md`.
 
 ## Macro locali di collegamento
 

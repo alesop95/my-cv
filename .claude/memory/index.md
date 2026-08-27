@@ -6,29 +6,29 @@
 
 ```
 Branch attivo:         main
-Commit di riferimento: 828275c (2026-08-07, "Linter dei comandi: heredoc idiomatico in bash non e' un errore")
+Commit di riferimento: c994a08 (2026-08-27, "Sync delle schede a 828275c e riallineamento della memoria")
 Data snapshot:         2026-08-27
 ```
 
-Dal bootstrap (3485498) sono arrivati diciotto commit. Il CV è completo, trilingue e sta su una pagina sola in tutte e tre le lingue. Alla data di questo snapshot lo stato su disco era avanti rispetto al commit di riferimento: i tre gruppi di modifiche e l'ordine in cui sono stati versionati stanno in fondo a questo file.
+Dal bootstrap (3485498) sono arrivati ventuno commit. Il CV è completo, trilingue e sta su una pagina sola in tutte e tre le lingue. Il working tree è pulito: tutto quello che era in sospeso è stato versionato il 2026-08-27 nei tre commit descritti in fondo a questo file.
 
 ## Stato di verifica delle schede
 
-Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un commit reale. Le tre che portavano ancora il segnaposto `PENDING-FIRST-COMMIT`, cioè `STACK.md`, `deployment.md` e `dev-testing.md`, sono state ancorate il 2026-08-27 come prescrive il passo 0 della skill `sync-context`.
+Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un commit reale. Le tre che portavano ancora il segnaposto `PENDING-FIRST-COMMIT`, cioè `STACK.md`, `deployment.md` e `dev-testing.md`, sono state ancorate il 2026-08-27 come prescrive il passo 0 della skill `sync-context`. Nella seconda passata dello stesso giorno tutte, comprese le due schede appena entrate in git, sono state portate a `c994a08`.
 
 | Scheda | last-verified | Stato |
 |---|---|---|
-| index.md (questo file) | 828275c | riscritto il 2026-08-27 |
-| decisions.md | 828275c | verificata, nessun ADR nuovo: due note di precisazione ad ADR-001 e ADR-003 |
-| progress.md | 828275c | verificata, voce nuova in testa |
-| STACK.md | 828275c | riscritta: albero dei file reale, classe scelta, `.latexmkrc` vestigiale, foto sotto `attachments/` |
-| deployment.md | 828275c | verificata, aggiunta la sezione su `check-skill-links` |
-| dev-testing.md | 828275c | verificata, aggiunti i controlli documentali e il vincolo a una pagina |
-| altacv-reference.md | 828275c | verificata, aggiunte le macro locali di collegamento e l'esito a una pagina |
-| current-work.md | 828275c | riallineata: sezione di stato in testa, il resto marcato come cronologia |
-| roadmap.md | 828275c | verificata, corrette Fase 2 (pagina dei progetti) e Fase 5 (numero di pagine) |
-| external-links.md | aa8284d | non ancora tracciata da git, descrive già il working tree: si riancora al commit che la introdurrà |
-| external-dependencies.md | aa8284d | come sopra |
+| index.md (questo file) | c994a08 | riscritto il 2026-08-27, aggiornato dopo la seconda passata |
+| decisions.md | c994a08 | due note di precisazione ad ADR-001 e ADR-003, più ADR-007 sul layer testuale |
+| progress.md | c994a08 | verificata, tre voci nuove in testa |
+| STACK.md | c994a08 | riscritta, poi estesa con i tre strumenti di normalizzazione |
+| deployment.md | c994a08 | verificata, aggiunta la sezione su `check-skill-links` |
+| dev-testing.md | c994a08 | verificata, controlli documentali, strumenti di normalizzazione, vincolo a una pagina |
+| altacv-reference.md | c994a08 | aggiunte le macro locali di collegamento, l'esito a una pagina e il layer testuale |
+| current-work.md | c994a08 | riallineata: sezione di stato in testa, il resto marcato come cronologia |
+| roadmap.md | c994a08 | corrette Fase 2 e Fase 5, aggiornate Fase 3 (Proton avviata) e Fase 6 (layer testuale) |
+| external-links.md | c994a08 | tracciata e riancorata: inventario dei 54 link e tabella della migrazione Proton |
+| external-dependencies.md | c994a08 | tracciata e riancorata: dipendenze verso skills-repo, projects, blog e Drive |
 
 ## Punto di ripresa
 
@@ -38,10 +38,10 @@ Fasi della roadmap, con il dettaglio completo in `roadmap.md`.
 
 - Fase 1 (bootstrap tecnico): completata il 2026-07-06.
 - Fase 2 (contenuti pendenti): quasi chiusa. Restano fuori "Ongoing studies", ancora disattivata con `\iffalse` e `\fi` e piena di segnaposto `aaaaaaa`, e i frammenti Coaching (Onova S.p.A. e Intracademy), rimandati per mancanza di esperienza reale da raccontare. La sezione Consultant è invece esclusa in via definitiva per motivi fiscali, non rimandata.
-- Fase 3 (migrazione allegati a Proton Drive): avviata nel working tree, non ancora nel commit di riferimento. A `828275c` il sorgente ha ancora sette link Google Drive e nessun link Proton, mentre su disco tre link su dieci sono già migrati. L'inventario e la procedura stanno in `context/external-links.md`.
+- Fase 3 (migrazione allegati a Proton Drive): avviata e versionata con `7ea1955`. Tre link su dieci sono migrati, tutti di categoria `Certifications`. Restano sette link, due dei quali si migrano aggiornando il redirect tinyurl invece del sorgente. Inventario riga per riga e procedura in `context/external-links.md`.
 - Fase 4 (allineamento skill a skills-repo): in gran parte completata il 2026-07-06, con `scripts/check-skill-links.ps1` e `.sh` a verifica automatica dei link.
 - Fase 5 (multilingua): completata. Traduzione integrale il 2026-07-07, bug di `\ifdefstring` non edef-safe diagnosticato e corretto con `\ifx`, verificata con build reali nelle tre lingue. Deliberatamente non fatta la revisione madrelingua dello spagnolo: resta un rischio da sciogliere prima di un uso professionale reale di quella versione.
-- Fase 6 (ATS-safety del layout): rimandata a data da destinarsi come esigenza di layout. Un controllo pragmatico sul layer testuale del PDF è però stato fatto nel working tree, con `\decoicon` e le etichette esplicite di `\printinfo`, e va registrato quando quel lavoro verrà committato.
+- Fase 6 (ATS-safety del layout): rimandata a data da destinarsi per quel che riguarda l'ordine di lettura delle colonne. Il problema distinto del layer testuale del PDF è invece risolto e versionato con `7ea1955`, con `\decoicon` e le etichette esplicite di `\printinfo`: motivazione in ADR-007, dettagli tecnici in `context/altacv-reference.md`.
 
 Repository correlati, tutti sotto `E:` e distinti da questo, citati dal CV: `skills-repo` (tassonomia delle competenze, pubblicata su `alesop95.github.io/skills/`), `projects` (navigator dei progetti personali e aziendali, ventinove progetti auto-scoperti), il blog personale, e `fiscal-toolkit` insieme a `legal-consultant` per il materiale fiscale e normativo. Le dipendenze verso questi siti, e cosa fare quando cambiano, stanno in `context/external-dependencies.md`.
 
@@ -54,5 +54,7 @@ Il primo è una normalizzazione tipografica che ha toccato 36 file tracciati, ci
 Il secondo riguarda `main.tex` nel merito, ed è il lavoro sostanziale non ancora committato: l'accessibilità del layer testuale del PDF, con il comando `\decoicon` che azzera l'`ActualText` delle icone decorative e le etichette esplicite passate a `\printinfo` per Email e Indirizzo, e la migrazione di tre link su dieci da Google Drive a Proton Drive.
 
 Il terzo è documentale: le due schede nuove `context/external-links.md` e `context/external-dependencies.md`, l'indice di `CLAUDE.md` esteso per elencarle, e le schede riallineate dalla passata di sync del 2026-08-27, questo file compreso.
+
+Dopo quei tre commit è stata eseguita una seconda passata di `sync-context`, che ha riportato tutte le schede a `c994a08`, riancorato le due appena entrate in git, recepito la migrazione Proton nella Fase 3, registrato ADR-007 sul layer testuale del PDF ed esteso l'indice di `CLAUDE.md` con la sezione `tools/`. Quel lavoro è nel working tree e attende un quarto commit.
 
 Commit e push restano manuali dell'utente, come da vincoli di team.

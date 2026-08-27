@@ -5,7 +5,7 @@ generated-date: 2026-06-23
 covers-paths:
   - "main.tex"
   - "tools/**"
-last-verified-commit: 828275c
+last-verified-commit: c994a08
 ---
 
 # Revisione e verifica del documento
@@ -46,5 +46,7 @@ python tools/lint-md-commands.py
 ```
 
 Il primo applica la convenzione di `interaction-style.md`, cioè un paragrafo di prosa su una riga sorgente unica, ed esce con codice diverso da zero se qualche file non la rispetta. Il secondo applica `git-commands-format.md` percorrendo i blocchi di shell dei file Markdown e segnalando continuazioni di riga, heredoc e comandi git che proseguono sulla riga seguente: serve proprio perché md-unwrap per contratto non tocca il contenuto dei blocchi recintati, quindi un comando spezzato dentro un blocco di codice non lo corregge nessun altro.
+
+A questi controlli si affiancano tre strumenti di normalizzazione tipografica, che modificano i file invece di limitarsi a segnalare e vanno quindi lanciati deliberatamente, non a ogni commit. `tools/fix-accents.py` converte gli accenti scritti con l'apostrofo in accenti veri, scegliendo fra grave e acuto secondo grammatica e risparmiando gli apostrofi che accenti non sono, come in "un po'". `tools/fix-missing-accents.py` ripristina gli accenti dove mancano del tutto, ma solo sulle forme in cui la parola senza accento non esiste, perché sul caso generale nessuno strumento può decidere. `tools/fix-dashes.py` normalizza in trattino breve i cinque segni che a video somigliano a un trattino, come prescrive `interaction-style.md`, saltando i percorsi elencati in `tools/dashes-exclude.txt`.
 
 Una nota che vale come avvertenza operativa: gli strumenti di normalizzazione tipografica sotto `tools/` riscrivono i file su cui passano, e almeno una volta hanno convertito le fini riga di `main.tex` da LF a CRLF, gonfiando il suo diff da 41 righe reali a 1462. Dopo una passata di normalizzazione conviene controllare con `git diff --stat HEAD` che il numero di righe cambiate sia plausibile, e confrontarlo con `git diff --stat --ignore-cr-at-eol HEAD`: se i due numeri divergono, il file ha cambiato fine riga e va riportato a LF prima del commit.

@@ -61,8 +61,20 @@ scripts/check-skill-links.ps1  verifica i link a skills-repo citati nel .tex (Wi
 scripts/check-skill-links.sh   verifica i link a skills-repo citati nel .tex (Unix/macOS)
 scripts/build-multilang.ps1    compila i tre PDF datati EN/IT/ES (Windows)
 scripts/build-multilang.sh     compila i tre PDF datati EN/IT/ES (Unix/macOS)
-.latexmkrc                     fissa engine pdflatex e opzioni di compilazione
+.latexmkrc                     configurazione latexmk, non piu' usata dalla build (vedi STACK.md)
 tex-packages.txt               manifesto dei pacchetti tlmgr (fonte riproducibile dell'ambiente)
+```
+
+Strumenti di verifica e normalizzazione, sotto `tools/`.
+
+```
+tools/md-unwrap.py            applica e verifica la convenzione Markdown a riga sorgente unica
+tools/lint-md-commands.py     linter dei comandi di shell nei blocchi Markdown
+tools/fix-accents.py          converte gli accenti scritti con l'apostrofo in accenti veri
+tools/fix-missing-accents.py  ripristina gli accenti mancanti del tutto, dove sono decidibili
+tools/fix-dashes.py           normalizza i trattini lunghi in trattini brevi
+tools/dashes-exclude.txt      percorsi esclusi dalla normalizzazione dei trattini
+tools/latest-screenshot.ps1   percorso dell'ultimo screenshot, per la revisione visiva
 ```
 
 Skill richiamabili, sotto `.claude/skills/`.

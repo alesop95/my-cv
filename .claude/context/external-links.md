@@ -4,7 +4,7 @@ generated-from-branch: main
 generated-date: 2026-07-15
 covers-paths:
   - "main.tex"
-last-verified-commit: aa8284d604ce0c126c828f775a63f9b3c2b702cb
+last-verified-commit: c994a08
 ---
 
 # Inventario dei link esterni citati nel CV

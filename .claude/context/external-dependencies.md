@@ -6,7 +6,7 @@ covers-paths:
   - "main.tex"
   - "scripts/check-skill-links.ps1"
   - "scripts/check-skill-links.sh"
-last-verified-commit: aa8284d604ce0c126c828f775a63f9b3c2b702cb
+last-verified-commit: c994a08
 ---
 
 # Dipendenze esterne e flussi di sincronizzazione

@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-08-27 - Seconda passata di sync: schede riancorate a c994a08
+
+Eseguita subito dopo i tre commit `05a035f`, `7ea1955` e `c994a08`, che hanno versionato il working tree accumulato dopo `828275c`. Tutte e otto le schede di `.claude/context/` sono ora ancorate a `c994a08`, comprese `external-links.md` ed `external-dependencies.md`, che nella prima passata erano rimaste ad `aa8284d` perché non ancora tracciate da git.
+
+Delta di merito, non solo riancoraggio. La Fase 3 di `roadmap.md` non è più "non affrontata": la migrazione a Proton Drive è avviata, tre link su dieci sono passati e sono tutti di categoria `Certifications`, con il flusso di condivisione confermato e l'avvertenza sul carattere `#` da scappare in LaTeX; i sette rimanenti restano tracciati riga per riga nella tabella di `external-links.md`, che è la fonte operativa della fase. La Fase 6 resta rimandata per l'ordine di lettura delle colonne, ma registra che il problema distinto del layer testuale è risolto.
+
+Aggiunta ADR-007 in `decisions.md`, sull'accessibilità del layer testuale del PDF: ogni icona porta un `ActualText` esplicito, vuoto tramite `\decoicon` se è ornamentale, un'etichetta vera passata a `\printinfo` se accompagna un dato reale come Email o Indirizzo. La decisione registra anche il tentativo intermedio scartato, `ActualText={#1: }`, che senza etichetta esplicita ricadeva sul `\detokenize` del comando icona e riproduceva il bug che doveva risolvere. I dettagli tecnici sono in una sezione nuova di `altacv-reference.md`.
+
+`STACK.md` e `dev-testing.md` documentano ora i tre strumenti di normalizzazione tipografica (`fix-accents.py`, `fix-missing-accents.py`, `fix-dashes.py` con `dashes-exclude.txt`), con la distinzione fra i controlli che segnalano e vanno lanciati a ogni commit e gli strumenti che modificano e vanno lanciati deliberatamente. L'indice di `CLAUDE.md` ha guadagnato la sezione `tools/`, che mancava del tutto pur essendoci sette strumenti, e la riga su `.latexmkrc` non lo presenta più come il file che fissa l'engine.
+
+Rilevato e non risolto: la normalizzazione tipografica del 2026-08-27 ha saltato `CLAUDE.md`, che resta l'unico file di documentazione scritto con gli accenti resi come apostrofo mentre tutto il resto usa gli accenti veri. Rilevato e non risolto anche il fallimento di `python tools/md-unwrap.py --check .` su `CLAUDE.md`, `external-links.md` ed `external-dependencies.md`, ora tutti e tre in git: sono violazioni preesistenti della convenzione a riga sorgente unica, non introdotte dal sync.
+
+---
+
 ## 2026-08-27 - Passata di sync-context: schede riancorate a 828275c
 
 Eseguita la skill `sync-context` contro HEAD `828275c`. Tutte e sei le schede tracciate risultavano fuori allineamento, tre di esse (`STACK.md`, `deployment.md`, `dev-testing.md`) ancora sul segnaposto `PENDING-FIRST-COMMIT` nonostante diciotto commit dal bootstrap: applicato il passo 0 della skill e ancorate a `828275c`, insieme alle altre tre.

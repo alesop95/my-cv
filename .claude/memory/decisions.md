@@ -91,3 +91,21 @@ Scelta: `main.pdf` non esiste più. I tre file stabili si chiamano `cv-sopranzi-
 `scripts/build-multilang.ps1`/`.sh` restano invariati e continuano a coesistere: producono le istantanee DATATE in `dated-builds/<lingua>/`, archivio storico locale non versionato (ADR-005), uno scopo diverso e volutamente separato dal riferimento stabile in root.
 
 Conseguenza sul `.gitignore`: nessuna modifica alla riga `*.pdf` (resta commentata/non attivata, come in ADR-004); il commento è stato aggiornato per riflettere i tre nomi file invece di uno solo. `dated-builds/` resta escluso come da ADR-005.
+
+---
+
+## ADR-007 - Accessibilità del layer testuale del PDF: ActualText esplicito su ogni icona
+
+Data: 2026-07-15, versionata con `7ea1955` il 2026-08-27.
+
+Contesto: la Fase 6 di `roadmap.md` (ATS-safety del layout) è rimandata a data da destinarsi, ma durante la compattazione del CV è emerso un problema vicino e molto più economico da risolvere, distinto dall'ordine di lettura delle colonne. Estraendo il testo del PDF compilato, cioè simulando quel che fa un parser o un semplice copia-incolla verso un modulo di candidatura, le icone FontAwesome comparivano come glifi grezzi senza mappatura Unicode sensata: `Z`, `\'B9` e `\DH` al posto delle icone della sezione "Di cosa sono fiero". Nella riga dei contatti il danno era peggiore, perché `\printinfo` chiamato senza etichetta produceva la stringa letterale `\faEnvelope :` accanto all'indirizzo email.
+
+Opzioni valutate: (a) lasciare così, sul presupposto che nessuna candidatura in corso passi da un parser automatico - scartata, la correzione costa poche righe di preambolo e il rumore nel testo estratto danneggia anche il semplice copia-incolla manuale; (b) togliere le icone dalle sezioni critiche - scartata, sono parte dell'identità visiva del CV e il problema sta nel layer testuale, non in quello grafico; (c) dichiarare esplicitamente con `accsupp` che cosa ogni icona rappresenta nel testo estratto - scelta.
+
+Scelta: ogni icona porta un `ActualText` esplicito, con un valore che dipende dal suo ruolo. Le icone ornamentali passano per il nuovo comando `\decoicon`, che imposta `ActualText={}`, stringa vuota e non attributo assente: vuoto dichiara che l'elemento non contribuisce alcun carattere, assente lascia il parser ricadere sul glifo. Le icone che accompagnano un dato reale, cioè Email e Indirizzo nella riga dei contatti, ricevono invece un'etichetta vera passata come primo argomento opzionale di `\printinfo` e tradotta con `\cvtext` insieme al resto del documento.
+
+Motivazione della distinzione: un'etichetta vuota su un campo di contatto perderebbe informazione utile a chi legge il testo estratto, mentre un'etichetta piena su un'icona ornamentale aggiungerebbe rumore. Un tentativo intermedio del 2026-07-13, `ActualText={#1: }` con il contenuto stesso come etichetta, è stato rimosso perché senza etichetta esplicita ricade sul `\detokenize` del comando icona, cioè produce esattamente il bug che doveva risolvere.
+
+Verifica: estrazione reale del testo dai PDF compilati, non ispezione del sorgente. Frammenti e dettagli tecnici in `context/altacv-reference.md`, sezione sul layer testuale.
+
+Conseguenza per il lavoro futuro: ogni icona aggiunta al documento va classificata come ornamentale o portante prima di essere inserita, e non resta senza `ActualText`. Questa decisione non chiude la Fase 6, che riguarda l'ordine di lettura delle colonne e resta rimandata.

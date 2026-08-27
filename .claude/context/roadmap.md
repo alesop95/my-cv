@@ -4,7 +4,7 @@ generated-from-branch: main
 generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
-last-verified-commit: 828275c
+last-verified-commit: c994a08
 ---
 
 # Roadmap e priorità
@@ -37,6 +37,10 @@ last-verified-commit: 828275c
 ## Fase 3 - Gestione documentale degli allegati
 
 La nota archiviata sull'hosting documentale analizza le alternative a Google Drive per i link del CV (molti dei link attuali in `main.tex` puntano ancora a Google Drive). La conclusione motivata nella nota è Proton Drive: zero setup, hosting gestito, crittografia end-to-end reale, link con password e scadenza, percezione professionale migliore rispetto a MEGA nel contesto enterprise. La struttura a cartelle proposta è per contenuto, non per formato: `Certifications`, `Portfolio`, `Projects`, `Publications`, `Thesis`, `References`, condividendo il singolo documento necessario invece della cartella radice intera. Fase indipendente dal codice LaTeX: si può affrontare separatamente, sostituendo i link uno alla volta.
+
+Avviata il 2026-07-15 e versionata con `7ea1955` il 2026-08-27: tre link su dieci sono migrati, tutti e tre di categoria `Certifications` (certificato del Percorso formativo 24 CFU, supplemento al diploma di laurea magistrale, attestato del Master ISTAO). Il flusso confermato funzionante è caricare il singolo documento su Proton Drive nella cartella per contenuto, condividerlo con "Share with anyone" e permesso "Can view", senza password né scadenza per ciò che deve restare consultabile liberamente da chi legge il CV. Un dettaglio che rompe la build se sfugge: ogni link Proton contiene un carattere `#`, che in LaTeX va scappato come `\#`.
+
+I sette link rimanenti sono tracciati riga per riga nella tabella di `external-links.md`, che è la fonte operativa di questa fase e va aggiornata insieme al sorgente a ogni migrazione. Due di essi, gli elaborati di tesi, non si migrano toccando `main.tex` ma aggiornando la destinazione del redirect tinyurl: il link nel CV resta identico.
 
 ## Fase 4 - Allineamento delle skill alla tassonomia di skills-repo (in gran parte completata il 2026-07-06)
 
@@ -77,6 +81,8 @@ Creati `scripts/build-multilang.ps1` e `.sh` (ADR-005 in `memory/decisions.md`):
 Nota sul titolo: il file originale si intitolava "studio per scrivere CV non controllato dall'AI", ma il contenuto reale riguarda il parsing dei CV da parte degli *ATS* (Applicant Tracking System, i software usati da recruiter e portali di candidatura per leggere automaticamente i CV), non un controllo editoriale da parte di un'intelligenza artificiale. La discrepanza tra titolo e contenuto è segnalata qui come da verificare, non è stata risolta rileggendo un contesto esterno al file stesso. Il contenuto analizza come i layout multi-colonna di altaCV possano confondere l'ordine di lettura degli ATS, che si basano sulla geometria di pagina più che sulla struttura logica. La raccomandazione pragmatica, senza abbandonare altaCV: mantenere la colonna principale come unica sede delle informazioni critiche per il matching (esperienza, competenze) in ordine cronologico lineare, degradare la sidebar a informazione secondaria non critica, e valutare in futuro un output derivato in HTML o Markdown come sorgente neutra da cui generare sia un PDF ATS-safe sia il PDF estetico attuale.
 
 Rimandata esplicitamente dall'utente il 2026-07-06 dopo discussione: non è un'esigenza attiva (nessuna candidatura in corso tramite portale con parsing automatico), ma "una domanda di principio per il futuro". Chiarito anche il compromesso dimensionale: comprimere il contenuto attuale in una sola colonna alla stessa dimensione del testo raddoppierebbe circa le pagine (una colonna singola ha metà della capacità di testo per pagina di due colonne affiancate), quindi la soluzione corretta quando servirà davvero non è convertire questo documento ma generare una seconda variante separata, più semplice e a colonna singola, senza le stesse esigenze estetiche del PDF principale. Nessuna modifica strutturale in questa sessione. `main.md`, il mirror Markdown che avrebbe potuto essere un primo passo in questa direzione, è stato eliminato (ADR-004 in `memory/decisions.md`) proprio perché questa fase non è più imminente: si rigenera in un minuto con pandoc quando la fase verrà effettivamente ripresa.
+
+Aggiornamento del 2026-08-27: la fase resta rimandata per quel che riguarda il layout, ma un controllo pragmatico su un aspetto distinto è stato fatto e versionato con `7ea1955`. Non riguarda l'ordine di lettura delle colonne, bensì che cosa finisce nel testo estraibile quando qualcuno copia il PDF o lo dà in pasto a un parser: le icone FontAwesome producevano glifi grezzi senza mappatura Unicode sensata, e i campi Email e Indirizzo producevano la stringa letterale del comando icona invece di un'etichetta leggibile, entrambe le cose verificate estraendo davvero il testo del PDF. Corretto con il comando `\decoicon` e con le etichette esplicite di `\printinfo`; motivazione completa in ADR-007 di `memory/decisions.md`, dettagli tecnici in `altacv-reference.md`. Il compromesso strutturale sulle colonne resta intatto e non affrontato.
 
 ## Fuori scope per questo repository
 

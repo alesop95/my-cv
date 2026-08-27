@@ -7,7 +7,7 @@ covers-paths:
   - "altacv.cls"
   - ".latexmkrc"
   - "tex-packages.txt"
-last-verified-commit: 828275c
+last-verified-commit: c994a08
 ---
 
 # Stack applicativo
@@ -32,7 +32,7 @@ Overleaf: editor cloud comodo per la collaborazione, ma introduce una dipendenza
 main.tex                     documento unico: preambolo, macro multilingua, tutto il contenuto (nessun include)
 altacv.cls                   classe altaCV vendorizzata e patchata in locale (ADR-002)
 attachments/                 materiali privati, ignorati da git (ADR-003): contiene la foto della testata
-.latexmkrc                   configurazione latexmk, non piu' usata dalla build (vedi sopra)
+.latexmkrc                   configurazione latexmk, non più usata dalla build (vedi sopra)
 tex-packages.txt             manifesto dei pacchetti tlmgr
 scripts/build.ps1 / .sh      compila insieme i tre PDF stabili EN/IT/ES (ADR-006)
 scripts/build-multilang.*    archivio datato in dated-builds/, non versionato (ADR-005)
@@ -40,6 +40,10 @@ scripts/check-skill-links.*  verifica HTTP dei link a skills-repo citati nel .te
 scripts/setup-tex.*          installa TinyTeX e i pacchetti di tex-packages.txt
 tools/md-unwrap.py           applica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py    linter dei comandi di shell nei blocchi Markdown
+tools/fix-accents.py         converte gli accenti scritti con l'apostrofo in accenti veri
+tools/fix-missing-accents.py ripristina gli accenti mancanti del tutto, dove sono decidibili
+tools/fix-dashes.py          normalizza i trattini lunghi in trattini brevi
+tools/dashes-exclude.txt     percorsi esclusi dalla normalizzazione dei trattini
 tools/latest-screenshot.ps1  percorso dell'ultimo screenshot, per la revisione visiva
 ```
 
