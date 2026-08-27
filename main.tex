@@ -64,6 +64,16 @@
   \fi
 }
 
+% Icona decorativa con ActualText vuoto, aggiunta il 2026-07-15 (controllo pragmatico ATS): senza
+% alcun ActualText l'icona finisce nel layer testuale del PDF come glifo FontAwesome grezzo, senza
+% mappatura Unicode sensata - verificato concretamente estraendo il testo del PDF ("Z", "\'B9",
+% "\DH" al posto delle icone in "Di cosa sono fiero"). ActualText vuoto (non assente) fa si' che
+% l'icona non contribuisca alcun carattere al testo copiato/estratto, invece di uno spurio. Non
+% usare il vecchio pattern ActualText={#1: }, gia' rimosso il 2026-07-13 perche' senza etichetta
+% esplicita ricadeva su \detokenize del comando icona stesso (stesso bug corretto oggi in
+% \personalinfo per Email/Indirizzo, ma li' con un'etichetta vera invece che vuota).
+\newcommand{\decoicon}[1]{\BeginAccSupp{method=plain,ActualText={}}#1\EndAccSupp{}}
+
 % Enfasi uniforme per le date scritte a mano dentro il testo dei bullet (non le date generate da
 % \cvevent tramite \cvDateMarker, quelle restano come sono). Prima di questo comando erano
 % incoerenti: \small in "Academic projects" (ambiente non wrappato in cveventblock), footnotesize
@@ -243,10 +253,14 @@
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Etichette accessibili esplicite aggiunte il 2026-07-15 (controllo pragmatico ATS): senza il
+% primo argomento opzionale, \printinfo ricade su \detokenize dell'icona stessa come ActualText,
+% producendo nel testo copia-incollato la stringa letterale "\faEnvelope :"/"\faMapMarker :"
+% invece di un'etichetta leggibile - verificato concretamente estraendo il testo del PDF.
 \personalinfo{%
-  \printinfo{\faEnvelope}{\href{mailto:alessio.sopranzi.95@gmail.com}{alessio.sopranzi.95@gmail.com}}
+  \printinfo[\cvtext{Email}{Correo}{Email}]{\faEnvelope}{\href{mailto:alessio.sopranzi.95@gmail.com}{alessio.sopranzi.95@gmail.com}}
   \phone{+39 3201950043}
-  \printinfo{\faMapMarker}{\href{https://tinyurl.com/h0mem1}{Via Aurora 59, Civitanova Marche Alta (MC)}}
+  \printinfo[\cvtext{Indirizzo}{Dirección}{Address}]{\faMapMarker}{\href{https://tinyurl.com/h0mem1}{Via Aurora 59, Civitanova Marche Alta (MC)}}
   \linkedin{alessio-sopranzi}
   \github{alesop95}
   \githubCorp{asopranzi-intrawelt}
@@ -538,7 +552,7 @@
 % IT: ES/ES gia' senza equivalente ridondante, "Máster en"/"M.Sc. in" restano invariati).
 % Portato a \small (era \normalsize) il 2026-07-15 su richiesta esplicita: stessa dimensione
 % del Master ISTAO sotto, che era gia' a \small e risultava disomogeneo rispetto a questi due.
-\cvevent{\small\textbf{\cvtext{Magistrale in}{Máster en}{M.Sc. in} \href{https://drive.google.com/file/d/1AuoxhnFKHdG9JOFLe0lWNDtXxuUiniGc/view?usp=sharing}{\cvtext{Ingegneria delle telecomunicazioni}{Ingeniería de telecomunicaciones}{Telecommunications engineering}}}}{Politecnico di Milano}{09/2017 -- 06/2020}{}
+\cvevent{\small\textbf{\cvtext{Magistrale in}{Máster en}{M.Sc. in} \href{https://drive.proton.me/urls/08GSDD51FC\#Sl9ZV3ExCWC-}{\cvtext{Ingegneria delle telecomunicazioni}{Ingeniería de telecomunicaciones}{Telecommunications engineering}}}}{Politecnico di Milano}{09/2017 -- 06/2020}{}
 % Titolo sostituito con icona cartellina il 2026-07-14 (richiesta esplicita): la tesi e' anche
 % il progetto "Sviluppo di un'app per test di ascolto" gia' linkato da Progetti accademici, il
 % titolo per esteso qui era ridondante - stesso link di prima, solo testo del link piu' corto.
@@ -560,7 +574,7 @@
 % Titolo ISTAO ridotto a \small (era \normalsize) il 2026-07-14: "Master part-time in Strategia
 % Aziendale e Management - 3ª edizione" resta lungo anche a \normalsize.
 \cvevent
-  {\small\textbf{\href{https://drive.google.com/file/d/1bDc5zx8FScL6RPJToyWeVkla9M2eFoVI/view?usp=sharing}{\cvtext{Master part-time in Strategia Aziendale e Management}{Máster a tiempo parcial en Estrategia Empresarial y Management}{Part time Master in Business Strategy and Management}} \cvtext{- 3ª edizione}{- 3ª edición}{- 3rd Edition}}} % Titolo
+  {\small\textbf{\href{https://drive.proton.me/urls/W1H29CBYHM\#U0UQezNeHjvW}{\cvtext{Master part-time in Strategia Aziendale e Management}{Máster a tiempo parcial en Estrategia Empresarial y Management}{Part time Master in Business Strategy and Management}} \cvtext{- 3ª edizione}{- 3ª edición}{- 3rd Edition}}} % Titolo
   {ISTAO} % Istituto
   {04/2023 -- 01/2024} % Date
   {} % Posizione / location (vuoto)
@@ -577,12 +591,12 @@
 \smallskip
 
 % Portato a \small anche questo per coerenza con gli altri tre titoli di Istruzione (2026-07-15).
-\cvevent{\small\textbf{\href{https://drive.google.com/file/d/10Fix2VgkGGppyMpVO5t98uLWLYiw4mk2/view?usp=sharing}{\cvtext{Percorso formativo 24 CFU}{Itinerario formativo de 24 créditos (CFU)}{24CFU Educational Path}}}}{Università di Camerino}{06/2020 -- 07/2020}{}
+\cvevent{\small\textbf{\href{https://drive.proton.me/urls/Y0YWKXG708\#-VO43ecQ-A2j}{\cvtext{Percorso formativo 24 CFU}{Itinerario formativo de 24 créditos (CFU)}{24CFU Educational Path}}}}{Università di Camerino}{06/2020 -- 07/2020}{}
 % {\footnotesize Thesis: Feature-based characterization of loudspeakers}
 {\scriptsize \cvtext{Antropologia, psicologia e metodologie didattiche pedagogiche}{Antropología, psicología y metodologías didácticas pedagógicas}{Anthropology, psychology, and pedagogy teaching methodologies}
 \\
   \smallskip
-  % \hspace{2em} \faCertificate\ \href{https://drive.google.com/file/d/10Fix2VgkGGppyMpVO5t98uLWLYiw4mk2/view?usp=sharing}{Certificate of completion}
+  % \hspace{2em} \faCertificate\ \href{https://drive.proton.me/urls/Y0YWKXG708\#-VO43ecQ-A2j}{Certificate of completion}
 }
 
 % \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip.
@@ -614,13 +628,13 @@
 % legata alla fine), niente due punti in nessuno dei tre.
 % Aggiunti "virtualizzazione, cloud" il 2026-07-15 (richiesta esplicita, la riga andava comunque
 % a capo quindi tanto vale riempirla): stessi elementi gia' citati nel bullet Intrawelt sopra.
-\item \faNetworkWired\ \footnotesize\textbf{\cvtext{Infrastruttura IT end-to-end}{Infraestructura IT end-to-end}{IT Infrastructure end-to-end}} \cvtext{server, rete, storage, virtualizzazione, cloud, backup, disaster~recovery.}{servidores, red, almacenamiento, virtualización, cloud, backup, recuperación.}{servers, network, storage, virtualization, cloud, backup, disaster~recovery.}~\href{https://alesop95.github.io/projects/company/network-infrastructure-documentation/}{\faFolderOpen}
+\item \decoicon{\faNetworkWired}\ \footnotesize\textbf{\cvtext{Infrastruttura IT end-to-end}{Infraestructura IT end-to-end}{IT Infrastructure end-to-end}} \cvtext{server, rete, storage, virtualizzazione, cloud, backup, disaster~recovery.}{servidores, red, almacenamiento, virtualización, cloud, backup, recuperación.}{servers, network, storage, virtualization, cloud, backup, disaster~recovery.}~\href{https://alesop95.github.io/projects/company/network-infrastructure-documentation/}{\decoicon{\faFolderOpen}}
 % Titoli uniformati a \footnotesize il 2026-07-14 (stessa dimensione del badge sopra, che usa
 % \footnotesize dentro \cvtag): prima erano a dimensione predefinita, piu' grandi e disomogenei.
 % Descrizioni portate a \footnotesize (erano \scriptsize) per uniformita' col titolo. Icona finale
 % legata con "~" all'ultima parola: prima poteva andare a capo isolata su una riga propria.
-\item \faChild\ \footnotesize\textbf{\cvtext{Le mie prime 100 parole}{Le mie prime 100 parole}{Le mie prime 100 parole}} \cvtext{ciclo di vita completo del prodotto, dal concept al~lancio.}{ciclo de vida del producto, del concepto al~lanzamiento.}{complete product lifecycle, from concept to~launch.}~\href{https://tinyurl.com/hundredwords}{\faFolderOpen}
-\item \faVolumeUp\ \footnotesize\textbf{Hertz HTX 8 M-CL-W / -C} \cvtext{sviluppo end-to-end dei diffusori a~colonna.}{desarrollo end-to-end de los altavoces de~columna.}{end-to-end clamp tower speaker~development.}~\href{https://www.rgsound.it/stampa/p-id-45507.html}{\faFolderOpen}
+\item \decoicon{\faChild}\ \footnotesize\textbf{\cvtext{Le mie prime 100 parole}{Le mie prime 100 parole}{Le mie prime 100 parole}} \cvtext{ciclo di vita completo del prodotto, dal concept al~lancio.}{ciclo de vida del producto, del concepto al~lanzamiento.}{complete product lifecycle, from concept to~launch.}~\href{https://tinyurl.com/hundredwords}{\decoicon{\faFolderOpen}}
+\item \decoicon{\faVolumeUp}\ \footnotesize\textbf{Hertz HTX 8 M-CL-W / -C} \cvtext{sviluppo end-to-end dei diffusori a~colonna.}{desarrollo end-to-end de los altavoces de~columna.}{end-to-end clamp tower speaker~development.}~\href{https://www.rgsound.it/stampa/p-id-45507.html}{\decoicon{\faFolderOpen}}
 \end{itemize}
 
 % \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip, stesso
@@ -669,29 +683,29 @@
 % il 2026-07-15: e' il progetto reale a cui questo interesse fa riferimento (repository pubblica
 % del sistema di scrittura del libro), stesso trattamento gia' usato per Stampa 3D e Bisogni
 % Educativi Speciali (titolo -> risorsa primaria, si perde solo il rimando secondario al blog).
-\faGuitar~\textbf{\href{https://alesop95.github.io/projects/personal/harmony-book/}{\cvtext{Chitarra e teoria armonica}{Guitarra y teoría armónica}{Guitar \& harmony theory}}}, %
-\faHeadphones~\bloglinkwrap{audiofilia}{audiophile}{\textbf{\cvtext{Audiofilia}{Audiofilia}{Audiophile}}}, %
-\faChartLine~\bloglinkwrap{finanza-personale}{personal-finance}{\textbf{\cvtext{Finanza}{Finanzas}{Personal finance}}}, %
-\faGamepad~\bloglinkwrap{videogiochi}{gaming}{\textbf{\cvtext{Videogiochi}{Videojuegos}{Gaming}}}, %
-\faArchive~\bloglinkwrap{collezionismo}{collecting}{\textbf{\cvtext{Carte Pokémon}{Cartas Pokémon}{Pokémon cards}}}, %
-\faChalkboard~\bloglinkwrap{ripetizioni}{teaching}{\textbf{\cvtext{Ripetizioni private}{Clases particulares}{Private teaching}}}, %
-\faBrain~\bloglinkwrap{psicologia}{psychology}{\textbf{\cvtext{Psicologia}{Psicología}{Psychology}}}, %
-\faTools~\bloglinkwrap{ottimizzazione-domestica}{home-optimization}{\textbf{\cvtext{Ottimizzazione domestica}{Optimización del hogar}{Home optimization}}}, %
-\faLinux~\bloglinkwrap{linux}{linux}{\textbf{\cvtext{Ubuntu e Linux}{Ubuntu y Linux}{Ubuntu \& Linux}}}, %
-\faCloud~\bloglinkwrap{ecosistema-digitale}{digital-ecosystem}{\textbf{\cvtext{Ecosistema Samsung/Microsoft}{Ecosistema Samsung/Microsoft}{Samsung/Microsoft ecosystem}}}, %
-\faAndroid~\bloglinkwrap{android}{android}{\textbf{\cvtext{Personalizzazione Android}{Personalización de Android}{Android customization}}}, %
-\faCube~\textbf{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{\cvtext{Stampa 3D}{Impresión 3D}{3D printing}}}, %
-\faChartBar~\bloglinkwrap{analisi-dati}{data-analysis}{\textbf{\cvtext{Statistica applicata}{Estadística aplicada}{Applied statistics}}}, %
-\faPuzzlePiece~\bloglinkwrap{puzzle}{puzzles}{\textbf{\cvtext{Puzzle}{Rompecabezas}{Jigsaw puzzles}}}, %
-\faBookOpen~\textbf{\href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{\cvtext{Bisogni Educativi Speciali}{Necesidades Educativas Especiales}{Special Education Needs}}}, %
-\faMusic~\bloglinkwrap{songwriting}{songwriting}{\textbf{\cvtext{Scrittura di canzoni}{Composición de canciones}{Songwriting}}}.
+\decoicon{\faGuitar}~\textbf{\href{https://alesop95.github.io/projects/personal/harmony-book/}{\cvtext{Chitarra e teoria armonica}{Guitarra y teoría armónica}{Guitar \& harmony theory}}}, %
+\decoicon{\faHeadphones}~\bloglinkwrap{audiofilia}{audiophile}{\textbf{\cvtext{Audiofilia}{Audiofilia}{Audiophile}}}, %
+\decoicon{\faChartLine}~\bloglinkwrap{finanza-personale}{personal-finance}{\textbf{\cvtext{Finanza}{Finanzas}{Personal finance}}}, %
+\decoicon{\faGamepad}~\bloglinkwrap{videogiochi}{gaming}{\textbf{\cvtext{Videogiochi}{Videojuegos}{Gaming}}}, %
+\decoicon{\faArchive}~\bloglinkwrap{collezionismo}{collecting}{\textbf{\cvtext{Carte Pokémon}{Cartas Pokémon}{Pokémon cards}}}, %
+\decoicon{\faChalkboard}~\bloglinkwrap{ripetizioni}{teaching}{\textbf{\cvtext{Ripetizioni private}{Clases particulares}{Private teaching}}}, %
+\decoicon{\faBrain}~\bloglinkwrap{psicologia}{psychology}{\textbf{\cvtext{Psicologia}{Psicología}{Psychology}}}, %
+\decoicon{\faTools}~\bloglinkwrap{ottimizzazione-domestica}{home-optimization}{\textbf{\cvtext{Ottimizzazione domestica}{Optimización del hogar}{Home optimization}}}, %
+\decoicon{\faLinux}~\bloglinkwrap{linux}{linux}{\textbf{\cvtext{Ubuntu e Linux}{Ubuntu y Linux}{Ubuntu \& Linux}}}, %
+\decoicon{\faCloud}~\bloglinkwrap{ecosistema-digitale}{digital-ecosystem}{\textbf{\cvtext{Ecosistema Samsung/Microsoft}{Ecosistema Samsung/Microsoft}{Samsung/Microsoft ecosystem}}}, %
+\decoicon{\faAndroid}~\bloglinkwrap{android}{android}{\textbf{\cvtext{Personalizzazione Android}{Personalización de Android}{Android customization}}}, %
+\decoicon{\faCube}~\textbf{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{\cvtext{Stampa 3D}{Impresión 3D}{3D printing}}}, %
+\decoicon{\faChartBar}~\bloglinkwrap{analisi-dati}{data-analysis}{\textbf{\cvtext{Statistica applicata}{Estadística aplicada}{Applied statistics}}}, %
+\decoicon{\faPuzzlePiece}~\bloglinkwrap{puzzle}{puzzles}{\textbf{\cvtext{Puzzle}{Rompecabezas}{Jigsaw puzzles}}}, %
+\decoicon{\faBookOpen}~\textbf{\href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{\cvtext{Bisogni Educativi Speciali}{Necesidades Educativas Especiales}{Special Education Needs}}}, %
+\decoicon{\faMusic}~\bloglinkwrap{songwriting}{songwriting}{\textbf{\cvtext{Scrittura di canzoni}{Composición de canciones}{Songwriting}}}.
 \par}
 
 \cvsection{\cvtext{Volontariato}{Voluntariado}{Volunteering}}
 
 \begin{itemize}
-\item \faHeartbeat\ \textbf{\cvtext{Donatore di midollo osseo, ADMO}{Donante de médula ósea, ADMO}{Bone-marrow donor, ADMO}}: \scriptsize \cvtext{tipizzato HLA dal 2019; organizzatore eventi e consigliere regionale per tre anni.}{tipificado por HLA desde 2019; organizador de eventos y consejero regional durante tres años.}{HLA-typed since 2019; event organizer and regional councilor for three years.}
-\item \faUsers\ \textbf{\cvtext{Educatore}{Educador}{Educator}}: \scriptsize \cvtext{supporto alle attività catechistiche nella mia parrocchia dal 09/2023.}{apoyo a las actividades de catequesis en mi parroquia desde 09/2023.}{support for catechism activities in my local parish since 09/2023.}
+\item \decoicon{\faHeartbeat}\ \textbf{\cvtext{Donatore di midollo osseo, ADMO}{Donante de médula ósea, ADMO}{Bone-marrow donor, ADMO}}: \scriptsize \cvtext{tipizzato HLA dal 2019; organizzatore eventi e consigliere regionale per tre anni.}{tipificado por HLA desde 2019; organizador de eventos y consejero regional durante tres años.}{HLA-typed since 2019; event organizer and regional councilor for three years.}
+\item \decoicon{\faUsers}\ \textbf{\cvtext{Educatore}{Educador}{Educator}}: \scriptsize \cvtext{supporto alle attività catechistiche nella mia parrocchia dal 09/2023.}{apoyo a las actividades de catequesis en mi parroquia desde 09/2023.}{support for catechism activities in my local parish since 09/2023.}
 \end{itemize}
 
 % \smallskip esplicito rimosso il 2026-07-14 (obiettivo CV a 1 pagina): \cvsection inserisce
