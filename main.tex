@@ -14,22 +14,22 @@
 % compilazione, invece di duplicare main.tex. \CVlanguage vale "en" (default), "it" o "es";
 % \cvtext{italiano}{spagnolo}{inglese} restituisce la versione attiva. Per compilare in
 % italiano: \renewcommand{\CVlanguage}{it}; in spagnolo: \renewcommand{\CVlanguage}{es}.
-% Il contenuto italiano e spagnolo NON e' ancora stato scritto in nessun punto del documento:
+% Il contenuto italiano e spagnolo NON è ancora stato scritto in nessun punto del documento:
 % va fatto sezione per sezione, con l'utente che scrive il testo o rivede una bozza proposta,
 % non inventato qui (vale soprattutto per lo spagnolo, lingua di studio in corso dell'utente:
 % da valutare se pubblicare una versione spagnola senza revisione madrelingua).
 % \providecommand (non \newcommand): permette a scripts/build-multilang.ps1/.sh di iniettare
 % \providecommand\CVlanguage{it} sulla riga di comando di pdflatex PRIMA di \input{main.tex}.
-% \providecommand definisce solo se il comando non esiste gia', quindi l'iniezione esterna vince
-% senza errori "gia' definito"; se non c'e' iniezione (build normale), vale il default "en" qui.
+% \providecommand definisce solo se il comando non esiste già, quindi l'iniezione esterna vince
+% senza errori "già definito"; se non c'è iniezione (build normale), vale il default "en" qui.
 \providecommand{\CVlanguage}{en}
 % \cvtext usa un confronto \ifx di TeX puro, non \ifdefstring di etoolbox (usato nella prima
-% versione del 2026-07-06): \ifdefstring non e' "edef-safe", quindi si rompe silenziosamente
+% versione del 2026-07-06): \ifdefstring non è "edef-safe", quindi si rompe silenziosamente
 % dentro \MakeUppercase (usato da \cvsection sui titoli di sezione), cadendo sempre sul terzo
 % argomento (inglese) anche a \CVlanguage impostato su "it" o "es" - bug scoperto e verificato
 % con un test isolato durante la prima traduzione completa (2026-07-07). \ifx confronta le
 % macro per definizione, non per nome: \CVlangIT e \CVlangES hanno la stessa definizione "it"/
-% "es" di \CVlanguage quando quest'ultimo vale quella lingua, quindi il confronto e' vero anche
+% "es" di \CVlanguage quando quest'ultimo vale quella lingua, quindi il confronto è vero anche
 % dentro \MakeUppercase, \edef e qualunque altro contesto di espansione forzata.
 \def\CVlangIT{it}
 \def\CVlangES{es}
@@ -40,7 +40,7 @@
 }
 
 % Link a una topic page del blog (alesop95.github.io/blog), bilingue EN/IT: lo spagnolo ricade
-% sulla versione inglese perche' il blog non ha una terza lingua. La scelta tra i due URL avviene
+% sulla versione inglese perché il blog non ha una terza lingua. La scelta tra i due URL avviene
 % PRIMA di chiamare \href, non dentro il suo argomento URL: hyperref applica catcode speciali
 % all'argomento di \href, e un \cvtext annidato lì dentro rischierebbe di non espandersi,
 % stampando il testo letterale della macro invece del link risolto.
@@ -67,11 +67,11 @@
 % Icona decorativa con ActualText vuoto, aggiunta il 2026-07-15 (controllo pragmatico ATS): senza
 % alcun ActualText l'icona finisce nel layer testuale del PDF come glifo FontAwesome grezzo, senza
 % mappatura Unicode sensata - verificato concretamente estraendo il testo del PDF ("Z", "\'B9",
-% "\DH" al posto delle icone in "Di cosa sono fiero"). ActualText vuoto (non assente) fa si' che
+% "\DH" al posto delle icone in "Di cosa sono fiero"). ActualText vuoto (non assente) fa sì che
 % l'icona non contribuisca alcun carattere al testo copiato/estratto, invece di uno spurio. Non
-% usare il vecchio pattern ActualText={#1: }, gia' rimosso il 2026-07-13 perche' senza etichetta
+% usare il vecchio pattern ActualText={#1: }, già rimosso il 2026-07-13 perché senza etichetta
 % esplicita ricadeva su \detokenize del comando icona stesso (stesso bug corretto oggi in
-% \personalinfo per Email/Indirizzo, ma li' con un'etichetta vera invece che vuota).
+% \personalinfo per Email/Indirizzo, ma lì con un'etichetta vera invece che vuota).
 \newcommand{\decoicon}[1]{\BeginAccSupp{method=plain,ActualText={}}#1\EndAccSupp{}}
 
 % Enfasi uniforme per le date scritte a mano dentro il testo dei bullet (non le date generate da
@@ -79,24 +79,24 @@
 % incoerenti: \small in "Academic projects" (ambiente non wrappato in cveventblock), footnotesize
 % altrove (dentro cveventblock, o dopo la chiusura di un gruppo \small locale) - richiesta del
 % 2026-07-06 di uniformarle e di enfatizzarle invece di lasciarle in tondo come il resto. Niente
-% colore: "accent" e "subheading" sono lo stesso SoftBlue gia' usato per i link (colorlinks),
-% userlo qui creerebbe ambiguita' con "questo e' cliccabile". Solo corsivo, stessa dimensione
+% colore: "accent" e "subheading" sono lo stesso SoftBlue già usato per i link (colorlinks),
+% userlo qui creerebbe ambiguità con "questo è cliccabile". Solo corsivo, stessa dimensione
 % ovunque.
 \newcommand{\itemdate}[1]{{\footnotesize\itshape#1}}
 
 % Campo info personalizzato per il blog (altaCV non ne ha uno dedicato, solo \homepage generico
 % con \faGlobe): stessa famiglia di \linkedin/\github. Prima prova con \faRss (2026-07-08), che
-% alla dimensione della riga contatti si legge come un'icona wifi anziche' come blog: sostituita
-% con \faBlog, icona dedicata di FontAwesome5, piu' pertinente e riconoscibile.
+% alla dimensione della riga contatti si legge come un'icona wifi anziché come blog: sostituita
+% con \faBlog, icona dedicata di FontAwesome5, più pertinente e riconoscibile.
 \NewInfoField{blog}{\faBlog}[https://]
 
 % Campo info per il navigator dei progetti (alesop95.github.io/projects), aggiunto il 2026-07-08
-% quando il sito e' andato live. \faFolderOpen per distinguerlo visivamente da \faBlog e \faGlobe
-% gia' in uso nella stessa riga.
+% quando il sito è andato live. \faFolderOpen per distinguerlo visivamente da \faBlog e \faGlobe
+% già in uso nella stessa riga.
 \NewInfoField{projectsSite}{\faFolderOpen}[https://]
 
 % Secondo account GitHub (corporate, Intrawelt), aggiunto il 2026-07-13 vicino a \github per
-% distinguere i due profili. Stessa icona \faGithub del campo nativo altaCV: la distinzione e'
+% distinguere i due profili. Stessa icona \faGithub del campo nativo altaCV: la distinzione è
 % nel testo (handle), non nell'icona.
 \NewInfoField{githubCorp}{\faGithub}[https://github.com/]
 
@@ -121,7 +121,7 @@
 % (provato 0.85/0.6cm) non si ottiene alcun beneficio ulteriore sul conteggio pagine.
 % columnsep ridotto da 1.0cm a 0.6cm il 2026-07-14 (richiesta esplicita): meno spazio bianco tra
 % le colonne, e siccome riduce il gutter (non i margini di stampa) allarga anche leggermente la
-% larghezza utile di entrambe le colonne, quindi e' un guadagno netto, non un compromesso.
+% larghezza utile di entrambe le colonne, quindi è un guadagno netto, non un compromesso.
 % top/bottom ritentati da 0.7cm a 0.5cm il 2026-07-15 (ha portato EN a 1 pagina): il margine
 % verticale non era stato ritestato da quando sono cambiati tutti i contenuti di questo giro.
 % ES restava a 2 pagine per una coda residua di "Corsi ed eventi" che si spostava per intero
@@ -141,8 +141,8 @@
 % Aumentato da 0.545 a 0.62 e poi a 0.7 il 2026-07-09: la colonna destra finisce a pagina 2 con
 % margine anche dopo aver spostato "Soft skills" in fondo ad essa, mentre la sinistra (Courses
 % and Events) continuava a sforare sulla terza pagina. Le due colonne di paracol condividono
-% l'altezza di pagina ma non si prestano spazio a vicenda: l'unica leva e' allargare la colonna
-% piu' piena, riducendone l'altezza per lo stesso testo (piu' caratteri per riga).
+% l'altezza di pagina ma non si prestano spazio a vicenda: l'unica leva è allargare la colonna
+% più piena, riducendone l'altezza per lo stesso testo (più caratteri per riga).
 \columnratio{0.68}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -164,14 +164,14 @@
 % per rientrare in meno pagine, richiesto il 2026-07-06, senza toccare i contenuti. Provato
 % 0.9 il 2026-07-09 per l'obiettivo 1 pagina: nessun effetto misurabile sul conteggio pagine
 % (il blocco che sfora si sposta a scatti con la sincronizzazione delle colonne di paracol, non
-% in modo proporzionale alla densita' tipografica), quindi riportato a 0.925.
+% in modo proporzionale alla densità tipografica), quindi riportato a 0.925.
 \linespread{0.925}
 
 % Rimpicciolito di un gradino, da \Huge a \huge, il 2026-07-14 (richiesta esplicita, CV a 1 pagina).
 \renewcommand{\namefont}{\huge\rmfamily\bfseries}
 % Rimpicciolito da \footnotesize a \scriptsize il 2026-07-14 (obiettivo CV a 1 pagina): con la
 % riga Telegram rimossa restava una singola voce (projectsSite) sola sulla propria riga; a
-% \scriptsize ci sta piu' testo per riga e le voci si compattano meglio.
+% \scriptsize ci sta più testo per riga e le voci si compattano meglio.
 \renewcommand{\personalinfofont}{\scriptsize}
 \renewcommand{\cvsectionfont}{\large\rmfamily\bfseries}
 \renewcommand{\cvsubsectionfont}{\large\bfseries}
@@ -221,14 +221,14 @@
 
 \begin{document}
 % altacv.cls attiva \hypersetup{hidelinks} all'inizio del documento (nessun segno visivo di
-% cliccabilita'). La sovrascriviamo qui, dopo \begin{document}. Due tentativi con bordo
+% cliccabilità). La sovrascriviamo qui, dopo \begin{document}. Due tentativi con bordo
 % (2026-07-06) scartati dopo revisione sul PDF reale: riquadro pieno /S/S troppo aggressivo con
 % quasi ogni bullet di "Work experience" interamente linkato; la sottolineatura /S/U successiva
-% e' risultata comunque troppo invasiva alla stessa densita' di link. Terzo tentativo: colore di
-% testo (nessun bordo, nessuna sottolineatura), stesso "accent" gia' usato altrove nel documento
-% per segnalare elementi interattivi (vedi la nota "Interactive .pdf" piu' sotto): il colore da
+% è risultata comunque troppo invasiva alla stessa densità di link. Terzo tentativo: colore di
+% testo (nessun bordo, nessuna sottolineatura), stesso "accent" già usato altrove nel documento
+% per segnalare elementi interattivi (vedi la nota "Interactive .pdf" più sotto): il colore da
 % solo non aggiunge peso grafico (nessuna linea, nessun riquadro), a differenza di qualunque
-% bordo, che a questa densita' di link si accumula visivamente riga dopo riga.
+% bordo, che a questa densità di link si accumula visivamente riga dopo riga.
 \hypersetup{
   colorlinks=true,
   allcolors=accent,
@@ -240,9 +240,9 @@
 %% You can add multiple photos on the left or right
 % Ridotta da 4.8cm il 2026-07-06, poi da 3.6cm il 2026-07-13, poi da 3.2cm e 2.9cm il 2026-07-14
 % (rimossa la riga Telegram e il blocco contatti compattato da 3 a 2 righe): stesso motivo ogni
-% volta, la foto non deve dettare l'altezza della testata quando il testo accanto e' piu' basso
-% di lei. Ritaglio manuale piu' stretto sul volto (photo-me-gemini-cropped.jpeg) provato e
-% scartato il 2026-07-14: \photoR usa gia' "fill overzoom image" di tikz (object-fit: cover),
+% volta, la foto non deve dettare l'altezza della testata quando il testo accanto è più basso
+% di lei. Ritaglio manuale più stretto sul volto (photo-me-gemini-cropped.jpeg) provato e
+% scartato il 2026-07-14: \photoR usa già "fill overzoom image" di tikz (object-fit: cover),
 % quindi ritaglia e centra automaticamente dall'immagine originale - il ritaglio manuale tagliava
 % via la camicia che con l'auto-crop restava visibile. Tornato a photo-me-gemini.jpeg originale.
 \photoR{2.6cm}{attachments/Template e photos/photo-me-gemini.jpeg}
@@ -269,7 +269,7 @@
   % Riga Telegram rimossa il 2026-07-14 (obiettivo CV a 1 pagina, richiesta esplicita): resta
   % commentata, non cancellata.
   % \printinfo{\faTelegramPlane}{@alesop95}[https://t.me/alesop95]
-  % Riga "PDF interattivo" rimossa il 2026-07-13 (obiettivo CV a 1 pagina): la cliccabilita' del
+  % Riga "PDF interattivo" rimossa il 2026-07-13 (obiettivo CV a 1 pagina): la cliccabilità del
   % documento va comunicata nel messaggio/email di invio del CV, non dentro il PDF stesso - vedi
   % _notes/cv-sharing-snippet.md per il testo pronto da incollare in IT/EN/ES.
 }
@@ -279,8 +279,8 @@
 % altacv.cls non espone un'opzione per il testo giustificato: le macro \cvevent e
 % \cvachievement chiamano \raggedright direttamente nella loro definizione interna (vedi
 % altacv.cls righe 291, 483, 489). Per avere il testo giustificato su entrambi i margini
-% (richiesta del 2026-07-06) senza patchare la classe, ridefiniamo \raggedright perche' esegua
-% \justifying (fornito da ragged2e, gia' caricato dall'opzione documentclass "ragged2e"). La
+% (richiesta del 2026-07-06) senza patchare la classe, ridefiniamo \raggedright perché esegua
+% \justifying (fornito da ragged2e, già caricato dall'opzione documentclass "ragged2e"). La
 % ridefinizione va fatta QUI, dopo \makecvheader, non nel preambolo: \makecvheader e la tabella
 % di \personalinfo dipendono dal vero \raggedright per il proprio calcolo di impaginazione, e
 % ridefinirlo prima rompeva l'intestazione (foto/nome/tagline spostati, verificato il 2026-07-06).
@@ -315,7 +315,7 @@
 \noindent
 % Link aggiornati con il prefisso /technical/ il 2026-07-14: skills-repo ha spostato le
 % Capability tecniche sotto docs/technical/ per lasciare spazio a una sezione /soft/ dedicata
-% (vedi Soft skills piu' in basso), URL vecchi senza /technical/ non esistono piu'.
+% (vedi Soft skills più in basso), URL vecchi senza /technical/ non esistono più.
 \textbf{\href{https://alesop95.github.io/skills/technical/management/project-planning-scheduling/}{\cvtext{IT governance, pianificazione e knowledge management}{Gobierno de TI, planificación y gestión del conocimiento}{IT governance, planning and knowledge management}}}: \cvtext{certificazione qualità, fatturazione e amministrazione IT, scheduling e controllo progetti, documentazione tecnica.}{certificación de calidad, facturación y administración de TI, planificación y control de proyectos, documentación técnica.}{quality certification, IT administration and billing, project scheduling and control, technical documentation.}
 \textbf{\href{https://alesop95.github.io/skills/technical/infrastructure/infrastructure-virtualization/}{\cvtext{Infrastruttura, cloud e networking}{Infraestructura, cloud y redes}{Infrastructure, cloud and networking}}}: \cvtext{virtualizzazione, piattaforme cloud, reti e sicurezza, backup e disaster recovery, amministrazione di sistema, helpdesk avanzato.}{virtualización, plataformas cloud, redes y seguridad, backup y recuperación, administración de sistemas, soporte técnico avanzado.}{virtualization, cloud platforms, networking and security, backup and disaster recovery, system administration, advanced helpdesk.}
 \textbf{\href{https://alesop95.github.io/skills/technical/management/leadership-management/}{\cvtext{Leadership e responsabilità trasversali}{Liderazgo y responsabilidades transversales}{Leadership and cross-cutting responsibilities}}}: \cvtext{management di team, imprenditorialità tecnica.}{gestión de equipos, emprendimiento técnico.}{team management, technical entrepreneurship.}
@@ -377,8 +377,8 @@
 \begin{cveventblock}
 
 % Titolo e voci rimpiccioliti il 2026-07-14 (richiesta esplicita, sezione minore): titolo a
-% \small invece del \large predefinito di \cvevent, voci da \footnotesize a \scriptsize cosi'
-% ciascuna descrizione rientra piu' facilmente su una riga.
+% \small invece del \large predefinito di \cvevent, voci da \footnotesize a \scriptsize così
+% ciascuna descrizione rientra più facilmente su una riga.
 \cvevent
     {\small\textbf{\cvtext{Lavori part-time / a chiamata durante gli studi}{Trabajos a tiempo parcial / a demanda durante los estudios}{Part-time / on-call jobs during university}}}
     {}
@@ -399,21 +399,21 @@
 \cvsection{\cvtext{Progetti principali}{Proyectos principales}{Main projects}}
 
 
-\cvevent{\normalsize \textbf{\cvtext{Progetti aziendali}{Proyectos de la empresa}{Company-related Projects}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/company/}{\faFolderOpen}}{}{09/2024 – \cvtext{in corso}{en curso}{ongoing}}{}
+\cvevent{\normalsize \textbf{\cvtext{Progetti aziendali}{Proyectos de la empresa}{Company-related Projects}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/company/}{\faFolderOpen}}{}{09/2024 - \cvtext{in corso}{en curso}{ongoing}}{}
 \begin{itemize}
     % Restrutturata il 2026-07-14 su richiesta esplicita: "scenia\textregistered" (nome prodotto)
     % come testa in grassetto invece di un titolo generico, link sul dominio subito dopo.
     \item \small \textbf{scenia\textregistered} \footnotesize(\href{https://scenia.it/}{scenia.it}): \cvtext{portale SaaS per servizio di traduzione multilingua, architettura full-stack domain-driven.}{portal SaaS para servicio de traducción multilingüe, arquitectura full-stack domain-driven.}{SaaS portal for a multilingual translation service, full-stack domain-driven architecture.}
     % Restrutturata il 2026-07-14 su richiesta esplicita: "Intralino" (nome del progetto) come
     % testa in grassetto, stesso trattamento di scenia. Tolto "per helpdesk context-aware": non
-    % descrive piu' correttamente lo scopo, il sistema sta diventando anche un client MCP e altro.
+    % descrive più correttamente lo scopo, il sistema sta diventando anche un client MCP e altro.
     \item \small \textbf{Intralino}: \footnotesize \cvtext{sistema self-hosted (Ollama, Qdrant) con RAG on-premise su un corpus tecnico di 3.000 pagine scritte da me, workflow n8n e client MCP full-stack.}{sistema autoalojado (Ollama, Qdrant) con RAG on-premise sobre un corpus técnico de 3.000 páginas escrito por mí, flujos n8n y un cliente MCP full-stack.}{self-hosted system (Ollama, Qdrant) with on-premise RAG over a 3,000-page technical corpus I wrote myself, n8n workflows and a full-stack MCP client.}
 
 \end{itemize}
 
 \smallskip
 
-\cvevent{\normalsize \textbf{\cvtext{Progetti/applicazioni personali}{Proyectos/aplicaciones personales}{Private projects/applications}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/personal/}{\faFolderOpen}}{}{09/2023 – \cvtext{in corso}{en curso}{ongoing}}{}
+\cvevent{\normalsize \textbf{\cvtext{Progetti/applicazioni personali}{Proyectos/aplicaciones personales}{Private projects/applications}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/personal/}{\faFolderOpen}}{}{09/2023 - \cvtext{in corso}{en curso}{ongoing}}{}
 \begin{itemize}
     \item \small \textbf{\textsc{\cvtext{App per pianificare matrimoni}{App de planificación de bodas}{Wedding planner app}}}: \footnotesize \cvtext{App full-stack React/Firebase per la pianificazione di matrimoni; in sviluppo attivo.}{App full-stack React/Firebase para la planificación de bodas; en desarrollo activo.}{Full-stack React/Firebase wedding-planning app; in active development.}
     \item \small \textbf{\textsc{\cvtext{Infrastruttura e self-hosting}{Infraestructura y autoalojamiento}{Infrastructure \& self-hosting}}}: \footnotesize \cvtext{Vaultwarden, Caddy/TLS, DNS dinamico, Oracle Cloud; snapshot/ripristino stato Windows; segmentazione rete home-lab.}{Vaultwarden, Caddy/TLS, DNS dinámico, Oracle Cloud; snapshot/restauración estado Windows; segmentación red home-lab.}{Vaultwarden, Caddy/TLS, dynamic DNS, Oracle Cloud; Windows state snapshot/restore; home-lab network segmentation.}
@@ -432,26 +432,26 @@
 
 % Ridotto a una riga generica con link il 2026-07-14 su richiesta esplicita, stesso trattamento
 % di Progetti aziendali/personali: il contenuto completo e descrittivo (con tutti i link, la
-% versione honesty-corrected di "Dispositivi non lineari" incluso) si e' trasferito su
-% E:\projects\docs\academic\, non e' stato perso, solo spostato fuori dal CV.
-\cvevent{\normalsize \textbf{\cvtext{Progetti accademici}{Proyectos académicos}{Academic projects}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/academic/}{\faFolderOpen}}{}{09/2017 – 02/2021}{}
-% Rimossa la data ripetuta il 2026-07-14: la data c'e' gia' nel campo Date del \cvevent sopra.
+% versione honesty-corrected di "Dispositivi non lineari" incluso) si è trasferito su
+% E:\projects\docs\academic\, non è stato perso, solo spostato fuori dal CV.
+\cvevent{\normalsize \textbf{\cvtext{Progetti accademici}{Proyectos académicos}{Academic projects}}\ \footnotesize - \cvtext{Dettagli}{Detalles}{Details} \href{https://alesop95.github.io/projects/academic/}{\faFolderOpen}}{}{09/2017 - 02/2021}{}
+% Rimossa la data ripetuta il 2026-07-14: la data c'è già nel campo Date del \cvevent sopra.
 % "VST3/embedded" sostituito con "VST3, embedded" il 2026-07-14: lo slash senza spazi non offre
 % un punto di rottura, la riga superava il margine di 11pt in EN dopo la rimozione della data.
-% "universitari e accademici" -> "Sei progetti" il 2026-07-15 (richiesta esplicita: gia' detto
+% "universitari e accademici" -> "Sei progetti" il 2026-07-15 (richiesta esplicita: già detto
 % dal titolo di sezione); aggiunta "statistica" per riempire la riga liberata (copre Channel
-% Estimation, gia' tra i sei progetti, non ancora rappresentato nell'elenco).
+% Estimation, già tra i sei progetti, non ancora rappresentato nell'elenco).
 % "Sei progetti:" tolto il 2026-07-15 su richiesta esplicita: superfluo, il numero non aggiunge
 % informazione utile qui.
 {\small \cvtext{Elaborazione dei segnali, audio engineering, sviluppo VST3, embedded, statistica.}{Procesamiento de señales, ingeniería de audio, desarrollo VST3, embebido, estadística.}{Signal processing, audio engineering, VST3, embedded development, statistics.}\par}
 
 % "Ongoing studies" disattivata: contenuto rimandato dall'utente il 2026-07-06, sezione
 % complessa da trattare in una sessione dedicata (vedi current-work.md). Nascosta con \iffalse
-% invece di essere cancellata, cosi' e' immediata da riattivare quando il contenuto e' pronto:
+% invece di essere cancellata, così è immediata da riattivare quando il contenuto è pronto:
 % basta rimuovere \iffalse e il corrispondente \fi qui sotto.
 % I due \smallskip che stavano prima/dopo questo blocco rimossi il 2026-07-14: con la sezione
 % disattivata producevano un doppio spazio vuoto ingiustificato prima di "Una giornata tipo",
-% che ha gia' il proprio \bigskip da \cvsection.
+% che ha già il proprio \bigskip da \cvsection.
 \iffalse
 \cvsection{Ongoing studies}
 
@@ -498,7 +498,7 @@
 % semplice \textbf inline. Stesso contenuto e stessi link.
 % Ridotto a una riga generica con link il 2026-07-15 (ultimo passo per la pagina singola su
 % EN/ES): il blocco completo, verificato con un test diagnostico, si spostava per intero su
-% pagina 2 in ES indipendentemente da margini/contenuto/penalita' di paragrafo provati (non era
+% pagina 2 in ES indipendentemente da margini/contenuto/penalità di paragrafo provati (non era
 % un problema di conteggio caratteri ma di come questo blocco specifico si comportava in pagina).
 % Contenuto completo, con tutti i link (compresi certificato/recensione/Sue Johnson ripristinati
 % poco prima), trasferito su E:\projects\docs\courses\, stesso trattamento di Progetti
@@ -544,18 +544,18 @@
 
 % Righe "Tesi:" ripristinate il 2026-07-14 (erano state rimosse il 2026-07-13, testo originale
 % recuperato da HEAD via git show, mai committato lo stato senza): con lo spazio guadagnato
-% altrove ora c'e' di nuovo margine per tenerle.
+% altrove ora c'è di nuovo margine per tenerle.
 % Titoli in \normalsize invece del \large predefinito di \cvevent (2026-07-14): a \large questi
 % titoli lunghi vanno a capo nella colonna stretta (es. "Ingegne-ria" spezzato); stesso trattamento
-% gia' usato altrove nel documento (Corsi ed eventi, Progetti principali) per lo stesso motivo.
+% già usato altrove nel documento (Corsi ed eventi, Progetti principali) per lo stesso motivo.
 % "Laurea" tolto davanti a "magistrale"/"triennale" il 2026-07-14 su richiesta esplicita (solo
-% IT: ES/ES gia' senza equivalente ridondante, "Máster en"/"M.Sc. in" restano invariati).
+% IT: ES/ES già senza equivalente ridondante, "Máster en"/"M.Sc. in" restano invariati).
 % Portato a \small (era \normalsize) il 2026-07-15 su richiesta esplicita: stessa dimensione
-% del Master ISTAO sotto, che era gia' a \small e risultava disomogeneo rispetto a questi due.
+% del Master ISTAO sotto, che era già a \small e risultava disomogeneo rispetto a questi due.
 \cvevent{\small\textbf{\cvtext{Magistrale in}{Máster en}{M.Sc. in} \href{https://drive.proton.me/urls/08GSDD51FC\#Sl9ZV3ExCWC-}{\cvtext{Ingegneria delle telecomunicazioni}{Ingeniería de telecomunicaciones}{Telecommunications engineering}}}}{Politecnico di Milano}{09/2017 -- 06/2020}{}
-% Titolo sostituito con icona cartellina il 2026-07-14 (richiesta esplicita): la tesi e' anche
-% il progetto "Sviluppo di un'app per test di ascolto" gia' linkato da Progetti accademici, il
-% titolo per esteso qui era ridondante - stesso link di prima, solo testo del link piu' corto.
+% Titolo sostituito con icona cartellina il 2026-07-14 (richiesta esplicita): la tesi è anche
+% il progetto "Sviluppo di un'app per test di ascolto" già linkato da Progetti accademici, il
+% titolo per esteso qui era ridondante - stesso link di prima, solo testo del link più corto.
 {\scriptsize \cvtext{Tesi}{Tesis}{Thesis}: \href{https://tinyurl.com/Tesi-magistrale}{\faFolderOpen}
 }
 
@@ -568,7 +568,7 @@
 }
 
 % Aggiunto uno \smallskip il 2026-07-15 (richiesta esplicita): mancava del tutto tra la tesi
-% triennale e il Master ISTAO, a differenza dello spazio gia' presente tra magistrale e triennale.
+% triennale e il Master ISTAO, a differenza dello spazio già presente tra magistrale e triennale.
 \smallskip
 
 % Titolo ISTAO ridotto a \small (era \normalsize) il 2026-07-14: "Master part-time in Strategia
@@ -579,9 +579,9 @@
   {04/2023 -- 01/2024} % Date
   {} % Posizione / location (vuoto)
   {\scriptsize
-  % ES accorciato il 2026-07-15 (era il divario piu' grande con EN in tutto il documento, 42
+  % ES accorciato il 2026-07-15 (era il divario più grande con EN in tutto il documento, 42
   % caratteri): "empresarial"/"economico-financiero"/"y gestion de equipos" tagliati, stesso
-  % livello di dettaglio della versione EN (che gia' dice solo "financial KPI analysis").
+  % livello di dettaglio della versione EN (che già dice solo "financial KPI analysis").
   \cvtext{Strategia e pianificazione aziendale, analisi KPI economico-finanziaria, leadership e gestione team, marketing/vendite B2B, negoziazione per l'espansione internazionale, principi Lean.}{Estrategia y planificación, análisis KPI financiero, liderazgo de equipos, marketing/ventas B2B, negociación de expansión internacional, principios Lean.}{Business strategy and planning, financial KPI analysis, team leadership, B2B marketing/sales, negotiation for international expansion, Lean principles.}
   \\
   \smallskip
@@ -599,7 +599,7 @@
   % \hspace{2em} \faCertificate\ \href{https://drive.proton.me/urls/Y0YWKXG708\#-VO43ecQ-A2j}{Certificate of completion}
 }
 
-% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip.
+% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha già il proprio \bigskip.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MOST PROUD OF
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -612,51 +612,51 @@
 % CV a 1 pagina.
 \begin{itemize}
 % Riquadrata come \cvtag (stesso stile pillola delle Soft skills) e resa essa stessa il link,
-% cosi' entra su una sola riga e si legge come elemento cliccabile invece che come testo piano
+% così entra su una sola riga e si legge come elemento cliccabile invece che come testo piano
 % seguito da un'iconcina separata (richiesta del 2026-07-14).
-% Fix 2026-07-14: col badge \cvtag la riga del titolo e' piu' larga di prima, quindi la
-% descrizione dopo i due punti si spezzava a meta' (es. "server," restava in coda alla riga del
-% badge, il resto andava sotto). Forzato un a-capo esplicito dopo i due punti cosi' l'intera
+% Fix 2026-07-14: col badge \cvtag la riga del titolo è più larga di prima, quindi la
+% descrizione dopo i due punti si spezzava a metà (es. "server," restava in coda alla riga del
+% badge, il resto andava sotto). Forzato un a-capo esplicito dopo i due punti così l'intera
 % descrizione riparte da una riga pulita ed entra tutta su una sola riga.
 % Uniformato tutto a \footnotesize il 2026-07-14 (era un misto di \footnotesize/\scriptsize/\tiny
 % tra titoli e descrizioni, "completamente sballato" secondo l'utente). Riquadro su Infrastruttura
-% IT end-to-end lasciato com'e' per il momento.
+% IT end-to-end lasciato com'è per il momento.
 % ":" dopo il badge portato a \footnotesize il 2026-07-15 (richiesta esplicita): stava fuori dal
-% gruppo di \cvtag, quindi ereditava la dimensione ambiente (piu' grande), diverso dagli altri due.
-% Ristrutturato il 2026-07-15 su richiesta esplicita: niente piu' riquadro \cvtag, struttura
+% gruppo di \cvtag, quindi ereditava la dimensione ambiente (più grande), diverso dagli altri due.
+% Ristrutturato il 2026-07-15 su richiesta esplicita: niente più riquadro \cvtag, struttura
 % identica agli altri due (icona, titolo in grassetto, descrizione, icona cartellina cliccabile
 % legata alla fine), niente due punti in nessuno dei tre.
 % Aggiunti "virtualizzazione, cloud" il 2026-07-15 (richiesta esplicita, la riga andava comunque
-% a capo quindi tanto vale riempirla): stessi elementi gia' citati nel bullet Intrawelt sopra.
+% a capo quindi tanto vale riempirla): stessi elementi già citati nel bullet Intrawelt sopra.
 \item \decoicon{\faNetworkWired}\ \footnotesize\textbf{\cvtext{Infrastruttura IT end-to-end}{Infraestructura IT end-to-end}{IT Infrastructure end-to-end}} \cvtext{server, rete, storage, virtualizzazione, cloud, backup, disaster~recovery.}{servidores, red, almacenamiento, virtualización, cloud, backup, recuperación.}{servers, network, storage, virtualization, cloud, backup, disaster~recovery.}~\href{https://alesop95.github.io/projects/company/network-infrastructure-documentation/}{\decoicon{\faFolderOpen}}
 % Titoli uniformati a \footnotesize il 2026-07-14 (stessa dimensione del badge sopra, che usa
-% \footnotesize dentro \cvtag): prima erano a dimensione predefinita, piu' grandi e disomogenei.
-% Descrizioni portate a \footnotesize (erano \scriptsize) per uniformita' col titolo. Icona finale
+% \footnotesize dentro \cvtag): prima erano a dimensione predefinita, più grandi e disomogenei.
+% Descrizioni portate a \footnotesize (erano \scriptsize) per uniformità col titolo. Icona finale
 % legata con "~" all'ultima parola: prima poteva andare a capo isolata su una riga propria.
 \item \decoicon{\faChild}\ \footnotesize\textbf{\cvtext{Le mie prime 100 parole}{Le mie prime 100 parole}{Le mie prime 100 parole}} \cvtext{ciclo di vita completo del prodotto, dal concept al~lancio.}{ciclo de vida del producto, del concepto al~lanzamiento.}{complete product lifecycle, from concept to~launch.}~\href{https://tinyurl.com/hundredwords}{\decoicon{\faFolderOpen}}
 \item \decoicon{\faVolumeUp}\ \footnotesize\textbf{Hertz HTX 8 M-CL-W / -C} \cvtext{sviluppo end-to-end dei diffusori a~colonna.}{desarrollo end-to-end de los altavoces de~columna.}{end-to-end clamp tower speaker~development.}~\href{https://www.rgsound.it/stampa/p-id-45507.html}{\decoicon{\faFolderOpen}}
 \end{itemize}
 
-% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip, stesso
-% pattern gia' diagnosticato piu' volte in questo documento (Interessi, Soft skills, ecc.).
+% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha già il proprio \bigskip, stesso
+% pattern già diagnosticato più volte in questo documento (Interessi, Soft skills, ecc.).
 \cvsection{\cvtext{Lingue}{Idiomas}{Languages}}
 % Nomi lingua uniformati a \small maiuscolo il 2026-07-14 (erano \large/\normalsize disomogenei):
-% risparmio verticale e uniformita' con lo stile MakeUppercase gia' usato per i titoli di sezione.
+% risparmio verticale e uniformità con lo stile MakeUppercase già usato per i titoli di sezione.
 \noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Italiano}{Italiano}{Italian}}}}\hfill\footnotesize\textit{\cvtext{Madrelingua}{Lengua materna}{Native speaker}}\par
 \smallskip
 \noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Inglese}{Inglés}{English}}}}\hfill\footnotesize\textit{B2 \cvtext{(autovalutato)}{(autoevaluado)}{(self-assessed)}}\par
 \smallskip
 \noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Spagnolo}{Español}{Spanish}}}}\hfill\footnotesize\textit{A1 \cvtext{(autovalutato}{(autoevaluado}{(self-assessed}, \href{https://drive.google.com/drive/u/1/folders/12BgdsaPS-rXPPI41lwpU4a3ZHbshTCNi}{\cvtext{studio in corso}{estudio en curso}{ongoing study}})}\par
 
-% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha gia' il proprio \bigskip.
+% \smallskip esplicito rimosso il 2026-07-14: \cvsection ha già il proprio \bigskip.
 \cvsection{\cvtext{Interessi}{Intereses}{Interests}}
 
-% Spaziatura tra le voci compattata il 2026-07-06: \cvachievement include gia' un \smallskip
+% Spaziatura tra le voci compattata il 2026-07-06: \cvachievement include già un \smallskip
 % interno alla propria definizione (vedi altacv.cls), quindi lo \smallskip esplicito che stava
 % qui tra un'achievement e l'altra raddoppiava lo spazio (equivalente a un \medskip). Rimosso,
 % affidandosi solo allo spazio interno della macro.
 % Convertito da 16 \cvachievement (ognuno una tabella a due righe + \smallskip proprio) a un
-% unico elenco denso, stesso trattamento gia' usato in "Corsi ed eventi": risparmio verticale
+% unico elenco denso, stesso trattamento già usato in "Corsi ed eventi": risparmio verticale
 % sostanziale per l'obiettivo CV a 1 pagina (2026-07-09). Testo integrale precedente archiviato
 % in _notes/cv-content-archive-2026-07-09.md.
 % Descrizioni rimosse il 2026-07-13 (obiettivo CV a 1 pagina, "senza perdita di informazioni"):
@@ -665,23 +665,23 @@
 % Da itemize (un interesse per riga) a elenco discorsivo in linea il 2026-07-14: stesso
 % contenuto (icona+titolo+bloglink per voce), ma le voci scorrono nel paragrafo separate da
 % virgola invece di occupare ciascuna una riga propria, risparmio verticale sostanziale.
-% Legatura "~" (spazio non interrompibile) solo tra icona e titolo, cosi' il paragrafo resta
+% Legatura "~" (spazio non interrompibile) solo tra icona e titolo, così il paragrafo resta
 % libero di andare a capo altrove (fix 2026-07-14: un \mbox per voce intera creava overfull
-% hbox fino a 63pt perche' impediva ogni a-capo interno).
-% Iconcina a cartella ripetuta dopo ogni nome rimossa il 2026-07-14: il titolo stesso e' ora il
+% hbox fino a 63pt perché impediva ogni a-capo interno).
+% Iconcina a cartella ripetuta dopo ogni nome rimossa il 2026-07-14: il titolo stesso è ora il
 % link (colore accent = cliccabile, stessa convenzione di tutti gli altri link del documento via
-% \hypersetup{colorlinks=true,allcolors=accent}), tramite \bloglinkwrap. I due elementi che gia'
+% \hypersetup{colorlinks=true,allcolors=accent}), tramite \bloglinkwrap. I due elementi che già
 % linkano un file esterno (Stampa 3D, Bisogni Educativi Speciali) mantengono quel link e perdono
-% solo il rimando secondario al tag del blog, dato che un titolo puo' avere un solo target.
+% solo il rimando secondario al tag del blog, dato che un titolo può avere un solo target.
 % \LaTeXraggedright (vero \raggedright del kernel, catturato da ragged2e prima che main.tex lo
-% ridefinisca come \justifying - stesso trucco gia' usato per le Soft skills): necessario perche'
+% ridefinisca come \justifying - stesso trucco già usato per le Soft skills): necessario perché
 % i titoli sono ora atomici (href non spezzabile internamente) e in un paragrafo giustificato
 % l'algoritmo di spaziatura andava in overfull fino a 23pt non trovando abbastanza punti di rottura.
 {\LaTeXraggedright
 \noindent
 % Link cambiato da bloglink (tag blog "musica") a link diretto alla pagina progetto harmony-book
-% il 2026-07-15: e' il progetto reale a cui questo interesse fa riferimento (repository pubblica
-% del sistema di scrittura del libro), stesso trattamento gia' usato per Stampa 3D e Bisogni
+% il 2026-07-15: è il progetto reale a cui questo interesse fa riferimento (repository pubblica
+% del sistema di scrittura del libro), stesso trattamento già usato per Stampa 3D e Bisogni
 % Educativi Speciali (titolo -> risorsa primaria, si perde solo il rimando secondario al blog).
 \decoicon{\faGuitar}~\textbf{\href{https://alesop95.github.io/projects/personal/harmony-book/}{\cvtext{Chitarra e teoria armonica}{Guitarra y teoría armónica}{Guitar \& harmony theory}}}, %
 \decoicon{\faHeadphones}~\bloglinkwrap{audiofilia}{audiophile}{\textbf{\cvtext{Audiofilia}{Audiofilia}{Audiophile}}}, %
@@ -709,15 +709,15 @@
 \end{itemize}
 
 % \smallskip esplicito rimosso il 2026-07-14 (obiettivo CV a 1 pagina): \cvsection inserisce
-% gia' un \bigskip prima del titolo (altacv.cls riga 305), quindi era spazio raddoppiato,
-% stesso pattern gia' diagnosticato per Interessi/cvachievement (vedi commento riga 549).
+% già un \bigskip prima del titolo (altacv.cls riga 305), quindi era spazio raddoppiato,
+% stesso pattern già diagnosticato per Interessi/cvachievement (vedi commento riga 549).
 
 % Elenco tag ridotto da 17 a un sottoinsieme rappresentativo il 2026-07-14: l'elenco completo,
 % raggruppato per tema e motivato con esperienza reale (non solo etichette), vive ora nella nuova
-% sezione /soft/ di skills-repo, stesso trattamento gia' usato per "Dettagli completi" di Intrawelt.
+% sezione /soft/ di skills-repo, stesso trattamento già usato per "Dettagli completi" di Intrawelt.
 % Titolo "Soft skills" -> "Skills" il 2026-07-15 (richiesta esplicita): il link "Dettagli
 % completi" ora punta alla home di skills-repo, che indicizza sia le competenze tecniche che
-% quelle soft, quindi il titolo di sezione non deve piu' promettere solo "soft". Le tag qui
+% quelle soft, quindi il titolo di sezione non deve più promettere solo "soft". Le tag qui
 % restano lo stesso sottoinsieme di prima, invariato.
 \cvsection{\cvtext{Skills}{Skills}{Skills}}
 
