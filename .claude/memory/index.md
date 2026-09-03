@@ -21,14 +21,14 @@ Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un co
 | index.md (questo file) | c994a08 | riscritto il 2026-08-27, aggiornato dopo la seconda passata |
 | decisions.md | c994a08 | due note di precisazione ad ADR-001 e ADR-003, più ADR-007 sul layer testuale |
 | progress.md | c994a08 | verificata, tre voci nuove in testa |
-| STACK.md | c994a08 | riscritta, poi estesa con i tre strumenti di normalizzazione |
-| deployment.md | c994a08 | verificata, aggiunta la sezione su `check-skill-links` |
-| dev-testing.md | c994a08 | verificata, controlli documentali, strumenti di normalizzazione, vincolo a una pagina |
+| STACK.md | 1ac5d00 | estesa con `extract-cv-links.py` e `check-links.*` |
+| deployment.md | 1ac5d00 | sezione di verifica dei link riscritta su `check-links`, tutte le categorie |
+| dev-testing.md | 1ac5d00 | aggiunto `extract-cv-links --check` ai controlli documentali pre-commit |
 | altacv-reference.md | c994a08 | aggiunte le macro locali di collegamento, l'esito a una pagina e il layer testuale |
 | current-work.md | c994a08 | riallineata: sezione di stato in testa, il resto marcato come cronologia |
-| roadmap.md | c994a08 | corrette Fase 2 e Fase 5, aggiornate Fase 3 (Proton avviata) e Fase 6 (layer testuale) |
-| external-links.md | c994a08 | tracciata e riancorata: inventario dei 54 link e tabella della migrazione Proton |
-| external-dependencies.md | c994a08 | tracciata e riancorata: dipendenze verso skills-repo, projects, blog e Drive |
+| roadmap.md | 1ac5d00 | Fase 3 riscritta sul perimetro vero e sui link Drive non raggiungibili, Fase 4 sul checker generalizzato |
+| external-links.md | 1ac5d00 | riscritta: 52 bersagli e 65 URL generati da `extract-cv-links`, secondo salto, migrazione in tre insiemi |
+| external-dependencies.md | 1ac5d00 | grafo generato al posto di quello scritto a mano, verifiche per dipendenza riscritte |
 
 ## Punto di ripresa
 
@@ -38,8 +38,8 @@ Fasi della roadmap, con il dettaglio completo in `roadmap.md`.
 
 - Fase 1 (bootstrap tecnico): completata il 2026-07-06.
 - Fase 2 (contenuti pendenti): quasi chiusa. Restano fuori "Ongoing studies", ancora disattivata con `\iffalse` e `\fi` e piena di segnaposto `aaaaaaa`, e i frammenti Coaching (Onova S.p.A. e Intracademy), rimandati per mancanza di esperienza reale da raccontare. La sezione Consultant è invece esclusa in via definitiva per motivi fiscali, non rimandata.
-- Fase 3 (migrazione allegati a Proton Drive): avviata e versionata con `7ea1955`. Tre link su dieci sono migrati, tutti di categoria `Certifications`. Restano sette link, due dei quali si migrano aggiornando il redirect tinyurl invece del sorgente. Inventario riga per riga e procedura in `context/external-links.md`.
-- Fase 4 (allineamento skill a skills-repo): in gran parte completata il 2026-07-06, con `scripts/check-skill-links.ps1` e `.sh` a verifica automatica dei link.
+- Fase 3 (migrazione allegati a Proton Drive): avviata e versionata con `7ea1955`, perimetro corretto il 2026-09-03. Tre file sono migrati, tutti di categoria `Certifications`; il residuo è di quattordici asset Drive in tre insiemi disgiunti, cioè tre link in `main.tex`, due target di redirect tinyurl e nove file nelle pagine del repository `projects`. Fatto nuovo che cambia la priorità della fase: nessuno dei tre link Drive citati dal CV è apribile da un lettore anonimo, due rispondono 404 e uno richiede autenticazione. Inventario riga per riga e procedura in `context/external-links.md`.
+- Fase 4 (allineamento skill a skills-repo): in gran parte completata il 2026-07-06. La verifica automatica dei link, nata come `check-skill-links` sui soli cinque link di `skills-repo`, è stata generalizzata il 2026-09-03 in `scripts/check-links.ps1` e `.sh` su tutte le categorie, con seguito dei redirect.
 - Fase 5 (multilingua): completata. Traduzione integrale il 2026-07-07, bug di `\ifdefstring` non edef-safe diagnosticato e corretto con `\ifx`, verificata con build reali nelle tre lingue. Deliberatamente non fatta la revisione madrelingua dello spagnolo: resta un rischio da sciogliere prima di un uso professionale reale di quella versione.
 - Fase 6 (ATS-safety del layout): rimandata a data da destinarsi per quel che riguarda l'ordine di lettura delle colonne. Il problema distinto del layer testuale del PDF è invece risolto e versionato con `7ea1955`, con `\decoicon` e le etichette esplicite di `\printinfo`: motivazione in ADR-007, dettagli tecnici in `context/altacv-reference.md`.
 

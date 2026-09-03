@@ -46,13 +46,25 @@ powershell -ExecutionPolicy Bypass -File scripts\build-multilang.ps1
 
 Scopo diverso dal build standard sopra: produce PDF datati (`cv-sopranzi-alessio-<lingua>-<data>.pdf`) in `dated-builds/<lingua>/`, un archivio locale **non versionato** (`dated-builds/` è in `.gitignore`, ADR-005), utile per conservare uno storico di cosa è stato inviato e quando. Non sostituisce `scripts/build.ps1`: quello resta l'unico comando da lanciare prima di un commit.
 
-## Verifica dei link a skills-repo prima di una build definitiva
+## Verifica dei link prima di una build definitiva
 
-I bullet di "Work experience" linkano le Capability page di `alesop95.github.io/skills/`, una tassonomia che continua ad aggiornarsi e che può rinominare o rimuovere pagine: i link sono quindi fragili per costruzione. Il controllo è `scripts/check-skill-links.ps1` (o `.sh`), che estrae ogni URL `alesop95.github.io/skills/...` da `main.tex` e verifica con una richiesta HTTP HEAD che risponda 2xx, uscendo con codice diverso da zero sui link rotti.
+Il CV cita 52 bersagli esterni e quasi tutti possono rompersi senza che il sorgente cambi: le Capability page di `alesop95.github.io/skills/` appartengono a una tassonomia che continua ad aggiornarsi e che può rinominare o rimuovere pagine, i documenti di archivio possono perdere la condivisione pubblica, i redirect possono puntare a una destinazione sbagliata. Fino al 2026-09-03 il controllo automatico copriva 5 di quei 52 bersagli; ora li copre tutti, raggruppati per categoria, con `scripts/check-links.ps1` e il gemello `.sh`.
 
 ```
-powershell -ExecutionPolicy Bypass -File scripts\check-skill-links.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-links.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-links.ps1 -Category skills,projects
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts\check-links.ps1 -Category tinyurl -ShowFinalUrl
 ```
+
+```bash
+bash scripts/check-links.sh
+bash scripts/check-links.sh --category skills,projects
+bash scripts/check-links.sh --category tinyurl --show-final-url
+```
+
+L'elenco dei link non viene ricavato da una regex propria dello script ma dalla proiezione tabellare di `tools/extract-cv-links.py`, la stessa fonte che genera l'inventario e il grafo delle dipendenze: esiste una sola definizione di cosa sia un link del CV, e aggiungerne uno nel sorgente lo mette automaticamente sotto controllo.
+
+Tre comportamenti da conoscere per leggere il rapporto. I redirect vengono seguiti un salto alla volta e la destinazione finale viene riportata, che è il modo per sapere senza aprire un browser dove atterrano davvero i dieci link `tinyurl`. Un fallimento a livello di rete, stampato come `WARN` e con codice di uscita 2, non è la stessa cosa di un errore HTTP, stampato come `FAIL` e con codice di uscita 1: il primo può dipendere dal resolver locale, come verificato il 2026-09-03 su `intrawelt.com`, che il DNS del router non risolveva mentre i resolver pubblici restituivano regolarmente il suo indirizzo. Un 2xx su una topic page del blog, infine, dice che la pagina esiste e non che il suo contenuto sia pertinente.
 
 Non fa parte della build: `scripts/build.ps1` non lo invoca. Va eseguito a mano prima di ogni build che produce un PDF destinato a essere inviato o pubblicato, e periodicamente anche senza modifiche al CV, perché a rompersi è la destinazione remota, non il sorgente locale.
 

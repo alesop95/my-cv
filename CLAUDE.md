@@ -57,8 +57,10 @@ scripts/build.ps1              compila i tre PDF stabili EN/IT/ES, sempre insiem
 scripts/build.sh               compila i tre PDF stabili EN/IT/ES, sempre insieme (Unix/macOS)
 scripts/setup-tex.ps1          installa TinyTeX e i pacchetti (Windows)
 scripts/setup-tex.sh           installa TinyTeX e i pacchetti (Unix/macOS)
-scripts/check-skill-links.ps1  verifica i link a skills-repo citati nel .tex (Windows)
-scripts/check-skill-links.sh   verifica i link a skills-repo citati nel .tex (Unix/macOS)
+scripts/check-links.ps1        verifica HTTP di tutti i link del CV, per categoria (Windows)
+scripts/check-links.sh         verifica HTTP di tutti i link del CV, per categoria (Unix/macOS)
+scripts/check-skill-links.ps1  involucro storico su check-links -Category skills (Windows)
+scripts/check-skill-links.sh   involucro storico su check-links --category skills (Unix/macOS)
 scripts/build-multilang.ps1    compila i tre PDF datati EN/IT/ES (Windows)
 scripts/build-multilang.sh     compila i tre PDF datati EN/IT/ES (Unix/macOS)
 .latexmkrc                     configurazione latexmk, non piu' usata dalla build (vedi STACK.md)
@@ -68,6 +70,7 @@ tex-packages.txt               manifesto dei pacchetti tlmgr (fonte riproducibil
 Strumenti di verifica e normalizzazione, sotto `tools/`.
 
 ```
+tools/extract-cv-links.py     estrae inventario e grafo dei link dal sorgente, rigenera le schede
 tools/md-unwrap.py            applica e verifica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py     linter dei comandi di shell nei blocchi Markdown
 tools/fix-accents.py          converte gli accenti scritti con l'apostrofo in accenti veri

@@ -38,14 +38,17 @@ Prima di inviare il PDF a un recruiter o di pubblicarlo:
 
 ## Controlli documentali prima di un commit
 
-La verifica non riguarda solo il PDF. Le schede di contesto, le regole e le skill di questo repository seguono due convenzioni vincolanti che hanno uno strumento di controllo ciascuna, ed entrambi vanno eseguiti prima di un commit che tocca file `.md`.
+La verifica non riguarda solo il PDF. Le schede di contesto, le regole e le skill di questo repository seguono convenzioni vincolanti che hanno uno strumento di controllo ciascuna, e vanno eseguiti tutti prima di un commit che tocca file `.md` o i link del CV.
 
 ```
 python tools/md-unwrap.py --check .
 python tools/lint-md-commands.py
+python tools/extract-cv-links.py --check
 ```
 
 Il primo applica la convenzione di `interaction-style.md`, cioè un paragrafo di prosa su una riga sorgente unica, ed esce con codice diverso da zero se qualche file non la rispetta. Il secondo applica `git-commands-format.md` percorrendo i blocchi di shell dei file Markdown e segnalando continuazioni di riga, heredoc e comandi git che proseguono sulla riga seguente: serve proprio perché md-unwrap per contratto non tocca il contenuto dei blocchi recintati, quindi un comando spezzato dentro un blocco di codice non lo corregge nessun altro.
+
+Il terzo, aggiunto il 2026-09-03 con ADR-008, verifica che le regioni generate di `external-links.md` ed `external-dependencies.md` corrispondano ancora al sorgente: l'inventario dei link e il grafo delle dipendenze sono artefatti derivati da `main.tex`, quindi una modifica ai link del CV li rende obsoleti in silenzio. Quando segnala deriva, la correzione non è modificare le schede a mano ma rigenerarle con `python tools/extract-cv-links.py --write`. Come i due precedenti segnala e non modifica, quindi si può eseguire senza conseguenze in qualunque momento.
 
 A questi controlli si affiancano tre strumenti di normalizzazione tipografica, che modificano i file invece di limitarsi a segnalare e vanno quindi lanciati deliberatamente, non a ogni commit. `tools/fix-accents.py` converte gli accenti scritti con l'apostrofo in accenti veri, scegliendo fra grave e acuto secondo grammatica e risparmiando gli apostrofi che accenti non sono, come in "un po'". `tools/fix-missing-accents.py` ripristina gli accenti dove mancano del tutto, ma solo sulle forme in cui la parola senza accento non esiste, perché sul caso generale nessuno strumento può decidere. `tools/fix-dashes.py` normalizza in trattino breve i cinque segni che a video somigliano a un trattino, come prescrive `interaction-style.md`, saltando i percorsi elencati in `tools/dashes-exclude.txt`.
 

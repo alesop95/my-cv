@@ -1,18 +1,24 @@
 #requires -Version 5.1
 <#
 .SYNOPSIS
-  Verifica che i link a skills-repo citati nel .tex principale siano ancora raggiungibili.
+  Involucro storico: verifica i soli link a skills-repo invocando scripts/check-links.ps1.
 .DESCRIPTION
-  Sezione "Fase 4" di .claude/context/roadmap.md: la tassonomia di skills-repo
-  (alesop95.github.io/skills/) non è congelata, le pagine Capability possono essere
-  rinominate, spostate o rimosse. Questo script estrae ogni URL
-  https://alesop95.github.io/skills/... citato nel file .tex e verifica con una richiesta
-  HTTP HEAD che risponda 2xx. Da eseguire prima di ogni build definitiva del CV, o
-  periodicamente, non fa parte della build stessa.
+  Fino al 2026-09-03 questo script conteneva una propria estrazione a regex dei soli URL
+  https://alesop95.github.io/skills/... citati nel .tex, e verificava 5 link su 52 bersagli del
+  CV. Quella logica è stata generalizzata in scripts/check-links.ps1, che prende l'elenco dei
+  link dal JSON di tools/extract-cv-links.py e copre tutte le categorie.
+
+  Il nome resta perché è citato per nome in .claude/context/deployment.md, nella Fase 4 di
+  .claude/context/roadmap.md e nel registro delle decisioni: un rinvio esplicito costa meno di
+  una caccia ai riferimenti, e mantiene valida la documentazione storica.
+
+  Per verificare tutto il CV, non solo skills-repo, usare direttamente:
+    powershell -NoProfile -File scripts/check-links.ps1
 .PARAMETER Main
-  File .tex da analizzare. Se omesso e nella radice c'è un solo .tex, usa quello.
+  Accettato e ignorato: l'elenco dei link non viene più ricavato da un file .tex passato a mano
+  ma dall'estrattore, che conosce main.tex, altacv.cls e i template delle macro di collegamento.
 .EXAMPLE
-  pwsh scripts/check-skill-links.ps1
+  powershell -NoProfile -File scripts/check-skill-links.ps1
 #>
 [CmdletBinding()]
 param(
@@ -20,49 +26,12 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
-$ScriptDir   = Split-Path -Parent $MyInvocation.MyCommand.Path
-$ProjectRoot = Split-Path -Parent $ScriptDir
+$ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
-if (-not $Main) {
-    $texFiles = Get-ChildItem -Path $ProjectRoot -Filter '*.tex' -File
-    if ($texFiles.Count -eq 1) { $Main = $texFiles[0].FullName }
-    elseif ($texFiles.Count -eq 0) { throw "[check-skill-links] Nessun .tex nella radice: specifica -Main." }
-    else { throw "[check-skill-links] Più .tex nella radice: specifica -Main <file.tex>." }
-} elseif (-not (Test-Path $Main)) {
-    $Main = Join-Path $ProjectRoot $Main
+if ($Main) {
+    Write-Host "[check-skill-links] Il parametro -Main non ha più effetto: l'elenco dei link arriva da tools/extract-cv-links.py."
 }
 
-$content = Get-Content -Raw -LiteralPath $Main
-$pattern = 'https://alesop95\.github\.io/skills/[A-Za-z0-9\-/]+/'
-$urls = [regex]::Matches($content, $pattern) | ForEach-Object { $_.Value } | Sort-Object -Unique
-
-if ($urls.Count -eq 0) {
-    Write-Host "[check-skill-links] Nessun link a skills-repo trovato in $Main."
-    exit 0
-}
-
-Write-Host "[check-skill-links] Verifico $($urls.Count) link a skills-repo citati in $Main ..."
-$broken = @()
-foreach ($url in $urls) {
-    try {
-        $response = Invoke-WebRequest -Uri $url -Method Head -UseBasicParsing -TimeoutSec 15
-        if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 300) {
-            Write-Host "  OK    $url"
-        } else {
-            Write-Host "  WARN  $url (status $($response.StatusCode))"
-            $broken += $url
-        }
-    } catch {
-        Write-Host "  FAIL  $url ($($_.Exception.Message))"
-        $broken += $url
-    }
-}
-
-Write-Host ""
-if ($broken.Count -gt 0) {
-    Write-Host "[check-skill-links] $($broken.Count) di $($urls.Count) link non raggiungibili:"
-    $broken | ForEach-Object { Write-Host "  - $_" }
-    exit 1
-}
-
-Write-Host "[check-skill-links] Tutti i $($urls.Count) link sono raggiungibili."
+Write-Host "[check-skill-links] Involucro su check-links.ps1 -Category skills."
+& (Join-Path $ScriptDir 'check-links.ps1') -Category 'skills'
+exit $LASTEXITCODE

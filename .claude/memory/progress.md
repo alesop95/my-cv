@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-09-03 - Inventario e grafo dei link resi derivati, checker esteso a tutte le categorie
+
+Richiesta: l'elenco completo dei link del CV e un grafo delle dipendenze verso gli altri progetti, in una forma che si aggiorni a ogni giro, poi gli aggiornamenti conseguenti. Perimetro scelto dall'utente: `main.tex` più le pagine di dettaglio del repository `projects` a cui il CV delega quattro sezioni.
+
+Misura del perimetro reale, che ha corretto quasi tutti i conteggi in circolazione: 52 bersagli unici e 65 stringhe URL distinte, dove le due colonne differiscono perché i tredici tag del blog esistono in variante italiana e inglese. Per categoria: 5 contatti, 6 link a `skills-repo`, 7 pagine di `projects`, 13 tag del blog più la home, 3 link Proton, 3 link Google Drive, 10 redirect tinyurl, 4 siti di terze parti. Il secondo salto porta 17 bersagli non-GitHub nelle pagine di `projects` più 31 repository GitHub distinti generati da `update_personal_projects.py`, aggregati in un nodo solo perché non sono manutenzione manuale del CV.
+
+Nuovo strumento `tools/extract-cv-links.py`, motivato in ADR-008: legge il sorgente e genera le tabelle dell'inventario e il blocco Mermaid del grafo dentro regioni marcate delle due schede, con `--check` non distruttivo provato prima in fallimento e poi in successo. `scripts/check-links.ps1` e `.sh` generalizzano `check-skill-links`, che verificava 5 bersagli su 52, e seguono i redirect riportando la destinazione finale; i due script storici restano come involucro sulla categoria `skills`.
+
+Scoperta operativa più rilevante della sessione, e non prevista dal piano: nessuno dei tre link Google Drive citati da `main.tex` è apribile da un lettore anonimo del CV. Le cartelle Stampa 3D e Bisogni Educativi Speciali e il materiale di studio dello spagnolo rispondono rispettivamente 404, reindirizzamento alla pagina di accesso di Google e 404; quest'ultimo porta anche un prefisso `/u/1/` che lega la URL all'account con indice 1 di chi l'ha generata, quindi non è mai stato condivisibile. Verificato con `check-links` e riverificato con `curl` in GET per escludere un rifiuto del metodo HEAD. Il seguito dei redirect ha inoltre risolto per la prima volta i due target di tesi, `1IsA_k4n3kN-aN7k15qZ6RbwHvVzBFUJ4` per la magistrale e `1ImfQH5jVxXkvgVd8DHWF8VRAkjjDgSpa` per la triennale, entrambi non pubblici. La Fase 3 della roadmap cambia priorità di conseguenza: non è più igiene documentale ma riparazione di link che oggi non funzionano.
+
+Falso allarme evitato e registrato: `check-links` segnalava `intrawelt.com` come non raggiungibile, ma l'apex risolve regolarmente a 195.96.193.35 via 8.8.8.8 e 1.1.1.1, mentre il resolver del router locale non restituisce l'indirizzo. Da qui la separazione fra `WARN` con codice di uscita 2 per i fallimenti di rete e `FAIL` con codice 1 per gli errori HTTP.
+
+Due difetti trovati negli strumenti esistenti mentre li si usava. `tools/fix-missing-accents.py` trasforma la sequenza `c'e'` in `c'è'`, lasciando orfano l'apostrofo che era il segnaposto dell'accento: tre occorrenze corrette a mano in questa sessione, lo strumento non è stato modificato. `converti_python` di `fix-accents.py` non tocca le stringhe letterali ma solo commenti e docstring, il che è difendibile per un file di codice ma va conosciuto quando quelle stringhe finiscono come prosa in un file Markdown generato, altrimenti la convenzione tipografica e il rigenero dell'artefatto si contendono lo stesso file.
+
+Corretto anche un bug nel nuovo strumento durante il test di deriva: `os.path.relpath` solleva `ValueError` fra unità diverse su Windows, quindi passare un sorgente fuori da `E:` faceva terminare lo script con un'eccezione invece di lavorare.
+
+Resta fuori: la migrazione Proton dei tre link e la riconfigurazione dei due redirect, entrambe bloccate su azione manuale dell'utente. Resta non risolto, come già registrato il 2026-08-27, il fallimento di `md-unwrap --check` su `CLAUDE.md` e su tre file di `_notes/`, violazioni preesistenti e non introdotte qui.
+
+---
+
 ## 2026-08-27 - Seconda passata di sync: schede riancorate a c994a08
 
 Eseguita subito dopo i tre commit `05a035f`, `7ea1955` e `c994a08`, che hanno versionato il working tree accumulato dopo `828275c`. Tutte e otto le schede di `.claude/context/` sono ora ancorate a `c994a08`, comprese `external-links.md` ed `external-dependencies.md`, che nella prima passata erano rimaste ad `aa8284d` perché non ancora tracciate da git.

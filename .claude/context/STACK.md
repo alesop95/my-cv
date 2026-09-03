@@ -36,8 +36,10 @@ attachments/                 materiali privati, ignorati da git (ADR-003): conti
 tex-packages.txt             manifesto dei pacchetti tlmgr
 scripts/build.ps1 / .sh      compila insieme i tre PDF stabili EN/IT/ES (ADR-006)
 scripts/build-multilang.*    archivio datato in dated-builds/, non versionato (ADR-005)
-scripts/check-skill-links.*  verifica HTTP dei link a skills-repo citati nel .tex
+scripts/check-links.*        verifica HTTP di tutti i link del CV, per categoria
+scripts/check-skill-links.*  involucro storico sulla sola categoria skills
 scripts/setup-tex.*          installa TinyTeX e i pacchetti di tex-packages.txt
+tools/extract-cv-links.py    estrae inventario e grafo dei link, rigenera le regioni delle schede
 tools/md-unwrap.py           applica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py    linter dei comandi di shell nei blocchi Markdown
 tools/fix-accents.py         converte gli accenti scritti con l'apostrofo in accenti veri
