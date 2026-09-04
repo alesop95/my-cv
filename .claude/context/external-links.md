@@ -232,6 +232,20 @@ Le due voci degli Interessi erano le uniche due eccezioni alla convenzione gener
 
 Nota sulle topic page del blog, che smentisce un allarme che sembrava fondato. Dodici dei quindici tag citati dal CV non hanno alcun post che li porti, verificato sul frontmatter dei tredici post esistenti e non sullo stato HTTP. Non è un difetto: `src/config/topics.ts` del repository del blog definisce un *topic* come area di interesse curata che riceve una descrizione editoriale sulla propria pagina anche prima che esista un articolo, per decisione registrata come ADR-018 in quel repository. Le pagine rendono quell'abstract, verificato su tutte e quattro le nuove.
 
+## Verifica end-to-end dei link Proton
+
+Un link condiviso di Proton non si verifica con una richiesta HTTP, e il motivo è strutturale: il percorso `/urls/<id>` appartiene a una single-page application che risponde 200 a qualunque identificativo, verificato passando l'identificativo inventato `ZZZZZZZZZZ`, e la chiave di decifratura dopo il `#` non viene mai inviata al server. L'unica verifica reale è aprire il link in una finestra di navigazione privata, senza essere autenticati a Proton, e controllare che compaia il documento giusto. `check-links -Category proton` controlla quindi solo la forma della URL e ne riporta la lunghezza della chiave, che è l'unico indizio automatico di un troncamento.
+
+| Link | Documento | Verifica end-to-end |
+|---|---|---|
+| `drive.proton.me/urls/6FBQ5M2JG0` | Tesi magistrale | fatta il 2026-09-04, apre |
+| `drive.proton.me/urls/1YR8GEJF4M` | Tesi triennale | fatta il 2026-09-04, apre |
+| `drive.proton.me/urls/Y0YWKXG708` | Certificato Percorso formativo 24 CFU | mai fatta |
+| `drive.proton.me/urls/08GSDD51FC` | Supplemento al diploma magistrale | mai fatta |
+| `drive.proton.me/urls/W1H29CBYHM` | Attestato Master ISTAO | mai fatta |
+
+I tre link migrati il 2026-07-15 non sono mai stati verificati end-to-end: all'epoca la conferma si è basata su uno stato HTTP 2xx, che per un link Proton non prova niente, e il difetto è stato scoperto solo il 2026-09-04. Vanno aperti in finestra privata prima di considerare chiusa la migrazione e prima di cancellare qualunque originale da Google Drive, come chiede il memo di questa scheda. La loro forma è corretta e le chiavi sono di dodici caratteri, quindi non c'è motivo di sospettare un troncamento: semplicemente non è stato verificato che aprano il documento atteso.
+
 ## Raggiungibilità verificata il 2026-09-03
 
 Prima verifica automatica estesa a tutte le categorie, eseguita con `scripts/check-links.ps1` e riverificata con `curl` in GET sui casi negativi, per escludere che un errore fosse il rifiuto del metodo HEAD invece di una risposta reale. Esito per categoria: raggiungibili tutti e 5 i contatti HTTP, i 6 link a `skills-repo`, le 7 pagine di `projects`, le 27 URL del blog e i 3 link Proton; raggiungibili anche tutti e 10 i redirect tinyurl, nel senso che il redirect funziona.
