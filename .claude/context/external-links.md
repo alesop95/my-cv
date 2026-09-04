@@ -43,9 +43,9 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 | skills-repo | 6 | 6 |
 | projects | 8 | 8 |
 | blog | 16 | 31 |
-| Proton Drive | 3 | 3 |
+| Proton Drive | 5 | 5 |
 | Google Drive | 0 | 0 |
-| Redirect tinyurl | 10 | 10 |
+| Redirect tinyurl | 8 | 8 |
 | Siti di terze parti | 4 | 4 |
 | **Totale** | **52** | **67** |
 
@@ -63,7 +63,7 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 
 | URL | Riga | Sezione del CV | Nota |
 |---|---|---|---|
-| `https://alesop95.github.io/skills/` | 324, 747 | Esperienza lavorativa, Skills |  |
+| `https://alesop95.github.io/skills/` | 324, 753 | Esperienza lavorativa, Skills |  |
 | `https://alesop95.github.io/skills/technical/infrastructure/infrastructure-virtualization/` | 320 | Esperienza lavorativa |  |
 | `https://alesop95.github.io/skills/technical/management/leadership-management/` | 321 | Esperienza lavorativa |  |
 | `https://alesop95.github.io/skills/technical/management/project-planning-scheduling/` | 319 | Esperienza lavorativa |  |
@@ -77,55 +77,55 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 | `https://alesop95.github.io/projects` | 268 | Header |  |
 | `https://alesop95.github.io/projects/academic/` | 437 | Progetti principali |  |
 | `https://alesop95.github.io/projects/company/` | 402 | Progetti principali |  |
-| `https://alesop95.github.io/projects/company/network-infrastructure-documentation/` | 631 | Di cosa sono fiero |  |
+| `https://alesop95.github.io/projects/company/network-infrastructure-documentation/` | 637 | Di cosa sono fiero |  |
 | `https://alesop95.github.io/projects/courses/` | 506 | Corsi ed eventi |  |
 | `https://alesop95.github.io/projects/personal/` | 416 | Progetti principali |  |
-| `https://alesop95.github.io/projects/personal/harmony-book/` | 701 | Interessi |  |
-| `https://alesop95.github.io/projects/personal/spanish-learning/` | 658 | Lingue |  |
+| `https://alesop95.github.io/projects/personal/harmony-book/` | 707 | Interessi |  |
+| `https://alesop95.github.io/projects/personal/spanish-learning/` | 664 | Lingue |  |
 
 ### blog (16)
 
 | URL | Riga | Sezione del CV | Nota |
 |---|---|---|---|
 | `https://alesop95.github.io/blog` | 267 | Header |  |
-| `https://alesop95.github.io/blog/it/tag/analisi-dati` | 713 | Interessi | tag `analisi-dati` / `data-analysis` - EN/ES: `https://alesop95.github.io/blog/en/tags/data-analysis` |
-| `https://alesop95.github.io/blog/it/tag/android` | 711 | Interessi | tag `android` / `android` - EN/ES: `https://alesop95.github.io/blog/en/tags/android` |
-| `https://alesop95.github.io/blog/it/tag/audiofilia` | 702 | Interessi | tag `audiofilia` / `audiophile` - EN/ES: `https://alesop95.github.io/blog/en/tags/audiophile` |
-| `https://alesop95.github.io/blog/it/tag/collezionismo` | 705 | Interessi | tag `collezionismo` / `collecting` - EN/ES: `https://alesop95.github.io/blog/en/tags/collecting` |
-| `https://alesop95.github.io/blog/it/tag/ecosistema-digitale` | 710 | Interessi | tag `ecosistema-digitale` / `digital-ecosystem` - EN/ES: `https://alesop95.github.io/blog/en/tags/digital-ecosystem` |
-| `https://alesop95.github.io/blog/it/tag/finanza-personale` | 703 | Interessi | tag `finanza-personale` / `personal-finance` - EN/ES: `https://alesop95.github.io/blog/en/tags/personal-finance` |
-| `https://alesop95.github.io/blog/it/tag/linux` | 709 | Interessi | tag `linux` / `linux` - EN/ES: `https://alesop95.github.io/blog/en/tags/linux` |
-| `https://alesop95.github.io/blog/it/tag/ottimizzazione-domestica` | 708 | Interessi | tag `ottimizzazione-domestica` / `home-optimization` - EN/ES: `https://alesop95.github.io/blog/en/tags/home-optimization` |
-| `https://alesop95.github.io/blog/it/tag/pedagogia` | 715 | Interessi | tag `pedagogia` / `education-theory` - EN/ES: `https://alesop95.github.io/blog/en/tags/education-theory` |
-| `https://alesop95.github.io/blog/it/tag/psicologia` | 707 | Interessi | tag `psicologia` / `psychology` - EN/ES: `https://alesop95.github.io/blog/en/tags/psychology` |
-| `https://alesop95.github.io/blog/it/tag/puzzle` | 714 | Interessi | tag `puzzle` / `puzzles` - EN/ES: `https://alesop95.github.io/blog/en/tags/puzzles` |
-| `https://alesop95.github.io/blog/it/tag/ripetizioni` | 706 | Interessi | tag `ripetizioni` / `teaching` - EN/ES: `https://alesop95.github.io/blog/en/tags/teaching` |
-| `https://alesop95.github.io/blog/it/tag/songwriting` | 716 | Interessi | tag `songwriting` / `songwriting` - EN/ES: `https://alesop95.github.io/blog/en/tags/songwriting` |
-| `https://alesop95.github.io/blog/it/tag/stampa-3d` | 712 | Interessi | tag `stampa-3d` / `3d-printing` - EN/ES: `https://alesop95.github.io/blog/en/tags/3d-printing` |
-| `https://alesop95.github.io/blog/it/tag/videogiochi` | 704 | Interessi | tag `videogiochi` / `gaming` - EN/ES: `https://alesop95.github.io/blog/en/tags/gaming` |
+| `https://alesop95.github.io/blog/it/tag/analisi-dati` | 719 | Interessi | tag `analisi-dati` / `data-analysis` - EN/ES: `https://alesop95.github.io/blog/en/tags/data-analysis` |
+| `https://alesop95.github.io/blog/it/tag/android` | 717 | Interessi | tag `android` / `android` - EN/ES: `https://alesop95.github.io/blog/en/tags/android` |
+| `https://alesop95.github.io/blog/it/tag/audiofilia` | 708 | Interessi | tag `audiofilia` / `audiophile` - EN/ES: `https://alesop95.github.io/blog/en/tags/audiophile` |
+| `https://alesop95.github.io/blog/it/tag/collezionismo` | 711 | Interessi | tag `collezionismo` / `collecting` - EN/ES: `https://alesop95.github.io/blog/en/tags/collecting` |
+| `https://alesop95.github.io/blog/it/tag/ecosistema-digitale` | 716 | Interessi | tag `ecosistema-digitale` / `digital-ecosystem` - EN/ES: `https://alesop95.github.io/blog/en/tags/digital-ecosystem` |
+| `https://alesop95.github.io/blog/it/tag/finanza-personale` | 709 | Interessi | tag `finanza-personale` / `personal-finance` - EN/ES: `https://alesop95.github.io/blog/en/tags/personal-finance` |
+| `https://alesop95.github.io/blog/it/tag/linux` | 715 | Interessi | tag `linux` / `linux` - EN/ES: `https://alesop95.github.io/blog/en/tags/linux` |
+| `https://alesop95.github.io/blog/it/tag/ottimizzazione-domestica` | 714 | Interessi | tag `ottimizzazione-domestica` / `home-optimization` - EN/ES: `https://alesop95.github.io/blog/en/tags/home-optimization` |
+| `https://alesop95.github.io/blog/it/tag/pedagogia` | 721 | Interessi | tag `pedagogia` / `education-theory` - EN/ES: `https://alesop95.github.io/blog/en/tags/education-theory` |
+| `https://alesop95.github.io/blog/it/tag/psicologia` | 713 | Interessi | tag `psicologia` / `psychology` - EN/ES: `https://alesop95.github.io/blog/en/tags/psychology` |
+| `https://alesop95.github.io/blog/it/tag/puzzle` | 720 | Interessi | tag `puzzle` / `puzzles` - EN/ES: `https://alesop95.github.io/blog/en/tags/puzzles` |
+| `https://alesop95.github.io/blog/it/tag/ripetizioni` | 712 | Interessi | tag `ripetizioni` / `teaching` - EN/ES: `https://alesop95.github.io/blog/en/tags/teaching` |
+| `https://alesop95.github.io/blog/it/tag/songwriting` | 722 | Interessi | tag `songwriting` / `songwriting` - EN/ES: `https://alesop95.github.io/blog/en/tags/songwriting` |
+| `https://alesop95.github.io/blog/it/tag/stampa-3d` | 718 | Interessi | tag `stampa-3d` / `3d-printing` - EN/ES: `https://alesop95.github.io/blog/en/tags/3d-printing` |
+| `https://alesop95.github.io/blog/it/tag/videogiochi` | 710 | Interessi | tag `videogiochi` / `gaming` - EN/ES: `https://alesop95.github.io/blog/en/tags/gaming` |
 
-### Proton Drive (3)
+### Proton Drive (5)
 
 | URL | Riga | Sezione del CV | Nota |
 |---|---|---|---|
 | `https://drive.proton.me/urls/08GSDD51FC#Sl9ZV3ExCWC-` | 555 | Istruzione |  |
-| `https://drive.proton.me/urls/W1H29CBYHM#U0UQezNeHjvW` | 577 | Istruzione |  |
-| `https://drive.proton.me/urls/Y0YWKXG708#-VO43ecQ-A2j` | 594 | Istruzione |  |
+| `https://drive.proton.me/urls/1YR8GEJF4M#1tEN9WAaB_e9` | 573 | Istruzione |  |
+| `https://drive.proton.me/urls/6FBQ5M2JG0#s_IgqhLKnby-` | 564 | Istruzione |  |
+| `https://drive.proton.me/urls/W1H29CBYHM#U0UQezNeHjvW` | 583 | Istruzione |  |
+| `https://drive.proton.me/urls/Y0YWKXG708#-VO43ecQ-A2j` | 600 | Istruzione |  |
 
-### Redirect tinyurl (10)
+### Redirect tinyurl (8)
 
 | URL | Riga | Sezione del CV | Nota |
 |---|---|---|---|
 | `https://tinyurl.com/Intrawelt-location` | 308 | Esperienza lavorativa |  |
-| `https://tinyurl.com/Tesi-magistrale` | 559 | Istruzione |  |
-| `https://tinyurl.com/Tesi-trienn` | 567 | Istruzione |  |
 | `https://tinyurl.com/cerolini` | 392 | Esperienza lavorativa |  |
 | `https://tinyurl.com/clementoni-location` | 338 | Esperienza lavorativa |  |
 | `https://tinyurl.com/clementoni-site` | 335 | Esperienza lavorativa |  |
 | `https://tinyurl.com/elettromedia-location` | 358 | Esperienza lavorativa |  |
 | `https://tinyurl.com/elettromedia-site` | 355 | Esperienza lavorativa |  |
 | `https://tinyurl.com/h0mem1` | 263 | Header |  |
-| `https://tinyurl.com/hundredwords` | 636 | Di cosa sono fiero |  |
+| `https://tinyurl.com/hundredwords` | 642 | Di cosa sono fiero |  |
 
 ### Siti di terze parti (4)
 
@@ -134,7 +134,7 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 | `https://intrawelt.com` | 305 | Esperienza lavorativa |  |
 | `https://scenia.it/` | 406 | Progetti principali |  |
 | `https://www.labilia.it/` | 391 | Esperienza lavorativa |  |
-| `https://www.rgsound.it/stampa/p-id-45507.html` | 637 | Di cosa sono fiero |  |
+| `https://www.rgsound.it/stampa/p-id-45507.html` | 643 | Di cosa sono fiero |  |
 
 ### Secondo salto: pagine di dettaglio in `projects`
 
@@ -190,16 +190,18 @@ I 31 repository `github.com` distinti (93 occorrenze nelle pagine `/personal/`, 
 
 Il flusso è confermato funzionante dal 2026-07-15: si carica su Proton Drive, dall'app desktop o mobile, nella cartella indicata; si condivide con "Share with anyone" e permesso "Can view", mai di modifica; nessuna password e nessuna scadenza per i documenti pensati per essere consultati liberamente da chi legge il CV. Avvertenza tecnica: ogni link Proton contiene un carattere `#`, che in LaTeX va scappato come `\#` altrimenti la build fallisce. Lo strumento di estrazione de-escapizza quel carattere, quindi l'inventario mostra la URL reale e non la forma scritta nel sorgente.
 
-Il lavoro residuo si divide in due insiemi disgiunti, che si trattano in modi diversi e appartengono a repository diversi. Un terzo insieme, i tre link Drive che il CV citava direttamente, si è chiuso il 2026-09-03 senza passare da Proton: vedi la sezione successiva, perché il modo in cui si è chiuso vale come precedente.
+Il lavoro residuo è un solo insieme, i nove file nelle pagine del repository `projects`. Gli altri due si sono chiusi in due giorni e in due modi diversi, entrambi istruttivi. I tre link Drive che il CV citava direttamente sono usciti dal sorgente il 2026-09-03 senza passare da Proton, perché per tutti e tre la risposta giusta era rimandare a una pagina descrittiva invece che a un archivio: il dettaglio è nella sezione successiva e vale come precedente. I due elaborati di tesi sono invece migrati su Proton il 2026-09-04, perché sono documenti singoli e non alberi, ed è il caso in cui un allegato è la forma giusta.
 
-Primo insieme, i due elaborati di tesi. Fino al 2026-09-04 erano raggiunti da due redirect tinyurl, e la scelta registrata è di ritirarli: i due `\href` di `main.tex` puntano direttamente ai link Proton e i redirect escono dal CV. La destinazione di un redirect si ispeziona con `powershell -NoProfile -File scripts/check-links.ps1 -Category tinyurl`, che segue i reindirizzamenti e riporta l'URL finale; è così che i due target di tesi sono stati risolti per la prima volta.
+Insieme chiuso il 2026-09-04, i due elaborati di tesi. Fino al 2026-09-04 erano raggiunti da due redirect tinyurl, e la scelta registrata è di ritirarli: i due `\href` di `main.tex` puntano direttamente ai link Proton e i redirect escono dal CV. La destinazione di un redirect si ispeziona con `powershell -NoProfile -File scripts/check-links.ps1 -Category tinyurl`, che segue i reindirizzamenti e riporta l'URL finale; è così che i due target di tesi sono stati risolti per la prima volta.
 
-| Redirect | Cosa | Cartella Proton | ID Drive risolto dietro il redirect |
+| Elaborato | Link nel CV prima | Link nel CV ora | ID Drive di provenienza |
 |---|---|---|---|
-| `tinyurl.com/Tesi-magistrale` | Elaborato di tesi magistrale, "Feature-based characterization of loudspeakers" | `Thesis` | `1IsA_k4n3kN-aN7k15qZ6RbwHvVzBFUJ4` |
-| `tinyurl.com/Tesi-trienn` | Elaborato di tesi triennale | `Thesis` | `1ImfQH5jVxXkvgVd8DHWF8VRAkjjDgSpa` |
+| Magistrale, "Feature-based characterization of loudspeakers" | `tinyurl.com/Tesi-magistrale` | `drive.proton.me/urls/6FBQ5M2JG0` | `1IsA_k4n3kN-aN7k15qZ6RbwHvVzBFUJ4` |
+| Triennale, "Study and development of synchronization systems performances for gps-based WSN" | `tinyurl.com/Tesi-trienn` | `drive.proton.me/urls/1YR8GEJF4M` | `1ImfQH5jVxXkvgVd8DHWF8VRAkjjDgSpa` |
 
-Decisione del 2026-09-03 su questi due: una volta caricati i due elaborati su Proton in `Thesis`, i link nel CV diventano link Proton diretti e i due redirect tinyurl escono da `main.tex`. Il vantaggio del redirect, cioè che il link nel CV non cambia mai quando cambia la destinazione, ha come costo che la destinazione reale è invisibile a chi legge il sorgente, ed è esattamente così che entrambi i link di tesi sono rimasti puntati a documenti non pubblici senza che nessuno se ne accorgesse. Ora che `check-links` segue i redirect quel costo è mitigato ma non annullato, e le tesi sono file singoli, cioè il caso che Proton condivide bene per file.
+Perché i redirect sono stati ritirati invece di essere riconfigurati. Il vantaggio dell'indirezione è che il link nel CV non cambia mai quando cambia la destinazione; il costo è che la destinazione reale è invisibile a chi legge il sorgente, ed è esattamente così che entrambi i link di tesi sono rimasti puntati per mesi a documenti non pubblici, uno con 401 e uno con reindirizzamento al login, senza che nessuno se ne accorgesse. Ora che `check-links` segue i redirect quel costo è mitigato ma non annullato, e un'indirezione in meno è un posto in meno dove la verità può nascondersi.
+
+Trappola verificata su questo passaggio, da conoscere prima del prossimo link Proton. Il link della magistrale è arrivato con la chiave di decifratura troncata a nove caratteri invece di dodici, e una chiave troncata rende il link inservibile senza che alcun controllo automatico possa accorgersene, perché il frammento dopo il `#` non viene mai inviato al server. L'indizio disponibile è solo la lunghezza: tutte e cinque le chiavi Proton oggi nel CV sono di dodici caratteri, e `check-links -Category proton` la riporta per ciascuna proprio per rendere visibile un troncamento. Verificato inoltre che nel PDF compilato l'URI dell'annotazione contiene la chiave completa, che è il punto in cui un `\#` mal gestito si manifesterebbe.
 
 Secondo insieme, nove file nelle pagine del repository `projects`: sono lavoro di quel repository, non di questo, e la loro migrazione va pianificata là. Quattro erano già tracciati come usciti dal CV nel luglio 2026 quando "Corsi ed eventi" e "Progetti accademici" sono state compattate; cinque non erano tracciati da nessuna parte prima del 2026-09-03, e li ha scoperti il secondo salto dell'estrattore.
 

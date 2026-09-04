@@ -82,6 +82,8 @@ Il blocco `\personalinfo{...}` accetta sia i campi predefiniti (`\phone`, `\link
 
 ## Hyperlink su due righe
 
+Nota sull'esempio qui sotto: l'URL che contiene è storico e non è più nel CV. Il redirect `tinyurl.com/Tesi-trienn` è stato ritirato il 2026-09-04 quando gli elaborati di tesi sono passati a link Proton diretti, e il titolo esteso su due righe era già stato sostituito da un'icona il 2026-07-14. Il frammento resta come illustrazione della tecnica, che è ancora valida.
+
 `\href` tratta l'intero testo del link come un'unica parola indivisibile: LaTeX non applica mai la sillabazione dentro un URL o dentro il testo linkato, quindi anche avvolgendo il tutto in `\parbox` o `minipage` il contenuto non va a capo da solo. Il workaround usato per la tesi magistrale in `main.tex` è spezzare manualmente il testo in due `\href` separati sulla stessa destinazione, uniti da un ritorno a capo esplicito dentro il `\parbox`:
 
 ```latex

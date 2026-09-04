@@ -30,9 +30,9 @@ flowchart LR
     CV -->|"8 pagine<br/>check-links -Category projects"| PROJECTS["projects<br/>E:\projects"]
     CV -->|"15 tag x 2 lingue + 1 home<br/>check-links -Category blog"| BLOG["blog<br/>E:\blog-alessio"]
     CV -->|"5 contatti"| ID["Identità<br/>mail, tel, LinkedIn, GitHub x2"]
-    CV -->|"3 file migrati"| PROTON["Proton Drive<br/>destinazione"]
+    CV -->|"5 file migrati"| PROTON["Proton Drive<br/>destinazione"]
     CV -->|"0 cartelle da migrare"| GDRIVE_CV["Google Drive<br/>residuo in main.tex"]
-    CV -->|"10 redirect<br/>destinazione da seguire"| TINYURL["tinyurl.com"]
+    CV -->|"8 redirect<br/>destinazione da seguire"| TINYURL["tinyurl.com"]
     CV -.->|"4 siti"| TERZI["Terze parti<br/>intrawelt.com, labilia.it, rgsound.it, scenia.it"]
 
     GDRIVE_CV -.->|"da migrare, lavoro di questo repo"| PROTON
@@ -50,14 +50,14 @@ flowchart LR
     HOP -->|"31 repo distinti, generati da<br/>update_personal_projects.py"| GH["github.com<br/>nodo aggregato"]
     HOP -.->|"9 file"| GDRIVE_HOP["Google Drive<br/>nelle pagine projects"]
     HOP -.->|"2 video"| YT["YouTube"]
-    TINYURL -.->|"2 target di tesi<br/>ancora su Drive"| GDRIVE_HOP
+    TINYURL -.->|"0 target di tesi<br/>ancora su Drive"| GDRIVE_HOP
     GDRIVE_HOP -.->|"da migrare, lavoro del repo projects"| PROTON
 
     SKILLS -->|"/technical/*"| SKILLS_TECH["Capability tecniche"]
     SKILLS -->|"/soft/"| SKILLS_SOFT["Soft skills"]
 ```
 
-Gli asset di archivio nel perimetro raggiungibile sono 14: 3 già migrati su Proton Drive e 11 ancora su Google Drive, cioè 0 citati direttamente da `main.tex`, 9 nelle pagine di `projects` e 2 dietro i redirect di tesi. I tre insiemi sono disgiunti e si migrano in modi diversi: sostituzione nel sorgente, lavoro del repo `projects`, riconfigurazione del solo target del redirect.
+Gli asset di archivio nel perimetro raggiungibile sono 14: 5 già migrati su Proton Drive e 9 ancora su Google Drive, cioè 0 citati direttamente da `main.tex`, 9 nelle pagine di `projects` e 0 dietro i redirect di tesi. I tre insiemi sono disgiunti e si migrano in modi diversi: sostituzione nel sorgente, lavoro del repo `projects`, riconfigurazione del solo target del redirect.
 
 <!-- END GENERATED cv-links: grafo -->
 
