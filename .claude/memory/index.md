@@ -29,6 +29,7 @@ Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un co
 | roadmap.md | 330249e | Fase 3 riscritta sul perimetro vero e sull'esito dei tre link Drive, Fase 4 sul checker generalizzato |
 | external-links.md | 330249e | 52 bersagli e 67 URL generati da `extract-cv-links`, secondo salto, chiusura dei tre link Drive del CV |
 | external-dependencies.md | 330249e | grafo generato al posto di quello scritto a mano, verifiche per dipendenza riscritte, Drive a zero nel CV |
+| architecture.md | 5bb84b3 | nuova: architettura dell'ecosistema in quattro bande, scheletro a mano più grafo generato |
 
 ## Punto di ripresa
 

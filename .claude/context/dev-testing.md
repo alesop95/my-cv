@@ -41,12 +41,17 @@ Prima di inviare il PDF a un recruiter o di pubblicarlo:
 La verifica non riguarda solo il PDF. Le schede di contesto, le regole e le skill di questo repository seguono convenzioni vincolanti che hanno uno strumento di controllo ciascuna, e vanno eseguiti tutti prima di un commit che tocca file `.md` o i link del CV.
 
 ```
-python tools/md-unwrap.py --check .
+python tools/md-unwrap.py --check --only-tracked .
 python tools/lint-md-commands.py
 python tools/extract-cv-links.py --check
+python tools/extract-ecosystem.py --check
 ```
 
 Il primo applica la convenzione di `interaction-style.md`, cioè un paragrafo di prosa su una riga sorgente unica, ed esce con codice diverso da zero se qualche file non la rispetta. Il secondo applica `git-commands-format.md` percorrendo i blocchi di shell dei file Markdown e segnalando continuazioni di riga, heredoc e comandi git che proseguono sulla riga seguente: serve proprio perché md-unwrap per contratto non tocca il contenuto dei blocchi recintati, quindi un comando spezzato dentro un blocco di codice non lo corregge nessun altro.
+
+Il quarto, aggiunto il 2026-09-04, fa lo stesso per il grafo di architettura di `architecture.md`, confrontandolo con lo stato misurato dell'ecosistema: conteggio dei repository sotto E:, cartelle su D:, post e topic del blog, pagine dei siti pubblicati. Va lanciato quando si sospetta che l'ecosistema sia cambiato, non a ogni commit di questo repository, perché misura anche cose che stanno fuori da qui.
+
+Nota sull'invocazione di `md-unwrap`: si usa `--only-tracked` perché i file di `_notes/` sono in `.gitignore` e non sono documentazione del progetto, quindi segnalarli a ogni giro addestra a ignorare il controllo.
 
 Il terzo, aggiunto il 2026-09-03 con ADR-008, verifica che le regioni generate di `external-links.md` ed `external-dependencies.md` corrispondano ancora al sorgente: l'inventario dei link e il grafo delle dipendenze sono artefatti derivati da `main.tex`, quindi una modifica ai link del CV li rende obsoleti in silenzio. Quando segnala deriva, la correzione non è modificare le schede a mano ma rigenerarle con `python tools/extract-cv-links.py --write`. Come i due precedenti segnala e non modifica, quindi si può eseguire senza conseguenze in qualunque momento.
 

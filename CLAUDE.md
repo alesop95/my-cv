@@ -35,6 +35,7 @@ Schede tecniche, sotto `.claude/context/`, con frontmatter di riconciliazione.
 .claude/context/external-links.md       inventario di ogni link esterno citato nel CV, per categoria
 .claude/context/external-dependencies.md dipendenze verso skills-repo/projects/blog/Drive, come
                                          verificarle e cosa fare quando cambiano
+.claude/context/architecture.md         architettura dell ecosistema in quattro bande, con grafo generato
 ```
 
 Build LaTeX, sotto `scripts/` e nella radice.
@@ -58,6 +59,7 @@ Strumenti di verifica e normalizzazione, sotto `tools/`.
 
 ```
 tools/extract-cv-links.py     estrae inventario e grafo dei link dal sorgente, rigenera le schede
+tools/extract-ecosystem.py    misura l ecosistema e rigenera il grafo di architettura
 tools/md-unwrap.py            applica e verifica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py     linter dei comandi di shell nei blocchi Markdown
 tools/fix-accents.py          converte gli accenti scritti con l'apostrofo in accenti veri

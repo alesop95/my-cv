@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-09-04 - Il diagramma di architettura diventa tracciato e per meta generato
+
+Richiesta dell'utente: unire il diagramma HTML dell'ecosistema, che viveva in `_notes/architecture-diagram.html`, con il grafo Mermaid dei link, in un documento unico che resti aggiornato. Controllato prima se quella base era ancora vera, e non lo era.
+
+Quattro affermazioni false nel diagramma del 2026-07-13, tutte di tipo numerico o di stato, tutte verificate una per una: dichiarava `projects` non ancora collegato al CV mentre il CV ne linka otto pagine, dichiarava gli interessi non collegati alle topic page mentre i tag collegati sono quindici, contava ventinove repository personali dove oggi ce ne sono trentotto con un remote sotto E:, e diceva di vivere anche in un `ARCHITECTURE.md` che non esiste in nessuna cartella. Una sua affermazione delicata era invece esatta al carattere, cioè i quattordici topic ancora senza post, e la prosa architetturale era rimasta corretta in blocco. La lettura che ne segue ha guidato il disegno: la prosa descrive intenzioni, che cambiano di rado e con consapevolezza, mentre i numeri descrivono uno stato, che cambia da solo.
+
+Da qui la scelta di non fondere i due diagrammi in un disegno solo. Rispondono a domande diverse: l'HTML dice come l'ecosistema si aggiorna, il Mermaid dice dove punta il CV e se quei bersagli sono vivi. Il primo è conoscenza editoriale che nessuno script potrà dedurre, il secondo è derivabile e `extract-cv-links.py` lo deriva già. La nuova scheda `context/architecture.md` li tiene entrambi ma su due strati dichiarati: scheletro a mano fuori dalla regione marcata, numeri e stato dentro, con la regola operativa che nella prosa non si scrivono numeri di stato.
+
+Nuovo strumento `tools/extract-ecosystem.py`, separato da `extract-cv-links.py` proprio perché risponde all'altra domanda. Misura i repository sotto E: distinguendo progetti e infrastruttura, conta le cartelle di primo livello su D: senza leggerne alcun nome, misura post e topic del blog distinguendo i topic con almeno un articolo, conta le pagine per sezione dei siti pubblicati, e per lo strato dei link del CV non ricalcola niente: chiede il JSON a `extract-cv-links.py`, così una sola definizione di "link del CV" vale anche in questo diagramma.
+
+Vincolo sul lato aziendale, ereditato e rispettato: di D: si contano le cartelle e non si legge il contenuto, perché l'analisi del 2026-07-13 aveva stabilito che l'anonimizzazione a monte era insufficiente, con indirizzi privati reali, domini di clienti e fornitori e l'organizzazione GitHub aziendale presenti nel materiale. La divisione di responsabilità decisa oggi dall'utente è coerente: il dettaglio dei progetti che stanno su D: appartiene al repository `projects`, perché sono progetti aziendali e quello è il sito che li descrive.
+
+Difetto trovato e corretto sulla prima generazione: il grafo definiva un nodo per i repository di infrastruttura di E: che restava appeso senza archi, perché quei repository *sono* i motori e i siti delle bande due e tre. Il conteggio è stato fuso nell'etichetta del nodo dei repository personali.
+
+Registrato inoltre che le fonti di verità sull'architettura erano almeno due e non si parlavano: oltre a quella di questo repository esiste `E:\skills\architettura-pipelines.html`, non verificata in questa sessione e quindi di stato ignoto, dichiarata come tale nella nuova scheda.
+
+---
+
 ## 2026-09-04 - ADR-009: Proton pubblica, Drive archivia, e nessuna cancellazione
 
 Decisione dell'utente che chiude una frizione aperta da luglio, e che vale più delle singole migrazioni fatte finora. Il lavoro era descritto come una migrazione da Google Drive a Proton Drive, con un memo che chiedeva di cancellare gli originali da Drive a verifica compiuta. Quella formulazione si era incagliata due volte: sui Bisogni Educativi Speciali, dove il materiale è un albero di sottocartelle di studio e replicarlo su Proton non aveva una forma sensata; e sulle tesi, dove la cancellazione da Drive avrebbe rotto ogni copia del CV già inviata, perché i due redirect tinyurl continuano a esistere fuori dal repository e a puntare a Drive.
