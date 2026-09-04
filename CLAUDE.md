@@ -51,6 +51,7 @@ scripts/check-skill-links.ps1  involucro storico su check-links -Category skills
 scripts/check-skill-links.sh   involucro storico su check-links --category skills (Unix/macOS)
 scripts/build-multilang.ps1    compila i tre PDF datati EN/IT/ES (Windows)
 scripts/build-multilang.sh     compila i tre PDF datati EN/IT/ES (Unix/macOS)
+build/                         derivati di compilazione, ignorato da git (dal 2026-09-04)
 .latexmkrc                     configurazione latexmk, non più usata dalla build (vedi STACK.md)
 tex-packages.txt               manifesto dei pacchetti tlmgr (fonte riproducibile dell'ambiente)
 ```
@@ -60,6 +61,7 @@ Strumenti di verifica e normalizzazione, sotto `tools/`.
 ```
 tools/extract-cv-links.py     estrae inventario e grafo dei link dal sorgente, rigenera le schede
 tools/extract-ecosystem.py    misura l ecosistema e rigenera il grafo di architettura
+tools/session-check.sh        i quattro controlli di coerenza, invocati dall hook SessionStart
 tools/md-unwrap.py            applica e verifica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py     linter dei comandi di shell nei blocchi Markdown
 tools/fix-accents.py          converte gli accenti scritti con l'apostrofo in accenti veri

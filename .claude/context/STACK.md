@@ -40,6 +40,8 @@ scripts/check-links.*        verifica HTTP di tutti i link del CV, per categoria
 scripts/check-skill-links.*  involucro storico sulla sola categoria skills
 scripts/setup-tex.*          installa TinyTeX e i pacchetti di tex-packages.txt
 tools/extract-cv-links.py    estrae inventario e grafo dei link, rigenera le regioni delle schede
+tools/extract-ecosystem.py   misura l ecosistema e rigenera il grafo di architettura
+tools/session-check.sh       i quattro controlli di apertura, invocati dall hook SessionStart
 tools/md-unwrap.py           applica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py    linter dei comandi di shell nei blocchi Markdown
 tools/fix-accents.py         converte gli accenti scritti con l'apostrofo in accenti veri

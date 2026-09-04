@@ -40,6 +40,15 @@ _notes/.tmp-docx-*/
 # sciolte nella radice, per non mescolarle dopo settimane di build.
 dated-builds/
 
+# I derivati di compilazione vanno in build/ dal 2026-09-04, invece di stare sciolti nella radice:
+# tredici file per tre lingue (.aux, .log, .out, .synctex.gz piu' pdfa.xmpi) che le regole per
+# estensione qui sopra coprivano gia', ma la cartella contiene anche la copia di lavoro dei tre PDF
+# prodotta da pdflatex prima che scripts/build.ps1 la riporti in radice. Quelle copie NON devono
+# entrare in git: la riga *.pdf e' disattivata di proposito perche' i tre PDF in radice sono
+# versionati (ADR-004, ADR-006), quindi senza questa riga le copie dentro build/ verrebbero
+# committate come file nuovi.
+build/
+
 # Ambiente
 .venv/
 __pycache__/

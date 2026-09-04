@@ -69,6 +69,14 @@ function Find-Bin {
 $pdflatex = Find-Bin -Name 'pdflatex' -Root $TexDir
 if (-not $pdflatex) { throw "[build] pdflatex non trovato. Esegui prima scripts/setup-tex.ps1." }
 
+# I derivati di compilazione (.aux, .log, .out, .synctex.gz, .xmpi) vanno in build/ invece di
+# ingombrare la radice: sono tredici file per tre lingue, tutti gia' ignorati da git, quindi il
+# riordino non tocca nulla di versionato. I tre PDF vengono invece riportati in radice a
+# compilazione finita, perche' ADR-004 e ADR-006 li vogliono la' per avere un URL stabile su
+# GitHub: spostarli romperebbe ogni link salvato o condiviso.
+$buildDir = Join-Path $mainDir 'build'
+if (-not (Test-Path $buildDir)) { New-Item -ItemType Directory -Path $buildDir | Out-Null }
+
 Push-Location $mainDir
 try {
     foreach ($lang in $languages) {
@@ -76,13 +84,15 @@ try {
         $texInput = "\providecommand\CVlanguage{$lang}\input{$mainName.tex}"
         Write-Host "[build] Compilo $mainName.tex in lingua '$lang' -> $jobname.pdf ..."
         for ($pass = 1; $pass -le 2; $pass++) {
-            & $pdflatex -interaction=nonstopmode -halt-on-error -synctex=1 -file-line-error "-jobname=$jobname" $texInput | Out-Null
+            & $pdflatex -interaction=nonstopmode -halt-on-error -synctex=1 -file-line-error "-output-directory=$buildDir" "-jobname=$jobname" $texInput | Out-Null
             if ($LASTEXITCODE -ne 0) {
-                throw "[build] Compilazione fallita (lingua $lang, passaggio $pass, exit $LASTEXITCODE). Vedi $jobname.log."
+                throw "[build] Compilazione fallita (lingua $lang, passaggio $pass, exit $LASTEXITCODE). Vedi build/$jobname.log."
             }
         }
+        $builtPdf = Join-Path $buildDir "$jobname.pdf"
+        if (-not (Test-Path $builtPdf)) { throw "[build] PDF non prodotto per la lingua ${lang}: $builtPdf" }
         $producedPdf = Join-Path $mainDir "$jobname.pdf"
-        if (-not (Test-Path $producedPdf)) { throw "[build] PDF non prodotto per la lingua ${lang}: $producedPdf" }
+        Copy-Item -LiteralPath $builtPdf -Destination $producedPdf -Force
         Write-Host "[build] Fatto: $producedPdf"
     }
 }

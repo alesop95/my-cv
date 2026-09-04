@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-09-04 - Radice riordinata, hook di coerenza in apertura, e l'archivio misurato
+
+Tre richieste dell'utente in un colpo, più una nota di roadmap.
+
+`_notes/tmp` rimosso: era completamente vuoto, zero file e zero byte, creato il 2026-08-27, in una cartella ignorata da git. Rimosso con `rmdir`, che su una cartella vuota non può portarsi via altro.
+
+Radice riordinata a metà, deliberatamente. I tredici derivati di compilazione (.aux, .log, .out, .synctex.gz per tre lingue più pdfa.xmpi) sono passati in `build/` tramite `-output-directory` in `scripts/build.ps1` e `.sh`, e la radice è scesa da ventiquattro voci a tredici. I tre PDF restano invece in radice per scelta dell'utente, motivata: ADR-004 e ADR-006 li mettono là perché l'URL su GitHub sia stabile, e spostarli romperebbe ogni link salvato o condiviso. `build/` è stato aggiunto a `.gitignore`, e non era superfluo: le regole per estensione coprivano già gli scarti, ma pdflatex scrive in quella cartella anche la copia di lavoro dei tre PDF, e la riga `*.pdf` è disattivata di proposito, quindi senza quella riga tre file nuovi sarebbero entrati in git. Build rifatta e verificata: tre lingue, una pagina ciascuna.
+
+Hook `SessionStart` aggiunto a `.claude/settings.json`, che invoca `tools/session-check.sh` ed esegue i quattro controlli di sola lettura in circa due secondi e mezzo, misurati. La ragione di fondo vale più dell'hook: `CLAUDE.md` prescriveva già di verificare lo stato a inizio sessione, ma una prescrizione all'agente non è un meccanismo, e la differenza fra le due è esattamente ciò che ha prodotto la deriva dell'inventario dei link e le quattro affermazioni false del diagramma di luglio. Provato in entrambe le diramazioni prima di essere considerato funzionante: con lo stato coerente emette un messaggio breve, e con una deriva iniettata a mano nel grafo di architettura nomina il controllo fallito e ne porta l'output reale nel contesto della sessione. Lo stato è stato ripristinato dopo la prova. `check-links` resta fuori dall'hook: fa richieste HTTP verso una sessantina di URL e un fallimento di rete non è una deriva del progetto. Sostituito nella stessa passata il segnaposto `PROJECT_NAME` del template, mai riempito; `PROJECT_PHASE` resta da decidere perché non è deducibile.
+
+Archivio documentale misurato con l'SSD montato, poco prima che l'utente lo scollegasse. La cartella sincronizzata con Google Drive pesa 6,2 GB su 6115 file, quindi non entra nei 5 GB del piano gratuito di Proton: l'assicurazione dell'utente che le dimensioni non fossero un problema non regge alla lettera, ma il problema scompare scomponendo, perché il perimetro rilevante per il CV (certificazioni, scienze dell'educazione, creatività) pesa 177 MB. ADR-010 va quindi letto in senso più stretto di come è scritto: Proton archivia il perimetro del CV, non l'intero disco. Aperta la Fase 7 in `roadmap.md` con la mappa completa e l'ordine di lavoro; l'inventario grezzo con le dimensioni per cartella sta in `_notes/drive-inventory-2026-09-04.md`, ignorato da git perché contiene nomi di cartelle personali.
+
+Fatti rilevati nella stessa misura, ciascuno dei quali chiude o cambia un piano. La cartella dell'argilla su Drive è vuota, zero byte, quindi il post sul blog su manualità e sperimentazione per quella parte non ha materiale. La cartella dei lavori su legno esiste e pesa 4,7 MB, ed è probabilmente il lavoro creativo per casa. La cartella delle certificazioni contiene tutti e nove i documenti che le pagine di `projects` linkano, quindi il blocco 2 ha una fonte unica e locale. Il materiale di studio in corso, 2,0 GB, si divide in cinque aree di cui quattro corrispondono a Capability che il CV linka già, ed è anche il contenuto che manca alla sezione "Ongoing studies" disattivata dalla Fase 2: non è più un problema di contenuto assente ma di contenuto non selezionato.
+
+Registrata su richiesta dell'utente la voce di roadmap su `J:\CV (WORK)`, 50 MB su 49 file, da trattare quando l'SSD torna disponibile. Contiene documenti di vecchi colloqui con nomi di aziende terze e note fiscali personali: la voce di roadmap descrive i raggruppamenti per categoria e dichiara che la selezione va fatta documento per documento, non a occhio su un elenco di nomi. Nessun nome di terzi e nessun dato fiscale è stato trascritto in un file tracciato.
+
+Verificato su richiesta dell'utente che nulla fosse stato cancellato: nessuno dei commit di oggi cancella file, le sole righe rimosse da `main.tex` sono le sostituzioni di URL, e su Google Drive nessun accesso è mai stato possibile da qui perché ogni interazione è stata una richiesta HTTP non autenticata.
+
+---
+
 ## 2026-09-04 - Il diagramma di architettura diventa tracciato e per meta generato
 
 Richiesta dell'utente: unire il diagramma HTML dell'ecosistema, che viveva in `_notes/architecture-diagram.html`, con il grafo Mermaid dei link, in un documento unico che resti aggiornato. Controllato prima se quella base era ancora vera, e non lo era.

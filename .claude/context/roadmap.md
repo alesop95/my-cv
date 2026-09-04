@@ -109,3 +109,29 @@ Il documento più esteso trovato nell'archivio (890 righe, circa 14800 parole) d
 Il CV è sia un documento tradizionale (PDF per invio diretto) sia un pezzo del portfolio pubblico. Il grafo delle skill a `alesop95.github.io/skills/graphify-out/graph.html` è il complemento interattivo: il CV dichiara le competenze, il grafo le contestualizza con le relazioni semantiche e i progetti che le evidenziano.
 
 Idea futura segnalata dall'utente il 2026-07-10, non implementata: valutare se accomodare alcune delle Soft Skills attualmente elencate per intero nel CV anche dentro `skills-repo`, sullo stesso modello delle Capability tecniche. Da riprendere quando si torna a lavorare su `skills-repo` in una sessione dedicata a quel progetto, non qui.
+
+## Fase 7 - Riordino dell'archivio documentale, e la sua narrazione (aperta il 2026-09-04)
+
+Misurato il 2026-09-04 con l'SSD montato, poco prima che fosse scollegato. La cartella sincronizzata con Google Drive pesa 6,2 GB su 6115 file, quindi non entra nei 5 GB del piano gratuito di Proton: ma non deve entrarci tutta, e questo è il punto che la Fase 3 non aveva ancora chiarito. Il perimetro rilevante per il CV, cioè certificazioni, scienze dell'educazione e creatività, pesa 177 MB. Il resto può restare dove è: Proton archivia e pubblica il perimetro del CV, non l'intero disco, e ADR-010 va letto in questo senso più stretto di come è scritto.
+
+Distinzione da non perdere: l'SSD è molto più grande della cartella sincronizzata, e sistemare Google Drive significa sistemare quella cartella, non l'SSD. L'inventario completo con le dimensioni per cartella sta in `_notes/drive-inventory-2026-09-04.md`, che è in `.gitignore` perché contiene nomi di cartelle personali.
+
+La tesi che regge questa fase è dell'utente e vale enunciarla, perché cambia il criterio di selezione: quel materiale non è archivio morto ma documentazione di studi in corso e di conoscenze acquisite, e fa curriculum se raccontato bene insieme ai progetti. Ne segue che la domanda non è solo dove mettere i file, ma quali di essi meritino una pagina che li racconti; e le pagine esistono già, sono le Capability di `skills-repo` e le sezioni di `projects`.
+
+Corrispondenze già verificate, che rendono questa fase meno vaga di quanto sembri. La cartella degli studi in corso da 2,0 GB si divide in cinque aree, e quattro corrispondono a Capability che il CV linka già: cybersecurity e IT governance, infrastruttura, sviluppo full-stack e DevOps, AI generativa. Un'area, la finanza quantitativa, non ha una Capability ma tocca due interessi già nel CV. Una, il calcolo quantistico, non ha oggi alcuno sbocco né nel CV né sui siti. La cartella dei progetti di ricerca da 1,3 GB contiene un progetto da 1,1 GB che corrisponde a una pagina che esiste già in `projects`, `docs/academic/nonlinear-devices-guitar-speakers.md`, e altri quattro che non hanno pagina.
+
+Questa fase raccoglie anche la Fase 2, rimasta aperta per mancanza di contenuto: la sezione "Ongoing studies" del CV è disattivata con `\iffalse` e contiene segnaposto letterali, e il materiale per riempirla è esattamente questa cartella da 2,0 GB. Non è più un problema di contenuto mancante ma di contenuto non ancora selezionato e raccontato.
+
+Fatto rilevato che chiude un piano precedente: la cartella dell'argilla su Drive è vuota, zero byte. Il post sul blog su manualità e sperimentazione, per la parte argilla, non ha materiale; le foto sono altrove o non ancora caricate. La cartella dei lavori su legno esiste invece e pesa 4,7 MB, ed è probabilmente il lavoro creativo per casa di cui si è parlato.
+
+### J:\CV (WORK), da trattare con protezione esplicita
+
+Richiesta dell'utente il 2026-09-04, da eseguire quando l'SSD torna disponibile. Sono 50 MB su 49 file di materiale di ricerca del lavoro, in quattro raggruppamenti: preparazione dell'esame di stato di ingegneria, note su aspetti fiscali, appunti di ricerca lavoro, e documenti di vecchi colloqui.
+
+Il vincolo, e la ragione per cui questa voce è separata dal resto della fase: l'ultimo raggruppamento contiene documenti prodotti da o per aziende terze, con i loro nomi nel nome del file e nel contenuto, e il raggruppamento fiscale contiene dati personali di reddito. Nulla di tutto questo può avvicinarsi a un repository pubblico senza una selezione fatta documento per documento, aprendo e leggendo, non a occhio su un elenco di nomi. Nomi di terzi e dati fiscali non sono trascritti in alcun file tracciato di questo repository e non devono esserlo.
+
+Materiale potenzialmente utile, se estratto e riscritto invece che pubblicato: il dossier di competenze e gli appunti di ricerca lavoro possono contenere formulazioni già valide per la prosa del CV o per le pagine delle Capability. Una destinazione plausibile per la parte fiscale, che non è materia di questo repository, sono `E:\fiscal-toolkit` e `E:\legal-consultant`, che quel dominio già lo trattano.
+
+### Ordine di lavoro proposto
+
+Il primo passo non è caricare niente: è decidere, per ciascuna delle dieci cartelle di primo livello del portfolio, se il suo contenuto va pubblicato come allegato, raccontato in una pagina, o lasciato dove è. Le tre categorie hanno destinazioni diverse e non sono intercambiabili, ed è la confusione fra loro ad avere prodotto la difficoltà dei primi giorni di settembre. Solo dopo quella classificazione ha senso caricare su Proton, perché a quel punto si sa cosa e perché.

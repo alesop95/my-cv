@@ -30,7 +30,21 @@
     ]
   },
   "env": {
-    "PROJECT_NAME": "<nome progetto>",
+    "PROJECT_NAME": "my-cv",
     "PROJECT_PHASE": "<fase, es. init | sviluppo | staging | produzione>"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash tools/session-check.sh",
+            "timeout": 60,
+            "statusMessage": "Verifico la coerenza del progetto..."
+          }
+        ]
+      }
+    ]
   }
 }

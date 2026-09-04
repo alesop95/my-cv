@@ -63,6 +63,13 @@ find_pdflatex() {
 
 PDFLATEX=$(find_pdflatex) || { echo "[build] pdflatex non trovato. Esegui prima sh scripts/setup-tex.sh." >&2; exit 1; }
 
+# I derivati di compilazione vanno in build/ invece di ingombrare la radice: sono tredici
+# file per tre lingue, tutti gia ignorati da git, quindi il riordino non tocca nulla di
+# versionato. I tre PDF vengono riportati in radice a compilazione finita, perche ADR-004 e
+# ADR-006 li vogliono la per avere un URL stabile su GitHub.
+BUILD_DIR="$MAIN_DIR/build"
+mkdir -p "$BUILD_DIR"
+
 cd "$MAIN_DIR"
 
 for lang in en it es; do
@@ -70,12 +77,13 @@ for lang in en it es; do
   TEX_INPUT="\\providecommand\\CVlanguage{$lang}\\input{$MAIN_NAME.tex}"
   echo "[build] Compilo $MAIN_NAME.tex in lingua '$lang' -> $JOBNAME.pdf ..."
   for pass in 1 2; do
-    if ! "$PDFLATEX" -interaction=nonstopmode -halt-on-error -synctex=1 -file-line-error "-jobname=$JOBNAME" "$TEX_INPUT" >/dev/null; then
-      echo "[build] Compilazione fallita (lingua $lang, passaggio $pass). Vedi $JOBNAME.log." >&2
+    if ! "$PDFLATEX" -interaction=nonstopmode -halt-on-error -synctex=1 -file-line-error "-output-directory=$BUILD_DIR" "-jobname=$JOBNAME" "$TEX_INPUT" >/dev/null; then
+      echo "[build] Compilazione fallita (lingua $lang, passaggio $pass). Vedi build/$JOBNAME.log." >&2
       exit 1
     fi
   done
-  [ -f "$JOBNAME.pdf" ] || { echo "[build] PDF non prodotto per la lingua $lang: $JOBNAME.pdf" >&2; exit 1; }
+  [ -f "$BUILD_DIR/$JOBNAME.pdf" ] || { echo "[build] PDF non prodotto per la lingua $lang: build/$JOBNAME.pdf" >&2; exit 1; }
+  cp -f "$BUILD_DIR/$JOBNAME.pdf" "$MAIN_DIR/$JOBNAME.pdf"
   echo "[build] Fatto: $MAIN_DIR/$JOBNAME.pdf"
 done
 
