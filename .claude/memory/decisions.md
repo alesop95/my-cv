@@ -125,3 +125,19 @@ Tre vincoli di progetto che vale registrare, perché non sono evidenti. I templa
 Verifica: `--check` è stato provato deliberatamente in fallimento, iniettando un `\href` finto in una copia di `main.tex` nello scratchpad, prima di essere considerato funzionante. Uno strumento di verifica che non ha mai fallito una volta non è verificato.
 
 Conseguenza per il lavoro futuro: dopo ogni modifica ai link di `main.tex` si esegue `python tools/extract-cv-links.py --write`, e `--check` entra fra i controlli documentali pre-commit accanto a `md-unwrap --check` e `lint-md-commands`. Le tabelle delle due schede non si modificano a mano: una modifica manuale viene sovrascritta al primo rigenero, ed è per questo che i marcatori di regione lo dichiarano nel testo.
+
+## ADR-009 - Proton come superficie di pubblicazione, Google Drive come archivio
+
+Data: 2026-09-04.
+
+Contesto: dal 2026-07-15 questo lavoro era descritto come una migrazione da Google Drive a Proton Drive, e la scheda `context/external-links.md` portava un memo che chiedeva di cancellare gli originali da Drive a migrazione verificata end-to-end. Quella formulazione ha prodotto due frizioni concrete. La prima è apparsa sui Bisogni Educativi Speciali, dove il materiale è un albero di sottocartelle di studio: spostarlo su Proton significava replicare un archivio, e la domanda su come gestirlo là era senza risposta buona. La seconda è apparsa sulle tesi, dove la cancellazione da Drive avrebbe rotto ogni copia del CV già inviata, perché i due redirect tinyurl continuano a esistere fuori dal repository e a puntare a Drive.
+
+Opzioni valutate: (a) migrare l'archivio, cioè replicare su Proton la struttura completa e poi cancellare da Drive - scartata dall'utente, perché costringe a gestire su Proton una raccolta che su Drive è già organizzata, e perché la cancellazione distrugge i link delle copie del CV in circolazione; (b) tenere tutto su Drive e limitarsi a sistemare le condivisioni - scartata implicitamente, perché non risolve la percezione di privacy che aveva motivato Proton nel 2026-07-15; (c) separare i due ruoli, scelta.
+
+Scelta: Google Drive resta l'archivio e conserva la raccolta completa, senza cancellazioni. Proton riceve soltanto il singolo file che il CV linka, uno per link, e ha quindi il ruolo di superficie di pubblicazione e non di destinazione di migrazione. Nessun documento va cancellato da Drive come parte di questo lavoro, e il memo che lo chiedeva è ritirato.
+
+Conseguenza che semplifica una decisione ricorrente. Quando un link del CV punta a una raccolta e non a un documento, questa regola non chiede più dove spostare la raccolta: chiede quale singolo file pubblicare, e se quel file non esiste allora il link non deve puntare a un archivio ma a una pagina descrittiva. È esattamente ciò che il 2026-09-03 è stato deciso caso per caso per Stampa 3D, Bisogni Educativi Speciali e lo studio dello spagnolo, e che da qui in avanti ha una ragione di principio invece di tre giustificazioni separate.
+
+Conseguenza sui redirect. Ritirare un redirect da `main.tex` non lo ritira dal mondo: `tinyurl.com/Tesi-magistrale` e `tinyurl.com/Tesi-trienn` esistono ancora e puntano ancora a Drive, e ogni copia del CV inviata prima del 2026-09-04 li contiene. Riconfigurarli sui link Proton ripara tutte quelle copie in una volta, ed è quindi un'azione che conviene indipendentemente dalla cancellazione, che non ci sarà.
+
+Verifica: la forma di un link Proton è controllabile automaticamente, il suo contenuto no. `check-links -Category proton` verifica la forma e riporta la lunghezza della chiave, perché il percorso `/urls/<id>` risponde 200 a qualunque identificativo e la chiave dopo il `#` non raggiunge mai il server. La verifica reale resta aprire il link in una finestra privata, ed è stata fatta su tutti e cinque i link oggi presenti nel CV.

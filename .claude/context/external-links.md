@@ -216,7 +216,7 @@ Secondo insieme, nove file nelle pagine del repository `projects`: sono lavoro d
 | Spot televisivo EOLO | `docs/academic/eolo-tv-spot.md` | no |
 | Due documenti di formazione tecnica | `docs/courses/technical-training.md` | no |
 
-Memo confermato: durante la migrazione i file restano anche su Google Drive, e si cancellano da là solo a migrazione verificata end-to-end su tutti i documenti, cioè link Proton raggiungibile e contenuto corretto.
+Nessuna cancellazione da Google Drive, per decisione del 2026-09-04 registrata come ADR-009: Drive resta l'archivio e conserva la raccolta completa, Proton riceve soltanto il singolo file che il CV linka. Il memo precedente, che chiedeva di cancellare gli originali a migrazione verificata, è ritirato. Ne segue che quando un link del CV punta a una raccolta e non a un documento, la domanda non è dove spostare la raccolta ma quale singolo file pubblicare, e se quel file non esiste il link deve puntare a una pagina descrittiva invece che a un archivio.
 
 ## Chiusura dei tre link Drive del CV, 2026-09-03
 
@@ -240,11 +240,11 @@ Un link condiviso di Proton non si verifica con una richiesta HTTP, e il motivo 
 |---|---|---|
 | `drive.proton.me/urls/6FBQ5M2JG0` | Tesi magistrale | fatta il 2026-09-04, apre |
 | `drive.proton.me/urls/1YR8GEJF4M` | Tesi triennale | fatta il 2026-09-04, apre |
-| `drive.proton.me/urls/Y0YWKXG708` | Certificato Percorso formativo 24 CFU | mai fatta |
-| `drive.proton.me/urls/08GSDD51FC` | Supplemento al diploma magistrale | mai fatta |
-| `drive.proton.me/urls/W1H29CBYHM` | Attestato Master ISTAO | mai fatta |
+| `drive.proton.me/urls/Y0YWKXG708` | Certificato Percorso formativo 24 CFU | fatta il 2026-09-04, apre |
+| `drive.proton.me/urls/08GSDD51FC` | Supplemento al diploma magistrale | fatta il 2026-09-04, apre |
+| `drive.proton.me/urls/W1H29CBYHM` | Attestato Master ISTAO | fatta il 2026-09-04, apre |
 
-I tre link migrati il 2026-07-15 non sono mai stati verificati end-to-end: all'epoca la conferma si è basata su uno stato HTTP 2xx, che per un link Proton non prova niente, e il difetto è stato scoperto solo il 2026-09-04. Vanno aperti in finestra privata prima di considerare chiusa la migrazione e prima di cancellare qualunque originale da Google Drive, come chiede il memo di questa scheda. La loro forma è corretta e le chiavi sono di dodici caratteri, quindi non c'è motivo di sospettare un troncamento: semplicemente non è stato verificato che aprano il documento atteso.
+Tutti e cinque sono ora verificati. I tre migrati il 2026-07-15 non lo erano mai stati: all'epoca la conferma si era basata su uno stato HTTP 2xx, che per un link Proton non prova niente, e il difetto è emerso solo il 2026-09-04, quando sono stati aperti in finestra privata insieme ai due delle tesi. Vale conservare l'episodio come regola operativa: un link Proton nuovo si considera buono solo dopo essere stato aperto una volta senza autenticazione, e la lunghezza della chiave riportata da `check-links` serve a intercettare il caso più frequente di link inservibile, cioè il troncamento nel copia-incolla, che si è verificato davvero sulla tesi magistrale.
 
 ## Raggiungibilità verificata il 2026-09-03
 

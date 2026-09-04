@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-09-04 - ADR-009: Proton pubblica, Drive archivia, e nessuna cancellazione
+
+Decisione dell'utente che chiude una frizione aperta da luglio, e che vale più delle singole migrazioni fatte finora. Il lavoro era descritto come una migrazione da Google Drive a Proton Drive, con un memo che chiedeva di cancellare gli originali da Drive a verifica compiuta. Quella formulazione si era incagliata due volte: sui Bisogni Educativi Speciali, dove il materiale è un albero di sottocartelle di studio e replicarlo su Proton non aveva una forma sensata; e sulle tesi, dove la cancellazione da Drive avrebbe rotto ogni copia del CV già inviata, perché i due redirect tinyurl continuano a esistere fuori dal repository e a puntare a Drive.
+
+La regola nuova separa due ruoli invece di spostare file: Drive resta l'archivio e conserva la raccolta completa, Proton riceve soltanto il singolo file che il CV linka, uno per link. Nessuna cancellazione, e il memo che la chiedeva è ritirato da `external-links.md` e da `external-dependencies.md`.
+
+Il guadagno non è organizzativo ma decisionale, e si vede sul caso ricorrente. Quando un link del CV punta a una raccolta e non a un documento, la regola non chiede più dove spostare la raccolta: chiede quale singolo file pubblicare, e se quel file non esiste allora il link non deve puntare a un archivio ma a una pagina descrittiva. È esattamente ciò che il 2026-09-03 era stato deciso tre volte caso per caso, per Stampa 3D, Bisogni Educativi Speciali e lo studio dello spagnolo, e che ora ha una ragione di principio invece di tre giustificazioni separate.
+
+Verificato su richiesta dell'utente che nulla fosse stato cancellato per errore: nessuno dei commit di oggi cancella file, e le sole righe rimosse da `main.tex` sono le sei sostituzioni di URL, tutte in cronologia git. Su Google Drive nessun accesso è mai stato possibile da qui, perché ogni interazione è stata una richiesta HTTP non autenticata da riga di comando, che può solo leggere. Le due cartelle che rispondono 404, prototipi di Stampa 3D e studio dello spagnolo, rispondevano 404 alla primissima sonda del 2026-09-03, prima di qualunque azione: erano già andate.
+
+Chiuso nella stessa passata: tutti e cinque i link Proton oggi nel CV sono verificati end-to-end, compresi i tre del 2026-07-15 che non lo erano mai stati. La tabella di stato in `external-links.md` lo registra per ciascuno con la data.
+
+Resta utile e indipendente da tutto il resto: riconfigurare `tinyurl.com/Tesi-magistrale` e `tinyurl.com/Tesi-trienn` sui link Proton, perché quei due redirect sono usciti da `main.tex` ma non dal mondo e ogni copia del CV inviata prima di oggi li contiene.
+
+---
+
 ## 2026-09-04 - Revisione visiva del grafo: due archi a conteggio zero
 
 Il blocco Mermaid di `external-dependencies.md` era stato generato e verificato sintatticamente, mai guardato renderizzato. La revisione visiva, fatta su screenshot dell'utente come prescrive `rules/manual-screenshots.md`, ha trovato quel che nessun controllo sul sorgente poteva trovare: il diagramma disegnava un nodo "Google Drive residuo in main.tex" raggiunto da un arco etichettato "0 cartelle da migrare", e un arco "0 target di tesi ancora su Drive", entrambi residui delle chiusure del 2026-09-03 e del 2026-09-04. Una freccia etichettata zero è peggio del silenzio in un diagramma di dipendenze, perché suggerisce un lavoro che non esiste e il lettore deve scartarla da sé.

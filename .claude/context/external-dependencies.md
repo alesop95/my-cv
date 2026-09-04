@@ -104,7 +104,7 @@ Struttura cartelle raccomandata (per contenuto, non per formato): `Certification
 
 **Procedura per un file del primo insieme**: caricare su Proton nella cartella indicata, condividere con "Share with anyone" e permesso "Can view", sostituire l'argomento di `\href` in `main.tex` scappando il carattere `#` del frammento come `\#`, rigenerare l'inventario con `python tools/extract-cv-links.py --write`, poi `powershell -NoProfile -File scripts/build.ps1` e verificare che tutte e tre le lingue restino su una pagina sola. I link non incidono sulla lunghezza del testo visibile, ma la verifica del conteggio pagine resta dovuta perché il documento è al limite.
 
-**Memo**: durante la migrazione i file restano anche su Google Drive, e si cancellano da là solo a migrazione verificata end-to-end su tutti i documenti, cioè link Proton raggiungibile e contenuto corretto. Fase indipendente dal codice LaTeX: si può fare gradualmente, un file alla volta, senza bloccare altro lavoro sul CV.
+**Memo**: nessuna cancellazione da Google Drive, per ADR-009 del 2026-09-04. Drive resta l'archivio e conserva la raccolta completa; Proton riceve soltanto il singolo file che il CV linka, uno per link, ed è quindi una superficie di pubblicazione e non una destinazione di migrazione. Il memo precedente, che chiedeva di cancellare gli originali a migrazione verificata, è ritirato. Fase indipendente dal codice LaTeX: si può fare gradualmente, un file alla volta, senza bloccare altro lavoro sul CV.
 
 ## ATS-safety e ottimizzazione per algoritmi di detection (rivalutazione richiesta il 2026-07-15)
 
