@@ -4,6 +4,28 @@
 
 ---
 
+## 2026-09-03 - I tre link Google Drive del CV chiusi senza passare da Proton
+
+Seguito diretto della sessione dello stesso giorno, che aveva scoperto con `check-links` che nessuno dei tre link Google Drive citati da `main.tex` era apribile da un lettore anonimo. Il passo era stato impostato come migrazione verso Proton Drive; si è chiuso in un altro modo, e il modo conta più del risultato.
+
+Primo fatto, dall'utente: due delle tre cartelle Drive rispondono 404 anche al proprietario, quindi il contenuto non è più a quegli ID. Solo la cartella dei Bisogni Educativi Speciali esiste, semplicemente non condivisa. Le tre cartelle sostitutive indicate dall'utente esistono e chiedono l'accesso, quindi il materiale è vivo.
+
+Secondo fatto, verificato: lo studio dello spagnolo è diventato un repository a sé, `E:\spanish-learning`, e il repo `projects` ha già una pagina pubblicata e sostanziosa su `projects/personal/spanish-learning/`. Il link di "studio in corso" nella sezione Lingue punta là, con lo stesso trattamento già usato per "Chitarra e teoria armonica" verso `harmony-book`. Verificato anche che le pagine di `/personal/` sono generate dai repository GitHub scoperti sotto `E:\` e che `data/personal_overrides/` sostituisce solo il testo di una pagina che esiste già per un repo: non c'è modo di avere una pagina `/personal/` senza un repository dietro, quindi quella strada non era replicabile per i Bisogni Educativi Speciali.
+
+Terzo fatto, quello che ha risolto le altre due voci. Cercando dove collocare argilla e lavoro creativo per casa, che l'utente ha deciso vadano sul blog come discorso di manualità e sperimentazione, è emerso che `src/config/topics.ts` di `E:\blog-alessio` contiene già i topic `stampa-3d`/`3d-printing` e `pedagogia`/`education-theory`, e che le loro descrizioni editoriali sono parola per parola il testo tagliato dal CV il 2026-07-13 e archiviato in `_notes/cv-content-archive-2026-07-09.md`. Stampa 3D e Bisogni Educativi Speciali erano le uniche due voci degli Interessi rimaste fuori dalla convenzione generale, che rimanda il titolo di un interesse alla propria topic page: sono rientrate nella regola con due `\bloglinkwrap`, e non è stato caricato niente su Proton né scritto alcun documento indice.
+
+Allarme sollevato e poi smentito, che vale registrare perché la smentita è la parte utile. Dodici dei quindici tag del blog citati dal CV non hanno alcun post che li porti, misurato sul frontmatter dei tredici post esistenti e non sullo stato HTTP. Sembrava un difetto grave, tredici titoli cliccabili verso pagine vuote; è invece un comportamento deliberato, perché ADR-018 del repository del blog definisce un topic come area di interesse curata che riceve una descrizione editoriale sulla propria pagina anche prima che esista un articolo. Verificato scaricando le quattro pagine nuove e cercandovi il testo della descrizione: c'è.
+
+Precedente che ne deriva, da applicare al prossimo caso simile: quando un link del CV punta a un archivio di materiali, la domanda giusta non è dove spostare l'archivio ma che cosa deve leggere chi clicca. Spostare su Proton un albero di sottocartelle avrebbe risolto la condivisione lasciando intatto il problema vero, cioè che un estraneo non capisce cosa sta guardando.
+
+Stato del sorgente: `main.tex` non contiene più alcun link a Google Drive, l'inventario è passato da tre a zero nella categoria `gdrive` e da tredici a quindici tag del blog, con cinquantadue bersagli invariati e sessantasette stringhe URL. I tre PDF sono stati rigenerati e restano su una pagina sola in tutte e tre le lingue; gli overfull residui sono i due preesistenti di 0,65pt e 1,82pt alle righe 507 e 585, più gli underfull del wheelchart, e la riga degli Interessi non ne produce nonostante i titoli atomici. Nessun link Google Drive compare più nel layer testuale del PDF italiano.
+
+Deciso e non ancora eseguito, perché bloccato su azione manuale: i due elaborati di tesi vanno su Proton in `Thesis` e i loro link diventano link Proton diretti in `main.tex`, ritirando i redirect `Tesi-magistrale` e `Tesi-trienn`. Motivazione della scelta contro il mantenimento del redirect: il vantaggio dell'indirezione è che il link nel CV non cambia mai, il costo è che la destinazione reale è invisibile a chi legge il sorgente, ed è esattamente così che entrambe le tesi sono rimaste puntate a documenti non pubblici senza che nessuno se ne accorgesse. I due ID Drive dietro i redirect, risolti per la prima volta in questa sessione, sono registrati in `external-links.md`.
+
+Verificato inoltre che tutti e nove i file Drive nelle pagine del repository `projects` rispondono 401, quindi nessuno è pubblico. È lavoro di quel repository, non di questo, ma la misura è registrata perché nessuna scheda la conteneva.
+
+---
+
 ## 2026-09-03 - Inventario e grafo dei link resi derivati, checker esteso a tutte le categorie
 
 Richiesta: l'elenco completo dei link del CV e un grafo delle dipendenze verso gli altri progetti, in una forma che si aggiorni a ogni giro, poi gli aggiornamenti conseguenti. Perimetro scelto dall'utente: `main.tex` più le pagine di dettaglio del repository `projects` a cui il CV delega quattro sezioni.

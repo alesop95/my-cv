@@ -26,9 +26,9 @@ Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un co
 | dev-testing.md | 1ac5d00 | aggiunto `extract-cv-links --check` ai controlli documentali pre-commit |
 | altacv-reference.md | c994a08 | aggiunte le macro locali di collegamento, l'esito a una pagina e il layer testuale |
 | current-work.md | c994a08 | riallineata: sezione di stato in testa, il resto marcato come cronologia |
-| roadmap.md | 1ac5d00 | Fase 3 riscritta sul perimetro vero e sui link Drive non raggiungibili, Fase 4 sul checker generalizzato |
-| external-links.md | 1ac5d00 | riscritta: 52 bersagli e 65 URL generati da `extract-cv-links`, secondo salto, migrazione in tre insiemi |
-| external-dependencies.md | 1ac5d00 | grafo generato al posto di quello scritto a mano, verifiche per dipendenza riscritte |
+| roadmap.md | 634aa6e | Fase 3 riscritta sul perimetro vero e sull'esito dei tre link Drive, Fase 4 sul checker generalizzato |
+| external-links.md | 634aa6e | 52 bersagli e 67 URL generati da `extract-cv-links`, secondo salto, chiusura dei tre link Drive del CV |
+| external-dependencies.md | 634aa6e | grafo generato al posto di quello scritto a mano, verifiche per dipendenza riscritte, Drive a zero nel CV |
 
 ## Punto di ripresa
 
@@ -38,7 +38,7 @@ Fasi della roadmap, con il dettaglio completo in `roadmap.md`.
 
 - Fase 1 (bootstrap tecnico): completata il 2026-07-06.
 - Fase 2 (contenuti pendenti): quasi chiusa. Restano fuori "Ongoing studies", ancora disattivata con `\iffalse` e `\fi` e piena di segnaposto `aaaaaaa`, e i frammenti Coaching (Onova S.p.A. e Intracademy), rimandati per mancanza di esperienza reale da raccontare. La sezione Consultant è invece esclusa in via definitiva per motivi fiscali, non rimandata.
-- Fase 3 (migrazione allegati a Proton Drive): avviata e versionata con `7ea1955`, perimetro corretto il 2026-09-03. Tre file sono migrati, tutti di categoria `Certifications`; il residuo è di quattordici asset Drive in tre insiemi disgiunti, cioè tre link in `main.tex`, due target di redirect tinyurl e nove file nelle pagine del repository `projects`. Fatto nuovo che cambia la priorità della fase: nessuno dei tre link Drive citati dal CV è apribile da un lettore anonimo, due rispondono 404 e uno richiede autenticazione. Inventario riga per riga e procedura in `context/external-links.md`.
+- Fase 3 (migrazione allegati a Proton Drive): tre certificati migrati con `7ea1955`, e il 2026-09-03 i tre link Google Drive che `main.tex` citava direttamente sono usciti dal sorgente senza passare da Proton, perché per tutti e tre la risposta giusta era un'altra: Stampa 3D e Bisogni Educativi Speciali sono rientrate nella convenzione delle topic page del blog, che già conteneva le loro descrizioni, e lo studio dello spagnolo punta alla pagina del repository `spanish-learning`. `main.tex` non contiene più alcun link a Google Drive. Restano undici asset Drive nel perimetro, cioè nove nelle pagine del repository `projects` e due dietro i redirect di tesi, questi ultimi da sostituire con link Proton diretti ritirando i redirect. Inventario e precedente in `context/external-links.md`.
 - Fase 4 (allineamento skill a skills-repo): in gran parte completata il 2026-07-06. La verifica automatica dei link, nata come `check-skill-links` sui soli cinque link di `skills-repo`, è stata generalizzata il 2026-09-03 in `scripts/check-links.ps1` e `.sh` su tutte le categorie, con seguito dei redirect.
 - Fase 5 (multilingua): completata. Traduzione integrale il 2026-07-07, bug di `\ifdefstring` non edef-safe diagnosticato e corretto con `\ifx`, verificata con build reali nelle tre lingue. Deliberatamente non fatta la revisione madrelingua dello spagnolo: resta un rischio da sciogliere prima di un uso professionale reale di quella versione.
 - Fase 6 (ATS-safety del layout): rimandata a data da destinarsi per quel che riguarda l'ordine di lettura delle colonne. Il problema distinto del layer testuale del PDF è invece risolto e versionato con `7ea1955`, con `\decoicon` e le etichette esplicite di `\printinfo`: motivazione in ADR-007, dettagli tecnici in `context/altacv-reference.md`.

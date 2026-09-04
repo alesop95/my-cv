@@ -646,7 +646,16 @@
 \smallskip
 \noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Inglese}{Inglés}{English}}}}\hfill\footnotesize\textit{B2 \cvtext{(autovalutato)}{(autoevaluado)}{(self-assessed)}}\par
 \smallskip
-\noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Spagnolo}{Español}{Spanish}}}}\hfill\footnotesize\textit{A1 \cvtext{(autovalutato}{(autoevaluado}{(self-assessed}, \href{https://drive.google.com/drive/u/1/folders/12BgdsaPS-rXPPI41lwpU4a3ZHbshTCNi}{\cvtext{studio in corso}{estudio en curso}{ongoing study}})}\par
+% Link di "studio in corso" spostato il 2026-09-03 da una cartella Google Drive alla pagina di
+% progetto di spanish-learning. Due motivi distinti. La cartella Drive rispondeva 404 anche al
+% proprietario, quindi il contenuto non era più a quell'ID; e la sua URL portava un prefisso
+% /u/1/ che la legava all'account con indice 1 nella sessione di chi l'aveva generata, quindi
+% quel link non era mai stato apribile da nessun altro (unica occorrenza del difetto in tutto il
+% perimetro, verificato). Lo studio dello spagnolo è nel frattempo diventato un repository a sé
+% (E:\spanish-learning) con una pagina pubblicata e descrittiva: si applica lo stesso
+% trattamento di "Chitarra e teoria armonica" verso harmony-book, cioè titolo -> risorsa
+% primaria. Toglie una dipendenza da Drive invece di spostarla su Proton.
+\noindent\textcolor{emphasis}{\small\textbf{\MakeUppercase{\cvtext{Spagnolo}{Español}{Spanish}}}}\hfill\footnotesize\textit{A1 \cvtext{(autovalutato}{(autoevaluado}{(self-assessed}, \href{https://alesop95.github.io/projects/personal/spanish-learning/}{\cvtext{studio in corso}{estudio en curso}{ongoing study}})}\par
 
 % \smallskip esplicito rimosso il 2026-07-14: \cvsection ha già il proprio \bigskip.
 \cvsection{\cvtext{Interessi}{Intereses}{Interests}}
@@ -670,9 +679,15 @@
 % hbox fino a 63pt perché impediva ogni a-capo interno).
 % Iconcina a cartella ripetuta dopo ogni nome rimossa il 2026-07-14: il titolo stesso è ora il
 % link (colore accent = cliccabile, stessa convenzione di tutti gli altri link del documento via
-% \hypersetup{colorlinks=true,allcolors=accent}), tramite \bloglinkwrap. I due elementi che già
-% linkano un file esterno (Stampa 3D, Bisogni Educativi Speciali) mantengono quel link e perdono
-% solo il rimando secondario al tag del blog, dato che un titolo può avere un solo target.
+% \hypersetup{colorlinks=true,allcolors=accent}), tramite \bloglinkwrap. Fino al 2026-09-03 due
+% voci erano l'eccezione e linkavano una cartella Google Drive invece della propria topic page,
+% cioè Stampa 3D e Bisogni Educativi Speciali. Entrambe quelle cartelle si sono rivelate non
+% apribili da un lettore anonimo, la prima con un 404 anche per il proprietario, e il registro dei
+% topic del blog conteneva già le due voci corrispondenti (stampa-3d/3d-printing e
+% pedagogia/education-theory) con le descrizioni editoriali identiche al testo tagliato da qui il
+% 2026-07-13: sono quindi rientrate nella convenzione generale. Ora tutte le voci di questa riga
+% rimandano a una topic page, tranne Chitarra e teoria armonica che punta alla pagina di progetto
+% di harmony-book, e con questo main.tex non contiene più alcun link a Google Drive.
 % \LaTeXraggedright (vero \raggedright del kernel, catturato da ragged2e prima che main.tex lo
 % ridefinisca come \justifying - stesso trucco già usato per le Soft skills): necessario perché
 % i titoli sono ora atomici (href non spezzabile internamente) e in un paragrafo giustificato
@@ -694,10 +709,10 @@
 \decoicon{\faLinux}~\bloglinkwrap{linux}{linux}{\textbf{\cvtext{Ubuntu e Linux}{Ubuntu y Linux}{Ubuntu \& Linux}}}, %
 \decoicon{\faCloud}~\bloglinkwrap{ecosistema-digitale}{digital-ecosystem}{\textbf{\cvtext{Ecosistema Samsung/Microsoft}{Ecosistema Samsung/Microsoft}{Samsung/Microsoft ecosystem}}}, %
 \decoicon{\faAndroid}~\bloglinkwrap{android}{android}{\textbf{\cvtext{Personalizzazione Android}{Personalización de Android}{Android customization}}}, %
-\decoicon{\faCube}~\textbf{\href{https://drive.google.com/drive/folders/13jewppJEBq8q4wIYuPm0Tfr537edjO81?usp=drive_link}{\cvtext{Stampa 3D}{Impresión 3D}{3D printing}}}, %
+\decoicon{\faCube}~\bloglinkwrap{stampa-3d}{3d-printing}{\textbf{\cvtext{Stampa 3D}{Impresión 3D}{3D printing}}}, %
 \decoicon{\faChartBar}~\bloglinkwrap{analisi-dati}{data-analysis}{\textbf{\cvtext{Statistica applicata}{Estadística aplicada}{Applied statistics}}}, %
 \decoicon{\faPuzzlePiece}~\bloglinkwrap{puzzle}{puzzles}{\textbf{\cvtext{Puzzle}{Rompecabezas}{Jigsaw puzzles}}}, %
-\decoicon{\faBookOpen}~\textbf{\href{https://drive.google.com/drive/folders/1k-_ZgzrJgkYqf3f5I520qndM_S8HgA5C?usp=drive_link}{\cvtext{Bisogni Educativi Speciali}{Necesidades Educativas Especiales}{Special Education Needs}}}, %
+\decoicon{\faBookOpen}~\bloglinkwrap{pedagogia}{education-theory}{\textbf{\cvtext{Bisogni Educativi Speciali}{Necesidades Educativas Especiales}{Special Education Needs}}}, %
 \decoicon{\faMusic}~\bloglinkwrap{songwriting}{songwriting}{\textbf{\cvtext{Scrittura di canzoni}{Composición de canciones}{Songwriting}}}.
 \par}
 

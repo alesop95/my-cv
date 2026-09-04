@@ -24,14 +24,14 @@ Il blocco è generato da `tools/extract-cv-links.py` e non si modifica a mano: s
 
 ```mermaid
 flowchart LR
-    CV["main.tex (EN/IT/ES)<br/>52 bersagli, 65 URL"]
+    CV["main.tex (EN/IT/ES)<br/>52 bersagli, 67 URL"]
 
     CV -->|"6 link<br/>check-links -Category skills"| SKILLS["skills-repo<br/>E:\skills"]
-    CV -->|"7 pagine<br/>check-links -Category projects"| PROJECTS["projects<br/>E:\projects"]
-    CV -->|"13 tag x 2 lingue + 1 home<br/>check-links -Category blog"| BLOG["blog<br/>E:\blog-alessio"]
+    CV -->|"8 pagine<br/>check-links -Category projects"| PROJECTS["projects<br/>E:\projects"]
+    CV -->|"15 tag x 2 lingue + 1 home<br/>check-links -Category blog"| BLOG["blog<br/>E:\blog-alessio"]
     CV -->|"5 contatti"| ID["Identità<br/>mail, tel, LinkedIn, GitHub x2"]
     CV -->|"3 file migrati"| PROTON["Proton Drive<br/>destinazione"]
-    CV -->|"3 cartelle da migrare"| GDRIVE_CV["Google Drive<br/>residuo in main.tex"]
+    CV -->|"0 cartelle da migrare"| GDRIVE_CV["Google Drive<br/>residuo in main.tex"]
     CV -->|"10 redirect<br/>destinazione da seguire"| TINYURL["tinyurl.com"]
     CV -.->|"4 siti"| TERZI["Terze parti<br/>intrawelt.com, labilia.it, rgsound.it, scenia.it"]
 
@@ -57,7 +57,7 @@ flowchart LR
     SKILLS -->|"/soft/"| SKILLS_SOFT["Soft skills"]
 ```
 
-Gli asset di archivio nel perimetro raggiungibile sono 17: 3 già migrati su Proton Drive e 14 ancora su Google Drive, cioè 3 citati direttamente da `main.tex`, 9 nelle pagine di `projects` e 2 dietro i redirect di tesi. I tre insiemi sono disgiunti e si migrano in modi diversi: sostituzione nel sorgente, lavoro del repo `projects`, riconfigurazione del solo target del redirect.
+Gli asset di archivio nel perimetro raggiungibile sono 14: 3 già migrati su Proton Drive e 11 ancora su Google Drive, cioè 0 citati direttamente da `main.tex`, 9 nelle pagine di `projects` e 2 dietro i redirect di tesi. I tre insiemi sono disgiunti e si migrano in modi diversi: sostituzione nel sorgente, lavoro del repo `projects`, riconfigurazione del solo target del redirect.
 
 <!-- END GENERATED cv-links: grafo -->
 
@@ -96,13 +96,15 @@ Cosa il grafo non mostra, e non per dimenticanza. La struttura interna di `skill
 
 **Se un interesse non ha contenuto pertinente nel tag collegato**: due strade, scelte caso per caso finora - aggiungere un riferimento reale in un post esistente pertinente (fatto per harmony-book, poi scartato perché il progetto meritava un link diretto alla sua pagina invece di una menzione di passaggio), oppure far linkare il titolo dell'interesse direttamente alla risorsa primaria (pattern già usato per Stampa 3D, Bisogni Educativi Speciali, e ora harmony-book), perdendo il rimando secondario al blog.
 
-## Google Drive verso Proton Drive (migrazione parziale, 3 file su 17)
+## Google Drive verso Proton Drive (nessun asset residuo nel CV)
 
 Analisi archiviata in `_notes/tbc-archive/da-sistemare/tech improvement/0. [TBC] Modifica puntamento documenti anziché Google drive con Proton.docx`. Conclusione: **Proton Drive**, non Nextcloud/Seafile (richiederebbero self-hosting) né MEGA (percezione "file hosting" poco professionale in contesto enterprise). Proton Drive: piano gratuito 5 GB, E2EE reale, zero setup, link con password e scadenza, buona percezione privacy/GDPR.
 
 Struttura cartelle raccomandata (per contenuto, non per formato): `Certifications`, `Portfolio`, `Projects`, `Publications`, `Thesis`, `References`. Condividere il singolo documento necessario, mai la cartella radice.
 
-**Stato al 2026-09-03**: 3 file migrati (i tre link Proton della sezione Istruzione, dal commit `7ea1955`), 14 ancora su Google Drive. Il residuo non è un unico elenco ma tre insiemi disgiunti, che si migrano in modi diversi e appartengono a repository diversi: 3 link citati direttamente da `main.tex`, che si sostituiscono nel sorgente; 2 target dei redirect di tesi, che si riconfigurano sul pannello tinyurl senza toccare `main.tex`; 9 file nelle pagine del repository `projects`, che sono lavoro di quel repository. L'elenco riga per riga, con la cartella Proton di destinazione, sta in `external-links.md`. La versione precedente di questa scheda ne contava 9 in un solo insieme, mescolando i due perimetri.
+**Stato al 2026-09-04**: `main.tex` non cita più alcun link a Google Drive. I tre che citava sono usciti il 2026-09-03 senza passare da Proton, due verso le topic page del blog e uno verso la pagina di progetto di `spanish-learning`: il dettaglio, e il precedente che ne deriva, stanno in `external-links.md`. Restano nel perimetro raggiungibile undici asset Drive, cioè i nove nelle pagine del repository `projects` e i due dietro i redirect di tesi, questi ultimi in corso di spostamento su Proton in `Thesis` con sostituzione diretta in `main.tex` e ritiro dei due redirect.
+
+**Stato precedente, al 2026-09-03**: 3 file migrati (i tre link Proton della sezione Istruzione, dal commit `7ea1955`), 14 ancora su Google Drive. Il residuo non è un unico elenco ma tre insiemi disgiunti, che si migrano in modi diversi e appartengono a repository diversi: 3 link citati direttamente da `main.tex`, che si sostituiscono nel sorgente; 2 target dei redirect di tesi, che si riconfigurano sul pannello tinyurl senza toccare `main.tex`; 9 file nelle pagine del repository `projects`, che sono lavoro di quel repository. L'elenco riga per riga, con la cartella Proton di destinazione, sta in `external-links.md`. La versione precedente di questa scheda ne contava 9 in un solo insieme, mescolando i due perimetri.
 
 **Procedura per un file del primo insieme**: caricare su Proton nella cartella indicata, condividere con "Share with anyone" e permesso "Can view", sostituire l'argomento di `\href` in `main.tex` scappando il carattere `#` del frammento come `\#`, rigenerare l'inventario con `python tools/extract-cv-links.py --write`, poi `pwsh scripts/build.ps1` e verificare che tutte e tre le lingue restino su una pagina sola. I link non incidono sulla lunghezza del testo visibile, ma la verifica del conteggio pagine resta dovuta perché il documento è al limite.
 
