@@ -178,6 +178,7 @@ Write-Host ''
 $failed = @()
 $warned = @()
 $skipped = @()
+$unverifiable = @()
 foreach ($cat in $KnownCategories) {
     if ($wanted -notcontains $cat) { continue }
     $group = $selected | Where-Object { $_.Category -eq $cat }
@@ -191,8 +192,25 @@ foreach ($cat in $KnownCategories) {
             Write-Host ("  SKIP        {0}" -f $t.Url)
             continue
         }
-        $r = Resolve-Link -Url $t.Url
         $lang = if ($t.Lang -eq '-') { '' } else { "[$($t.Lang)] " }
+        # I link Proton non sono verificabili con una richiesta HTTP, per due motivi cumulativi:
+        # /urls/<id> appartiene a una single-page application che risponde 200 a qualunque
+        # percorso (verificato con l'identificativo inventato ZZZZZZZZZZ), e la chiave di
+        # decifratura dopo il # non viene mai inviata al server. Si controlla quindi la forma e si
+        # dichiara che la verifica end-to-end e' manuale, invece di stampare un OK che non vale.
+        if ($cat -eq 'proton') {
+            $shaped = $t.Url -match '^https://drive\.proton\.me/urls/[A-Za-z0-9]{10}#\S{8,}$'
+            if ($shaped) {
+                $unverifiable += [pscustomobject]@{ Url = $t.Url; Category = $cat }
+                $keyLen = ($t.Url -split '#')[-1].Length
+                Write-Host ("  FORMA ok    {0}{1}  (chiave {2} car)" -f $lang, $t.Url, $keyLen)
+            } else {
+                $failed += [pscustomobject]@{ Url = $t.Url; Category = $cat; Status = 0; Detail = 'forma inattesa per un link condiviso Proton' }
+                Write-Host ("  FORMA NO    {0}{1} (forma inattesa: atteso /urls/<10 caratteri>#<chiave>)" -f $lang, $t.Url)
+            }
+            continue
+        }
+        $r = Resolve-Link -Url $t.Url
         if ($r.Ok) {
             $suffix = ''
             if ($r.Hops -gt 0) { $suffix = " -> $($r.Final)" }
@@ -221,6 +239,10 @@ foreach ($cat in $KnownCategories) {
 
 if ($skipped.Count -gt 0) {
     Write-Host "[check-links] $($skipped.Count) non-HTTP saltati (mailto/tel)."
+}
+if ($unverifiable.Count -gt 0) {
+    Write-Host "[check-links] $($unverifiable.Count) link Proton con forma corretta ma NON verificabili via HTTP."
+    Write-Host "[check-links] La chiave dopo il # non raggiunge mai il server e /urls/<id> risponde 200 a qualunque identificativo: l'unica verifica reale e aprire il link in una finestra privata."
 }
 if ($warned.Count -gt 0) {
     Write-Host "[check-links] $($warned.Count) su $($selected.Count) non raggiungibili a livello di rete:"

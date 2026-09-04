@@ -18,17 +18,17 @@ Tutte le schede di `.claude/context/` tracciate da git sono ora ancorate a un co
 
 | Scheda | last-verified | Stato |
 |---|---|---|
-| index.md (questo file) | c994a08 | riscritto il 2026-08-27, aggiornato dopo la seconda passata |
-| decisions.md | c994a08 | due note di precisazione ad ADR-001 e ADR-003, più ADR-007 sul layer testuale |
-| progress.md | c994a08 | verificata, tre voci nuove in testa |
-| STACK.md | 1ac5d00 | estesa con `extract-cv-links.py` e `check-links.*` |
-| deployment.md | 1ac5d00 | sezione di verifica dei link riscritta su `check-links`, tutte le categorie |
-| dev-testing.md | 1ac5d00 | aggiunto `extract-cv-links --check` ai controlli documentali pre-commit |
-| altacv-reference.md | c994a08 | aggiunte le macro locali di collegamento, l'esito a una pagina e il layer testuale |
-| current-work.md | c994a08 | riallineata: sezione di stato in testa, il resto marcato come cronologia |
-| roadmap.md | 634aa6e | Fase 3 riscritta sul perimetro vero e sull'esito dei tre link Drive, Fase 4 sul checker generalizzato |
-| external-links.md | 634aa6e | 52 bersagli e 67 URL generati da `extract-cv-links`, secondo salto, chiusura dei tre link Drive del CV |
-| external-dependencies.md | 634aa6e | grafo generato al posto di quello scritto a mano, verifiche per dipendenza riscritte, Drive a zero nel CV |
+| index.md (questo file) | 330249e | riscritto il 2026-08-27, aggiornato dopo la seconda passata |
+| decisions.md | 330249e | due note di precisazione ad ADR-001 e ADR-003, più ADR-007 sul layer testuale |
+| progress.md | 330249e | verificata, tre voci nuove in testa |
+| STACK.md | 330249e | estesa con `extract-cv-links.py` e `check-links.*` |
+| deployment.md | 330249e | sezione di verifica dei link riscritta su `check-links`, tutte le categorie |
+| dev-testing.md | 330249e | aggiunto `extract-cv-links --check` ai controlli documentali pre-commit |
+| altacv-reference.md | 330249e | aggiunte le macro locali di collegamento, l'esito a una pagina e il layer testuale |
+| current-work.md | 330249e | riallineata: sezione di stato in testa, il resto marcato come cronologia |
+| roadmap.md | 330249e | Fase 3 riscritta sul perimetro vero e sull'esito dei tre link Drive, Fase 4 sul checker generalizzato |
+| external-links.md | 330249e | 52 bersagli e 67 URL generati da `extract-cv-links`, secondo salto, chiusura dei tre link Drive del CV |
+| external-dependencies.md | 330249e | grafo generato al posto di quello scritto a mano, verifiche per dipendenza riscritte, Drive a zero nel CV |
 
 ## Punto di ripresa
 

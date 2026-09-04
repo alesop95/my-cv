@@ -7,7 +7,7 @@ covers-paths:
   - "scripts/**"
   - ".latexmkrc"
   - "tex-packages.txt"
-last-verified-commit: c994a08
+last-verified-commit: 330249e
 ---
 
 # Build e distribuzione
@@ -64,7 +64,7 @@ bash scripts/check-links.sh --category tinyurl --show-final-url
 
 L'elenco dei link non viene ricavato da una regex propria dello script ma dalla proiezione tabellare di `tools/extract-cv-links.py`, la stessa fonte che genera l'inventario e il grafo delle dipendenze: esiste una sola definizione di cosa sia un link del CV, e aggiungerne uno nel sorgente lo mette automaticamente sotto controllo.
 
-Tre comportamenti da conoscere per leggere il rapporto. I redirect vengono seguiti un salto alla volta e la destinazione finale viene riportata, che è il modo per sapere senza aprire un browser dove atterrano davvero i dieci link `tinyurl`. Un fallimento a livello di rete, stampato come `WARN` e con codice di uscita 2, non è la stessa cosa di un errore HTTP, stampato come `FAIL` e con codice di uscita 1: il primo può dipendere dal resolver locale, come verificato il 2026-09-03 su `intrawelt.com`, che il DNS del router non risolveva mentre i resolver pubblici restituivano regolarmente il suo indirizzo. Un 2xx su una topic page del blog, infine, dice che la pagina esiste e non che il suo contenuto sia pertinente.
+Quattro comportamenti da conoscere per leggere il rapporto. I link Proton Drive non vengono verificati via HTTP e il rapporto lo dichiara stampando `FORMA ok` invece di uno stato: il percorso `/urls/<id>` appartiene a una single-page application che risponde 200 a qualunque identificativo, verificato con l'identificativo inventato `ZZZZZZZZZZ`, e la chiave di decifratura dopo il `#` non viene mai inviata al server. Il checker ne controlla quindi solo la forma e riporta la lunghezza della chiave, utile a riconoscere un link troncato nel copia-incolla; l'unica verifica reale è aprire il link in una finestra privata, ed è quella che il memo di `external-links.md` intende quando chiede la verifica end-to-end prima di cancellare l'originale. I redirect vengono seguiti un salto alla volta e la destinazione finale viene riportata, che è il modo per sapere senza aprire un browser dove atterrano davvero i dieci link `tinyurl`. Un fallimento a livello di rete, stampato come `WARN` e con codice di uscita 2, non è la stessa cosa di un errore HTTP, stampato come `FAIL` e con codice di uscita 1: il primo può dipendere dal resolver locale, come verificato il 2026-09-03 su `intrawelt.com`, che il DNS del router non risolveva mentre i resolver pubblici restituivano regolarmente il suo indirizzo. Un 2xx su una topic page del blog, infine, dice che la pagina esiste e non che il suo contenuto sia pertinente.
 
 Non fa parte della build: `scripts/build.ps1` non lo invoca. Va eseguito a mano prima di ogni build che produce un PDF destinato a essere inviato o pubblicato, e periodicamente anche senza modifiche al CV, perché a rompersi è la destinazione remota, non il sorgente locale.
 

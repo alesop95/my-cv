@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-09-04 - Riancoraggio delle schede, accenti nelle regole, e onestà del checker sui link Proton
+
+Microstep 1.2, riancoraggio. Le otto schede di `.claude/context/` erano ferme a `c994a08`, sei di esse, e a `1ac5d00` le due sui link, mentre HEAD era `330249e`: alla prima esecuzione di `sync-context` quei file sarebbero risultati cambiati dopo il proprio commit di ancoraggio, producendo una deriva segnalata dove non ce n'era. Tutte e otto sono ora a `330249e`, e con esse le undici righe della tabella di `index.md`. Le due schede che questa sessione non aveva mai letto, `altacv-reference.md` e `current-work.md`, sono state lette prima di essere riancorate invece di essere bollate come verificate a scatola chiusa: la prima descrive `\bloglinkwrap` con la definizione invariata e registra che `\bloglink` è definita ma non più chiamata, entrambe ancora vere; la seconda dichiara nessuna sezione in lavorazione, una pagina in tre lingue e tre punti di contenuto aperti, tutti confermati.
+
+Microstep 1.3, accenti. Quattro forme del verbo essere scritte senza accento, individuate cercando in tutto il repository lo stesso errore che avevo commesso io il giorno prima: due in `rules/git-identity-and-repo.md` e due nella stessa frase di `rules/security-permissions.md`. Sono di quelle che `fix-missing-accents.py` per contratto non decide, perché "e" senza accento è anche una congiunzione legittima.
+
+Misurato e non risolto, quindi nuovo elemento di roadmap: nelle sei regole di `.claude/rules/` restano circa quaranta forme dello stesso tipo, più tre "cio" da accentare. `fix-accents --check` e `fix-missing-accents --check` riportano zero file da modificare su quella cartella, perché tutte quelle occorrenze cadono nel loro insieme ambiguo, 409 occorrenze di dieci forme. Servono lettura e giudizio, non uno strumento.
+
+Difetto corretto in ciò che avevo consegnato il giorno prima, ed è il punto più importante di questa voce. Il checker riportava "OK 200" sui tre link Proton Drive, e quel verdetto non significava niente. Un link condiviso di Proton ha due parti con proprietà diverse: il percorso `/urls/<id>` appartiene a una single-page application che risponde 200 a qualunque identificativo, verificato passando l'identificativo inventato `ZZZZZZZZZZ`, e la chiave di decifratura dopo il `#` non viene mai inviata al server, quindi nessuna richiesta HTTP può dire se sia corretta o troncata. `check-links` ora stampa `FORMA ok` invece di uno stato, riporta la lunghezza della chiave perché un link troncato nel copia-incolla si riconosce da quella, e dichiara esplicitamente che la verifica end-to-end è aprire il link in una finestra privata. È esattamente ciò che il memo di `external-links.md` intendeva chiedendo la verifica end-to-end prima di cancellare l'originale da Google Drive, e fino a oggi la scheda affidava quella verifica a uno strumento che non la faceva.
+
+Altri due difetti nella documentazione scritta da me il giorno prima, entrambi corretti: le schede invocavano `pwsh`, che su questa macchina non è installato dato che l'unico PowerShell presente è Windows PowerShell 5.1, e citavano un parametro `-FollowRedirects` che non esiste, il cui nome reale è `-ShowFinalUrl`. Un comando documentato e non eseguito è una documentazione non verificata, e questi due lo dimostrano.
+
+In sospeso alla chiusura di questa voce: i due link Proton delle tesi sono arrivati e le impostazioni di condivisione sono confermate corrette da screenshot ("Share with anyone", "Anyone with this link", "Can view"), ma la chiave del link della magistrale è di nove caratteri contro i dodici di tutti gli altri quattro osservati, il che fa sospettare un troncamento nel copia-incolla. La sostituzione in `main.tex` e il ritiro dei due redirect tinyurl attendono la conferma di quel link.
+
+---
+
 ## 2026-09-03 - I tre link Google Drive del CV chiusi senza passare da Proton
 
 Seguito diretto della sessione dello stesso giorno, che aveva scoperto con `check-links` che nessuno dei tre link Google Drive citati da `main.tex` era apribile da un lettore anonimo. Il passo era stato impostato come migrazione verso Proton Drive; si è chiuso in un altro modo, e il modo conta più del risultato.

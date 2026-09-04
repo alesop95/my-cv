@@ -103,6 +103,7 @@ probe() {
 
 total=0
 skipped=0
+unverifiable=0
 declare -a failed=()
 declare -a warned=()
 
@@ -129,6 +130,19 @@ for cat in $KNOWN_CATEGORIES; do
     case "$url" in
       mailto:*|tel:*) skipped=$((skipped + 1)); printf '  SKIP        %s\n' "$url"; continue ;;
     esac
+    # I link Proton non sono verificabili via HTTP: /urls/<id> risponde 200 a qualunque
+    # identificativo e la chiave dopo il # non raggiunge mai il server. Si controlla la forma.
+    if [ "$cat" = "proton" ]; then
+      if printf '%s' "$url" | grep -Eq '^https://drive\.proton\.me/urls/[A-Za-z0-9]{10}#.{8,}$'; then
+        unverifiable=$((unverifiable + 1))
+        keylen=$(printf '%s' "${url#*#}" | tr -d '\n' | wc -c | tr -d ' ')
+        printf '  FORMA ok    %s%s  (chiave %s car)\n' "$prefix" "$url" "$keylen"
+      else
+        failed+=("[$cat] $url (forma inattesa)")
+        printf '  FORMA NO    %s%s (atteso /urls/<10 caratteri>#<chiave>)\n' "$prefix" "$url"
+      fi
+      continue
+    fi
     result="$(probe "$url" head)"
     code="${result%%$'\t'*}"
     final="${result#*$'\t'}"
@@ -157,6 +171,10 @@ done
 
 if [ "$skipped" -gt 0 ]; then
   echo "[check-links] $skipped non-HTTP saltati (mailto/tel)."
+fi
+if [ "$unverifiable" -gt 0 ]; then
+  echo "[check-links] $unverifiable link Proton con forma corretta ma NON verificabili via HTTP."
+  echo "[check-links] La chiave dopo il # non raggiunge mai il server e /urls/<id> risponde 200 a qualunque identificativo: l'unica verifica reale è aprire il link in una finestra privata."
 fi
 if [ "${#warned[@]}" -gt 0 ]; then
   echo "[check-links] ${#warned[@]} su $total non raggiungibili a livello di rete:"

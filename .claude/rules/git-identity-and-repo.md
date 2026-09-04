@@ -80,13 +80,13 @@ git commit -m "Initial commit: <note del primo commit>"
 git push -u origin main
 ```
 
-Subito dopo il primo commit conviene confermare con quale identità e stato firmato.
+Subito dopo il primo commit conviene confermare con quale identità è stato firmato.
 
 ```bash
 git log -1 --format="%an <%ae>"
 ```
 
-Se il repository su GitHub e stato creato con un README o una licenza automatica, esiste già un commit remoto e il push diretto verrebbe rifiutato. Si allinea con un rebase prima di pushare.
+Se il repository su GitHub è stato creato con un README o una licenza automatica, esiste già un commit remoto e il push diretto verrebbe rifiutato. Si allinea con un rebase prima di pushare.
 
 ```bash
 git pull origin main --rebase

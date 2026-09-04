@@ -6,7 +6,7 @@ covers-paths:
   - "main.tex"
   - "altacv.cls"
   - "tools/extract-cv-links.py"
-last-verified-commit: 1ac5d00
+last-verified-commit: 330249e
 ---
 
 # Inventario dei link citati dal CV
@@ -192,7 +192,7 @@ Il flusso è confermato funzionante dal 2026-07-15: si carica su Proton Drive, d
 
 Il lavoro residuo si divide in due insiemi disgiunti, che si trattano in modi diversi e appartengono a repository diversi. Un terzo insieme, i tre link Drive che il CV citava direttamente, si è chiuso il 2026-09-03 senza passare da Proton: vedi la sezione successiva, perché il modo in cui si è chiuso vale come precedente.
 
-Primo insieme, due redirect di tesi: si migrano aggiornando la destinazione del redirect sul pannello tinyurl, senza toccare `main.tex`. È il vantaggio strutturale del redirect, e il motivo per cui i link di tesi nel CV non cambiano mai. La destinazione effettiva si verifica senza aprire un browser con `pwsh scripts/check-links.ps1 -Category tinyurl -FollowRedirects`, che riporta l'URL finale di ogni redirect.
+Primo insieme, i due elaborati di tesi. Fino al 2026-09-04 erano raggiunti da due redirect tinyurl, e la scelta registrata è di ritirarli: i due `\href` di `main.tex` puntano direttamente ai link Proton e i redirect escono dal CV. La destinazione di un redirect si ispeziona con `powershell -NoProfile -File scripts/check-links.ps1 -Category tinyurl`, che segue i reindirizzamenti e riporta l'URL finale; è così che i due target di tesi sono stati risolti per la prima volta.
 
 | Redirect | Cosa | Cartella Proton | ID Drive risolto dietro il redirect |
 |---|---|---|---|
