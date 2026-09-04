@@ -658,16 +658,18 @@ def render_mermaid(state):
     lines.append('    CV -->|"%d contatti"| ID["Identità<br/>mail, tel, LinkedIn, GitHub x2"]'
                  % c['contatti'])
     lines.append('    CV -->|"%d file migrati"| PROTON["Proton Drive<br/>destinazione"]' % c['proton'])
-    lines.append('    CV -->|"%d cartelle da migrare"| GDRIVE_CV["Google Drive<br/>residuo in main.tex"]'
-                 % c['gdrive'])
+    # Nodo omesso quando la categoria è vuota: un arco etichettato "0" suggerisce un lavoro
+    # che non esiste. Vedi la nota in testa alla funzione.
+    if c['gdrive']:
+        lines.append('    CV -->|"%d cartelle da migrare"| GDRIVE_CV["Google Drive<br/>residuo in main.tex"]'
+                     % c['gdrive'])
     lines.append('    CV -->|"%d redirect<br/>destinazione da seguire"| TINYURL["tinyurl.com"]'
                  % c['tinyurl'])
     lines.append('    CV -.->|"%d siti"| TERZI["Terze parti<br/>%s"]'
                  % (c['terzi'], ', '.join(terzi_hosts)))
     lines.append('')
-    lines.append('    GDRIVE_CV -.->|"da migrare, lavoro di questo repo"| PROTON')
-    lines.append('')
-
+    if c['gdrive']:
+        lines.append('    GDRIVE_CV -.->|"da migrare, lavoro di questo repo"| PROTON')
     if hop['available']:
         lines.append('    subgraph HOP["Secondo salto: pagine di dettaglio in E:\\projects\\docs"]')
         for p in hop['pages']:
@@ -685,16 +687,30 @@ def render_mermaid(state):
     else:
         lines.append('    GDRIVE_HOP["Google Drive<br/>nelle pagine projects<br/>(non estratto)"]')
 
-    lines.append('    TINYURL -.->|"%d target di tesi<br/>ancora su Drive"| GDRIVE_HOP' % thesis)
-    lines.append('    GDRIVE_HOP -.->|"da migrare, lavoro del repo projects"| PROTON')
+    if thesis:
+        lines.append('    TINYURL -.->|"%d target di tesi<br/>ancora su Drive"| GDRIVE_HOP' % thesis)
+    if gdrive_hop:
+        lines.append('    GDRIVE_HOP -.->|"da migrare, lavoro del repo projects"| PROTON')
     lines.append('')
     lines.append('    SKILLS -->|"/technical/*"| SKILLS_TECH["Capability tecniche"]')
     lines.append('    SKILLS -->|"/soft/"| SKILLS_SOFT["Soft skills"]')
     lines.append('```')
     lines.append('')
-    lines.append('Gli asset di archivio nel perimetro raggiungibile sono %d: %d già migrati su Proton Drive e %d ancora su Google Drive, cioè %d citati direttamente da `main.tex`, %d nelle pagine di `projects` e %d dietro i redirect di tesi. I tre insiemi sono disgiunti e si migrano in modi diversi: sostituzione nel sorgente, lavoro del repo `projects`, riconfigurazione del solo target del redirect.'
-                 % (c['proton'] + gdrive_total, c['proton'], gdrive_total,
-                    c['gdrive'], gdrive_hop, thesis))
+    residui = []
+    if c['gdrive']:
+        residui.append('%d citati direttamente da `main.tex`' % c['gdrive'])
+    if gdrive_hop:
+        residui.append('%d nelle pagine di `projects`' % gdrive_hop)
+    if thesis:
+        residui.append('%d dietro i redirect di tesi' % thesis)
+    if residui:
+        lines.append('Gli asset di archivio nel perimetro raggiungibile sono %d: %d già migrati su Proton Drive e %d ancora su Google Drive, cioè %s.'
+                     % (c['proton'] + gdrive_total, c['proton'], gdrive_total,
+                        residui[0] if len(residui) == 1
+                        else ', '.join(residui[:-1]) + ' e ' + residui[-1]))
+    else:
+        lines.append('Gli asset di archivio nel perimetro raggiungibile sono %d, tutti su Proton Drive: nessun documento del CV è più ospitato su Google Drive.'
+                     % c['proton'])
     return '\n'.join(lines)
 
 

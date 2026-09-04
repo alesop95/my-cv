@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-09-04 - Revisione visiva del grafo: due archi a conteggio zero
+
+Il blocco Mermaid di `external-dependencies.md` era stato generato e verificato sintatticamente, mai guardato renderizzato. La revisione visiva, fatta su screenshot dell'utente come prescrive `rules/manual-screenshots.md`, ha trovato quel che nessun controllo sul sorgente poteva trovare: il diagramma disegnava un nodo "Google Drive residuo in main.tex" raggiunto da un arco etichettato "0 cartelle da migrare", e un arco "0 target di tesi ancora su Drive", entrambi residui delle chiusure del 2026-09-03 e del 2026-09-04. Una freccia etichettata zero è peggio del silenzio in un diagramma di dipendenze, perché suggerisce un lavoro che non esiste e il lettore deve scartarla da sé.
+
+`render_mermaid` omette ora nodi e archi la cui categoria è vuota, e la frase di chiusura si adatta al numero di insiemi residui invece di elencare zeri. Corretti nella stessa passata due difetti introdotti dalla correzione stessa: la congiunzione produceva "cioè e 9 nelle pagine" quando l'insieme residuo era uno solo, perché univa una lista vuota con l'ultimo elemento, e restava una riga vuota doppia dove stava il nodo rimosso. Provate entrambe le diramazioni, con uno e con due insiemi residui.
+
+Il resto del diagramma regge: il sottografo del secondo salto con sette nodi affiancati è leggibile, che era il rischio da verificare, e non ci sono errori di sintassi né etichette troncate.
+
+Lezione operativa, già scritta nella regola ma qui dimostrata: un artefatto visivo generato non è verificato finché non lo si guarda. `--check` confrontava il blocco con il sorgente e lo dichiarava allineato, ed era vero: il blocco era esattamente quello che il generatore produceva, e il generatore produceva due archi sbagliati.
+
+---
+
 ## 2026-09-04 - Riancoraggio delle schede, accenti nelle regole, e onestà del checker sui link Proton
 
 Microstep 1.2, riancoraggio. Le otto schede di `.claude/context/` erano ferme a `c994a08`, sei di esse, e a `1ac5d00` le due sui link, mentre HEAD era `330249e`: alla prima esecuzione di `sync-context` quei file sarebbero risultati cambiati dopo il proprio commit di ancoraggio, producendo una deriva segnalata dove non ce n'era. Tutte e otto sono ora a `330249e`, e con esse le undici righe della tabella di `index.md`. Le due schede che questa sessione non aveva mai letto, `altacv-reference.md` e `current-work.md`, sono state lette prima di essere riancorate invece di essere bollate come verificate a scatola chiusa: la prima descrive `\bloglinkwrap` con la definizione invariata e registra che `\bloglink` è definita ma non più chiamata, entrambe ancora vere; la seconda dichiara nessuna sezione in lavorazione, una pagina in tre lingue e tre punti di contenuto aperti, tutti confermati.
