@@ -144,7 +144,7 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 | `/projects/company/` | `docs/company` | 42 | 9 |  |
 | `/projects/personal/` | `docs/personal` | 93 | 96 |  |
 | `/projects/academic/` | `docs/academic` | 4 | 3 |  |
-| `/projects/courses/` | `docs/courses` | 3 | 10 |  |
+| `/projects/courses/` | `docs/courses` | 3 | 8 |  |
 | `/projects/company/network-infrastructure-documentation/` | `docs/company/network-infrastructure-documentation` | 3 | 0 | sottoinsieme della riga di sezione |
 | `/projects/personal/harmony-book/` | `docs/personal/harmony-book` | 3 | 3 | sottoinsieme della riga di sezione |
 
@@ -154,7 +154,7 @@ I 31 repository `github.com` distinti (93 occorrenze nelle pagine `/personal/`, 
 
 | Host | Bersagli |
 |---|---|
-| `drive.google.com` | 9 |
+| `drive.google.com` | 7 |
 | `youtube.com` | 2 |
 | `alesop95.github.io` | 1 |
 | `contemporanea2-0.it` | 1 |
@@ -168,12 +168,10 @@ I 31 repository `github.com` distinti (93 occorrenze nelle pagine `/personal/`, 
 |---|---|---|
 | `https://alesop95.github.io/skills/` | `alesop95.github.io` | `docs/index.en.md`, `docs/index.es.md`, `docs/index.md` |
 | `https://www.contemporanea2-0.it/landing-dizione/` | `contemporanea2-0.it` | `docs/courses/humanities.md` |
-| `https://drive.google.com/file/d/19jc-MpTL5mdlmXTW2RFm_myuLzoeXkg7/view?usp=...` | `drive.google.com` | `docs/courses/humanities.md` |
 | `https://drive.google.com/file/d/1FzGM9FFX__uIk8BlBm7w7u2bP4W2Jv8Z/view?usp=...` | `drive.google.com` | `docs/courses/humanities.md` |
 | `https://drive.google.com/file/d/1N0UwI3dExQAdXNcg4RRWr1Z4s7J45c5S/view?usp=...` | `drive.google.com` | `docs/academic/eolo-tv-spot.md` |
 | `https://drive.google.com/file/d/1SY_hhVEVb_BRHdIC3KPAX9xB0RloQlUj/view?usp=...` | `drive.google.com` | `docs/courses/humanities.md` |
 | `https://drive.google.com/file/d/1W6TS1cJAvJIVbbDPXks47_ELpmxMrD7K/view` | `drive.google.com` | `docs/courses/technical-training.md` |
-| `https://drive.google.com/file/d/1eS5HOIdAQOYIgZ6Zu7NUIhUQN49fZtlT/view?usp=...` | `drive.google.com` | `docs/courses/humanities.md` |
 | `https://drive.google.com/file/d/1mBimN4uUJW4we3oNSqjRNWTAyJeGdqY9/view` | `drive.google.com` | `docs/courses/technical-training.md` |
 | `https://drive.google.com/file/d/1rcLwkmahByoFxohc8-fUiOFDsGwrRSnk/view?usp=...` | `drive.google.com` | `docs/academic/channel-estimation-mimo.md` |
 | `https://drive.google.com/file/d/1zAWtISx8ASWQVDsE84zTjYZjaEvbSz6l/view?usp=...` | `drive.google.com` | `docs/personal/harmonic-tension-vst3.en.md`, `docs/personal/harmonic-tension-vst3.es.md`, `docs/personal/harmonic-tension-vst3.md` |
@@ -231,6 +229,18 @@ I tre link Google Drive che `main.tex` citava direttamente sono usciti tutti e t
 Le due voci degli Interessi erano le uniche due eccezioni alla convenzione generale del CV, per cui il titolo di un interesse rimanda alla propria topic page: sono rientrate nella regola invece di essere migrate. Con questo `main.tex` non contiene più alcun link a Google Drive, e la categoria `gdrive` dell'inventario è a zero.
 
 Nota sulle topic page del blog, che smentisce un allarme che sembrava fondato. Dodici dei quindici tag citati dal CV non hanno alcun post che li porti, verificato sul frontmatter dei tredici post esistenti e non sullo stato HTTP. Non è un difetto: `src/config/topics.ts` del repository del blog definisce un *topic* come area di interesse curata che riceve una descrizione editoriale sulla propria pagina anche prima che esista un articolo, per decisione registrata come ADR-018 in quel repository. Le pagine rendono quell'abstract, verificato su tutte e quattro le nuove.
+
+## Proton Drive: struttura e opzioni di condivisione
+
+Struttura fissata il 2026-09-07 e da non riorganizzare più, perché ogni spostamento invalida i link di condivisione già generati. Quattro cartelle sotto `My files`, tutte private: `Certifications` per attestati e corsi, `Research projects` per i progetti di ricerca con `Thesis` al suo interno per i due elaborati, `Education studies` per lo studio delle scienze dell'educazione, `Portfolio` per i lavori creativi. Il ruolo di Proton è quello fissato da ADR-010: archivia il perimetro del CV e pubblica, con link, soltanto i singoli documenti che il CV e le pagine di `projects` citano. Tutto il resto della struttura resta privato.
+
+Tre opzioni dell'interfaccia di condivisione vanno impostate consapevolmente, e per un documento allegato a un CV la scelta giusta è la stessa per tutte tre.
+
+L'opzione "Allow editors to change permissions and share" governa gli editor invitati, cioè le persone a cui si da' accesso in scrittura, e non ha alcun effetto su chi apre un link pubblico. Su questi file non esistono editor invitati, l'unico soggetto in "Who has access" è il proprietario, quindi l'opzione è irrilevante nei fatti e resta spenta per igiene: un'opzione accesa senza motivo è un permesso che nessuno ha deciso di dare.
+
+La protezione con password e la data di scadenza restano spente, e la ragione non è pigrizia. Un allegato del CV deve aprirsi senza attrito per un lettore sconosciuto: una password dovrebbe viaggiare insieme al CV, e nel momento in cui viaggia con esso non protegge più nulla, aggiunge solo un passaggio in cui il lettore si perde. Una scadenza è peggio, perché rompe in silenzio ogni copia del PDF già inviata: è lo stesso difetto per cui i due redirect tinyurl delle tesi sono stati ritirati, cioè un cambiamento invisibile a chi ha in mano il documento.
+
+Il caso in cui quelle due opzioni servono è diverso e vale distinguerlo: un documento mandato a un singolo destinatario in una conversazione, dove la password si comunica a voce e la scadenza chiude l'accesso a candidatura conclusa. Quello non è un allegato del CV ma un invio mirato, e se un giorno servirà andrà fatto con un link separato, generato per quell'occasione e non riusato nel documento.
 
 ## Verifica end-to-end dei link Proton
 

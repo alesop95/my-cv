@@ -39,13 +39,13 @@ flowchart LR
     P_company["docs/company<br/>42 file, 9 link"]
     P_personal["docs/personal<br/>93 file, 96 link"]
     P_academic["docs/academic<br/>4 file, 3 link"]
-    P_courses["docs/courses<br/>3 file, 10 link"]
+    P_courses["docs/courses<br/>3 file, 8 link"]
     P_companynetworkinfrastructuredocumentation["docs/company/network-infrastructure-documentation<br/>3 file, 0 link"]
     P_personalharmonybook["docs/personal/harmony-book<br/>3 file, 3 link"]
     end
     PROJECTS --> HOP
     HOP -->|"31 repo distinti, generati da<br/>update_personal_projects.py"| GH["github.com<br/>nodo aggregato"]
-    HOP -.->|"9 file"| GDRIVE_HOP["Google Drive<br/>nelle pagine projects"]
+    HOP -.->|"7 file"| GDRIVE_HOP["Google Drive<br/>nelle pagine projects"]
     HOP -.->|"2 video"| YT["YouTube"]
     GDRIVE_HOP -.->|"da migrare, lavoro del repo projects"| PROTON
 
@@ -53,7 +53,7 @@ flowchart LR
     SKILLS -->|"/soft/"| SKILLS_SOFT["Soft skills"]
 ```
 
-Gli asset di archivio nel perimetro raggiungibile sono 14: 5 già migrati su Proton Drive e 9 ancora su Google Drive, cioè 9 nelle pagine di `projects`.
+Gli asset di archivio nel perimetro raggiungibile sono 12: 5 già migrati su Proton Drive e 7 ancora su Google Drive, cioè 7 nelle pagine di `projects`.
 
 <!-- END GENERATED cv-links: grafo -->
 
