@@ -132,6 +132,20 @@ Il vincolo, e la ragione per cui questa voce è separata dal resto della fase: l
 
 Materiale potenzialmente utile, se estratto e riscritto invece che pubblicato: il dossier di competenze e gli appunti di ricerca lavoro possono contenere formulazioni già valide per la prosa del CV o per le pagine delle Capability. Una destinazione plausibile per la parte fiscale, che non è materia di questo repository, sono `E:\fiscal-toolkit` e `E:\legal-consultant`, che quel dominio già lo trattano.
 
+### Due obiettivi distinti, e perché non si ostacolano
+
+Chiarito il 2026-09-08 su domanda esplicita: lo spostamento del resto dell'archivio su Proton serve a due scopi che vanno tenuti separati, perché hanno percorsi diversi e uno dei due non si risolve spostando file.
+
+Il primo è avere un archivio solo, senza dover allineare Proton e Google Drive a ogni giro. Riguarda `🛠️ Ongoing studies` (2,0 GB), `IT-RELATED` (517 MB), `Progetti (consulenza)` (7,7 MB) e `Progetti (idee)` (3,7 MB), circa 2,53 GB contro i 3,24 GB liberi misurati il 2026-09-07, quindi ci stanno. Comporta l'aggiornamento di `C:\Scripts\folder-sync-watcher`, che oggi sorveglia i percorsi vecchi. È lavoro di archiviazione e non tocca il CV.
+
+Il secondo è dare valore a competenze reali che oggi non compaiono da nessuna parte, ed è la ragione per cui l'utente tiene a quel materiale: sono cose che sa o sta studiando, e fanno curriculum se raccontate insieme ai progetti. Questo percorso non passa dallo spostamento dei file, perché nessuno di quei documenti diventa un allegato: passa dalla pipeline che già esiste. `lettore-doc` legge le cartelle dichiarate nel suo `sources.yml`, estrae una tassonomia di competenze attraverso i suoi gate di sanificazione, e `export_to_taxonomy.py` la pubblica su `skills-repo`, che il CV già linka con sei link. Il passo concreto è quindi dichiarare quel corpus come sorgente e far girare la pipeline, non caricarlo da qualche parte.
+
+I due percorsi sono indipendenti anche tecnicamente: `lettore-doc` legge un percorso locale, quindi funziona identico dalla cartella su J: o dalla copia locale di Proton. Lo spostamento non aiuta né ostacola la valorizzazione, e la valorizzazione non richiede lo spostamento.
+
+Corrispondenza già verificata fra le cinque aree di `Ongoing studies` e le Capability che il CV linka: cybersecurity e IT governance, infrastruttura, sviluppo full-stack e DevOps, AI generativa hanno tutte una pagina che le riceverebbe. La finanza quantitativa non ha una Capability ma tocca due interessi già nel CV. Il calcolo quantistico non ha oggi alcuno sbocco, ed è l'unica delle cinque per cui la domanda "dove va" non ha ancora risposta.
+
+Il contesto architetturale completo in cui questo si inserisce, cioè come `my-cv`, `projects`, `skills`, il blog, `lettore-doc` e `D:\network-design` si alimentano a vicenda, sta in `architecture.md` con il grafo generato.
+
 ### Ordine di lavoro proposto
 
 Il primo passo non è caricare niente: è decidere, per ciascuna delle dieci cartelle di primo livello del portfolio, se il suo contenuto va pubblicato come allegato, raccontato in una pagina, o lasciato dove è. Le tre categorie hanno destinazioni diverse e non sono intercambiabili, ed è la confusione fra loro ad avere prodotto la difficoltà dei primi giorni di settembre. Solo dopo quella classificazione ha senso caricare su Proton, perché a quel punto si sa cosa e perché.
