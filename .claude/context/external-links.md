@@ -246,15 +246,24 @@ Il caso in cui quelle due opzioni servono è diverso e vale distinguerlo: un doc
 
 Un link condiviso di Proton non si verifica con una richiesta HTTP, e il motivo è strutturale: il percorso `/urls/<id>` appartiene a una single-page application che risponde 200 a qualunque identificativo, verificato passando l'identificativo inventato `ZZZZZZZZZZ`, e la chiave di decifratura dopo il `#` non viene mai inviata al server. L'unica verifica reale è aprire il link in una finestra di navigazione privata, senza essere autenticati a Proton, e controllare che compaia il documento giusto. `check-links -Category proton` controlla quindi solo la forma della URL e ne riporta la lunghezza della chiave, che è l'unico indizio automatico di un troncamento.
 
-| Link | Documento | Verifica end-to-end |
-|---|---|---|
-| `drive.proton.me/urls/6FBQ5M2JG0` | Tesi magistrale | fatta il 2026-09-04, apre |
-| `drive.proton.me/urls/1YR8GEJF4M` | Tesi triennale | fatta il 2026-09-04, apre |
-| `drive.proton.me/urls/Y0YWKXG708` | Certificato Percorso formativo 24 CFU | fatta il 2026-09-04, apre |
-| `drive.proton.me/urls/08GSDD51FC` | Supplemento al diploma magistrale | fatta il 2026-09-04, apre |
-| `drive.proton.me/urls/W1H29CBYHM` | Attestato Master ISTAO | fatta il 2026-09-04, apre |
+| Link | Documento | Citato da | Verifica end-to-end |
+|---|---|---|---|
+| `drive.proton.me/urls/7SBW3DYAHR` | Certificato Percorso formativo 24 CFU | `main.tex` | 2026-09-08, apre |
+| `drive.proton.me/urls/B21CAEJ2FC` | Supplemento al diploma magistrale | `main.tex` | 2026-09-08, apre |
+| `drive.proton.me/urls/BNH881T9J4` | Attestato Master ISTAO | `main.tex` | 2026-09-08, apre |
+| `drive.proton.me/urls/VG4VKJEG7G` | Tesi magistrale | `main.tex` | 2026-09-08, apre |
+| `drive.proton.me/urls/7TATA1QNPM` | Tesi triennale | `main.tex` | 2026-09-08, apre |
+| `drive.proton.me/urls/2AEP8NSDQM` | Attestato corso dizione e public speaking | `courses/humanities.md` | 2026-09-08, apre |
+| `drive.proton.me/urls/6KWFM3136M` | Video finale del corso di dizione | `courses/humanities.md` | 2026-09-08, apre |
+| `drive.proton.me/urls/JSZYEDPC3G` | Certificato Masterclass arrangiamento | `courses/technical-training.md` | 2026-09-08, apre |
+| `drive.proton.me/urls/G8Q023T4DR` | Certificato K-ACADEMY | `courses/technical-training.md` | 2026-09-08, apre |
+| `drive.proton.me/urls/X17ZP29GR4` | Channel Estimation MIMO | `academic/channel-estimation-mimo.md` | 2026-09-08, apre |
+| `drive.proton.me/urls/KHMJ76J6RR` | Modello Spiral Array, VST3 | `personal/harmonic-tension-vst3.md` (3 lingue) | 2026-09-08, apre |
+| `drive.proton.me/urls/TYRNWAFCW0` | Spot televisivo EOLO | `academic/eolo-tv-spot.md` | 2026-09-08, apre |
 
-Tutti e cinque sono ora verificati. I tre migrati il 2026-07-15 non lo erano mai stati: all'epoca la conferma si era basata su uno stato HTTP 2xx, che per un link Proton non prova niente, e il difetto è emerso solo il 2026-09-04, quando sono stati aperti in finestra privata insieme ai due delle tesi. Vale conservare l'episodio come regola operativa: un link Proton nuovo si considera buono solo dopo essere stato aperto una volta senza autenticazione, e la lunghezza della chiave riportata da `check-links` serve a intercettare il caso più frequente di link inservibile, cioè il troncamento nel copia-incolla, che si è verificato davvero sulla tesi magistrale.
+I dodici link precedenti a questa tabella sono stati invalidati dalla riorganizzazione di Proton del 2026-09-07: un link è legato alla copia specifica del file, e spostare la copia lo rompe. Rigenerati e riverificati tutti insieme, il che ha anche chiuso il debito dei tre link del 2026-07-15 che non erano mai stati verificati end-to-end.
+
+Tutti e dodici sono verificati. I tre migrati il 2026-07-15 non lo erano mai stati: all'epoca la conferma si era basata su uno stato HTTP 2xx, che per un link Proton non prova niente, e il difetto è emerso solo il 2026-09-04, quando sono stati aperti in finestra privata insieme ai due delle tesi. Vale conservare l'episodio come regola operativa: un link Proton nuovo si considera buono solo dopo essere stato aperto una volta senza autenticazione, e la lunghezza della chiave riportata da `check-links` serve a intercettare il caso più frequente di link inservibile, cioè il troncamento nel copia-incolla, che si è verificato davvero sulla tesi magistrale.
 
 ## Raggiungibilità verificata il 2026-09-03
 
