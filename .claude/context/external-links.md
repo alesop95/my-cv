@@ -108,11 +108,11 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 
 | URL | Riga | Sezione del CV | Nota |
 |---|---|---|---|
-| `https://drive.proton.me/urls/08GSDD51FC#Sl9ZV3ExCWC-` | 555 | Istruzione |  |
-| `https://drive.proton.me/urls/1YR8GEJF4M#1tEN9WAaB_e9` | 573 | Istruzione |  |
-| `https://drive.proton.me/urls/6FBQ5M2JG0#s_IgqhLKnby-` | 564 | Istruzione |  |
-| `https://drive.proton.me/urls/W1H29CBYHM#U0UQezNeHjvW` | 583 | Istruzione |  |
-| `https://drive.proton.me/urls/Y0YWKXG708#-VO43ecQ-A2j` | 600 | Istruzione |  |
+| `https://drive.proton.me/urls/7SBW3DYAHR#buQVD8BaWWFt` | 600 | Istruzione |  |
+| `https://drive.proton.me/urls/7TATA1QNPM#no37osQdgl8W` | 573 | Istruzione |  |
+| `https://drive.proton.me/urls/B21CAEJ2FC#PGIa6X2RwsOs` | 555 | Istruzione |  |
+| `https://drive.proton.me/urls/BNH881T9J4#Qx6e2d0KNf2j` | 583 | Istruzione |  |
+| `https://drive.proton.me/urls/VG4VKJEG7G#97SFMKdZe3OC` | 564 | Istruzione |  |
 
 ### Redirect tinyurl (8)
 
@@ -154,7 +154,7 @@ I 31 repository `github.com` distinti (93 occorrenze nelle pagine `/personal/`, 
 
 | Host | Bersagli |
 |---|---|
-| `drive.google.com` | 7 |
+| `drive.proton.me` | 7 |
 | `youtube.com` | 2 |
 | `alesop95.github.io` | 1 |
 | `contemporanea2-0.it` | 1 |
@@ -168,13 +168,13 @@ I 31 repository `github.com` distinti (93 occorrenze nelle pagine `/personal/`, 
 |---|---|---|
 | `https://alesop95.github.io/skills/` | `alesop95.github.io` | `docs/index.en.md`, `docs/index.es.md`, `docs/index.md` |
 | `https://www.contemporanea2-0.it/landing-dizione/` | `contemporanea2-0.it` | `docs/courses/humanities.md` |
-| `https://drive.google.com/file/d/1FzGM9FFX__uIk8BlBm7w7u2bP4W2Jv8Z/view?usp=...` | `drive.google.com` | `docs/courses/humanities.md` |
-| `https://drive.google.com/file/d/1N0UwI3dExQAdXNcg4RRWr1Z4s7J45c5S/view?usp=...` | `drive.google.com` | `docs/academic/eolo-tv-spot.md` |
-| `https://drive.google.com/file/d/1SY_hhVEVb_BRHdIC3KPAX9xB0RloQlUj/view?usp=...` | `drive.google.com` | `docs/courses/humanities.md` |
-| `https://drive.google.com/file/d/1W6TS1cJAvJIVbbDPXks47_ELpmxMrD7K/view` | `drive.google.com` | `docs/courses/technical-training.md` |
-| `https://drive.google.com/file/d/1mBimN4uUJW4we3oNSqjRNWTAyJeGdqY9/view` | `drive.google.com` | `docs/courses/technical-training.md` |
-| `https://drive.google.com/file/d/1rcLwkmahByoFxohc8-fUiOFDsGwrRSnk/view?usp=...` | `drive.google.com` | `docs/academic/channel-estimation-mimo.md` |
-| `https://drive.google.com/file/d/1zAWtISx8ASWQVDsE84zTjYZjaEvbSz6l/view?usp=...` | `drive.google.com` | `docs/personal/harmonic-tension-vst3.en.md`, `docs/personal/harmonic-tension-vst3.es.md`, `docs/personal/harmonic-tension-vst3.md` |
+| `https://drive.proton.me/urls/2AEP8NSDQM#SsbKG_-V4zjr` | `drive.proton.me` | `docs/courses/humanities.md` |
+| `https://drive.proton.me/urls/6KWFM3136M#2bA2HKgmj8dX` | `drive.proton.me` | `docs/courses/humanities.md` |
+| `https://drive.proton.me/urls/G8Q023T4DR#6EtHCGFZmZmC` | `drive.proton.me` | `docs/courses/technical-training.md` |
+| `https://drive.proton.me/urls/JSZYEDPC3G#K4VKQjfLAbIa` | `drive.proton.me` | `docs/courses/technical-training.md` |
+| `https://drive.proton.me/urls/KHMJ76J6RR#cSM_oJpX6Ky4` | `drive.proton.me` | `docs/personal/harmonic-tension-vst3.en.md`, `docs/personal/harmonic-tension-vst3.es.md`, `docs/personal/harmonic-tension-vst3.md` |
+| `https://drive.proton.me/urls/TYRNWAFCW0#FA9w8CgUMvtG` | `drive.proton.me` | `docs/academic/eolo-tv-spot.md` |
+| `https://drive.proton.me/urls/X17ZP29GR4#zwkFN_Cx9ipD` | `drive.proton.me` | `docs/academic/channel-estimation-mimo.md` |
 | `https://guide.univpm.it/af.php?af=113475` | `guide.univpm.it` | `docs/academic/nonlinear-devices-guitar-speakers.md` |
 | `https://www.klippel.de/fileadmin/klippel/Files/News/VIRTUAL%20LECTURE%20202...` | `klippel.de` | `docs/courses/technical-training.md` |
 | `https://www.openforce.it/` | `openforce.it` | `docs/courses/technical-training.md` |

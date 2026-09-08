@@ -45,15 +45,14 @@ flowchart LR
     end
     PROJECTS --> HOP
     HOP -->|"31 repo distinti, generati da<br/>update_personal_projects.py"| GH["github.com<br/>nodo aggregato"]
-    HOP -.->|"7 file"| GDRIVE_HOP["Google Drive<br/>nelle pagine projects"]
+    HOP -.->|"0 file"| GDRIVE_HOP["Google Drive<br/>nelle pagine projects"]
     HOP -.->|"2 video"| YT["YouTube"]
-    GDRIVE_HOP -.->|"da migrare, lavoro del repo projects"| PROTON
 
     SKILLS -->|"/technical/*"| SKILLS_TECH["Capability tecniche"]
     SKILLS -->|"/soft/"| SKILLS_SOFT["Soft skills"]
 ```
 
-Gli asset di archivio nel perimetro raggiungibile sono 12: 5 già migrati su Proton Drive e 7 ancora su Google Drive, cioè 7 nelle pagine di `projects`.
+Gli asset di archivio nel perimetro raggiungibile sono 5, tutti su Proton Drive: nessun documento del CV è più ospitato su Google Drive.
 
 <!-- END GENERATED cv-links: grafo -->
 

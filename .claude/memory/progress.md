@@ -4,6 +4,32 @@
 
 ---
 
+## 2026-09-07 - Google Drive a zero in tutto il perimetro, Proton riorganizzata
+
+Chiusura del blocco 2 e della riorganizzazione dell'archivio, in micro-passi tracciati su richiesta dell'utente.
+
+Struttura di Proton fissata, e da non riorganizzare più: quattro cartelle sotto `My files`, cioè `Certifications`, `Portfolio`, `Education studies` e `Research projects` con `Thesis` al suo interno. Le due vecchie cartelle piatte `Certifications/` e `Thesis/`, che ospitavano i cinque documenti già linkati dal CV, sono state rimosse perché i loro cinque PDF erano duplicati: verificati identici per md5 prima della cancellazione, non per omonimia. Le quattro cartelle di archivio sono superinsiemi delle due vecchie, quindi nulla è andato perso e il conteggio è rimasto a 364 file.
+
+Conseguenza accettata dall'utente: i cinque link Proton del CV sono stati rigenerati da zero, perché un link Proton è legato alla copia specifica del file e la riorganizzazione l'ha spostata. Sostituiti in `main.tex` con il `#` scappato come `\#`; una delle sostituzioni ha toccato due occorrenze invece di una, perché un identificativo compariva anche in una riga commentata che conserva un'alternativa, e lasciarlo morto là dentro sarebbe stata una trappola per chi un giorno la riattiva.
+
+Sostituiti anche i sette link delle pagine di `E:\projects`, nessuno dei quali era pubblico: tutti rispondevano 401. Corrette due etichette che descrivevano male il bersaglio, cioè la "recensione personale" del corso di dizione, che è in realtà il video finale del corso e non un testo scritto, e il link dello spot EOLO, che si chiamava "Google Drive", cioè il nome del servizio che lo ospitava invece di ciò che apre.
+
+Errore evitato mentre lo si stava commettendo, e vale registrarlo perché è strutturale: le pagine sotto `docs/personal/` del repository `projects` sono generate da `scripts/update_personal_projects.py`, e la fonte vera sono gli override in `data/personal_overrides/`. Modificare solo le pagine generate le avrebbe fatte tornare indietro al primo rilancio dello script. Sostituite entrambe, per tutte e tre le lingue, con le etichette tradotte diverse in ciascuna.
+
+Rimossi da `docs/courses/humanities.md` i due link del workshop EFT. Il primo puntava al PDF del libro di Sue Johnson: è un'opera protetta e un link pubblico dal sito dei progetti ne sarebbe distribuzione non autorizzata, indipendentemente dal fatto che l'autore possieda una copia acquistata; resta la citazione bibliografica, che è il modo corretto di riferirsi a un libro. Il secondo era etichettato "Certificato" ma nella cartella del workshop non esiste alcun attestato, coerente con il ricordo dell'utente.
+
+Controllo richiesto dall'utente su possibili cancellazioni sbagliate da Google Drive: nessuna. Il link del presunto certificato risponde 401 e non 404, quindi il file esiste e non è condiviso; Drive distingue le due cose, e le due cartelle trovate morte il 2026-09-03 rispondevano 404 da prima di questa sessione. Il cestino dell'SSD contiene undici file, tutti fogli di calcolo, nulla di pertinente.
+
+Verifica di forma sui dodici link nuovi: identificativo di dieci caratteri e chiave di dodici per tutti, nessun duplicato, nessun troncamento come quello che il 2026-09-04 aveva colpito la tesi magistrale. Verificato inoltre che nel PDF compilato l'URI dell'annotazione porti la chiave completa. I tre PDF restano su una pagina in tutte e tre le lingue.
+
+Stato del perimetro: `drive.google.com` è a zero sia in `main.tex` sia nelle pagine di `projects`. Il secondo salto conta quindici bersagli non-GitHub, di cui sette su Proton. Resta da fare, e non è mio: la verifica end-to-end dei dodici link in finestra privata, e solo dopo la cancellazione delle quattro cartelle da Google Drive.
+
+Registrato in `external-links.md` il contesto d'uso di Proton chiesto dall'utente. L'opzione "Allow editors to change permissions and share" governa gli editor invitati e non ha effetto su chi apre un link pubblico: su questi file non esistono editor, l'unico soggetto in "Who has access" è il proprietario, e l'opzione resta spenta per igiene. Password e data di scadenza restano spente per un allegato del CV, e la ragione è la stessa che ha portato a ritirare i redirect tinyurl: una password dovrebbe viaggiare con il CV e a quel punto non protegge nulla, e una scadenza rompe in silenzio ogni copia del PDF già inviata. Servono invece per un invio mirato a un singolo destinatario, che è un caso diverso e va fatto con un link separato.
+
+Segnati per la valutazione successiva, non ancora in roadmap perché l'utente ha chiesto di chiudere prima i link: lo spostamento su Proton di `Ongoing studies` (2,0 GB), `IT-RELATED` (517 MB), `Progetti (consulenza)` (7,7 MB) e `Progetti (idee)` (3,7 MB), che sommano circa 2,53 GB contro i 3,24 GB liberi misurati, e la dipendenza da `C:\Scripts\folder-sync-watcher`, che va aggiornato se quelle cartelle si spostano.
+
+---
+
 ## 2026-09-04 - Radice riordinata, hook di coerenza in apertura, e l'archivio misurato
 
 Tre richieste dell'utente in un colpo, più una nota di roadmap.
