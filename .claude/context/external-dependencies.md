@@ -7,12 +7,12 @@ covers-paths:
   - "tools/extract-cv-links.py"
   - "scripts/check-links.ps1"
   - "scripts/check-links.sh"
-last-verified-commit: 330249e
+last-verified-commit: 67c3561
 ---
 
 # Dipendenze esterne e flussi di sincronizzazione
 
-`my-cv` non vive isolato: rimanda a tre siti satellite mantenuti in prima persona (skills-repo, projects, blog), a due servizi di archivio per gli allegati (Google Drive in uscita, Proton Drive in ingresso, migrazione parziale) e a un servizio di redirect. Questa scheda descrive, per ciascuna dipendenza, cosa la rompe e cosa fare quando succede; l'inventario dei singoli link, con numero di riga e sezione del CV, sta in `external-links.md` e lo genera `tools/extract-cv-links.py`.
+`my-cv` non vive isolato: rimanda a tre siti satellite mantenuti in prima persona (skills-repo, projects, blog), a due servizi di archivio per gli allegati (Proton Drive, che dal 2026-09-07 pubblica tutti i dodici allegati del perimetro, e Google Drive, che resta l'archivio completo e non è più citato da alcun link) e a un servizio di redirect. Questa scheda descrive, per ciascuna dipendenza, cosa la rompe e cosa fare quando succede; l'inventario dei singoli link, con numero di riga e sezione del CV, sta in `external-links.md` e lo genera `tools/extract-cv-links.py`.
 
 ## Diagramma delle relazioni
 
@@ -95,7 +95,9 @@ Cosa il grafo non mostra, e non per dimenticanza. La struttura interna di `skill
 
 Analisi archiviata in `_notes/tbc-archive/da-sistemare/tech improvement/0. [TBC] Modifica puntamento documenti anziché Google drive con Proton.docx`. Conclusione: **Proton Drive**, non Nextcloud/Seafile (richiederebbero self-hosting) né MEGA (percezione "file hosting" poco professionale in contesto enterprise). Proton Drive: piano gratuito 5 GB, E2EE reale, zero setup, link con password e scadenza, buona percezione privacy/GDPR.
 
-Struttura cartelle raccomandata (per contenuto, non per formato): `Certifications`, `Portfolio`, `Projects`, `Publications`, `Thesis`, `References`. Condividere il singolo documento necessario, mai la cartella radice.
+Struttura delle cartelle fissata il 2026-09-07, e da non riorganizzare più: quattro cartelle sotto `My files`, cioè `Certifications`, `Portfolio`, `Education studies` e `Research projects` con `Thesis` al suo interno. Sostituisce la struttura a sei cartelle solo raccomandata di prima, che non è mai stata realizzata. Si condivide sempre il singolo documento necessario, mai la cartella radice. Il vincolo di non riorganizzare non è una preferenza di ordine: un link condiviso di Proton è legato alla copia specifica del file, quindi spostare la copia rompe il link, e la riorganizzazione del 2026-09-07 ha effettivamente invalidato in un colpo tutti e dodici i link del perimetro, che sono stati rigenerati e riverificati uno per uno.
+
+**Stato al 2026-09-08**: `drive.google.com` è a zero in tutto il perimetro, non solo in `main.tex` ma anche nelle pagine del repository `projects`, dove i sette link residui sono stati sostituiti il 2026-09-07 dopo aver verificato che nessuno dei sette fosse pubblico, perché tutti rispondevano 401. I link Proton del perimetro sono dodici, di cui cinque citati da `main.tex` e sette dalle pagine di `projects`, e tutti e dodici sono stati aperti in finestra privata il 2026-09-08 e verificati end-to-end: la tabella per link sta in `external-links.md`. Nessuna cancellazione è stata fatta da Google Drive, coerentemente con ADR-009, e il controllo esplicito sulle presunte cancellazioni è registrato nel work-log del 2026-09-07.
 
 **Stato al 2026-09-04**: `main.tex` non cita più alcun link a Google Drive. I tre che citava sono usciti il 2026-09-03 senza passare da Proton, due verso le topic page del blog e uno verso la pagina di progetto di `spanish-learning`: il dettaglio, e il precedente che ne deriva, stanno in `external-links.md`. Restano nel perimetro raggiungibile undici asset Drive, cioè i nove nelle pagine del repository `projects` e i due dietro i redirect di tesi, questi ultimi in corso di spostamento su Proton in `Thesis` con sostituzione diretta in `main.tex` e ritiro dei due redirect.
 
@@ -104,6 +106,10 @@ Struttura cartelle raccomandata (per contenuto, non per formato): `Certification
 **Procedura per un file del primo insieme**: caricare su Proton nella cartella indicata, condividere con "Share with anyone" e permesso "Can view", sostituire l'argomento di `\href` in `main.tex` scappando il carattere `#` del frammento come `\#`, rigenerare l'inventario con `python tools/extract-cv-links.py --write`, poi `powershell -NoProfile -File scripts/build.ps1` e verificare che tutte e tre le lingue restino su una pagina sola. I link non incidono sulla lunghezza del testo visibile, ma la verifica del conteggio pagine resta dovuta perché il documento è al limite.
 
 **Memo**: nessuna cancellazione da Google Drive, per ADR-009 del 2026-09-04. Drive resta l'archivio e conserva la raccolta completa; Proton riceve soltanto il singolo file che il CV linka, uno per link, ed è quindi una superficie di pubblicazione e non una destinazione di migrazione. Il memo precedente, che chiedeva di cancellare gli originali a migrazione verificata, è ritirato. Fase indipendente dal codice LaTeX: si può fare gradualmente, un file alla volta, senza bloccare altro lavoro sul CV.
+
+## folder-sync-watcher (`C:\Scripts\folder-sync-watcher`)
+
+Dipendenza fuori repository, registrata il 2026-09-07 e non ancora toccata. Il watcher sorveglia i percorsi attuali delle cartelle di archivio, quindi va aggiornato se e quando le quattro cartelle candidate allo spostamento su Proton, cioè `Ongoing studies`, `IT-RELATED`, `Progetti (consulenza)` e `Progetti (idee)`, cambiano posizione. Cosa la rompe: uno spostamento eseguito senza aggiornare il watcher, che continuerebbe a sorvegliare un percorso morto senza dirlo. Cosa fare: aggiornare i percorsi nel watcher nella stessa sessione in cui si spostano le cartelle, mai in una successiva. Il dettaglio dello spostamento, e la ragione per cui è indipendente dalla valorizzazione delle competenze, stanno nella Fase 7 di `roadmap.md`.
 
 ## ATS-safety e ottimizzazione per algoritmi di detection (rivalutazione richiesta il 2026-07-15)
 

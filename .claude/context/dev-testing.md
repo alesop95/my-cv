@@ -5,7 +5,7 @@ generated-date: 2026-06-23
 covers-paths:
   - "main.tex"
   - "tools/**"
-last-verified-commit: 330249e
+last-verified-commit: 67c3561
 ---
 
 # Revisione e verifica del documento
@@ -21,7 +21,7 @@ Il ciclo è modifica-compila-leggi. Non esiste una test suite automatizzata: la 
 
 ## Errori di compilazione
 
-`scripts/build.ps1` compila con pdflatex direttamente (non latexmk, dal 2026-07-08): l'errore compare nell'output del comando con il numero di riga, oppure nel file `cv-sopranzi-alessio-<lingua>.log` della lingua che ha fallito. Cercare la prima riga che inizia con `!`. Se un pacchetto non è trovato, il messaggio indica il file `.sty` mancante: aggiungere il pacchetto a `tex-packages.txt` e rieseguire il setup.
+`scripts/build.ps1` compila con pdflatex direttamente (non latexmk, dal 2026-07-08): l'errore compare nell'output del comando con il numero di riga, oppure nel file di log della lingua che ha fallito, che dal 2026-09-04 sta in `build/cv-sopranzi-alessio-<lingua>.log` e non più in radice. Cercare la prima riga che inizia con `!`. Se un pacchetto non è trovato, il messaggio indica il file `.sty` mancante: aggiungere il pacchetto a `tex-packages.txt` e rieseguire il setup.
 
 ## Revisione del contenuto
 

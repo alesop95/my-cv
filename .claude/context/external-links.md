@@ -6,7 +6,7 @@ covers-paths:
   - "main.tex"
   - "altacv.cls"
   - "tools/extract-cv-links.py"
-last-verified-commit: 330249e
+last-verified-commit: 67c3561
 ---
 
 # Inventario dei link citati dal CV

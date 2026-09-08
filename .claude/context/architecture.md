@@ -5,7 +5,7 @@ generated-date: 2026-09-04
 covers-paths:
   - "tools/extract-ecosystem.py"
   - "tools/extract-cv-links.py"
-last-verified-commit: 5bb84b3
+last-verified-commit: 67c3561
 ---
 
 # Architettura dell'ecosistema personale
@@ -32,7 +32,7 @@ python tools/extract-ecosystem.py --check
 ```mermaid
 flowchart TB
     subgraph FONTI["1. Fonti: dove il lavoro reale succede"]
-    D_ROOT["D:\ progetti aziendali<br/>23 cartelle, solo contate"]
+    D_ROOT["D:\ progetti aziendali<br/>24 cartelle, solo contate"]
     VM["VM aziendali su Proxmox<br/>dettaglio nel repo projects"]
     E_ROOT["E:\ repository personali<br/>32 con remote GitHub<br/>più 6 di infrastruttura"]
     DOCS["Corpus documentali<br/>OneDrive aziendale e sorgenti personali"]

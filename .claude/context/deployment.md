@@ -7,7 +7,7 @@ covers-paths:
   - "scripts/**"
   - ".latexmkrc"
   - "tex-packages.txt"
-last-verified-commit: 330249e
+last-verified-commit: 67c3561
 ---
 
 # Build e distribuzione
@@ -30,13 +30,17 @@ powershell -ExecutionPolicy Bypass -File scripts\build.ps1
 
 Produce (sovrascrivendoli) `cv-sopranzi-alessio-en.pdf`, `cv-sopranzi-alessio-it.pdf`, `cv-sopranzi-alessio-es.pdf` nella radice, tutti e tre versionati in git. Da lanciare prima di ogni commit che tocca `main.tex`, così le tre lingue non si disallineano mai tra loro. Compila con pdflatex direttamente (due passaggi fissi), non con latexmk: l'argomento `-jobname` iniettato per selezionare la lingua non è un vero nome di file e comprometterebbe l'analisi delle dipendenze di latexmk.
 
+I derivati di compilazione non finiscono in radice: dal 2026-09-04 gli script passano a pdflatex un `-output-directory` che punta a `build/`, quindi i tredici file ausiliari delle tre lingue stanno là dentro, e i tre PDF vengono copiati in radice a compilazione finita. Un errore di compilazione si legge di conseguenza in `build/cv-sopranzi-alessio-<lingua>.log` e non in radice.
+
 ## Pulire i file ausiliari
 
 ```
 powershell -ExecutionPolicy Bypass -File scripts\build.ps1 -Clean
 ```
 
-Rimuove i tre PDF stabili e i loro ausiliari (`.aux`/`.log`/`.out`/`.synctex.gz`) dalla radice. Non esiste più un flag `-CleanAll` separato (rimosso insieme al vecchio flusso a lingua singola basato su latexmk).
+Rimuove dalla radice i tre PDF stabili. Non esiste più un flag `-CleanAll` separato (rimosso insieme al vecchio flusso a lingua singola basato su latexmk).
+
+Avvertenza verificata il 2026-09-08, e non ancora corretta nel codice: dal riordino della radice del 2026-09-04 questo flag non rimuove più gli ausiliari, perché entrambi gli script spazzano la sola cartella di `main.tex` mentre `.aux`, `.log`, `.out` e `.synctex.gz` vivono ormai in `build/`. Il nome del flag e il suo messaggio finale, che continua ad annunciare la rimozione degli ausiliari, promettono quindi più di quanto facciano. Per svuotare davvero i derivati si cancella `build/`, che essendo ignorata da git non porta con sé nulla di versionato.
 
 ## Istantanee datate multilingua (archivio storico, separato)
 

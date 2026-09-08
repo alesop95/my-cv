@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-09-08 - Dodici link verificati, la Fase 7 sdoppiata, e la ripresa dopo un crash
+
+Giornata in due tempi, separati da un crash della sessione di Claude Code.
+
+Prima del crash, tre commit. I dodici link Proton rigenerati il giorno precedente sono stati aperti uno per uno in finestra privata, senza autenticazione, e tutti e dodici mostrano il documento giusto: la tabella per link con la data di verifica sta in `external-links.md`. La verifica ha chiuso contestualmente il debito dei tre link del 2026-07-15, che non erano mai stati verificati end-to-end perché all'epoca la conferma si era basata su uno stato HTTP 2xx, che per un link Proton non prova niente. Con questo la Fase 3 è completa e `drive.google.com` è a zero in tutto il perimetro.
+
+Chiarita nella stessa sessione, su domanda esplicita dell'utente, la distinzione fra i due obiettivi della Fase 7, che fino a quel momento erano trattati come uno. Il primo è avere un archivio solo invece di due da allineare, e riguarda quattro cartelle per circa 2,53 GB contro i 3,24 GB liberi misurati; comporta l'aggiornamento di `C:\Scripts\folder-sync-watcher` e non tocca il CV. Il secondo è dare valore a competenze reali che oggi non compaiono da nessuna parte, e il punto non evidente è che non passa dallo spostamento dei file: passa dalla pipeline di `lettore-doc`, che legge un percorso locale dichiarato nel suo `sources.yml` ed esporta su `skills-repo` con `export_to_taxonomy.py`. I due percorsi sono indipendenti anche tecnicamente, perché la pipeline funziona identica dalla cartella su J: o da una copia locale di Proton, quindi lo spostamento non aiuta né ostacola la valorizzazione. Delle cinque aree di studio in corso, quattro hanno già una Capability che le riceverebbe, la finanza quantitativa non ce l'ha ma tocca due interessi già nel CV, e il calcolo quantistico è l'unica per cui la domanda su dove vada non ha ancora risposta.
+
+Dopo il crash, la ripresa. Nessun lavoro perso: i tre commit erano su disco e il working tree era pulito. Il costo si è manifestato altrove, cioè nella manutenzione di fine sessione mai eseguita, e vale registrarlo come rilievo generale perché non è specifico di questo incidente: i commit sopravvivono a un crash e la memoria no.
+
+Tre disallineamenti trovati e chiusi nella ripresa. L'hook `SessionStart` segnalava deriva nel grafo di architettura, ed era una cifra sola: `Articolo Open-es`, comparsa su `D:` la mattina stessa, portava le cartelle di primo livello da ventitre a ventiquattro. Il grafo conserva solo il conteggio e non i nomi, per il vincolo su `D:`, quindi l'identificazione è stata fatta per data di creazione e non per differenza fra due elenchi, e il contenuto della cartella non è stato letto. Le nove schede di `context/` sono state riancorate da `330249e` a `67c3561`, dodici commit di distanza. La memoria è stata riportata allo stato reale, con questo file, la riscrittura di `index.md`, che dichiarava ancora `c994a08` e descriveva come in attesa di commit del lavoro già committato, e l'emendamento del 2026-09-08 ad ADR-010.
+
+Nel merito, la sincronizzazione delle schede ha trovato tre punti di prosa davvero disallineati, tutti prodotti dal riordino della radice del 2026-09-04 che aveva spostato i derivati in `build/` senza che le schede lo recepissero: dove finiscono i file ausiliari, dove si legge il log di una compilazione fallita, e cosa fa il flag di pulizia. Su quest'ultimo è emerso un difetto di codice, verificato leggendo entrambi gli script e non dedotto: `-Clean` di `build.ps1` e `--clean` di `build.sh` spazzano la sola cartella di `main.tex`, quindi dal 2026-09-04 non rimuovono più gli ausiliari, che vivono in `build/`, mentre il loro messaggio finale continua ad annunciare una rimozione che non avviene. Il difetto è registrato in `deployment.md` e fra i difetti noti di `index.md`, e non è stato corretto nel codice perché la correzione è lavoro sugli script e non su una scheda.
+
+Registrata infine, in `external-dependencies.md`, la dipendenza da `C:\Scripts\folder-sync-watcher`, che fino a oggi viveva solo come nota nel work-log del 2026-09-07 e non come voce della scheda delle dipendenze.
+
+---
+
 ## 2026-09-07 - Google Drive a zero in tutto il perimetro, Proton riorganizzata
 
 Chiusura del blocco 2 e della riorganizzazione dell'archivio, in micro-passi tracciati su richiesta dell'utente.

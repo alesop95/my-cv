@@ -4,7 +4,7 @@ generated-from-branch: main
 generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
-last-verified-commit: 330249e
+last-verified-commit: 67c3561
 ---
 
 # Roadmap e priorità
@@ -54,7 +54,9 @@ La fase cambia natura il 2026-09-04 con ADR-009, e vale rileggerla con quella le
 
 Azione utile e indipendente dal resto della fase: riconfigurare `tinyurl.com/Tesi-magistrale` e `tinyurl.com/Tesi-trienn` sui link Proton. I due redirect sono usciti da `main.tex` ma non dal mondo, e ogni copia del CV inviata prima del 2026-09-04 li contiene, quindi riconfigurarli ripara tutte quelle copie in una volta.
 
-Resta aperto un solo insieme: i nove file Drive nelle pagine del repository `projects`, tutti verificati non pubblici, che sono lavoro di quel repository. Con ADR-009 il trattamento di ciascuno è già deciso in linea di principio: se il documento è una prova va pubblicato su Proton come file singolo e il link sostituito, se è materiale grezzo il contenuto va nel testo della pagina e il link sparisce. L'elenco riga per riga, con la cartella Proton di destinazione per ciascun documento, resta in `external-links.md`, che è la fonte operativa di questa fase e va rigenerata insieme al sorgente a ogni modifica con `python tools/extract-cv-links.py --write`.
+Insieme chiuso il 2026-09-07, e la fase con esso: dei nove file Drive nelle pagine del repository `projects` sette sono stati pubblicati su Proton e sostituiti, e due sono stati rimossi invece che migrati, cioè il PDF del libro di Sue Johnson, che è opera protetta e di cui resta la sola citazione bibliografica, e un presunto certificato del workshop EFT che nella cartella del workshop non esiste. Con questo `drive.google.com` è a zero in tutto il perimetro, e i dodici link Proton che ne risultano sono stati verificati end-to-end in finestra privata il 2026-09-08. Le due etichette che descrivevano male il bersaglio sono state corrette nella stessa passata, e la correzione è stata fatta sugli override in `data/personal_overrides/` e non sulle pagine generate sotto `docs/personal/`, che `scripts/update_personal_projects.py` riscriverebbe al primo rilancio. Resta invece aperta la Fase 7, che è un'altra cosa: l'archivio, non i link.
+
+Testo precedente della voce, conservato per il criterio che enuncia: i nove file Drive nelle pagine del repository `projects`, tutti verificati non pubblici, che sono lavoro di quel repository. Con ADR-009 il trattamento di ciascuno è già deciso in linea di principio: se il documento è una prova va pubblicato su Proton come file singolo e il link sostituito, se è materiale grezzo il contenuto va nel testo della pagina e il link sparisce. L'elenco riga per riga, con la cartella Proton di destinazione per ciascun documento, resta in `external-links.md`, che è la fonte operativa di questa fase e va rigenerata insieme al sorgente a ogni modifica con `python tools/extract-cv-links.py --write`.
 
 ## Fase 4 - Allineamento delle skill alla tassonomia di skills-repo (in gran parte completata il 2026-07-06)
 

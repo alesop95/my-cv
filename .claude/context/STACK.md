@@ -7,7 +7,7 @@ covers-paths:
   - "altacv.cls"
   - ".latexmkrc"
   - "tex-packages.txt"
-last-verified-commit: 330249e
+last-verified-commit: 67c3561
 ---
 
 # Stack applicativo
@@ -15,6 +15,8 @@ last-verified-commit: 330249e
 ## Stack e runtime
 
 Linguaggio: LaTeX (pdflatex). Distribuzione: TinyTeX user-local (`%APPDATA%\TinyTeX` su Windows), condivisa fra i progetti. Build: pdflatex diretto (non latexmk dal 2026-07-08, ADR-006), invocato via `scripts/build.ps1` (Windows) o `scripts/build.sh` (Unix); compila sempre le tre lingue EN/IT/ES in un'unica esecuzione, sovrascrivendo `cv-sopranzi-alessio-{en,it,es}.pdf` nella radice. Manifesto pacchetti: `tex-packages.txt` (fonte riproducibile dell'ambiente). Classe CV: altaCV, scelta in ADR-002 e vendorizzata nella radice come `altacv.cls`, con una patch locale a `\cvachievement` documentata in `altacv-reference.md`.
+
+Dal 2026-09-04 i derivati di compilazione non stanno più in radice: i due script passano a pdflatex un `-output-directory` che punta a `build/`, dove finiscono i tredici file ausiliari delle tre lingue, e da là copiano in radice i soli tre PDF. I PDF restano in radice per scelta e non per inerzia: ADR-004 e ADR-006 li vogliono là perché l'URL su GitHub sia stabile, e spostarli romperebbe ogni link salvato o condiviso. La cartella `build/` è ignorata da git con una riga propria e non per estensione, e quella riga non è superflua: le regole per estensione coprivano già gli scarti, ma pdflatex scrive in quella cartella anche la copia di lavoro dei tre PDF, e la riga `*.pdf` del `.gitignore` è disattivata di proposito perché i PDF stabili sono versionati.
 
 `.latexmkrc` è un residuo del flusso originario e non governa più nessuna build: fissa engine e opzioni per latexmk, ma dal 2026-07-08 nessuno script lo invoca. `scripts/build.ps1` nomina latexmk solo nei commenti che spiegano perché lo evita, cioè che l'argomento `-jobname` iniettato per selezionare la lingua non è un vero nome di file e comprometterebbe l'analisi delle dipendenze. Resta in radice come comodità per chi compila a mano con latexmk durante la scrittura, non perché la build lo legga.
 
