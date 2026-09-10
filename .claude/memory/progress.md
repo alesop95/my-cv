@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-09-10 - Chiusura di sessione: misure catturate prima di staccare l'SSD
+
+Sessione chiusa perché l'utente deve scollegare l'SSD, e con esso sparisce la possibilità di misurare la sorgente. Le cifre del microstep 4 sono state quindi rilevate prima, e portate nella Fase 7 di `roadmap.md` invece che nel solo file di ripresa, perché `_notes/` è ignorato da git e ciò che merita di sopravvivere va scritto dove il versionamento lo protegge. È la stessa lezione del 2026-09-08 sulla trascrizione della sessione morta.
+
+Capienza sciolta, e l'errore è stato mio due volte. Avevo concluso che 1,89 GB non entrassero sommando le dimensioni locali, 3,49 GB, e ignorando ciò che la memoria del 2026-09-08 già registrava: `Sugimori Pokémon Gen1-9 DLC3 Organized`, 0,79 GB, è stata caricata con l'offerta dei primi dieci minuti dalla creazione dell'account e non intacca la quota. Il client dichiara 2,11 GB usati su 5, quindi 2,89 GB liberi, verificato sullo screenshot delle 18:28. Ci sta con circa un gigabyte di margine. Il rilievo di metodo è che la quota di un servizio si legge dal servizio, non si deduce dal disco, e che una nota già presente in memoria va cercata prima di rifare il calcolo.
+
+Fatto nuovo e rilevante per il microstep 4, emerso solo misurando: il percorso interno più lungo di `Ongoing studies` è di 249 caratteri, molto oltre i 158 del solo sottoalbero specchiato su cui si era ragionato finora. Con i 96 caratteri della destinazione si arriva a 345 contro il limite di 260, e un `subst` sulla radice di Proton non basta perché lascia a 301: deve puntare direttamente a `Ongoing studies`, che porta a 252. Ne segue che gli strumenti da usare non sono indifferenti, e la divisione è netta fra chi gestisce i percorsi lunghi, cioè `robocopy` e il modulo `pin.py` scritto oggi, e chi no, cioè `attrib.exe` e `Copy-Item`.
+
+Scritto `_notes/RESUME-PROMPT.md` con lo stato completo, le misure, il microstep 4 scomposto in sei passi, i vincoli da non violare e i cinque errori di oggi da non ripetere. Non è versionato, quindi i fatti che contano sono stati duplicati qui e in `roadmap.md`.
+
+Stato dei due repository alla chiusura: `my-cv` su `main` a `cef6180` più queste modifiche di memoria, `folder-sync-watcher` su `refactor/senior-architecture` a `820cfaa`, entrambi allineati al remoto e con la suite del watcher a ventisei test.
+
+---
+
 ## 2026-09-10 - Il pin, e una diagnosi sbagliata corretta dalla misura
 
 Terza e ultima delle cose lasciate aperte dal microstep 2, e l'unica che la topologia del 2026-09-08 assegnava esplicitamente al watcher senza che nessuno l'avesse progettata. La decisione è ADR-008 di quel repository: con `sync_settings.pin_source` il watcher marca il sottoalbero sorgente perché resti materializzato, prima della sincronizzazione iniziale, perché altrimenti sarebbe il confronto dei file a scaricarli uno alla volta e nell'ordine sbagliato.
