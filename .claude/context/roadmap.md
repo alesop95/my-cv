@@ -4,7 +4,7 @@ generated-from-branch: main
 generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
-last-verified-commit: 67c3561
+last-verified-commit: abb3ef4
 ---
 
 # Roadmap e priorità
@@ -138,7 +138,9 @@ Materiale potenzialmente utile, se estratto e riscritto invece che pubblicato: i
 
 Chiarito il 2026-09-08 su domanda esplicita: lo spostamento del resto dell'archivio su Proton serve a due scopi che vanno tenuti separati, perché hanno percorsi diversi e uno dei due non si risolve spostando file.
 
-Il primo è avere un archivio solo, senza dover allineare Proton e Google Drive a ogni giro. Riguarda `🛠️ Ongoing studies` (2,0 GB), `IT-RELATED` (517 MB), `Progetti (consulenza)` (7,7 MB) e `Progetti (idee)` (3,7 MB), circa 2,53 GB contro i 3,24 GB liberi misurati il 2026-09-07, quindi le dimensioni non sono il vincolo. Comporta l'aggiornamento di `C:\Scripts\folder-sync-watcher`, che oggi sorveglia i percorsi vecchi. È lavoro di archiviazione e non tocca il CV.
+Il primo è avere un archivio solo, senza dover allineare Proton e Google Drive a ogni giro. Riguarda `🛠️ Ongoing studies`, `IT-RELATED`, `Progetti (consulenza)` e `Progetti (idee)`. Le dimensioni valide sono quelle rimisurate il 2026-09-09 con l'SSD montato, cioè 1939,7 MB, 308,5 MB, 4,7 MB e 2,4 MB, per circa 2,26 GB contro i 3,24 GB liberi: sono più piccole di quelle registrate il 2026-09-04, che dichiaravano 2,0 GB, 517 MB, 7,7 MB e 3,7 MB per un totale di 2,53 GB, e non è deciso se l'inventario di allora misurasse un perimetro diverso o se il contenuto sia cambiato. La discrepanza è registrata come tale perché la capienza ne guadagna e nessuna decisione ne dipende. Comporta l'aggiornamento di `C:\Scripts\folder-sync-watcher`, che oggi sorveglia i percorsi vecchi. È lavoro di archiviazione e non tocca il CV.
+
+Precisazione del 2026-09-09 su che cosa significhi qui "un archivio solo", perché l'obiettivo può sembrare raggiunto quando non lo è. Copiare una cartella su Proton produce un backup, non un'unificazione: finché la sorgente resta su `J:\googleDrive_sync` gli archivi restano due. L'utente ha deciso il 2026-09-09 di lasciare la sorgente dov'è per ora, quindi per le tre cartelle già caricate l'obiettivo è raggiunto a metà e va dichiarato così; la rimozione della sorgente si decide come passo separato, e fino a quel momento ADR-009 resta rispettato alla lettera. Vale ricordare, quando quella decisione arriverà, che quella cartella è sincronizzata con Google Drive, quindi una rimozione locale si propagherebbe al cloud al primo avvio del client.
 
 Chiarimento del 2026-09-08 su `Ongoing studies`, che è la cartella su cui la fase si era incagliata e che si sposta come le altre tre. L'obiezione era che la sua sottocartella `CYBERSECURITY, BC, governance` è specchiata in bidirezionale con la OneDrive aziendale, con risoluzione dei conflitti su `newest`, quindi portarla su un cloud personale significherebbe portarci materiale aziendale. La risposta non è stata rinunciare allo spostamento ma rimuovere la premessa, e la formulazione dell'utente è quella che vale come criterio: il problema si pone solo se c'è informazione aziendale, mentre quel materiale è documentazione di studio della propria esperienza, utile anche in contesto aziendale ma non di proprietà dell'azienda, e il senso di averlo su Proton è avere sempre gli stessi file da leggere ovunque. Anonimizzati i quattro file che contenevano riferimenti aziendali, cioè nome dell'azienda, email, indirizzi IP e nomi di persone, la premessa cade e la cartella diventa backuppabile su cloud privato come il resto. Il criterio generale, in ADR-011, è quindi l'opposto di un divieto: non "materiale in cartella aziendale non si sposta" ma "si rende non aziendale e poi si sposta", quando ciò che lo rende aziendale è rimovibile senza danneggiare il contenuto.
 
@@ -181,3 +183,17 @@ Conseguenza accettata dall'utente dopo essere stata dichiarata, ed è la ragione
 ### Ordine di lavoro proposto
 
 Il primo passo non è caricare niente: è decidere, per ciascuna delle dieci cartelle di primo livello del portfolio, se il suo contenuto va pubblicato come allegato, raccontato in una pagina, o lasciato dove è. Le tre categorie hanno destinazioni diverse e non sono intercambiabili, ed è la confusione fra loro ad avere prodotto la difficoltà dei primi giorni di settembre. Solo dopo quella classificazione ha senso caricare su Proton, perché a quel punto si sa cosa e perché.
+
+### I cinque microstep, e lo stato al 2026-09-09
+
+La fase è stata scomposta in cinque microstep il 2026-09-09, su richiesta dell'utente di procedere tracciato e un passo alla volta. L'ordine non è arbitrario: i primi quattro appartengono all'obiettivo A e sono in dipendenza stretta, il quinto è l'obiettivo B e non dipende da nessuno degli altri.
+
+Il primo è la copia su Proton delle tre cartelle senza mirror aziendale, e l'unica ragione per cui viene prima della classificazione descritta qui sopra è che non la preclude: la copia è non distruttiva, quelle tre cartelle non hanno un mirror da riorientare, e decidere in seguito che una di esse va raccontata in una pagina invece che pubblicata come allegato non richiede di spostare niente. Eseguito il 2026-09-09 e verificato per SHA256 su 1994 file; il caricamento in cloud è avvenuto nella stessa giornata e la sua chiusura, cioè la conferma a client riavviato, la risoluzione di un file di conflitto e il passaggio delle tre cartelle a solo online, è descritta nella voce del 2026-09-09 di `memory/progress.md`.
+
+Il secondo è la modifica al codice di `folder-sync-watcher` per accettare una base esplicita in `config.json`, con `check_ssd_connected` da spegnere di conseguenza. Non si fa da questo repository, per decisione dell'utente del 2026-09-09: quel progetto ha un proprio `CLAUDE.md`, proprie schede e una propria procedura di ripresa, e modificarne il codice da fuori ne lascerebbe disallineata la memoria, che è il difetto appena sanato qui. Si fa in una sessione dedicata su quel repository, e qui resta registrato come lavoro delegato.
+
+Il terzo è il primo avvio del watcher ripuntato, e va progettato con cura perché il watcher non ha alcuna modalità di prova a vuoto, verificato leggendone il codice: non esiste né un `--dry-run` né una modalità di sola osservazione, quindi la prima esecuzione dopo il ripuntamento è già una scrittura reale su una cartella specchiata con l'azienda. Il modo per renderla sicura è provare il codice nuovo su una coppia di cartelle finte, verificare che il `subst` si crei sulla base esplicita e che la sincronizzazione faccia quel che deve, e solo dopo puntarlo alla coppia vera.
+
+Il quarto è lo spostamento del sottoalbero anonimizzato di `Ongoing studies`, che arriva dopo il terzo perché è quello che il watcher deve gestire, ed è la sola delle quattro cartelle il cui spostamento tocca il mirror aziendale.
+
+Il quinto è l'obiettivo B: dichiarare quel corpus come sorgente nel `sources.yml` di `lettore-doc` e far girare la pipeline verso `skills-repo`. È indipendente dai primi quattro e si potrebbe fare anche prima, perché `lettore-doc` legge un percorso locale e funziona identico dalla cartella su `J:` o da una copia locale di Proton.

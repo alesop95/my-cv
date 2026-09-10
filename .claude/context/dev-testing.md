@@ -5,7 +5,7 @@ generated-date: 2026-06-23
 covers-paths:
   - "main.tex"
   - "tools/**"
-last-verified-commit: 67c3561
+last-verified-commit: abb3ef4
 ---
 
 # Revisione e verifica del documento

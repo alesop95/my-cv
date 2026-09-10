@@ -7,7 +7,7 @@ covers-paths:
   - "scripts/**"
   - ".latexmkrc"
   - "tex-packages.txt"
-last-verified-commit: 67c3561
+last-verified-commit: abb3ef4
 ---
 
 # Build e distribuzione
