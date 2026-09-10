@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-09-10 - Microstep 1C: Google Drive perde le sette cartelle duplicate
+
+Chiuso l'ultimo microstep dell'obiettivo A che non dipenda dal watcher. Le sette cartelle duplicate sono state rimosse da `J:\googleDrive_sync\Portfolio and ongoing studies` alle 16:18, 2358 file per circa 1,70 GB, e la decisione è in ADR-012, che emenda ADR-009 nel punto in cui ADR-009 stessa aveva previsto di dover essere emendata. Restano su `J:` le tre non duplicate: `Miscellaneous, Utilities, Tools` con 2 file, `Interesting books` con 10 file per 25,7 MB e `Ongoing studies` con 1004 file per 1939,7 MB.
+
+La condizione posta dall'utente era la prova che nulla andasse perso, e la prova esiste per tutte e sette: SHA256 file per file, il 2026-09-09 per le tre del microstep 1 e riconfermato il 2026-09-10 con zero mancanti, zero diversi e zero in più, e il 2026-09-10 per le quattro scoperte quel giorno. La riverifica delle tre ha richiesto ventisei minuti perché ha dovuto riscaricare 315,6 MB dal cloud, che è il costo dell'errore di sequenza registrato nella voce di 1B.
+
+Raccomandazione fatta e non accolta, che vale registrare perché era la sola alternativa sul tavolo. Era stato proposto di spostare le sette cartelle in una cartella di sosta sull'SSD fuori dal perimetro di sync, sul modello di `J:\_originali-prima-anonimizzazione\` del 2026-09-08: stesso effetto su Google Drive, costo zero perché è un movimento sullo stesso volume, e i byte restano come rete di sicurezza. L'utente ha scelto la cancellazione diretta una volta accertata la prova, ed è coerente con la sua richiesta di una fonte unica di verità e con il rifiuto di doppie copie già espresso in ADR-011.
+
+Esecuzione, e il diniego che l'ha modellata. Il classificatore di auto mode ha negato la cancellazione all'agente, coerentemente col fatto che è irreversibile e fuori dal progetto, ed è lo stesso diniego del 2026-09-08. Il diniego non è stato aggirato: lo script è stato scritto in `_notes/cancella-duplicati-drive.ps1`, che è ignorato da git perché contiene percorsi personali e aziendali, e l'utente lo ha lanciato a mano, prima in modalità di sola verifica e poi in rimozione. Lo script si rifiuta di partire se una controparte Proton manca o se i conteggi non coincidono, e scrive un log datato accanto a sé.
+
+Verifica indipendente dopo l'operazione, non presa dall'output dello script: le sette cartelle risultano assenti su `J:`, le tre restanti hanno i conteggi attesi, lo spazio libero passa da 76,6 a 78,6 GB, e sul lato Proton i 2358 file sono tutti presenti e tutti solo online. I tre warning comparsi nel log di Proton sono stati letti e sono scollegati, un controllo di versione fallito alle 13:32 e un rinnovo di token alle 14:43, entrambi precedenti alla rimozione e nessuno su operazioni di file.
+
+Da tenere presente, perché la finestra è ancora aperta: il client Google Drive è fermo, quindi la cancellazione al 2026-09-10 è solo locale e si propaga al cloud al suo primo avvio. Fino a quel momento Google conserva ancora i file.
+
+---
+
 ## 2026-09-10 - Microstep 1B: le quattro coppie provate per hash
 
 Verifica chiusa, ed è la prova che mancava per poter decidere 1C. Per tutte e quattro le coppie l'insieme degli SHA256 del lato `J:` e quello del lato Proton coincidono: 48 file per `Certifications`, 119 per `Education studies`, 87 per `Portfolio` e 110 per `Research projects`, in circa sei minuti di calcolo complessivi. L'unico scarto di percorso, e non di contenuto, sono i due PDF di tesi che su Proton stanno dentro `Thesis\`: gli hash ci sono entrambi da tutte e due le parti, quindi il confronto è stato fatto sugli insiemi di hash e non sui percorsi, che è il modo corretto quando una delle due parti è stata riorganizzata. I manifesti per file restano nello scratchpad di sessione e non entrano nel repository, perché contengono percorsi personali e aziendali.
