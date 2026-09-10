@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-09-10 - Microstep 1B: le quattro coppie provate per hash
+
+Verifica chiusa, ed è la prova che mancava per poter decidere 1C. Per tutte e quattro le coppie l'insieme degli SHA256 del lato `J:` e quello del lato Proton coincidono: 48 file per `Certifications`, 119 per `Education studies`, 87 per `Portfolio` e 110 per `Research projects`, in circa sei minuti di calcolo complessivi. L'unico scarto di percorso, e non di contenuto, sono i due PDF di tesi che su Proton stanno dentro `Thesis\`: gli hash ci sono entrambi da tutte e due le parti, quindi il confronto è stato fatto sugli insiemi di hash e non sui percorsi, che è il modo corretto quando una delle due parti è stata riorganizzata. I manifesti per file restano nello scratchpad di sessione e non entrano nel repository, perché contengono percorsi personali e aziendali.
+
+Errore di sequenza da registrare, perché è il tipo di errore che si ripete. 1B andava eseguito prima di 1A: leggere un file marcato solo online lo riscarica, quindi la verifica ha idratato 1,39 GB proprio sulla macchina aziendale da cui 1A li aveva appena tolti, ed è servita una ridisidratazione per ripristinare il perimetro. La regola che ne esce è che su un albero a segnaposto la verifica va prima della disidratazione, perché la seconda rende costosa la prima. Il ripristino è stato verificato: tutti e 364 i file sono di nuovo solo online, il log della giornata continua a registrare un solo `Executed Delete`, quello delle 08:46, con zero errori e zero warning, nessun `subst` è rimasto montato e `Sugimori` è intatto con i suoi 1857 file in locale.
+
+Con 1B chiuso, delle sette cartelle duplicate tutte e sette hanno ora prova per hash: tre dal 2026-09-09 e quattro da oggi. Resta il solo microstep 1C, che è una decisione e non un'operazione.
+
+---
+
 ## 2026-09-10 - Sette duplicati invece di tre, e il microstep 1A
 
 Ritrovamento, e nasce da una domanda dell'utente su che cosa fosse rimovibile da `J:` e non da un controllo pianificato. Fra la sorgente e Proton le cartelle duplicate sono sette su dieci, 2358 file per circa 1,70 GB, non tre: alle tre del microstep 1 si aggiungono `Certificazioni, partecipazioni, corsi e attestati` verso `Certifications`, `Educational Sciences, Psychology, Pedagogy, Didactics and School Studies` verso `Education studies`, `Creativity` verso `Portfolio` e `Progetti (ricerca)` verso `Research projects`. Il confronto per percorso e dimensione dà zero differenze, salvo i due PDF di tesi che su Proton stanno dentro `Thesis\`. Erano invisibili perché il nome su Proton è tradotto e non uguale, quindi nessun confronto per nome le avrebbe trovate.
