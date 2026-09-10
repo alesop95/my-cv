@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-09-10 - Rimossa la copia di sicurezza degli originali, e i tre malintesi chiariti
+
+Coda della giornata, nata da tre domande dell'utente su altrettante cose che sembravano incoerenti e che in due casi su tre erano invece spiegabili. La sincronizzazione di Google Drive è stata eseguita dall'utente e ha propagato la cancellazione delle sette cartelle: nulla è tornato indietro, verificato dopo, e il client risulta attivo dalle 16:34:51.
+
+Primo chiarimento, sui file ancora presenti in `J:\googleDrive_sync\Portfolio and ongoing studies`. Non sono copie doppie ma le tre cartelle che su Proton non ci sono mai state: `Miscellaneous, Utilities, Tools` con 2 file, `Interesting books` con 10 file per 25,7 MB e `Ongoing studies` con 1004 file per 1939,7 MB, che è il 98 per cento di quel che resta ed è ferma perché è l'unica con il mirror aziendale. Le prime due non erano mai state valutate da nessun inventario, ed è un buco di censimento da chiudere quando si affronterà il microstep 4.
+
+Secondo chiarimento, sulla copia di sicurezza `J:\_originali-prima-anonimizzazione\`, pesava 0,8 MB su quattro file. La prima risposta data all'utente ha frainteso la domanda, leggendola come se chiedesse di portare quegli originali su Proton, mentre chiedeva se avessero già la controparte anonimizzata e potessero quindi essere cancellati. Il rilievo di conduzione è lo stesso già registrato il 2026-09-08 sull'attribuzione dei messaggi: si è risposto a una domanda che l'utente non aveva fatto, e la risposta corretta richiedeva solo di verificare una condizione.
+
+Verifica eseguita e rimozione fatta. I quattro originali conservano il percorso relativo che avevano dentro la cartella specchiata, quindi la controparte si trova per costruzione e non per ricerca del nome: tutti e quattro esistono sotto `Ongoing studies\Cybersec, BC, IT governance, DevOps, Programming, Networking\CYBERSECURITY, BC, governance`, e tutti e quattro hanno hash diverso dall'originale, che è la prova che si tratta della versione anonimizzata e non di una ricopia. La cartella è stata rimossa, e ADR-011 porta l'emendamento che lo registra. Va tenuto presente che gli originali non anonimizzati esistono ancora sulla OneDrive aziendale, perché il watcher è fermo da gennaio, quindi questa non è la perdita dell'ultima copia; lo diventerà al primo avvio del watcher, che li sovrascriverà secondo la politica `newest`.
+
+Due errori di scripting da registrare, entrambi costati un giro. Un `Get-ChildItem` senza `-Recurse` ha letto un solo file su quattro e la verifica sembrava fallita, quando mancava solo la ricorsione; e un `-Filter` per nome ha ignorato in silenzio i file con parentesi quadre nel nome. Su un albero con nomi che contengono parentesi, virgole ed emoji, la ricerca per nome non è affidabile e va sostituita da un percorso costruito, che è come la verifica è stata poi chiusa.
+
+Direzione dichiarata dall'utente per il seguito, che vale come ordine di lavoro: portare `Ongoing studies` su Proton, modificare il codice del sincronizzatore, finire gli spostamenti senza perdere né buttare file, e solo allora tornare all'obiettivo del CV con tutto l'archivio su Proton.
+
+---
+
 ## 2026-09-10 - Microstep 1C: Google Drive perde le sette cartelle duplicate
 
 Chiuso l'ultimo microstep dell'obiettivo A che non dipenda dal watcher. Le sette cartelle duplicate sono state rimosse da `J:\googleDrive_sync\Portfolio and ongoing studies` alle 16:18, 2358 file per circa 1,70 GB, e la decisione è in ADR-012, che emenda ADR-009 nel punto in cui ADR-009 stessa aveva previsto di dover essere emendata. Restano su `J:` le tre non duplicate: `Miscellaneous, Utilities, Tools` con 2 file, `Interesting books` con 10 file per 25,7 MB e `Ongoing studies` con 1004 file per 1939,7 MB.

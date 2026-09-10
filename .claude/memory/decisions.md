@@ -178,6 +178,8 @@ Precedente che questa ADR stabilisce, ed è la ragione per cui è una decisione 
 
 Esecuzione, per il registro: i quattro file sono stati anonimizzati il 2026-09-08 e verificati a zero occorrenze su tutte le parti XML e non solo sul testo estratto; la sostituzione degli originali è stata interrotta da un crash e ripresa a mano lo stesso giorno, con gli originali conservati in `J:\_originali-prima-anonimizzazione\` e verificati per md5 contro i valori misurati prima dell'operazione. La cartella di lavoro `J:\_anonimizzati\` è stata rimossa a verifica compiuta, come chiesto dall'utente per non tenere doppie copie divergenti.
 
+Emendamento del 2026-09-10: anche la copia di sicurezza `J:\_originali-prima-anonimizzazione\` è stata rimossa, su richiesta dell'utente e dopo la verifica che tutti e quattro i file hanno la controparte anonimizzata allo stesso percorso relativo dentro la cartella specchiata, con hash diverso dall'originale, il che prova che è la versione anonimizzata e non una ricopia. Il presidio che questa ADR imponeva ha quindi esaurito la sua funzione, e viene registrato che la sua rimozione è deliberata e non una svista. Resta vero che la OneDrive aziendale conserva ancora le versioni non anonimizzate finché il watcher è fermo, quindi la rimozione non è la perdita dell'ultima copia degli originali, ma diventerà tale al primo avvio del watcher, che le sovrascriverà con le anonimizzate secondo la politica `newest` già dichiarata qui sopra.
+
 ## ADR-012 - Fonte unica di verità: le cartelle duplicate escono da Google Drive
 
 Data: 2026-09-10. Emenda ADR-009 nel punto che ADR-009 stessa aveva lasciato aperto.
