@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-09-10 - Il watcher impara a non scrivere, e il microstep 3 cambia natura
+
+Seconda delle tre cose che il microstep 2 aveva lasciato aperte. Il watcher non ha mai avuto una modalità di prova a vuoto, e la sua assenza era la ragione per cui il microstep 3 era descritto come un rito prudenziale su cartelle finte: senza un modo di provare senza scrivere, la prima esecuzione dopo un ripuntamento è già una propagazione bidirezionale reale su una cartella specchiata con l'azienda.
+
+Il lavoro non è stato la modalità ma ciò che la rende credibile. Le scritture erano nove, sparse in altrettanti punti di `watcher.py` con `copy2` importato inline ogni volta; ora passano tutte da una classe sola, `OperazioniFile` in `folder_sync_watcher/operazioni.py`, che esegue o annota a seconda della modalità e conta in entrambi i casi. Il criterio, scritto in ADR-007 di quel repository, è che una modalità che non scrive è credibile solo se esiste un unico varco da presidiare: nove varchi sono nove occasioni di dimenticarne uno, e la dimenticanza si scopre a scrittura avvenuta.
+
+Prova generale eseguita su due cartelle finte, che verifica insieme questa modifica e il microstep 2. La radice si è risolta al percorso atteso partendo da `folders.source_base`; in prova a vuoto entrambi i lati sono rimasti identici confrontando percorsi e dimensioni prima e dopo, con sei cartelle e tre copie annunciate; la stessa sincronizzazione eseguita davvero ha fatto convergere i due lati sugli stessi quattro elementi. La differenza fra le sei cartelle annunciate e le sette create è il limite dichiarato della modalità, non un difetto: senza scrivere lo stato del filesystem non avanza, quindi il riepilogo descrive il primo passaggio e non il secondo.
+
+Effetto sul microstep 3, che cambia natura invece di chiudersi. La parte che si poteva anticipare è fatta, ed è la prova su cartelle finte; resta la parte che per definizione non si anticipa, cioè la prova a vuoto sulla coppia vera immediatamente prima del primo avvio reale, che si esegue quando la destinazione esisterà.
+
+Incidente di percorso da registrare perché spiega la storia dei commit di `folder-sync-watcher`: il commit `442b4ee` è stato dato mentre questa rifattorizzazione era a metà, perché la stessa sequenza di comandi è stata lanciata due volte. Contiene `operazioni.py` e un `watcher.py` incompleto, quindi non è un punto della storia da cui il programma funzioni. Non è stato riscritto perché era già sul remoto, e il commit successivo lo chiude.
+
+Resta aperta la terza cosa, che è la sola non ancora affrontata: il pin dei file cloud in locale, che la topologia del 2026-09-08 assegna al watcher e che nessuno ha ancora progettato.
+
+---
+
 ## 2026-09-10 - Microstep 2: il watcher accetta una radice dichiarata
 
 Eseguito da questa sessione e non da una dedicata sul repository di `folder-sync-watcher`, perché l'utente ha revocato esplicitamente la propria decisione del 2026-09-09 per questa modifica. La ragione di quella decisione era evitare di lasciare disallineata la memoria di quel progetto, quindi la revoca è stata onorata facendo anche quel lavoro: ADR-006 e una voce di work-log sono state scritte là dentro nella stessa passata, con i loro formati, e il suo `index.md` porta in testa la nota del lavoro non committato.
