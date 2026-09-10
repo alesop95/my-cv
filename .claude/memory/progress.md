@@ -4,6 +4,22 @@
 
 ---
 
+## 2026-09-10 - Il pin, e una diagnosi sbagliata corretta dalla misura
+
+Terza e ultima delle cose lasciate aperte dal microstep 2, e l'unica che la topologia del 2026-09-08 assegnava esplicitamente al watcher senza che nessuno l'avesse progettata. La decisione è ADR-008 di quel repository: con `sync_settings.pin_source` il watcher marca il sottoalbero sorgente perché resti materializzato, prima della sincronizzazione iniziale, perché altrimenti sarebbe il confronto dei file a scaricarli uno alla volta e nell'ordine sbagliato.
+
+Il problema che risolve è la contesa fra due motori sullo stesso albero: il client cloud disidrata ciò che ritiene inutilizzato, il watcher decide per data e propaga, e con politica `newest` il watcher manderebbe all'altro lato qualunque cosa il client abbia toccato per ultimo. Il perimetro resta quello dichiarato dall'utente il 2026-09-08: si ancora il solo sottoalbero che serve, mai Proton in blocco, perché su una macchina aziendale è una scelta di riservatezza.
+
+Scelta tecnica motivata da una misura di questa stessa giornata: si chiama `SetFileAttributesW` con il prefisso per percorsi lunghi invece di usare `attrib.exe`, perché quello strumento aveva saltato in silenzio 780 file su 1994 durante il microstep 1, con percorsi fra 260 e 263 caratteri, dichiarando successo. Un test di regressione costruisce un percorso oltre i 260 caratteri e verifica che l'ancoraggio lo copra.
+
+Errore di diagnosi commesso e corretto, che è la parte da conservare. Leggendo gli attributi con la funzione nuova ho concluso che l'intero albero si fosse idratato e ho attribuito la colpa a `Path.resolve()`, che segue i reparse point: ho annunciato un difetto serio prima di averlo verificato. L'enumerazione della cartella diceva il contrario, cioè che tutti e 2370 i file del perimetro erano ancora solo online. La causa vera è che attraverso il prefisso per percorsi lunghi `GetFileAttributesW` non riporta i bit del segnaposto, quindi era la misura a mentire e non il filesystem a cedere. Il rilievo di metodo: quando due strumenti danno risposte diverse sullo stesso oggetto, prima di dedurre che il sistema è cambiato si verifica quale dei due sta guardando male, e su un albero cloud lo strumento affidabile è l'enumerazione della directory.
+
+Prova sul campo su un file reale di Proton, ancorato e riportato a solo online: gli attributi passano da `UNPINNED` a `PINNED` e tornano, quindi il client rispetta la dichiarazione. Il perimetro è stato riverificato dopo ed è intatto, 2370 file tutti solo online. Suite del watcher a ventisei test.
+
+Con questo restano aperti soltanto il microstep 4, lo spostamento di `Ongoing studies` su Proton, e il ripuntamento della configurazione, che viene dopo perché richiede la destinazione esistente. Il microstep 5, l'obiettivo B, è indipendente.
+
+---
+
 ## 2026-09-10 - Il watcher impara a non scrivere, e il microstep 3 cambia natura
 
 Seconda delle tre cose che il microstep 2 aveva lasciato aperte. Il watcher non ha mai avuto una modalità di prova a vuoto, e la sua assenza era la ragione per cui il microstep 3 era descritto come un rito prudenziale su cartelle finte: senza un modo di provare senza scrivere, la prima esecuzione dopo un ripuntamento è già una propagazione bidirezionale reale su una cartella specchiata con l'azienda.
