@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-09-10 - Sette duplicati invece di tre, e il microstep 1A
+
+Ritrovamento, e nasce da una domanda dell'utente su che cosa fosse rimovibile da `J:` e non da un controllo pianificato. Fra la sorgente e Proton le cartelle duplicate sono sette su dieci, 2358 file per circa 1,70 GB, non tre: alle tre del microstep 1 si aggiungono `Certificazioni, partecipazioni, corsi e attestati` verso `Certifications`, `Educational Sciences, Psychology, Pedagogy, Didactics and School Studies` verso `Education studies`, `Creativity` verso `Portfolio` e `Progetti (ricerca)` verso `Research projects`. Il confronto per percorso e dimensione dà zero differenze, salvo i due PDF di tesi che su Proton stanno dentro `Thesis\`. Erano invisibili perché il nome su Proton è tradotto e non uguale, quindi nessun confronto per nome le avrebbe trovate.
+
+La causa è verificata sulle date di creazione: le quattro cartelle nascono tutte il 2026-09-07 alle 15:23, il giorno della riorganizzazione di Proton, per caricamento di cartelle intere, mentre il memo di ADR-009 del 2026-09-04 prescriveva di caricare il solo file linkato dal CV. Il rilievo di metodo è che una prescrizione scritta in una scheda non è una verifica: l'esecuzione ha divergito nello stesso giorno in cui la prescrizione è stata scritta, la documentazione ha continuato a descrivere l'intenzione per tre giorni, e a scoprirlo è stata una domanda dell'utente. Conseguenza utile: l'obiettivo A era per tre quarti raggiunto dal 2026-09-07 senza che il progetto lo sapesse.
+
+Microstep 1A eseguito e chiuso, ed è non distruttivo. I 364 file di `Certifications`, `Education studies`, `Portfolio` e `Research projects` erano materializzati in locale su una macchina aziendale contro il vincolo di perimetro del 2026-09-08, che stamattina era stato applicato alla sola cartella nota; ora sono tutti solo online. Come stamattina la disidratazione è asincrona e la prima passata ne lascia indietro una parte, quindi la verifica per conteggio di attributi va ripetuta fino a zero e non è una formalità. Nel log della giornata resta un solo `Executed Delete`, quello del file di conflitto delle 08:46, con zero errori e zero warning, e nessun `subst` è rimasto montato.
+
+Decisione dell'utente del 2026-09-10, che fissa il perimetro: `Sugimori Pokémon Gen1-9 DLC3 Organized`, 1857 file per 808,9 MB, resta materializzato in locale, perché sono immagini senza alcun rapporto con il progetto. Il vincolo sulla macchina aziendale riguarda il materiale di studio e di portfolio, non tutto ciò che sta su Proton.
+
+Restano aperti il microstep 1B, cioè la verifica per SHA256 delle quattro coppie nuove per portarle al metro di prova del 2026-09-09, e il microstep 1C, cioè la decisione sulla fonte unica di verità, che è l'unico irreversibile e si propaga a Google Drive al primo avvio del suo client, oggi fermo.
+
+---
+
 ## 2026-09-10 - Il riavvio che ha chiuso un passo da solo, e il microstep 1 chiuso davvero
 
 Terza chiusura anomala consecutiva, e la prima che non è costata niente. Il PC si è riavviato alle 03:03 per un aggiornamento pianificato di Windows, chiudendo la sessione senza la manutenzione di fine sessione; il working tree portava ancora, non committata, la passata di sincronizzazione della memoria del 2026-09-09, che entra nel commit di oggi insieme a questa voce.
