@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-09-10 - Microstep 2: il watcher accetta una radice dichiarata
+
+Eseguito da questa sessione e non da una dedicata sul repository di `folder-sync-watcher`, perché l'utente ha revocato esplicitamente la propria decisione del 2026-09-09 per questa modifica. La ragione di quella decisione era evitare di lasciare disallineata la memoria di quel progetto, quindi la revoca è stata onorata facendo anche quel lavoro: ADR-006 e una voce di work-log sono state scritte là dentro nella stessa passata, con i loro formati, e il suo `index.md` porta in testa la nota del lavoro non committato.
+
+Il problema, nella sua forma esatta: la sorgente si otteneva sempre cercando fra le unità montate quella con l'etichetta `sync_settings.ssd_volume_label` e componendo la sua lettera con il percorso relativo. L'assunzione era che la sorgente fosse un'unità rimovibile identificabile per etichetta, e una cartella dentro il profilo utente non lo è. Non serviva quindi cambiare un valore ma introdurre un modo di dichiarare la radice.
+
+La modifica. Nasce `folder_sync_watcher/source.py`, che risolve radice e percorso completo e accetta `folders.source_base` come percorso assoluto, con `source_relative_path` come nome nuovo del percorso relativo e `google_drive_relative_path` conservato come ripiego. I quattro punti che prima componevano il percorso ciascuno per conto proprio, cioè `update_gdrive_path` e `_setup_subst_drive` in `watcher.py` e due funzioni di `subst_manager.py`, ora chiamano quel modulo: la duplicazione era il motivo per cui lo stesso difetto viveva in quattro copie.
+
+Il difetto in questione è il guadagno inatteso della giornata. `Path('J:') / relativo` non restituisce un percorso assoluto ma `J:relativo`, che Windows risolve rispetto alla directory corrente di quell'unità, e il codice lo faceva ovunque. Verificato con una prova isolata prima di correggerlo, non dedotto dalla lettura, e coperto da un test di regressione.
+
+Chiarita anche un'ambiguità del flag `check_ssd_connected`, che significava due cose insieme: attendere un'unità rimovibile e verificare che la cartella esista. Con una radice dichiarata la prima non ha senso e la seconda conta di più, perché una cartella cloud può sparire senza che sparisca un disco, e sincronizzare in bidirezionale verso una radice sparita propagherebbe cancellazioni all'altro lato. Il flag governa ora solo l'attesa.
+
+Verifiche. La suite di quel repository passa a quindici test, otto dei quali nuovi. La retrocompatibilità è stata provata caricando il `config.json` reale della macchina senza modificarlo: la radice si risolve a `J:\` e il percorso completo esiste su disco. È stata provata anche la risoluzione con la base su Proton, che dà 186 caratteri di percorso contro i 46 della base e i 158 di percorso interno massimo, per un totale di 345 contro il limite di 260: il `subst` resta quindi obbligatorio, come la topologia del 2026-09-08 già diceva.
+
+Quel che il microstep 2 non fa, e va detto perché è la parte che manca. Non ripunta la configurazione, che si fa quando la cartella di destinazione esisterà, cioè dopo il microstep 4. Non introduce alcuna modalità di prova a vuoto, quindi il microstep 3 resta necessario nella forma già descritta, con una coppia di cartelle finte. E non implementa il pin dei file cloud in locale, che la topologia assegna al watcher e che qui non è nemmeno progettato: è il primo pezzo di lavoro non ancora scomposto della fase.
+
+---
+
 ## 2026-09-10 - Microstep 1D: chiuso il buco di censimento
 
 Microstep aperto per chiudere un buco che questa stessa giornata aveva scoperto: `Miscellaneous, Utilities, Tools` con 2 file e `Interesting books` con 10 file per 25,7 MB non erano su Proton e non comparivano in nessun inventario della Fase 7, né in quello del 2026-09-04 né nelle misure del 2026-09-09. Erano rimaste fuori perché piccole, e sono emerse solo quando l'utente ha chiesto perché su `J:` si vedessero ancora dei file.
