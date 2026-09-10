@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-09-10 - Microstep 1D: chiuso il buco di censimento
+
+Microstep aperto per chiudere un buco che questa stessa giornata aveva scoperto: `Miscellaneous, Utilities, Tools` con 2 file e `Interesting books` con 10 file per 25,7 MB non erano su Proton e non comparivano in nessun inventario della Fase 7, né in quello del 2026-09-04 né nelle misure del 2026-09-09. Erano rimaste fuori perché piccole, e sono emerse solo quando l'utente ha chiesto perché su `J:` si vedessero ancora dei file.
+
+Eseguito nell'ordine corretto, che è quello imparato dall'errore di sequenza di 1B: prima la copia, poi la verifica per hash, poi la disidratazione, e solo alla fine la rimozione della sorgente. Le due cartelle sono state copiate sotto `Portfolio and ongoing studies` su Proton, verificate per SHA256 con zero file mancanti, zero diversi e zero in più, caricate dal client nel ciclo numero tre e portate a solo online. La rimozione dalla sorgente ha riusato lo script `_notes/cancella-duplicati-drive.ps1` estendendone la mappa invece di scriverne uno nuovo: lo script ha saltato da sé le sette cartelle già assenti e ha applicato alle due nuove gli stessi controlli, controparte presente e conteggi coincidenti.
+
+Verifica indipendente dopo l'operazione: su `J:\googleDrive_sync\Portfolio and ongoing studies` resta la sola `Ongoing studies` con 1004 file per 1939,7 MB, il perimetro Proton è a 2006 file in quella cartella e a 2370 file complessivi sulle cinque, tutti solo online, il log del client non registra alcuna cancellazione nuova e gli errori sono zero.
+
+Con 1D l'obiettivo A è raggiunto per tutto ciò che non dipende dal watcher. Il seguito è il microstep 2, che si fa sul repository di `folder-sync-watcher` e non da qui.
+
+---
+
 ## 2026-09-10 - Rimossa la copia di sicurezza degli originali, e i tre malintesi chiariti
 
 Coda della giornata, nata da tre domande dell'utente su altrettante cose che sembravano incoerenti e che in due casi su tre erano invece spiegabili. La sincronizzazione di Google Drive è stata eseguita dall'utente e ha propagato la cancellazione delle sette cartelle: nulla è tornato indietro, verificato dopo, e il client risulta attivo dalle 16:34:51.
