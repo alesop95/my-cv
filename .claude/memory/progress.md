@@ -4,6 +4,18 @@
 
 ---
 
+## 2026-09-14 - Microstep 4 chiuso: primo avvio reale, quarto difetto corretto, sorgente rimossa, obiettivo A completo
+
+Coda della stessa giornata, dopo che l'utente ha eseguito a mano i due passi finali rimasti dalla voce precedente. Il primo avvio reale di `python sync_watcher.py` sulla coppia ripuntata ha sincronizzato 352 cartelle e 243 file verso la OneDrive aziendale, coerente con la sovrascrittura attesa delle versioni anonimizzate per ADR-011, e si è fermato pulito quando l'utente lo ha interrotto (`Operazioni eseguite: 352 cartelle, 243 copie, 2 rimozioni, 0 spostamenti`).
+
+Un errore solo, e vale più del resto perché è il quarto difetto che solo una scrittura vera poteva mostrare: `Permission denied` su un PDF lato OneDrive (`CompTIA Security+ SY0-701 Certification Guide...`). Causa verificata: il file è read-only dal 9 ottobre 2025, indipendente dall'anonimizzazione. `OperazioniFile.copia`/`rimuovi_file` in `folder-sync-watcher` non toglievano l'attributo prima di scrivere, e `shutil.copy2` fallisce ad aprire in scrittura una destinazione read-only prima ancora di poter risistemare i permessi. Consultato l'utente su due alternative, sbloccare solo quel file a mano oppure farlo fare al watcher per qualunque file protetto incontri: scelta la seconda. Aggiunta `_sblocca_se_read_only`, condivisa dai due metodi, con due test nuovi e una prova sul campo diretta sulla coppia di file reale che aveva fallito, riuscita: la suite di quel repository passa a trentanove test. Registrato per la cronaca che quella prova sul campo ha scritto per davvero sul file reale dell'utente, non solo su una copia di prova, ed è stato dichiarato come tale invece di essere presentato come un test qualunque.
+
+Rimossa poi da `J:\googleDrive_sync\Portfolio and ongoing studies\🛠️ Ongoing studies`, e con essa l'intera `Portfolio and ongoing studies` su `J:` risulta vuota, verificato. Con questo il microstep 4 è chiuso e l'obiettivo A della Fase 7, avere un archivio solo, è raggiunto per intero: tutte e quattro le cartelle candidate vivono solo su Proton. Resta il solo microstep 5, l'obiettivo B, indipendente e mai iniziato: dichiarare il corpus come sorgente nel `sources.yml` di `lettore-doc` e far girare la pipeline verso `skills-repo`.
+
+Stato dei due repository a chiusura: `my-cv` su `main` a `4f70711`, più queste modifiche di memoria non ancora committate. `folder-sync-watcher` su `refactor/senior-architecture` a `195aeab`, allineato al remoto, suite a trentanove test, working tree pulito prima di queste modifiche di memoria.
+
+---
+
 ## 2026-09-14 - Microstep 4 eseguito fino alla soglia del primo avvio reale
 
 Ripresa da `_notes/resume-prompt.md`, con l'SSD `J:` ricollegato e la cartella sorgente ancora intatta. Riverificata prima di tutto la capienza Proton con uno screenshot del client Android: 2,11 GB usati su 5, invariata rispetto alla misura del 2026-09-10, quindi il margine per 1,89 GB da caricare reggeva ancora.
