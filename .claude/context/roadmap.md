@@ -4,7 +4,7 @@ generated-from-branch: main
 generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
-last-verified-commit: abb3ef4
+last-verified-commit: 8f0f6f8
 ---
 
 # Roadmap e priorità

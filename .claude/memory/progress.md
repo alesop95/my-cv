@@ -4,6 +4,16 @@
 
 ---
 
+## 2026-09-14 - Chiusura di sessione: allineamento schede e prompt di ripresa
+
+Quarta e ultima voce della giornata. Invocata `sync-context`: le nove schede di `.claude/context/` erano ancorate a `abb3ef4`, molti commit indietro rispetto a HEAD (`8f0f6f8`), ma `git diff --name-only abb3ef4..HEAD` sulle `covers-paths` di ciascuna (`main.tex`, `altacv.cls`, `tools/*.py`, `scripts/**`) è risultato vuoto per tutte e nove: nessun percorso coperto è stato toccato in questo periodo, il lavoro di oggi ha riguardato `.claude/context/` e `.claude/memory/` stessi, che nessuna scheda copre di se stessa. Bumpato `last-verified-commit` a `8f0f6f8` su tutte e nove, senza modifiche di contenuto oltre al bump: è un checkpoint di frontmatter, non una riverifica di merito.
+
+Scritto `_notes/resume-prompt.md` per la ripresa su quattro repository (`my-cv`, `folder-sync-watcher`, `lettore-doc`, `blog-alessio`), su richiesta esplicita dell'utente di chiudere questa sessione e riaprirne una nuova senza perdere stato, come da convenzione di `template-claude-developing`. Non è versionato, quindi i fatti che contano restano duplicati qui.
+
+Prodotta anche una stima a spanne del lavoro residuo su `lettore-doc`: sul corpus intero di `Ongoing studies` (347 file `.docx`/`.txt`/`.md`, non i 1004 del conteggio grezzo) il testo effettivo, calibrato campionando due file da 15 MB e 12,9 MB che si sono rivelati quasi tutto immagini incorporate, è stimato fra 2,2 e 8,9 MB, cioè un ordine di grandezza fra 2 e 22 milioni di token per l'intera pipeline se fatta tutta. Il dettaglio, con la tabella per area, sta in `_notes/resume-prompt.md` e non qui, perché contiene una stima e non un fatto verificato.
+
+Stato dei quattro repository a questo punto: `my-cv` su `main` a `8f0f6f8` più il bump delle schede, da committare; `folder-sync-watcher` su `refactor/senior-architecture` a `b1f05d3`, pulito; `lettore-doc` su `main` a `92a9763`, pulito; `blog-alessio` su `main` a `806a0d8`, pulito.
+
 ## 2026-09-14 - Microstep 5 aperto, e un episodio di riservatezza scoperto controllandone lo stato
 
 Terza voce della giornata. Aperto il microstep 5 (obiettivo B): verificato con `session_resume.ps1` che `lettore-doc` non ha mai ingerito nulla da questo perimetro, e trovato nel farlo un difetto latente indipendente dal lavoro di oggi, `LETTERDOC_SOURCE_PORTFOLIO` puntava ancora al percorso su `J:` rimosso dal microstep 1C del 2026-09-10. Ripuntata alla radice Proton che oggi contiene tutte e cinque le cartelle del portfolio, sullo stesso schema già in uso per la sorgente OneDrive di quel repository. Dettaglio nella memoria di `lettore-doc`, non qui: non è lavoro di questo repository, solo una dipendenza verificata mentre si apriva il passo successivo.

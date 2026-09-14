@@ -7,7 +7,7 @@ covers-paths:
   - "altacv.cls"
   - ".latexmkrc"
   - "tex-packages.txt"
-last-verified-commit: abb3ef4
+last-verified-commit: 8f0f6f8
 ---
 
 # Stack applicativo

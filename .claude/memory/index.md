@@ -6,7 +6,7 @@
 
 ```
 Branch attivo:         main
-Commit di riferimento: 52059f6 (2026-09-10, "Chiusura sessione: misure del microstep 4 e prompt di ripresa")
+Commit di riferimento: 8f0f6f8 (2026-09-14, "blog-alessio: palette allineata, aggiornata la mappa dello stato")
 Data snapshot:         2026-09-14
 ```
 
@@ -20,19 +20,19 @@ Terza chiusura anomala, il 2026-09-10, per un riavvio di sistema alle 03:03 dovu
 
 ## Stato di verifica delle schede
 
-Tutte e nove le schede di `.claude/context/` sono ancorate a `abb3ef4`. Nessuna porta più il segnaposto `PENDING-FIRST-COMMIT`. Il riancoraggio dal precedente `67c3561` è stato di solo frontmatter, senza alcun delta di contenuto, e la ragione è verificata e non assunta: fra i due commit sono cambiati soltanto file sotto `.claude/`, nessuno dei quali compare nelle `covers-paths` di alcuna scheda. La colonna di stato qui sotto descrive quindi l'ultima verifica di merito, che risale al 2026-09-08, e non una verifica nuova. Dal 2026-09-10 le schede sono un commit indietro rispetto a HEAD, perché `60826c1` è arrivato dopo il riancoraggio: la prossima passata di `sync-context` le riporta in pari, e riguarda in particolare `roadmap.md` e `external-dependencies.md`, che oggi hanno cambiato contenuto.
+Tutte e nove le schede di `.claude/context/` sono state passate da `sync-context` il 2026-09-14 e bumpate a `8f0f6f8`: nessuna copriva un percorso toccato dal 2026-09-08 (`abb3ef4`) in poi, quindi il bump è un checkpoint di frontmatter, non una riverifica di merito nuova. La verifica di merito più recente resta quella indicata nella colonna di stato, per scheda. `roadmap.md` ed `external-dependencies.md` hanno comunque cambiato molto contenuto in questo periodo, ma per mano, dentro le sessioni stesse che lo hanno prodotto: `sync-context` conferma qui che nessun file sotto `main.tex`/`tools/`/`scripts/` è rimasto scoperto da quel lavoro.
 
 | Scheda | last-verified | Stato |
 |---|---|---|
-| STACK.md | abb3ef4 | i derivati in `build/` e la riga dedicata nel `.gitignore` |
-| altacv-reference.md | abb3ef4 | verificata, nessuna modifica necessaria |
-| architecture.md | abb3ef4 | regione generata rigenerata, `D:` da ventitre a ventiquattro cartelle |
-| current-work.md | abb3ef4 | sezione di stato riscritta sugli allegati verificati, titolo riancorato |
-| deployment.md | abb3ef4 | derivati in `build/`, e l'avvertenza sul flag `-Clean` che non li rimuove più |
-| dev-testing.md | abb3ef4 | il log di compilazione si legge in `build/` |
-| external-dependencies.md | abb3ef4 | stato al 2026-09-08, struttura Proton fissata, `folder-sync-watcher` |
-| external-links.md | abb3ef4 | verificata, porta già la tabella dei dodici link |
-| roadmap.md | abb3ef4 | Fase 3 chiusa, Fase 7 con i due obiettivi separati |
+| STACK.md | 8f0f6f8 | i derivati in `build/` e la riga dedicata nel `.gitignore` |
+| altacv-reference.md | 8f0f6f8 | verificata, nessuna modifica necessaria |
+| architecture.md | 8f0f6f8 | regione generata allineata, `D:` a ventitre cartelle, `extract-ecosystem.py --check` pulito |
+| current-work.md | 8f0f6f8 | sezione di stato riscritta sugli allegati verificati, titolo riancorato |
+| deployment.md | 8f0f6f8 | derivati in `build/`, e l'avvertenza sul flag `-Clean` che non li rimuove più |
+| dev-testing.md | 8f0f6f8 | il log di compilazione si legge in `build/` |
+| external-dependencies.md | 8f0f6f8 | folder-sync-watcher ripuntato su Proton, lettore-doc censito come dipendenza nuova |
+| external-links.md | 8f0f6f8 | verificata, porta già la tabella dei dodici link |
+| roadmap.md | 8f0f6f8 | Fase 7 chiusa per intero, mappa dello stato in cima al file |
 
 Meta-stato, sotto `.claude/memory/`, fuori dalla tabella perché non porta frontmatter di riconciliazione: questo file aggiornato al 2026-09-10, `progress.md` con in testa la voce che chiude il microstep 1 della Fase 7, `decisions.md` con ADR-011 e con l'emendamento del 2026-09-08 ad ADR-010.
 
