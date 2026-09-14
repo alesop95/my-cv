@@ -11,6 +11,23 @@ last-verified-commit: abb3ef4
 
 > Riscritta il 2026-07-06 a partire dal contenuto reale delle quattro note di analisi trovate in `[TBC]_DA SISTEMARE, LATEX, VARIE, PENDING/` (ora archiviate in `_notes/tbc-archive/da-sistemare/`), non dai soli titoli dei file. Le fasi sotto sono ordinate per dipendenza, non per urgenza uniforme: la Fase 1 blocca tutte le altre, le Fasi 3-6 sono indipendenti tra loro e si possono affrontare in qualunque ordine dopo la Fase 2.
 
+## Mappa dello stato (aggiornata il 2026-09-14)
+
+Vista d'insieme di ogni voce ancora aperta, dentro questo repository e nelle dipendenze esterne da cui `my-cv` attinge. Il dettaglio narrativo di ciascuna riga sta nella fase corrispondente qui sotto, o nella scheda `external-dependencies.md` per le dipendenze fuori repository.
+
+| Dove | Voce aperta | Stato | Prossimo passo |
+|---|---|---|---|
+| my-cv, Fase 2 | Sezione "Ongoing studies" del CV | Disattivata con `\iffalse`, contenuto non ancora selezionato | Scrivere quando il microstep 5 della Fase 7 produce evidenza pubblicata su `skills-repo` |
+| my-cv, Fase 2 | Frammenti Coaching (Onova S.p.A. / Intracademy) | Rimandati: nessuna esperienza reale da raccontare ancora | Riprendere quando c'è contenuto reale, non prima |
+| my-cv, Fase 5 | Revisione madrelingua dello spagnolo | Mai fatta | Valutare esplicitamente con l'utente prima di un uso professionale della versione ES |
+| my-cv, Fase 6 | Ordine di lettura delle colonne per gli ATS | Rimandato a data da destinarsi il 2026-07-06 | Nessuna azione programmata; il layer testuale (icone/etichette) è già risolto separatamente |
+| my-cv, difetti noti | `-Clean`/`--clean` non ripulisce più `build/` | Verificato il 2026-09-08, mai corretto | Correggere gli script alla prossima sessione sul build |
+| my-cv, difetti noti | Strumenti tipografici non preservano la fine riga | Verificato il 2026-08-27, mai corretto | Correggere prima del prossimo uso su un file grande |
+| my-cv, difetti noti | Virgoletta dritta in "Hold Me Tight" | Difetto minore, mai corretto | Correggere alla prossima sessione di contenuto |
+| Fase 7, microstep 5 | Pipeline `lettore-doc` → `skills-repo` su `Ongoing studies` | Sorgente dichiarata e riparata il 2026-09-14, zero cicli eseguiti | Passo 0: selezionare i documenti di `Cybersec, BC, IT governance, DevOps, Programming, Networking` (area scelta oggi come prima), poi `prepare_graphify_source.py` e la sessione `/graphify .` in una sessione dedicata su `lettore-doc` |
+| folder-sync-watcher | Nomi di cartella disallineati fra i due lati del mirror (ADR-010) | Rischio noto dal 2026-09-14, non presidiato nel codice; un caso reale già chiuso a mano | Verificare a mano i nomi di primo livello prima di ogni futuro ripuntamento; un preflight automatico è stato valutato e non implementato |
+| skills-repo (via lettore-doc) | 30 pagine di Capability più le competenze trasversali, da tradurre IT/ES | Meccanismo trilingue pronto, contenuto mancante | Lavoro di contenuto per domini, una sessione per blocco; non è lavoro di questo repository |
+
 ## Fase 1 - Bootstrap tecnico (completata il 2026-07-06)
 
 - ADR-002 è chiusa: la classe è altaCV, già operativa in `main.tex` fornito come punto di partenza.
@@ -159,6 +176,8 @@ La terza è una modifica al codice del watcher, perché la configurazione da sol
 Capienza: non è un vincolo, e la misura che sembrava dire il contrario era letta male. La cartella locale di Proton mostra 2222 file per circa 3,2 GB di dimensione logica, ma quella cifra è la somma delle dimensioni dei segnaposto e non lo spazio consumato sul piano; l'utente riferisce inoltre di aver sfruttato nei primi dieci minuti un'offerta Proton di upload che non intacca lo spazio cloud. I 3,24 GB liberi misurati il 2026-09-07 restano quindi il numero valido, e i 2,53 GB entrano. Il precedente utile non è il numero ma l'errore: la dimensione logica di un albero a segnaposto non misura l'occupazione di un piano cloud, e dedurne una capienza produce un falso allarme.
 
 Rischio che questa topologia non elimina, e che va tenuto presente proprio perché la sua parte facile è già risolta: l'anonimizzazione ha ripulito quattro file una volta sola, mentre il mirror è continuo. Un documento aziendale nuovo che finisse in quella cartella OneDrive si propagherebbe su Proton non anonimizzato e in automatico. Oggi il rischio è zero sul contenuto presente, non sul contenuto futuro, e chiuderlo richiederebbe un presidio nel watcher, cioè un controllo sui marcatori aziendali prima di propagare, che non esiste e che oggi non è in programma.
+
+Questo rischio si è manifestato per davvero il 2026-09-14, in una forma diversa da quella qui sopra: non un documento aziendale nuovo, ma un disallineamento di nome fra i due lati. OneDrive aveva da tempo `NIST Cybersecurity Framework -CSF` (senza spazio), il lato personale la stessa cartella come `NIST Cybersecurity Framework - CSF` (con lo spazio): il watcher confronta per percorso esatto, quindi le ha trattate come due cartelle distinte e ha copiato ciascuna sull'altro lato. Una di esse conteneva uno dei quattro file anonimizzati da ADR-011, e la sua versione originale, mai anonimizzata, è così arrivata su Proton per la prima volta, verificato aprendo l'immagine e leggendo il nome della società in chiaro. Rimediato lo stesso giorno cancellando la cartella col nome sbagliato da entrambi i lati, verificato anche lato cloud: il contenuto anonimizzato sopravvive intatto sotto l'unico nome rimasto. Il gap nel codice non è stato chiuso, per scelta motivata in ADR-010 di `folder-sync-watcher`: resta un rischio aperto per qualunque altro nome disallineato non ancora scoperto, non presidiato automaticamente.
 
 Il secondo è dare valore a competenze reali che oggi non compaiono da nessuna parte, ed è la ragione per cui l'utente tiene a quel materiale: sono cose che sa o sta studiando, e fanno curriculum se raccontate insieme ai progetti. Questo percorso non passa dallo spostamento dei file, perché nessuno di quei documenti diventa un allegato: passa dalla pipeline che già esiste. `lettore-doc` legge le cartelle dichiarate nel suo `sources.yml`, estrae una tassonomia di competenze attraverso i suoi gate di sanificazione, e `export_to_taxonomy.py` la pubblica su `skills-repo`, che il CV già linka con sei link. Il passo concreto è quindi dichiarare quel corpus come sorgente e far girare la pipeline, non caricarlo da qualche parte.
 
