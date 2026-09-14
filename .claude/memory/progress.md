@@ -4,6 +4,26 @@
 
 ---
 
+## 2026-09-14 - Microstep 4 eseguito fino alla soglia del primo avvio reale
+
+Ripresa da `_notes/resume-prompt.md`, con l'SSD `J:` ricollegato e la cartella sorgente ancora intatta. Riverificata prima di tutto la capienza Proton con uno screenshot del client Android: 2,11 GB usati su 5, invariata rispetto alla misura del 2026-09-10, quindi il margine per 1,89 GB da caricare reggeva ancora.
+
+Copia: `_notes/copia-su-proton.ps1` esteso con `-OngoingStudies`, che monta due `subst` temporanei diretti sulla cartella (l'aritmetica dei percorsi in `roadmap.md` lo imponeva) invece che sui suoi genitori. Il nome reale con l'emoji non è stato scritto come letterale nello script, perché PowerShell 5.1 lo corrompe leggendo un `.ps1` con la codepage di sistema: si risolve per corrispondenza sul disco. Copiati 1004 file, 1939,7 MB, verificati per SHA256 su entrambi i lati senza differenze; sorgente su `J:` non toccata.
+
+Caricamento: seguito dal log del client Proton, chiuso alle 10:35:28 (ciclo #5, propagazione 00:10:31) con 1004 file e 188 cartelle creati lato Proton, zero errori, solo warning innocui già visti il 2026-09-09 (metadati EXIF mancanti, retry su 502 riusciti).
+
+Perimetro locale: aggiunta a `folder_sync_watcher/pin.py` la funzione simmetrica `libera`/`libera_albero` (ADR-009 di quel repository, stessa revoca puntuale della regola di sessione dedicata già usata per il microstep 2), con sei test nuovi e la suite a trentuno. Due script nuovi in `_notes/` (`perimetro-ongoing-studies.py`, `verifica-perimetro-ongoing-studies.ps1`) liberano l'intero albero e poi ancorano il solo sottoalbero `CYBERSECURITY, BC, governance`. Il primo giro di verifica ha segnalato un esito rovesciato; la causa non era il sistema ma un errore di logica nello script di verifica stesso, la condizione che doveva contare i file offline dentro il sottoalbero contava invece quelli materializzati. Corretto e riverificato: 668 file fuori dal sottoalbero tutti solo online, 336 dentro tutti materializzati, come atteso.
+
+Ripuntamento: `config.json` del watcher aggiornato con `folders.source_base` sulla radice Proton, `folders.source_relative_path` al posto del percorso storico, `sync_settings.pin_source` a vero. Risoluzione verificata via `folder_sync_watcher.source`: 186 caratteri, radice e percorso completo esistono entrambi.
+
+Prova a vuoto sulla coppia vera: la prima esecuzione reale di `python sync_watcher.py --prova-a-vuoto` ha scoperto tre difetti di `folder-sync-watcher` mai esercitati prima, perché quel watcher è fermo dal 21 gennaio e nessuna sessione lo aveva ancora avviato con una configurazione che punta a Proton. Tutti e tre corretti: la console non regge l'emoji della cartella (`UnicodeEncodeError` su ogni print o log che la contenesse), `SubstManager` passava per `cmd.exe` con `shell=True` e la mangling la stessa emoji nella riga di comando, e `list_subst_drives()` non riconosceva mai un'unità già montata per un formato di `subst.exe` diverso da quello atteso. Nessuno dei tre è specifico di `my-cv`. Con la correzione la prova a vuoto ha completato la sincronizzazione iniziale simulata senza errori, e la suite di quel repository passa a trentasette test. Il dettaglio tecnico dei tre difetti sta nella memoria di `folder-sync-watcher`, non qui.
+
+Rilievo di metodo da conservare: il primo esito negativo della verifica del perimetro sembrava un problema del sistema (la disidratazione asincrona che il codice stesso avvertiva essere possibile) ed era invece un difetto nello strumento di verifica. La lezione già registrata il 2026-09-10, verificare quale dei due strumenti sta guardando male prima di dedurre che il sistema è cambiato, vale anche quando lo strumento sotto sospetto è uno script appena scritto nella stessa sessione.
+
+Non fatto, e resta dell'utente per costruzione: il primo avvio reale del watcher, che propaga in bidirezionale verso la OneDrive aziendale, e la rimozione della sorgente da `J:`, che si propaga a Google Drive. I comandi sono stati consegnati a fine sessione. Stato dei due repository a questo punto: `my-cv` su `main` a `52059f6` più le modifiche di questa sessione non ancora committate; `folder-sync-watcher` su `refactor/senior-architecture` a `820cfaa` più le modifiche di questa sessione (ADR-009, `pin.py`, `subst.py`, `sync_watcher.py`, test) non ancora committate.
+
+---
+
 ## 2026-09-10 - Chiusura di sessione: misure catturate prima di staccare l'SSD
 
 Sessione chiusa perché l'utente deve scollegare l'SSD, e con esso sparisce la possibilità di misurare la sorgente. Le cifre del microstep 4 sono state quindi rilevate prima, e portate nella Fase 7 di `roadmap.md` invece che nel solo file di ripresa, perché `_notes/` è ignorato da git e ciò che merita di sopravvivere va scritto dove il versionamento lo protegge. È la stessa lezione del 2026-09-08 sulla trascrizione della sessione morta.
