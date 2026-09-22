@@ -5,7 +5,7 @@ generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
   - "altacv.cls"
-last-verified-commit: 8f0f6f8
+last-verified-commit: a6e85c3
 ---
 
 # Riferimento tecnico: la classe altaCV

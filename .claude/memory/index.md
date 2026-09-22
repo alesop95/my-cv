@@ -6,11 +6,11 @@
 
 ```
 Branch attivo:         main
-Commit di riferimento: 8f0f6f8 (2026-09-14, "blog-alessio: palette allineata, aggiornata la mappa dello stato")
-Data snapshot:         2026-09-14
+Commit di riferimento: a6e85c3 (2026-09-22, "Roadmap rigenerabile e stampabile, flag di pulizia corretto, grafo riallineato")
+Data snapshot:         2026-09-22
 ```
 
-Dal bootstrap (3485498) sono arrivati quarantaquattro commit. Il CV è completo, trilingue e sta su una pagina sola in tutte e tre le lingue. La passata di sincronizzazione del 2026-09-09, che era rimasta senza commit, è entrata in `60826c1` insieme al riancoraggio delle nove schede. Va registrato uno scarto fra messaggio e contenuto di quel commit, perché altrimenti chi legge la storia si aspetta di trovarci il lavoro sbagliato: il messaggio annuncia la chiusura del microstep 1, ma il commit è stato dato mentre quella chiusura era ancora in corso e la memoria che la descrive non era scritta, quindi ne contiene soltanto la passata del giorno prima. Il lavoro di memoria del 2026-09-10 è poi entrato in `a0e666c`, `4ef0d58` e `99482d3`, e resta fuori dal commit soltanto la registrazione del microstep 1C con ADR-012. Commit e push restano manuali, come da vincoli di team.
+Dal bootstrap (3485498) sono arrivati cinquantasette commit, contati il 2026-09-22. Il CV è completo, trilingue e sta su una pagina sola in tutte e tre le lingue. La passata di sincronizzazione del 2026-09-09, che era rimasta senza commit, è entrata in `60826c1` insieme al riancoraggio delle nove schede. Va registrato uno scarto fra messaggio e contenuto di quel commit, perché altrimenti chi legge la storia si aspetta di trovarci il lavoro sbagliato: il messaggio annuncia la chiusura del microstep 1, ma il commit è stato dato mentre quella chiusura era ancora in corso e la memoria che la descrive non era scritta, quindi ne contiene soltanto la passata del giorno prima. Il lavoro di memoria del 2026-09-10 è poi entrato in `a0e666c`, `4ef0d58` e `99482d3`, e resta fuori dal commit soltanto la registrazione del microstep 1C con ADR-012. Commit e push restano manuali, come da vincoli di team.
 
 Nota di ripresa dopo un incidente, che vale conservare perché è la ragione per cui questo file è stato riscritto. La sessione del 2026-09-08 è terminata per crash, e la verifica su disco ha stabilito che il crash non ha perso lavoro: i tre commit di quella giornata erano tutti presenti e il working tree era pulito. Il costo è stato la manutenzione di fine sessione, che non era stata eseguita, e si è manifestato come deriva del grafo di architettura, rilevata dall'hook di apertura, e come dodici commit di distanza fra le schede e HEAD. Il rilievo generale è che i commit sopravvivono a un crash e la memoria no, quindi la manutenzione di fine sessione non è una formalità.
 
@@ -24,21 +24,25 @@ Tutte e nove le schede di `.claude/context/` sono state passate da `sync-context
 
 | Scheda | last-verified | Stato |
 |---|---|---|
-| STACK.md | 8f0f6f8 | i derivati in `build/` e la riga dedicata nel `.gitignore` |
-| altacv-reference.md | 8f0f6f8 | verificata, nessuna modifica necessaria |
-| architecture.md | 8f0f6f8 | regione generata allineata, `D:` a ventitre cartelle, `extract-ecosystem.py --check` pulito |
-| current-work.md | 8f0f6f8 | sezione di stato riscritta sugli allegati verificati, titolo riancorato |
-| deployment.md | 8f0f6f8 | derivati in `build/`, e l'avvertenza sul flag `-Clean` che non li rimuove più |
-| dev-testing.md | 8f0f6f8 | il log di compilazione si legge in `build/` |
-| external-dependencies.md | 8f0f6f8 | folder-sync-watcher ripuntato su Proton, lettore-doc censito come dipendenza nuova |
-| external-links.md | 8f0f6f8 | verificata, porta già la tabella dei dodici link |
-| roadmap.md | 8f0f6f8 | Fase 7 chiusa per intero, mappa dello stato in cima al file |
+| STACK.md | a6e85c3 | i derivati in `build/` e la riga dedicata nel `.gitignore` |
+| altacv-reference.md | a6e85c3 | verificata, nessuna modifica necessaria |
+| architecture.md | a6e85c3 | regione generata rigenerata il 2026-09-22, `D:` scesa a ventidue cartelle, `extract-ecosystem.py --check` pulito |
+| current-work.md | a6e85c3 | sezione di stato riscritta sugli allegati verificati, titolo riancorato |
+| deployment.md | a6e85c3 | derivati in `build/`, e l'avvertenza sul flag `-Clean` che non li rimuove più |
+| dev-testing.md | a6e85c3 | il log di compilazione si legge in `build/` |
+| external-dependencies.md | a6e85c3 | folder-sync-watcher ripuntato su Proton, lettore-doc censito come dipendenza nuova |
+| external-links.md | a6e85c3 | verificata, porta già la tabella dei dodici link |
+| roadmap.md | a6e85c3 | Fase 7 chiusa per intero, mappa dello stato in cima al file |
 
 Meta-stato, sotto `.claude/memory/`, fuori dalla tabella perché non porta frontmatter di riconciliazione: questo file aggiornato al 2026-09-10, `progress.md` con in testa la voce che chiude il microstep 1 della Fase 7, `decisions.md` con ADR-011 e con l'emendamento del 2026-09-08 ad ADR-010.
 
 ## Punto di ripresa
 
 Il CV è completo e non ha sezioni in lavorazione: struttura a due colonne su classe altaCV vendorizzata, contenuto trilingue IT/EN/ES tramite `\CVlanguage` e `\cvtext{}{}{}`, skill allineate alla tassonomia di `skills-repo` con script di verifica dei link, tre PDF stabili `cv-sopranzi-alessio-{en,it,es}.pdf` versionati in radice e sempre rigenerati insieme da `scripts/build.ps1`, con i derivati di compilazione in `build/` dal 2026-09-04, più un archivio storico datato in `dated-builds/` non versionato (ADR-004, 005 e 006 in `decisions.md`). Il formato attuale è una pagina sola in tutte e tre le lingue: ogni aggiunta di contenuto va compensata con un taglio altrove, e va verificata prima sullo spagnolo, che è la lingua che sconfina per prima.
+
+Fatto nuovo del 2026-09-22, ed è il primo da leggere perché cambia il modo di rispondere alla domanda "che cosa resta da fare". Quella risposta non sta più sparsa fra questo file, la mappa dello stato di `roadmap.md` e il registro delle decisioni: si rigenera con `/roadmap`, che invoca `tools/roadmap.py`. Le voci aperte, cioè il solo giudizio umano, vivono in `tools/roadmap-items.yml` ordinate per costo crescente su quattro livelli, dai minuti al lavoro che non si chiude dentro questo repository; tutto il resto, cioè commit di riferimento, distanza delle schede da HEAD, esito dei tre controlli documentali e raggiungibilità dei sessantasette link, viene misurato a ogni invocazione. Una voce può dichiarare una sonda, cioè come la macchina stabilisce da sola se è ancora aperta, e le voci che la misura smentisce finiscono in una sezione a parte invece di sparire. La resa `--format html --write` produce una pagina pronta da stampare in `build/`. Questa lista non sostituisce la memoria e non scrive in alcun file tracciato: quando una voce si chiude davvero va tolta dal file dati e la scheda che la citava va aggiornata a mano, come è stato fatto oggi per i due difetti qui sopra.
+
+Allineamento al template, eseguito lo stesso giorno e nelle due direzioni. Le nove regole sotto `.claude/rules/` ora coincidono carattere per carattere con quelle di `E:	emplate-claude-developing`: sette sono state prese dal template, che era avanti, e fra queste tre erano del tutto assenti qui, cioè `chat-non-e-memoria.md`, `prove-che-misurano.md` e `web-sources-not-fetchable.md`; una è stata spinta nella direzione opposta, `security-permissions.md`, perché la copia di questo progetto aveva gli accenti corretti e quella del template no. Due cambi di prescrizione vanno conosciuti prima della prossima sessione, perché cambiano il comportamento e non solo il testo: `git-commands-format.md` chiede ora di consegnare i comandi nella sola sintassi della macchina su cui si lavora invece che in due blocchi, e di aprire sempre il blocco con il `cd` nella cartella del progetto; `git-identity-and-repo.md` sostituisce l'elenco dei profili di macchina con il principio che i profili si rilevano e non si assumono, e aggiunge gli assi dell'account Claude Code e di GitHub CLI. Lo strumento della roadmap è stato promosso a pacchetto del template come `templates/roadmap/`, con il file dati reso dichiarativo perché non conoscesse più per nome gli strumenti di questo progetto.
 
 Lavoro chiuso il 2026-09-08 e precondizione di tutto il resto della Fase 7: l'anonimizzazione alla fonte dei quattro file del sottoalbero specchiato con la OneDrive aziendale, decisa in ADR-011. I quattro originali sono stati sostituiti dalle versioni anonimizzate e verificati per md5, gli originali pre-intervento erano conservati in `J:\_originali-prima-anonimizzazione\` e sono stati rimossi il 2026-09-10, dopo aver verificato che tutti e quattro hanno la controparte anonimizzata allo stesso percorso relativo dentro la cartella specchiata, con hash diverso dall'originale, e la cartella di lavoro `J:\_anonimizzati\` è stata rimossa a verifica compiuta. Con questo cade la premessa che teneva `Ongoing studies` fuori dallo spostamento su Proton, che era il punto su cui la fase si era incagliata.
 
@@ -72,12 +76,12 @@ Repository correlati, tutti sotto `E:` e distinti da questo, citati dal CV: `ski
 
 ## Difetti noti e non ancora corretti
 
-Tre difetti verificati che nessuno ha ancora chiuso, elencati qui perché una sessione nuova li incontrerebbe senza preavviso.
+Uno solo resta aperto dei tre elencati fin qui. Gli altri due sono chiusi il 2026-09-22, e restano scritti con l'esito perché la loro storia spiega perché esiste il presidio che li ha trovati.
 
-Il flag `-Clean` di `scripts/build.ps1` e `--clean` di `scripts/build.sh` non rimuovono più i file ausiliari: dal riordino della radice del 2026-09-04 quei file vivono in `build/` mentre entrambi gli script spazzano la sola cartella di `main.tex`, e il messaggio finale continua ad annunciare una rimozione che non avviene. Per svuotare davvero i derivati si cancella `build/`.
+Corretto il 2026-09-22 e non più un difetto: il flag `-Clean` di `scripts/build.ps1` e `--clean` di `scripts/build.sh` spazzavano la sola cartella di `main.tex` mentre dal riordino del 2026-09-04 gli ausiliari vivono in `build/`, e il messaggio finale annunciava comunque una rimozione che non avveniva. Ora entrambi spazzano anche `build/`, compreso `pdfa.xmpi` che non porta il nome del jobname, e il messaggio dice ciò che accade. Provato su una copia finta con file estranei, che restano intatti.
 
 Gli strumenti di normalizzazione tipografica sotto `tools/` non preservano la fine riga dei file su cui passano, e hanno convertito `main.tex` da LF a CRLF il 2026-08-27 gonfiandone il diff da 41 righe reali a 1462. Il file è stato riportato a LF, gli strumenti non sono stati corretti.
 
-Una virgoletta di chiusura dritta invece che tipografica resta nella voce "Hold Me Tight" della sezione dei corsi, difetto pre-esistente e mai corretto.
+Non più applicabile, verificato il 2026-09-22: la virgoletta di chiusura dritta della voce "Hold Me Tight" era elencata qui da luglio, ma quella voce non sta più in `main.tex` dal 2026-07-15, quando la sezione dei corsi è stata ridotta a una riga, e nelle due occorrenze migrate in `projects/docs/courses/` le virgolette sono dritte sia in apertura sia in chiusura, quindi simmetriche. Il difetto non è stato corretto: è decaduto insieme al testo che lo conteneva, e nessuno se ne era accorto per due mesi e mezzo. È il caso che ha motivato le sonde di `tools/roadmap.py`.
 
 Commit e push restano manuali dell'utente, come da vincoli di team.

@@ -12,7 +12,7 @@
 
 Leggere per primo `.claude/memory/index.md` (branch, commit di riferimento, stato di verifica delle schede, punto di ripresa). Leggere poi `.claude/context/current-work.md` se c'è una sezione del CV in lavorazione. Invocare la skill `sync-context` per verificare il drift tra schede e sorgente LaTeX. Leggere solo le schede pertinenti al task, mai tutte insieme. Il work-log `.claude/memory/progress.md` e il registro `.claude/memory/decisions.md` (in particolare ADR-001 sull'engine e ADR-002 sulla classe CV) forniscono la storia e le decisioni quando servono.
 
-Per riprendere da zero: invocare `/onboard`. Per compilare il PDF: `/latex-build`.
+Per sapere che cosa resta da fare: invocare `/roadmap`, che misura lo stato invece di ricordarlo e sostituisce la lettura incrociata di mappa dello stato, difetti noti e punto di ripresa. Per riprendere da zero: invocare `/onboard`. Per compilare il PDF: `/latex-build`.
 
 ## Indice dei file satellite tracciati
 
@@ -61,6 +61,8 @@ Strumenti di verifica e normalizzazione, sotto `tools/`.
 ```
 tools/extract-cv-links.py     estrae inventario e grafo dei link dal sorgente, rigenera le schede
 tools/extract-ecosystem.py    misura l ecosistema e rigenera il grafo di architettura
+tools/roadmap.py              rigenera la roadmap operativa dallo stato corrente, anche da stampare
+tools/roadmap-items.yml       le voci aperte, ordinate per costo: l unico file della roadmap scritto a mano
 tools/session-check.sh        i quattro controlli di coerenza, invocati dall hook SessionStart
 tools/md-unwrap.py            applica e verifica la convenzione Markdown a riga sorgente unica
 tools/lint-md-commands.py     linter dei comandi di shell nei blocchi Markdown
@@ -77,6 +79,7 @@ Skill richiamabili, sotto `.claude/skills/`.
 .claude/skills/latex-build/SKILL.md    build e setup dell'ambiente LaTeX
 .claude/skills/sync-context/SKILL.md   verifica drift schede vs sorgente
 .claude/skills/onboard/SKILL.md        spiegazione completa del progetto
+.claude/skills/roadmap/SKILL.md        che cosa resta da fare, misurato invece che ricordato
 ```
 
 ## Vincoli di team

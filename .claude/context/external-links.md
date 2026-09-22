@@ -6,7 +6,7 @@ covers-paths:
   - "main.tex"
   - "altacv.cls"
   - "tools/extract-cv-links.py"
-last-verified-commit: 8f0f6f8
+last-verified-commit: a6e85c3
 ---
 
 # Inventario dei link citati dal CV
@@ -31,7 +31,7 @@ Perché lo strumento esiste, dato che questa scheda fino al 2026-09-03 dichiarav
 
 ## Distinzione fra bersagli e stringhe URL
 
-Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò che ha prodotto il conteggio sbagliato della versione precedente di questa scheda. Un bersaglio è una risorsa distinta a cui il CV punta; una stringa URL è una forma testuale che compare nel PDF compilato. I tredici tag del blog valgono tredici bersagli e ventisei stringhe, perché ciascuno esiste in una variante italiana e in una inglese, e la compilazione spagnola ricade sulla seconda dato che il blog non ha una terza lingua. Nessun'altra categoria ha varianti di lingua, quindi altrove le due colonne coincidono.
+Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò che ha prodotto il conteggio sbagliato della versione precedente di questa scheda. Un bersaglio è una risorsa distinta a cui il CV punta; una stringa URL è una forma testuale che compare nel PDF compilato. I quindici tag del blog valgono quindici bersagli e trenta stringhe, perché ciascuno esiste in una variante italiana e in una inglese, e la compilazione spagnola ricade sulla seconda dato che il blog non ha una terza lingua. Nessun'altra categoria ha varianti di lingua, quindi altrove le due colonne coincidono.
 
 <!-- BEGIN GENERATED cv-links: inventario -->
 
@@ -284,9 +284,17 @@ Due note di lettura, perché la differenza fra ciò che è verificato e ciò che
 
 I due ID Drive dietro i redirect di tesi sono stati risolti qui per la prima volta: non erano registrati da nessuna parte, e servono per ritrovare i file da caricare su Proton.
 
+## Riverifica del 2026-09-22, e un falso positivo che va conosciuto
+
+Passata completa su tutte e otto le categorie, eseguita due volte nella stessa giornata, prima con `scripts/check-links.sh` e poi con `scripts/check-links.ps1`: i due script concordano. Su sessantasette stringhe URL, cinquantanove rispondono, due sono saltate perché `mailto:` e `tel:`, cinque sono i Proton di cui si verifica la sola forma, e una sola risulta irraggiungibile.
+
+Quella sola è `https://intrawelt.com`, e non è rotta: è un falso positivo di questa macchina. Il resolver locale non risolve il nome, mentre `nslookup intrawelt.com 8.8.8.8` restituisce `195.96.193.35` e una richiesta forzata su quell'indirizzo, con `curl --resolve`, risponde 200. Anche `www.intrawelt.com` risolve e reindirizza con un 301 verso il nome nudo, che è poi quello che la macchina non vede. La nota esiste perché senza di essa ogni sessione futura rifarebbe questa diagnosi da capo, ed è esattamente il caso che ha motivato la distinzione fra l'uscita 1 e l'uscita 2 dei due script, cioè fra un errore HTTP e un errore di rete.
+
+Il precedente da non perdere, più generale del caso singolo: un link dichiarato irraggiungibile da una macchina sola non è un link rotto finché non lo si prova da una risoluzione indipendente. La macchina che verifica fa parte della misura.
+
 ## Tre link deliberatamente commentati
 
-Il sorgente contiene tre `\href` dentro righe commentate, che l'estrattore scarta per costruzione neutralizzando i commenti prima di qualunque ricerca: la riga Telegram rimossa il 2026-07-14, il certificato 24 CFU commentato sotto la voce Istruzione, e la vecchia riga "Thesis" della magistrale. Non compaiono nell'inventario perché non sono link del CV, ma restano nel sorgente per essere riattivabili senza riscriverli.
+Il sorgente contiene tre righe commentate che portavano un link, e l'estrattore le scarta tutte per costruzione, neutralizzando i commenti prima di qualunque ricerca. Una sola delle tre è però un `\href`, ed è il certificato 24 CFU a `main.tex:605`: la riga Telegram a `:271` è un `\printinfo`, e della vecchia riga "Thesis" della magistrale a `:601` resta il solo testo senza alcun comando di link. La precisazione vale perché la stesura precedente di questa scheda ne dichiarava tre di `\href`, e chi cercasse gli altri due non li troverebbe. Non compaiono nell'inventario perché non sono link del CV, ma restano nel sorgente per essere riattivabili senza riscriverli.
 
 ## Nota sulla verifica dei tag del blog
 

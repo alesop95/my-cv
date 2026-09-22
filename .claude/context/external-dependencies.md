@@ -7,7 +7,7 @@ covers-paths:
   - "tools/extract-cv-links.py"
   - "scripts/check-links.ps1"
   - "scripts/check-links.sh"
-last-verified-commit: 8f0f6f8
+last-verified-commit: a6e85c3
 ---
 
 # Dipendenze esterne e flussi di sincronizzazione
@@ -83,11 +83,11 @@ Cosa il grafo non mostra, e non per dimenticanza. La struttura interna di `skill
 
 ## blog (`E:\blog-alessio`, `alesop95.github.io/blog/`)
 
-**Cosa collega**: 13 topic tag dalla sezione Interessi (via `\bloglinkwrap`), più la home generica nell'header.
+**Cosa collega**: 15 topic tag dalla sezione Interessi (via `\bloglinkwrap`), più la home generica nell'header.
 
 **Cosa lo rompe**: un tag citato nel CV (es. `musica`/`music`) può non avere ancora nessun post associato - la pagina tag esiste comunque ed è raggiungibile (MkDocs/Next.js genera la pagina anche vuota o con contenuto parzialmente pertinente), quindi il link "risulta" valido a un controllo HTTP ma **non è detto che il contenuto sia pertinente**: verificato concretamente il 2026-07-15 per il tag "musica", che non conteneva alcun riferimento al progetto harmony-book nonostante fosse il tag a cui l'interesse "Chitarra e teoria armonica" puntava.
 
-**Come verificarlo**: `powershell -NoProfile -File scripts/check-links.ps1 -Category blog` verifica che le ventisei URL delle tredici topic page rispondano, italiano e inglese separatamente, ma la raggiungibilità non è la pertinenza: per quella serve cercare il tag nel sorgente del blog (`content/posts/<lingua>/*.mdx`, campo frontmatter `tags`) invece di fidarsi dello status HTTP della pagina, come dimostrato dal caso "musica" qui sopra.
+**Come verificarlo**: `powershell -NoProfile -File scripts/check-links.ps1 -Category blog` verifica che le trenta URL delle quindici topic page rispondano, italiano e inglese separatamente, ma la raggiungibilità non è la pertinenza: per quella serve cercare il tag nel sorgente del blog (`content/posts/<lingua>/*.mdx`, campo frontmatter `tags`) invece di fidarsi dello status HTTP della pagina, come dimostrato dal caso "musica" qui sopra.
 
 **Se un interesse non ha contenuto pertinente nel tag collegato**: due strade, scelte caso per caso finora - aggiungere un riferimento reale in un post esistente pertinente (fatto per harmony-book, poi scartato perché il progetto meritava un link diretto alla sua pagina invece di una menzione di passaggio), oppure far linkare il titolo dell'interesse direttamente alla risorsa primaria (pattern già usato per Stampa 3D, Bisogni Educativi Speciali, e ora harmony-book), perdendo il rimando secondario al blog.
 

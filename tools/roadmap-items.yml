@@ -18,6 +18,36 @@
 #   presente:FILE:REGEX aperta se la regex compare nel file
 #   assente:FILE:REGEX  aperta se la regex NON compare nel file
 
+titolo: Roadmap operativa di my-cv e del suo ecosistema
+
+# Dove vivono le schede con il frontmatter di riconciliazione, per misurarne la distanza da HEAD.
+cartella-schede: .claude/context
+
+# Controlli eseguiti a ogni invocazione. Exit 0 significa in ordine. Il filtro facoltativo
+# `solo-file-tracciati` legge l'elenco dei file segnalati e considera in ordine il caso in cui
+# nessuno di essi sia tracciato da git.
+controlli:
+  - nome: grafo di architettura
+    chiave: ecosystem
+    comando: python tools/extract-ecosystem.py --check
+    rimedio: python tools/extract-ecosystem.py --write
+  - nome: inventario dei link
+    chiave: cvlinks
+    comando: python tools/extract-cv-links.py --check
+    rimedio: python tools/extract-cv-links.py --write
+  - nome: convenzione Markdown
+    chiave: mdunwrap
+    comando: python tools/md-unwrap.py --check .
+    filtro: solo-file-tracciati
+    rimedio: python tools/md-unwrap.py <file>
+
+# Comando di verifica dei link, eseguito solo con --link-check perche va in rete. Si dichiara per
+# piattaforma: uno script di shell invocato da Python non eredita la shell della sessione ma quella
+# che il sistema risolve per prima, che su Windows e la bash di WSL e non quella di Git.
+verifica-link:
+  windows: powershell -NoProfile -File scripts/check-links.ps1
+  posix: bash scripts/check-links.sh
+
 livelli:
   0: "Minuti, nessuna decisione da prendere"
   1: "Mezz'ora, ancora nessuna decisione di contenuto"
@@ -25,58 +55,6 @@ livelli:
   3: "Fuori da my-cv, ma è da qui che dipende il resto"
 
 voci:
-  - id: 1
-    livello: 0
-    dove: my-cv
-    titolo: Grafo di architettura in deriva
-    stato: La regione generata di architecture.md non coincide con lo stato misurato.
-    passo: "python tools/extract-ecosystem.py --write"
-    fonte: ".claude/context/architecture.md, regione fra i marcatori BEGIN e END GENERATED ecosystem"
-    sonda: ecosystem
-
-  - id: 2
-    livello: 0
-    dove: my-cv
-    titolo: index.md afferma il falso sul grafo
-    stato: La riga di stato di architecture.md dichiara una misura che il controllo smentisce, cioè ventitre cartelle su D dove oggi ne risultano ventidue.
-    passo: Riscrivere la riga dopo aver rigenerato il grafo, mai prima.
-    fonte: ".claude/memory/index.md, tabella dello stato di verifica delle schede"
-
-  - id: 3
-    livello: 0
-    dove: my-cv
-    titolo: Il difetto Hold Me Tight è dichiarato aperto ma non esiste più
-    stato: Verificato il 2026-09-22. La stringa non è più in main.tex, perché la sezione dei corsi è stata ridotta a una riga il 2026-07-15, e nelle due occorrenze migrate in projects le virgolette sono dritte sia in apertura sia in chiusura, quindi simmetriche. L'asimmetria che costituiva il difetto non esiste in nessuno dei due repository.
-    passo: Depennarlo dai difetti noti di index.md e dalla mappa dello stato di roadmap.md, dichiarandolo non più applicabile invece che corretto.
-    fonte: ".claude/memory/index.md, .claude/context/roadmap.md, projects/docs/courses/humanities.md"
-    sonda: "presente:main.tex:Hold Me Tight"
-
-  - id: 4
-    livello: 0
-    dove: my-cv
-    titolo: Il flag di pulizia non rimuove gli ausiliari
-    stato: Gli script spazzano la sola radice mentre i derivati vivono in build/, e annunciano comunque la rimozione.
-    passo: Spazzare anche build/, o ridurre il messaggio a ciò che avviene.
-    fonte: "scripts/build.ps1, scripts/build.sh"
-    sonda: "assente:scripts/build.ps1:cleanBuildDir"
-
-  - id: 5
-    livello: 0
-    dove: my-cv
-    titolo: Residui testuali su conteggi superati
-    stato: I commenti dei checker parlavano di dieci redirect tinyurl, che sono otto dal 2026-09-04, e la prosa delle schede dei link parla di tredici tag del blog, che sono quindici. La parte negli script è corretta, resta quella nelle due schede.
-    passo: Allineare la prosa di external-links.md e di external-dependencies.md al conteggio reale, fuori dalle regioni generate.
-    fonte: ".claude/context/external-links.md, .claude/context/external-dependencies.md"
-    sonda: "presente:.claude/context/external-links.md:tredici tag"
-
-  - id: 6
-    livello: 0
-    dove: my-cv
-    titolo: Falso positivo di intrawelt.com non registrato
-    stato: Il resolver di questa macchina non risolve il nome, mentre con DNS pubblico il sito risponde 200 su 195.96.193.35. Senza una nota la prossima sessione lo rilegge come rotto.
-    passo: Registrare la misura nella scheda dei link, fuori dalla regione generata.
-    fonte: ".claude/context/external-links.md"
-
   - id: 7
     livello: 1
     dove: my-cv, projects

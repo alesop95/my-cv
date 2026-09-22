@@ -26,6 +26,10 @@ Livello 3, sezione completa: lettura puntuale di una sola sezione di un solo doc
 
 Operativamente si parte sempre dal Livello 1 sull'intera cartella, si sale al Livello 2 solo sui documenti pertinenti al task, e al Livello 3 solo su richiesta esplicita. Vale per qualsiasi corpus, non solo per i `.docx`.
 
+Il pacchetto opzionale `doc-ingest` (vedi `templates/doc-ingest/`) e l'implementazione di riferimento di questo principio su un corpus di più documenti: converte `.pdf`, `.docx`, `.pptx`, `.xlsx` e `.html` in una cache Markdown locale con manifest a content-hash (non riconverte l'invariato) e rigenera a ogni corsa lo scheletro di Livello 1 in un `_INDEX.md`. Resta uno strumento, non un sostituto del principio: i Livelli 2 e 3 restano disciplina di lettura sull'output che produce.
+
+Una variante dello stesso principio sposta il corpus non su una cache locale ma su un motore di recupero esterno ancorato alle fonti. Il pacchetto opzionale `notebooklm-bridge` (vedi `templates/notebooklm-bridge/`) tiene il corpus dentro NotebookLM, nel piano gratuito accessibile solo da browser, e in conversazione fa entrare solo una sintesi densa e citata invece del testo grezzo: è un Livello 1 prodotto da un motore che risponde anche a domande mirate senza mai versare le fonti in contesto. Il risparmio è lo stesso della disclosure progressiva, con in più l'ancoraggio alle fonti che riduce le allucinazioni; il costo è che l'accesso resta manuale nel browser, o assistito via un MCP di automazione opt-in, mai un'API a pagamento.
+
 ## Deterministico prima del linguistico
 
 In una pipeline che mescola codice e LLM, si spinge il più possibile il lavoro su codice deterministico e si riserva l'LLM al solo lavoro che richiede comprensione semantica. Parsing, estrazione con regex, trasformazioni, calcoli e generazione di file derivati sono deterministici e vanno in script. L'estrazione semantica di concetti e relazioni e la sintesi narrativa sono linguistiche e vanno all'LLM.
@@ -45,6 +49,10 @@ Prima di ogni `/clear` o di chiudere una sessione su un task non ancora concluso
 La finestra da un milione di token, disponibile su Sonnet 4.6 e Opus 4.7, e utile come assicurazione per i task lunghi ma non come obiettivo: oltre i 120-150K token utili la qualità delle risposte tende comunque a degradare per accumulo di rumore nel contesto. Chunk piccoli con handoff espliciti producono risultati migliori che riempire la finestra grande.
 
 Il principio "un task, una chat" mantiene il contesto sempre fresco: invece di una sessione fiume che accumula task diversi, si chiude e riapre per ogni unita di lavoro logica, riducendo le compattazioni multiple e il rischio di deriva del focus.
+
+## Cautela sui workflow multi-agente costosi
+
+Alcuni workflow integrati (per esempio `deep-research`) fanno verificare ogni affermazione estratta da più agenti indipendenti in parallelo: con qualche decina di affermazioni il numero di chiamate di verifica sale rapidamente a svariate decine, con un consumo di token che può esaurire il limite di sessione in pochi secondi, prima ancora che il workflow completi la sintesi finale. Non è un errore del workflow: è il costo intrinseco della verifica adversariale a più voti, esperienza già osservata sul campo. Quando succede, non insistere rilanciando lo stesso workflow identico: o si restringe la domanda a un angolo di ricerca più stretto per lancio, invece di chiedere tutto insieme, o si riprende con il meccanismo di resume del workflow (che rilegge dalla cache gli stadi già completati e paga solo cio che manca), oppure si scende a una verifica manuale mirata delle sole fonti primarie già trovate nella fase di ricerca, con una singola chiamata di recupero pagina per fonte invece del panel a più voti: quest'ultima via è quasi sempre la più economica quando restano poche affermazioni da controllare.
 
 ## Strumenti esterni, a scelta
 

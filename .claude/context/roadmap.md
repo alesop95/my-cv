@@ -4,16 +4,18 @@ generated-from-branch: main
 generated-date: 2026-07-06
 covers-paths:
   - "main.tex"
-last-verified-commit: 8f0f6f8
+last-verified-commit: a6e85c3
 ---
 
 # Roadmap e priorità
 
 > Riscritta il 2026-07-06 a partire dal contenuto reale delle quattro note di analisi trovate in `[TBC]_DA SISTEMARE, LATEX, VARIE, PENDING/` (ora archiviate in `_notes/tbc-archive/da-sistemare/`), non dai soli titoli dei file. Le fasi sotto sono ordinate per dipendenza, non per urgenza uniforme: la Fase 1 blocca tutte le altre, le Fasi 3-6 sono indipendenti tra loro e si possono affrontare in qualunque ordine dopo la Fase 2.
 
-## Mappa dello stato (aggiornata il 2026-09-14)
+## Mappa dello stato (aggiornata il 2026-09-22)
 
 Vista d'insieme di ogni voce ancora aperta, dentro questo repository e nelle dipendenze esterne da cui `my-cv` attinge. Il dettaglio narrativo di ciascuna riga sta nella fase corrispondente qui sotto, o nella scheda `external-dependencies.md` per le dipendenze fuori repository.
+
+Dal 2026-09-22 questa tabella non è più l'unico posto dove guardare, ed è bene sapere quale delle due fonti risponde a quale domanda. La lista operativa di che cosa fare adesso si rigenera con `/roadmap`, che misura lo stato invece di ricordarlo: le voci stanno in `tools/roadmap-items.yml`, ordinate per costo, e quelle meccaniche si chiudono da sole quando una sonda rileva che il difetto non c'è più. Questa tabella resta la vista narrativa, cioè quella che dice dove una voce vive nella storia del progetto, e va aggiornata a mano come il resto delle schede. Quando le due divergono ha ragione la prima, perché l'ha appena misurato.
 
 | Dove | Voce aperta | Stato | Prossimo passo |
 |---|---|---|---|
@@ -21,9 +23,9 @@ Vista d'insieme di ogni voce ancora aperta, dentro questo repository e nelle dip
 | my-cv, Fase 2 | Frammenti Coaching (Onova S.p.A. / Intracademy) | Rimandati: nessuna esperienza reale da raccontare ancora | Riprendere quando c'è contenuto reale, non prima |
 | my-cv, Fase 5 | Revisione madrelingua dello spagnolo | Mai fatta | Valutare esplicitamente con l'utente prima di un uso professionale della versione ES |
 | my-cv, Fase 6 | Ordine di lettura delle colonne per gli ATS | Rimandato a data da destinarsi il 2026-07-06 | Nessuna azione programmata; il layer testuale (icone/etichette) è già risolto separatamente |
-| my-cv, difetti noti | `-Clean`/`--clean` non ripulisce più `build/` | Verificato il 2026-09-08, mai corretto | Correggere gli script alla prossima sessione sul build |
-| my-cv, difetti noti | Strumenti tipografici non preservano la fine riga | Verificato il 2026-08-27, mai corretto | Correggere prima del prossimo uso su un file grande |
-| my-cv, difetti noti | Virgoletta dritta in "Hold Me Tight" | Difetto minore, mai corretto | Correggere alla prossima sessione di contenuto |
+| my-cv, difetti noti | `-Clean`/`--clean` non ripuliva `build/` | Corretto il 2026-09-22, provato su una copia finta | Nessuna, chiuso |
+| my-cv, difetti noti | Strumenti tipografici non preservano la fine riga | Verificato il 2026-08-27, mai corretto. È l'unico dei tre difetti noti ancora aperto | Correggere prima del prossimo uso su un file grande |
+| my-cv, difetti noti | Virgoletta dritta in "Hold Me Tight" | Non più applicabile, verificato il 2026-09-22: il testo è uscito da `main.tex` il 2026-07-15 e in `projects` le virgolette sono simmetriche | Nessuna, chiuso |
 | Fase 7, microstep 5 | Pipeline `lettore-doc` → `skills-repo` su `Ongoing studies` | Sorgente dichiarata e riparata il 2026-09-14, zero cicli eseguiti | Passo 0: selezionare i documenti di `Cybersec, BC, IT governance, DevOps, Programming, Networking` (area scelta oggi come prima), poi `prepare_graphify_source.py` e la sessione `/graphify .` in una sessione dedicata su `lettore-doc` |
 | folder-sync-watcher | Nomi di cartella disallineati fra i due lati del mirror (ADR-010) | Rischio noto dal 2026-09-14, non presidiato nel codice; un caso reale già chiuso a mano | Verificare a mano i nomi di primo livello prima di ogni futuro ripuntamento; un preflight automatico è stato valutato e non implementato |
 | skills-repo (via lettore-doc) | 30 pagine di Capability più le competenze trasversali, da tradurre IT/ES | Meccanismo trilingue pronto, contenuto mancante | Lavoro di contenuto per domini, una sessione per blocco; non è lavoro di questo repository |

@@ -5,7 +5,7 @@ generated-date: 2026-09-04
 covers-paths:
   - "tools/extract-ecosystem.py"
   - "tools/extract-cv-links.py"
-last-verified-commit: 8f0f6f8
+last-verified-commit: a6e85c3
 ---
 
 # Architettura dell'ecosistema personale
