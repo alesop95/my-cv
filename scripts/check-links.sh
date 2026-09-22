@@ -7,7 +7,8 @@
 # l'inventario e con il grafo delle dipendenze.
 #
 # I redirect si seguono e la destinazione finale viene riportata: è il modo per sapere, senza
-# aprire un browser, quali dei dieci redirect tinyurl puntano ancora a Google Drive.
+# aprire un browser, dove portano gli otto redirect tinyurl. Nessuno di essi punta più a
+# Google Drive dal 2026-09-04, quando i due delle tesi sono stati ritirati.
 #
 # Avvertenza sui tag del blog: uno stato 2xx dice che la topic page esiste, non che il suo
 # contenuto sia pertinente all'interesse che la linka.

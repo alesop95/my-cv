@@ -45,11 +45,21 @@ $mainDir   = Split-Path -Parent $Main
 $mainName  = [System.IO.Path]::GetFileNameWithoutExtension($Main)
 
 if ($Clean) {
+    # I derivati vivono in build/ dal riordino della radice: spazzare il solo $mainDir
+    # lasciava intatti gli ausiliari mentre il messaggio ne annunciava la rimozione.
+    $cleanBuildDir = Join-Path $mainDir 'build'
     foreach ($lang in $languages) {
-        Get-ChildItem -Path $mainDir -Filter "cv-sopranzi-alessio-$lang.*" -File -ErrorAction SilentlyContinue |
-            Remove-Item -Force
+        foreach ($dir in @($mainDir, $cleanBuildDir)) {
+            if (Test-Path $dir) {
+                Get-ChildItem -Path $dir -Filter "cv-sopranzi-alessio-$lang.*" -File -ErrorAction SilentlyContinue |
+                    Remove-Item -Force
+            }
+        }
     }
-    Write-Host "[build] Rimossi i PDF stabili e gli ausiliari nelle tre lingue."
+    # pdfa.xmpi non porta il nome del jobname: e' un derivato di pdfx condiviso fra le tre lingue.
+    $sharedAux = Join-Path $cleanBuildDir 'pdfa.xmpi'
+    if (Test-Path $sharedAux) { Remove-Item -LiteralPath $sharedAux -Force }
+    Write-Host "[build] Rimossi i PDF stabili in radice e gli ausiliari in build/ nelle tre lingue."
     return
 }
 

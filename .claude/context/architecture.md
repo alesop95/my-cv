@@ -32,7 +32,7 @@ python tools/extract-ecosystem.py --check
 ```mermaid
 flowchart TB
     subgraph FONTI["1. Fonti: dove il lavoro reale succede"]
-    D_ROOT["D:\ progetti aziendali<br/>23 cartelle, solo contate"]
+    D_ROOT["D:\ progetti aziendali<br/>22 cartelle, solo contate"]
     VM["VM aziendali su Proxmox<br/>dettaglio nel repo projects"]
     E_ROOT["E:\ repository personali<br/>32 con remote GitHub<br/>più 6 di infrastruttura"]
     DOCS["Corpus documentali<br/>OneDrive aziendale e sorgenti personali"]

@@ -104,7 +104,8 @@ function Invoke-LinkProbe {
     # Perché HttpWebRequest e non Invoke-WebRequest. Su Windows PowerShell 5.1 la combinazione
     # -MaximumRedirection 0 solleva una InvalidOperationException generica e non espone alcuna
     # risposta, quindi lo stato 3xx e l'header Location sono irrecuperabili: verificato su tutti e
-    # dieci i redirect tinyurl, che risultavano non raggiungibili mentre funzionavano. HttpWebRequest
+    # dieci i redirect tinyurl di allora, oggi otto, che risultavano non raggiungibili mentre
+    # funzionavano. HttpWebRequest
     # con AllowAutoRedirect disattivato restituisce invece la risposta 3xx come tale, ed è l'unico
     # modo su 5.1 di leggere la destinazione di un redirect senza seguirla.
     $response = $null

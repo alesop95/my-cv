@@ -44,10 +44,16 @@ MAIN_DIR=$(dirname -- "$MAIN")
 MAIN_NAME=$(basename -- "$MAIN" .tex)
 
 if [ "$CLEAN" -eq 1 ]; then
+  # I derivati vivono in build/ dal riordino della radice: spazzare il solo MAIN_DIR
+  # lasciava intatti gli ausiliari mentre il messaggio ne annunciava la rimozione.
+  CLEAN_BUILD_DIR="$MAIN_DIR/build"
   for lang in en it es; do
     rm -f "$MAIN_DIR"/cv-sopranzi-alessio-"$lang".*
+    rm -f "$CLEAN_BUILD_DIR"/cv-sopranzi-alessio-"$lang".*
   done
-  echo "[build] Rimossi i PDF stabili e gli ausiliari nelle tre lingue."
+  # pdfa.xmpi non porta il nome del jobname: e un derivato di pdfx condiviso fra le tre lingue.
+  rm -f "$CLEAN_BUILD_DIR/pdfa.xmpi"
+  echo "[build] Rimossi i PDF stabili in radice e gli ausiliari in build/ nelle tre lingue."
   exit 0
 fi
 
