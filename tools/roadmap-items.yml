@@ -63,14 +63,6 @@ voci:
     passo: Aprire i cinque di main.tex e i sette delle pagine di projects in finestra privata, uno per uno.
     fonte: "main.tex righe 555, 564, 573, 583, 600"
 
-  - id: 8
-    livello: 1
-    dove: my-cv
-    titolo: Gli strumenti tipografici non preservano la fine riga
-    stato: Hanno convertito main.tex da LF a CRLF il 2026-08-27, gonfiando il diff da quarantuno righe reali a millequattrocentosessantadue.
-    passo: Correggerli prima del prossimo uso su un file grande, non dopo.
-    fonte: "tools/fix-accents.py, tools/fix-missing-accents.py, tools/fix-dashes.py"
-
   - id: 9
     livello: 1
     dove: my-cv

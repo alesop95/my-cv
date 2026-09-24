@@ -80,6 +80,20 @@ Skill richiamabili, sotto `.claude/skills/`.
 .claude/skills/sync-context/SKILL.md   verifica drift schede vs sorgente
 .claude/skills/onboard/SKILL.md        spiegazione completa del progetto
 .claude/skills/roadmap/SKILL.md        che cosa resta da fare, misurato invece che ricordato
+.claude/skills/repo-status/SKILL.md    riepilogo di branch, commit recenti e modifiche non committate
+.claude/skills/riprendi/SKILL.md       ripresa veloce mirata alla prossima azione (sezione 12 di PROJECT-SYSTEM.md)
+.claude/skills/git-sync/SKILL.md       prepara i comandi git manuali, non li esegue
+.claude/skills/gate-pacchetti/SKILL.md gate dei pacchetti opzionali del template, invocato dall'utente
+.claude/skills/separazione-ambienti/SKILL.md  gate della separazione fra test e produzione, invocato dall'utente
+.claude/skills/init-project-system/SKILL.md   inizializzazione e allineamento al sistema di progetto
+```
+
+Standard del sistema di progetto, importato da `E:\template-claude-developing` il 2026-09-24 e da riallineare quando il template avanza.
+
+```
+.claude/PROJECT-SYSTEM.md    la fonte di verità della procedura (anatomia, motore, memoria, ripresa)
+.claude/templates/           scheletri e pacchetti opzionali, da cui si istanziano schede e strumenti
+.claude/rules/               le undici regole, identiche a quelle del template
 ```
 
 ## Vincoli di team
