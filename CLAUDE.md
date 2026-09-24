@@ -71,6 +71,9 @@ tools/fix-missing-accents.py  ripristina gli accenti mancanti del tutto, dove so
 tools/fix-dashes.py           normalizza i trattini lunghi in trattini brevi
 tools/dashes-exclude.txt      percorsi esclusi dalla normalizzazione dei trattini
 tools/latest-screenshot.ps1   percorso dell'ultimo screenshot, per la revisione visiva
+tools/lint-memoria.py         segnala i commit su codice senza voce di work-log (pacchetto memoria-di-progetto)
+tools/Test-Anonymization.py   cerca dati identificanti reali nei file pubblicabili, valori in _notes/ (pacchetto anonymization)
+tools/lint-prosa.py           segnala i segni del testo generato, senza riscrivere (pacchetto anti-slop, guida in docs/anti-slop/)
 ```
 
 Skill richiamabili, sotto `.claude/skills/`.
@@ -93,9 +96,9 @@ Standard del sistema di progetto, importato da `E:\template-claude-developing` i
 ```
 .claude/PROJECT-SYSTEM.md    la fonte di verità della procedura (anatomia, motore, memoria, ripresa)
 .claude/templates/           scheletri e pacchetti opzionali, da cui si istanziano schede e strumenti
-.claude/rules/               le undici regole, identiche a quelle del template
+.claude/rules/               le undici regole del template, identiche, più anonymization.md istanziata dal pacchetto
 ```
 
 ## Vincoli di team
 
-Le operazioni di `git add`, commit e push restano sempre manuali. L'identità git è quella personale: `alesop95` / `alessio.sopranzi.95@gmail.com` / alias SSH `github-personal`. Lo stile di documentazione e di interazione segue `.claude/rules/interaction-style.md`. Claude non scrive autonomamente nei file di memoria e di contesto: li aggiorna solo su richiesta esplicita.
+Le operazioni di `git add`, commit e push restano sempre manuali. L'identità git è quella personale: `alesop95` / `alessio.sopranzi.95@gmail.com` / alias SSH `github-personal`. Lo stile di documentazione e di interazione segue `.claude/rules/interaction-style.md`. Claude aggiorna i file di memoria e di contesto a ogni giro di lavoro sostanziale, senza chiedere ogni volta, per decisione dell'utente del 2026-09-24 (ADR-014). Il repository è pubblico: prima di consegnare i comandi git si eseguono `python tools/lint-memoria.py`, che deve uscire senza difetti, `python tools/Test-Anonymization.py`, che deve dare zero riscontri bloccanti, e `python tools/lint-prosa.py` sui file di prosa cambiati, le cui segnalazioni si rileggono e non bloccano.

@@ -215,3 +215,13 @@ Limite dichiarato, strutturale e non risolvibile con più codice: una sonda copr
 Conseguenza per chi scrive nelle schede: quando una voce si chiude davvero, le cose da fare restano due e nessuna è automatica, cioè toglierla dal file dati e aggiornare la scheda che la citava. Lo strumento non scrive in alcun file tracciato, per la regola di team che vieta all'agente di toccare memoria e contesto senza richiesta esplicita.
 
 Lo strumento è stato promosso lo stesso giorno a pacchetto del template come `templates/roadmap/`, e la generalizzazione ha richiesto di rendere dichiarativi anche i controlli e il comando di verifica dei link, che nella prima versione erano chiamati per nome. Nel farlo è emerso un difetto che vale registrare perché si ripresenterà: uno script di shell invocato da Python su Windows non eredita la shell della sessione ma quella che il sistema risolve per prima, che è la bash di WSL e non quella di Git, con percorsi e interprete diversi. La verifica dei link tornava zero su tutto invece di fallire, che è il modo peggiore di sbagliare. Da qui la forma per piattaforma nel file dati.
+
+## ADR-014 - Memoria aggiornata a ogni giro, nessun server MCP, sistema di progetto importato per intero
+
+Data: 2026-09-24. Emenda il vincolo di `CLAUDE.md` per cui Claude non scriveva autonomamente nei file di memoria e di contesto.
+
+Contesto: la regola `chat-non-e-memoria.md` chiede che ciò che nasce in sessione vada su disco nello stesso giro, ma consente all'agente di scrivere memoria e schede solo su richiesta, salvo che la richiesta sia già stata data in forma generale. In questa sessione la richiesta di registrare il lavoro è arrivata dopo tre giri di lavoro rimasti solo nei commit, e l'utente ha segnalato di aver perso il filo delle domande a cui non aveva risposto.
+
+Scelta, dell'utente. Primo: da qui in avanti l'agente aggiorna `memory/` e `context/` a ogni giro di lavoro sostanziale senza chiedere ogni volta, ed è questa la richiesta in forma generale prevista dalla regola; commit e push restano manuali. Secondo: nessun server MCP per questo progetto per ora, perché il codice è un `main.tex` e una ventina di script noti e un server di mappatura costerebbe token a ogni turno senza servire; resta aggiungibile con `code-context-provider-mcp` da `templates/mcp.windows.json`. Terzo: il progetto adotta il sistema del template per intero, cioè `PROJECT-SYSTEM.md`, `templates/` e le skill del motore, e non solo le regole come fino al 2026-09-22.
+
+Conseguenza: ogni domanda rivolta all'utente e rimasta senza risposta va ripresa esplicitamente nel messaggio successivo, invece di restare sepolta in un messaggio precedente.
