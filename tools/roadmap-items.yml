@@ -199,3 +199,11 @@ voci:
     stato: Per ADR-018 di quel repository non è un difetto, perché un topic è un'area curata anche senza articoli, e tutti i link rispondono. Resta un fatto di percezione per chi clicca dal CV.
     passo: Decidere se scrivere i post mancanti o ridurre i tag citati dal CV.
     fonte: "blog-alessio, content/posts/"
+
+  - id: 25
+    livello: 3
+    dove: projects
+    titolo: Le pagine dei progetti portano rumore e periodi da confermare
+    stato: Segnalato dall'utente il 2026-09-24, dopo due errori reali (periodo della rete a 06/2026 invece di 10/2024, pagina del sito ferma alla sola migrazione). Sette righe su tredici dell'indice italiano dei progetti aziendali hanno ancora il periodo da confermare, contate con grep sul solo docs/company/index.md.
+    passo: A roadmap corrente chiusa, passata pagina per pagina sulle tre lingue, con le date prese dalle fonti (repository dell'organizzazione e personali aziendali, VM) e non dalla memoria.
+    fonte: "projects/docs/company/index.md"
