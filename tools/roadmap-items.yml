@@ -148,8 +148,8 @@ voci:
     livello: 3
     dove: lettore-doc
     titolo: Pipeline verso skills-repo, zero cicli eseguiti
-    stato: La sorgente è dichiarata e riparata dal 2026-09-14, ma il passo zero, cioè scegliere i documenti, è una decisione umana. È il collo di bottiglia della voce 12.
-    passo: Selezionare i documenti dell'area Cybersec, BC, IT governance, DevOps, Programming, Networking, poi prepare_graphify_source.py e una sessione graphify.
+    stato: Il passo zero è chiuso dal 2026-09-14, con 19 documenti di CERTs copiati e sanificati in _intermediate/src/OngoingStudies-Certs-sanitized. Il passo uno non è mai partito, verificato il 2026-09-24 dall'assenza di graphify-out in quella cartella. È il collo di bottiglia della voce 12 e dell'aggiornamento della tassonomia.
+    passo: Lanciare scripts/start_graphify.ps1 su quella cartella e, dentro la sessione, /graphify . ; poi i passi deterministici fino all'export verso skills-repo.
     fonte: "E:\\lettore-doc"
 
   - id: 19
@@ -175,14 +175,6 @@ voci:
     stato: I tre token colore sono stati ripuntati sulla palette del CV il 2026-09-14, chiaro e scuro, ma nessuno ha aperto il sito per verificarlo.
     passo: Verifica a video, poi commit manuale.
     fonte: "E:\\blog-alessio, globals.css"
-
-  - id: 22
-    livello: 3
-    dove: projects
-    titolo: La pagina della rete descrive solo lo scope iniziale
-    stato: Il progetto reale è molto più avanti, con segmentazione VLAN, hardening del firewall e mappa interattiva.
-    passo: Riscriverla insieme all'utente. Cosa sia raccontabile di un'infrastruttura aziendale è una scelta editoriale e di sicurezza, non delegabile.
-    fonte: "projects/docs/company/network-infrastructure-documentation.md"
 
   - id: 23
     livello: 3
