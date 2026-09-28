@@ -46,7 +46,7 @@ flowchart TB
     end
 
     subgraph SITI["3. Siti pubblicati su GitHub Pages"]
-    S_PROJ["projects<br/>academic 3, company 13, courses 2, personal 30"]
+    S_PROJ["projects<br/>academic 3, company 15, courses 2, personal 34"]
     S_BLOG["blog<br/>13 post, 16 topic di cui 2 con post"]
     S_SKILLS["skills<br/>35 pagine + grafo graphify"]
     end

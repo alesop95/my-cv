@@ -185,9 +185,17 @@ voci:
     fonte: "blog-alessio, content/posts/"
 
   - id: 25
-    livello: 3
+    livello: 2
     dove: projects
-    titolo: Le pagine dei progetti portano rumore e periodi da confermare
-    stato: Segnalato dall'utente il 2026-09-24, dopo due errori reali (periodo della rete a 06/2026 invece di 10/2024, pagina del sito ferma alla sola migrazione). Sette righe su tredici dell'indice italiano dei progetti aziendali hanno ancora il periodo da confermare, contate con grep sul solo docs/company/index.md.
-    passo: A roadmap corrente chiusa, passata pagina per pagina sulle tre lingue, con le date prese dalle fonti (repository dell'organizzazione e personali aziendali, VM) e non dalla memoria.
-    fonte: "projects/docs/company/index.md"
+    titolo: Passata sulle pagine di projects, restano le decisioni che solo l'utente può prendere
+    stato: Pagine personali, accademiche, dei corsi e aziendali riscritte fra il 2026-09-24 e il 2026-09-28, con generatore corretto, sei pagine nuove e indici rigenerati. Restano aperte otto decisioni di privacy sui repository sorgente (sezione A di DECISIONI.md, la più urgente export-teams-chat con l'ID del tenant) e cinque domande sulle pagine accademiche e dei corsi.
+    passo: Rispondere alle domande aperte di DECISIONI.md; per la privacy, verificare prima la visibilità di ciascun repository su GitHub.
+    fonte: "projects/_notes/audit-2026-09-24/DECISIONI.md"
+
+  - id: 26
+    livello: 1
+    dove: template-claude-developing
+    titolo: md-unwrap unisce il corpo dei riquadri MkDocs al titolo
+    stato: Trovato il 2026-09-28 su projects. Un riquadro scritto come titolo seguito da righe rientrate viene srotolato su una riga sola, e MkDocs smette di riconoscerlo. L'oracolo di rendering non se ne accorge, perché markdown-it non conosce i riquadri. La pagina di Scenia era rotta così da agosto nelle tre lingue.
+    passo: Correggere md-unwrap nel template, con una prova che fallisca sulla versione attuale, poi riportarlo qui e nei progetti istanziati. Fino ad allora non lanciarlo in scrittura su docs/company di projects.
+    fonte: "tools/md-unwrap.py; projects/docs/company/translation-service-portal.md"

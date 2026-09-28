@@ -6,8 +6,8 @@
 
 ```
 Branch attivo:         main
-Commit di riferimento: 85ccc2c (2026-09-24, "Allineato al template: sistema di progetto, skill, strumenti")
-Data snapshot:         2026-09-24
+Commit di riferimento: 1d7047f (2026-09-24, "Gate pacchetti: memoria, anonimizzazione e anti-slop; ADR-014")
+Data snapshot:         2026-09-28
 ```
 
 Dal bootstrap (3485498) sono arrivati cinquantasette commit, contati il 2026-09-22. Il CV è completo, trilingue e sta su una pagina sola in tutte e tre le lingue. La passata di sincronizzazione del 2026-09-09, che era rimasta senza commit, è entrata in `60826c1` insieme al riancoraggio delle nove schede. Va registrato uno scarto fra messaggio e contenuto di quel commit, perché altrimenti chi legge la storia si aspetta di trovarci il lavoro sbagliato: il messaggio annuncia la chiusura del microstep 1, ma il commit è stato dato mentre quella chiusura era ancora in corso e la memoria che la descrive non era scritta, quindi ne contiene soltanto la passata del giorno prima. Il lavoro di memoria del 2026-09-10 è poi entrato in `a0e666c`, `4ef0d58` e `99482d3`, e resta fuori dal commit soltanto la registrazione del microstep 1C con ADR-012. Commit e push restano manuali, come da vincoli di team.
@@ -38,7 +38,9 @@ Meta-stato, sotto `.claude/memory/`, fuori dalla tabella perché non porta front
 
 ## Punto di ripresa
 
-Fatto nuovo del 2026-09-24, da leggere prima degli altri. Il progetto ha adottato il sistema del template per intero (`PROJECT-SYSTEM.md`, `templates/`, sei skill del motore) ed è allineato al commit `1e52808` del template; il grafo di architettura si rigenera da solo all'apertura; per ADR-014 la memoria si aggiorna a ogni giro di lavoro senza chiedere. Il gate dei pacchetti è chiuso lo stesso giorno con tre pacchetti attivati, `memoria-di-progetto`, `anonymization` e `anti-slop`, e resta aperto il gate `/separazione-ambienti`, che solo l'utente può lanciare. Dettaglio nella voce del 2026-09-24 di `progress.md`.
+Fatto nuovo del 2026-09-28, da leggere per primo. Il template è di nuovo avanti di dodici commit (`9c54063`), con due cambi di forma: le norme lunghe diventano skill su richiesta, ed esiste lo strumento `chiudi-sessione`. L'allineamento è il primo lavoro della prossima sessione, da fare dopo che l'utente avrà aggiornato il template, come ha detto il 2026-09-28, quindi il divario va rimisurato e non ripreso da qui; il prompt di ripresa privato `_notes/resume-prompt.md` ne porta l'elenco completo misurato. Sul lato `projects` la passata sulle pagine è chiusa, salvo le decisioni di privacy sui repository sorgente e cinque domande sulle pagine accademiche, raccolte in `E:\projects\_notes\audit-2026-09-24\DECISIONI.md`.
+
+Fatto nuovo del 2026-09-24, da leggere prima degli altri. Il progetto ha adottato il sistema del template per intero (`PROJECT-SYSTEM.md`, `templates/`, sei skill del motore) ed è allineato al commit `1e52808` del template; il grafo di architettura si rigenera da solo all'apertura; per ADR-014 la memoria si aggiorna a ogni giro di lavoro senza chiedere. Il gate dei pacchetti è chiuso lo stesso giorno con tre pacchetti attivati, `memoria-di-progetto`, `anonymization` e `anti-slop`, e anche il gate `/separazione-ambienti` è chiuso, con il modello in uso confermato in ADR-015. L'allineamento al template è quindi completo. Dettaglio nella voce del 2026-09-24 di `progress.md`.
 
 Il CV è completo e non ha sezioni in lavorazione: struttura a due colonne su classe altaCV vendorizzata, contenuto trilingue IT/EN/ES tramite `\CVlanguage` e `\cvtext{}{}{}`, skill allineate alla tassonomia di `skills-repo` con script di verifica dei link, tre PDF stabili `cv-sopranzi-alessio-{en,it,es}.pdf` versionati in radice e sempre rigenerati insieme da `scripts/build.ps1`, con i derivati di compilazione in `build/` dal 2026-09-04, più un archivio storico datato in `dated-builds/` non versionato (ADR-004, 005 e 006 in `decisions.md`). Il formato attuale è una pagina sola in tutte e tre le lingue: ogni aggiunta di contenuto va compensata con un taglio altrove, e va verificata prima sullo spagnolo, che è la lingua che sconfina per prima.
 

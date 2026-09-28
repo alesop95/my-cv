@@ -36,15 +36,15 @@ flowchart LR
 
     subgraph HOP["Secondo salto: pagine di dettaglio in E:\projects\docs"]
     P_home["docs/index<br/>3 file, 6 link"]
-    P_company["docs/company<br/>42 file, 9 link"]
-    P_personal["docs/personal<br/>93 file, 96 link"]
-    P_academic["docs/academic<br/>4 file, 3 link"]
-    P_courses["docs/courses<br/>3 file, 8 link"]
+    P_company["docs/company<br/>48 file, 9 link"]
+    P_personal["docs/personal<br/>105 file, 108 link"]
+    P_academic["docs/academic<br/>12 file, 9 link"]
+    P_courses["docs/courses<br/>9 file, 24 link"]
     P_companynetworkinfrastructuredocumentation["docs/company/network-infrastructure-documentation<br/>3 file, 0 link"]
     P_personalharmonybook["docs/personal/harmony-book<br/>3 file, 3 link"]
     end
     PROJECTS --> HOP
-    HOP -->|"31 repo distinti, generati da<br/>update_personal_projects.py"| GH["github.com<br/>nodo aggregato"]
+    HOP -->|"33 repo distinti, generati da<br/>update_personal_projects.py"| GH["github.com<br/>nodo aggregato"]
     HOP -.->|"0 file"| GDRIVE_HOP["Google Drive<br/>nelle pagine projects"]
     HOP -.->|"2 video"| YT["YouTube"]
 

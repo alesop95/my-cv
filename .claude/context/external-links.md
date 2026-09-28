@@ -141,45 +141,47 @@ Le due colonne del riepilogo non misurano la stessa cosa, e confonderle è ciò 
 | Rimando dal CV | Cartella o pagina | File | Link esterni | |
 |---|---|---|---|---|
 | `/projects` | `docs/index` | 3 | 6 |  |
-| `/projects/company/` | `docs/company` | 42 | 9 |  |
-| `/projects/personal/` | `docs/personal` | 93 | 96 |  |
-| `/projects/academic/` | `docs/academic` | 4 | 3 |  |
-| `/projects/courses/` | `docs/courses` | 3 | 8 |  |
+| `/projects/company/` | `docs/company` | 48 | 9 |  |
+| `/projects/personal/` | `docs/personal` | 105 | 108 |  |
+| `/projects/academic/` | `docs/academic` | 12 | 9 |  |
+| `/projects/courses/` | `docs/courses` | 9 | 24 |  |
 | `/projects/company/network-infrastructure-documentation/` | `docs/company/network-infrastructure-documentation` | 3 | 0 | sottoinsieme della riga di sezione |
 | `/projects/personal/harmony-book/` | `docs/personal/harmony-book` | 3 | 3 | sottoinsieme della riga di sezione |
 
 Le due righe marcate come sottoinsieme sono pagine di dettaglio che il CV linka direttamente ma che stanno dentro una sezione linkata per intero: le loro colonne non si sommano alle altre, mentre i bersagli restano corretti perché deduplicati per URL.
 
-I 31 repository `github.com` distinti (93 occorrenze nelle pagine `/personal/`, moltiplicate dalle varianti di lingua) sono generati da `scripts/update_personal_projects.py` e valgono un solo nodo aggregato: non sono manutenzione manuale del CV.
+I 33 repository `github.com` distinti (99 occorrenze nelle pagine `/personal/`, moltiplicate dalle varianti di lingua) sono generati da `scripts/update_personal_projects.py` e valgono un solo nodo aggregato: non sono manutenzione manuale del CV.
 
 | Host | Bersagli |
 |---|---|
 | `drive.proton.me` | 7 |
+| `alesop95.github.io` | 3 |
 | `youtube.com` | 2 |
-| `alesop95.github.io` | 1 |
 | `contemporanea2-0.it` | 1 |
 | `guide.univpm.it` | 1 |
 | `klippel.de` | 1 |
 | `openforce.it` | 1 |
 | `scenia.it` | 1 |
-| `github.com` (aggregato) | 31 |
+| `github.com` (aggregato) | 33 |
 
 | Bersaglio | Host | Pagine che lo citano |
 |---|---|---|
+| `https://alesop95.github.io/blog` | `alesop95.github.io` | `docs/personal/blog.en.md`, `docs/personal/blog.es.md`, `docs/personal/blog.md` |
+| `https://alesop95.github.io/crosswords/` | `alesop95.github.io` | `docs/personal/crosswords.en.md`, `docs/personal/crosswords.es.md`, `docs/personal/crosswords.md` |
 | `https://alesop95.github.io/skills/` | `alesop95.github.io` | `docs/index.en.md`, `docs/index.es.md`, `docs/index.md` |
-| `https://www.contemporanea2-0.it/landing-dizione/` | `contemporanea2-0.it` | `docs/courses/humanities.md` |
-| `https://drive.proton.me/urls/2AEP8NSDQM#SsbKG_-V4zjr` | `drive.proton.me` | `docs/courses/humanities.md` |
-| `https://drive.proton.me/urls/6KWFM3136M#2bA2HKgmj8dX` | `drive.proton.me` | `docs/courses/humanities.md` |
-| `https://drive.proton.me/urls/G8Q023T4DR#6EtHCGFZmZmC` | `drive.proton.me` | `docs/courses/technical-training.md` |
-| `https://drive.proton.me/urls/JSZYEDPC3G#K4VKQjfLAbIa` | `drive.proton.me` | `docs/courses/technical-training.md` |
+| `https://www.contemporanea2-0.it/landing-dizione/` | `contemporanea2-0.it` | `docs/courses/humanities.en.md`, `docs/courses/humanities.es.md`, `docs/courses/humanities.md` |
+| `https://drive.proton.me/urls/2AEP8NSDQM#SsbKG_-V4zjr` | `drive.proton.me` | `docs/courses/humanities.en.md`, `docs/courses/humanities.es.md`, `docs/courses/humanities.md` |
+| `https://drive.proton.me/urls/6KWFM3136M#2bA2HKgmj8dX` | `drive.proton.me` | `docs/courses/humanities.en.md`, `docs/courses/humanities.es.md`, `docs/courses/humanities.md` |
+| `https://drive.proton.me/urls/G8Q023T4DR#6EtHCGFZmZmC` | `drive.proton.me` | `docs/courses/technical-training.en.md`, `docs/courses/technical-training.es.md`, `docs/courses/technical-training.md` |
+| `https://drive.proton.me/urls/JSZYEDPC3G#K4VKQjfLAbIa` | `drive.proton.me` | `docs/courses/technical-training.en.md`, `docs/courses/technical-training.es.md`, `docs/courses/technical-training.md` |
 | `https://drive.proton.me/urls/KHMJ76J6RR#cSM_oJpX6Ky4` | `drive.proton.me` | `docs/personal/harmonic-tension-vst3.en.md`, `docs/personal/harmonic-tension-vst3.es.md`, `docs/personal/harmonic-tension-vst3.md` |
-| `https://drive.proton.me/urls/TYRNWAFCW0#FA9w8CgUMvtG` | `drive.proton.me` | `docs/academic/eolo-tv-spot.md` |
-| `https://drive.proton.me/urls/X17ZP29GR4#zwkFN_Cx9ipD` | `drive.proton.me` | `docs/academic/channel-estimation-mimo.md` |
-| `https://guide.univpm.it/af.php?af=113475` | `guide.univpm.it` | `docs/academic/nonlinear-devices-guitar-speakers.md` |
-| `https://www.klippel.de/fileadmin/klippel/Files/News/VIRTUAL%20LECTURE%20202...` | `klippel.de` | `docs/courses/technical-training.md` |
-| `https://www.openforce.it/` | `openforce.it` | `docs/courses/technical-training.md` |
+| `https://drive.proton.me/urls/TYRNWAFCW0#FA9w8CgUMvtG` | `drive.proton.me` | `docs/academic/eolo-tv-spot.en.md`, `docs/academic/eolo-tv-spot.es.md`, `docs/academic/eolo-tv-spot.md` |
+| `https://drive.proton.me/urls/X17ZP29GR4#zwkFN_Cx9ipD` | `drive.proton.me` | `docs/academic/channel-estimation-mimo.en.md`, `docs/academic/channel-estimation-mimo.es.md`, `docs/academic/channel-estimation-mimo.md` |
+| `https://guide.univpm.it/af.php?af=113475` | `guide.univpm.it` | `docs/academic/nonlinear-devices-guitar-speakers.en.md`, `docs/academic/nonlinear-devices-guitar-speakers.es.md`, `docs/academic/nonlinear-devices-guitar-speakers.md` |
+| `https://www.klippel.de/fileadmin/klippel/Files/News/VIRTUAL%20LECTURE%20202...` | `klippel.de` | `docs/courses/technical-training.en.md`, `docs/courses/technical-training.es.md`, `docs/courses/technical-training.md` |
+| `https://www.openforce.it/` | `openforce.it` | `docs/courses/technical-training.en.md`, `docs/courses/technical-training.es.md`, `docs/courses/technical-training.md` |
 | `https://scenia.it/` | `scenia.it` | `docs/company/index.en.md`, `docs/company/index.es.md`, `docs/company/index.md`, `docs/company/translation-service-portal.en.md`, `docs/company/translation-service-portal.es.md`, `docs/company/translation-service-portal.md` |
-| `https://www.youtube.com/watch?v=RFfEyYXSV2s` | `youtube.com` | `docs/courses/humanities.md` |
+| `https://www.youtube.com/watch?v=RFfEyYXSV2s` | `youtube.com` | `docs/courses/humanities.en.md`, `docs/courses/humanities.es.md`, `docs/courses/humanities.md` |
 | `https://www.youtube.com/watch?v=wB-U9s4ASQo` | `youtube.com` | `docs/personal/harmonic-tension-vst3.en.md`, `docs/personal/harmonic-tension-vst3.es.md`, `docs/personal/harmonic-tension-vst3.md` |
 
 <!-- END GENERATED cv-links: inventario -->

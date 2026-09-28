@@ -225,3 +225,13 @@ Contesto: la regola `chat-non-e-memoria.md` chiede che ciò che nasce in session
 Scelta, dell'utente. Primo: da qui in avanti l'agente aggiorna `memory/` e `context/` a ogni giro di lavoro sostanziale senza chiedere ogni volta, ed è questa la richiesta in forma generale prevista dalla regola; commit e push restano manuali. Secondo: nessun server MCP per questo progetto per ora, perché il codice è un `main.tex` e una ventina di script noti e un server di mappatura costerebbe token a ogni turno senza servire; resta aggiungibile con `code-context-provider-mcp` da `templates/mcp.windows.json`. Terzo: il progetto adotta il sistema del template per intero, cioè `PROJECT-SYSTEM.md`, `templates/` e le skill del motore, e non solo le regole come fino al 2026-09-22.
 
 Conseguenza: ogni domanda rivolta all'utente e rimasta senza risposta va ripresa esplicitamente nel messaggio successivo, invece di restare sepolta in un messaggio precedente.
+
+## ADR-015 - Modello di separazione fra test e produzione
+
+- Data: 2026-09-24
+- Stato: accettata
+- Contesto: fatti dichiarati al gate `/separazione-ambienti`. La produzione sono i tre PDF versionati su `origin/main`, pubblici su GitHub e linkati da `projects`, `skills-repo` e dal blog; `scripts/build.ps1` li scrive direttamente in radice. Una persona, una macchina, nessun servizio in esecuzione, nessuna base dati, nessun fornitore di identità; il contenuto sono dati personali pubblici per scelta. Rilasci manuali e rari, nessuna pipeline, nessun file di composizione, proxy o variabili d'ambiente. Una sola branch e un solo albero di lavoro.
+- Decisione: R0, P1 senza richieste di modifica, D non applicabile, L1, tutti in esercizio; nessun ambiente previsto.
+- Alternative considerate: lo staging dei PDF, con la build che scrive solo in `build/` e un flag di pubblicazione che copia in radice, scartato dall'utente perché costa un gesto in più a ogni pubblicazione per presidiare un solo caso (sezione R0 di `GUIDA.md`, "Quando passare ad altro"); P1 con richieste di modifica, non necessario con una persona e senza pipeline (sezione P1); L2, rinviato a quando serviranno due varianti del CV insieme (sezione L2).
+- Conseguenze: la rete di sicurezza è la storia git. Il solo rischio non escluso è il commit di PDF compilati da un sorgente non finito, presidiato dalla build trilingue unica, dal push manuale e dai controlli di `CLAUDE.md`, nessuno dei quali lo impedisce; è accettato. I rischi trasversali legati a servizi in esecuzione non si applicano.
+- Fonti: [C8] [F13] [F09], dal registro `docs/separazione-ambienti/FONTI.md`.

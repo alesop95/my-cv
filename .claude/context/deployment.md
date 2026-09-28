@@ -76,6 +76,23 @@ Non fa parte della build: `scripts/build.ps1` non lo invoca. Va eseguito a mano 
 
 I tre PDF stabili (`cv-sopranzi-alessio-{en,it,es}.pdf`) sono versionati deliberatamente nel repository (ADR-004, esteso alle tre lingue in ADR-006): danno un link diretto e sempre aggiornato al CV compilato in ciascuna lingua, direttamente su GitHub. Verificare che non contengano dati sensibili (indirizzo di casa, telefono) prima di rendere il repository pubblico, se non lo è già.
 
+## Modello di separazione
+
+Deciso al gate `/separazione-ambienti` del 2026-09-24 e registrato in ADR-015. Riconosciuto dai fatti, confermato dall'utente, nessuna modifica agli script.
+
+```
+R  R0              in esercizio: un solo ambiente, i PDF compilati sono quelli pubblicati
+P  P1 senza PR     in esercizio: una sola branch, main, commit diretti, push manuale dell'utente
+D  non applicabile nessuna base dati; il contenuto sono dati personali pubblici per scelta
+L  L1              in esercizio: un solo albero di lavoro, E:\my-cv
+```
+
+Il fatto che decide è che `scripts/build.ps1` e `build.sh` copiano i tre PDF direttamente nella radice, cioè nei file versionati che GitHub pubblica e che `projects`, `skills-repo` e il blog linkano: la produzione è `origin/main`, e ci si arriva con un push. La prova esiste ma è locale, cioè compilare, aprire il PDF e solo dopo committare, e la rete di sicurezza di R0 è la storia git, con `git revert` per tornare indietro. Nessun ambiente è previsto e non ancora creato.
+
+Dei rischi trasversali della regola, quelli legati a servizi in esecuzione non si applicano, perché qui non gira niente: ambiente di prova esposto in rete, identità condivisa, staging dimenticato dai backup, configurazione fissata in costruzione. Resta un solo rischio reale, pubblicare un PDF compilato da un `main.tex` non finito, per esempio con un `git add -A` fatto a metà lavoro. Lo presidiano oggi la build che compila sempre le tre lingue insieme, il push che resta un gesto manuale, e i controlli prescritti in `CLAUDE.md` prima di ogni consegna di comandi git; nessuno di questi impedisce il commit dei PDF da sorgente non finito, ed è accettato. L'alternativa discussa e non scelta è lo staging dei PDF, con la build che scrive solo in `build/` e un flag di pubblicazione che copia in radice. Si passa a L2, con la regola `alberi-di-lavoro.md`, quando serviranno due varianti del CV aperte insieme, per esempio quella a colonna singola della voce 17 della roadmap.
+
+La guida e il registro delle fonti stanno in `docs/separazione-ambienti/`.
+
 ## Aggiunta di un pacchetto
 
 1. Aggiungere il nome tlmgr a `tex-packages.txt`.
