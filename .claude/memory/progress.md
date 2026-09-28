@@ -4,6 +4,20 @@
 
 ---
 
+## 2026-09-28 - Allineamento al template con uno strumento deterministico
+
+Allineamento seguendo `PROMPT-allinea-progetto-esistente.md` al commit `9c54063` del template. Su richiesta dell'utente, che vuole riusare la procedura su tutti i progetti di `D:\` ed `E:\` senza spendere token, il confronto è diventato uno strumento, `allinea-dal-template.py` (ADR-016), provato prima su un clone del repository nello scratchpad. Esito misurato su 339 file del perimetro: 267 uguali, 49 copie vecchie e intatte aggiornate, 14 nuovi, 5 fusioni a tre vie pulite, 4 norme spostate da `rules/` a `skills/*/RIFERIMENTO.md` e rimosse, 2 file solo locali lasciati (`anonymization.md`, `templates/CLAUDE.local.md`), 0 conflitti. La prima corsa aveva dato un conflitto su `tools/dashes-exclude.txt`, che è un file di dati del progetto: da lì lo strumento considera sotto `tools/` solo il codice. Nessuna delle quattro norme era stata estesa qui; `web-sources-not-fetchable.md` era soltanto più vecchia della versione spostata.
+
+Carico degli instruction file misurato con `tools/misura-istruzioni.py`, nuovo: 156.656 caratteri prima, 88.719 dopo, soglia 100.000. Nessun altro spostamento proposto: `anonymization.md` vale in ogni sessione in un repository pubblico. Il passo `instruction-budget` non è installato perché il progetto non ha `.githooks/`. `CLAUDE.md` porta ora le righe di innesco delle quattro norme su richiesta.
+
+Strumenti tipografici provati su una copia di `main.tex`, che è rimasta identica byte per byte. La prova ha trovato un difetto del template: `fix-dashes.py` cade con `ValueError` su un file in un'unità diversa da quella del repository, cioè proprio sulla copia di prova che la norma `prove-che-misurano` prescrive. Corretto qui e nel template, non ancora committato là; verifica di non vacuità fatta: la versione in testa al template cade, quella corretta passa. `test-tipografia.py` 0 controlli falliti.
+
+Gate: igiene dell'account tre PASS, auto-memory spenta e magazzino nascosto vuoto (scelta a), nessun server MCP (ADR-014 confermato). Identità git conforme, alias `github-personal`. Sul wipe l'agente aveva proposto di preservare `D--` ed `E--` e l'utente aveva accettato; letta la motivazione nello script, la proposta era sbagliata e non è stata applicata (ADR-016, conseguenze). Il gate dei pacchetti e quello della separazione restano all'utente: il riepilogo delle novità del catalogo (`feynman`, `openalex`, `paperqa2` e `academic-researcher` riscritti, tutti di ricerca e fuori dai settori di questo progetto) e il presupposto invariato di ADR-015 sono stati mostrati senza lanciare le skill.
+
+File toccati: 72 file sotto `.claude/` e `tools/` e `docs/` dallo strumento, `tools/misura-istruzioni.py`, `tools/fix-dashes.py`, `.claude/templates/tools/allinea-dal-template.py`, `CLAUDE.md`, `.claude/memory/decisions.md`, `progress.md`, `index.md`, `_notes/resume-prompt.md`; nel template `allinea-dal-template.py` e `fix-dashes.py`.
+
+---
+
 ## 2026-09-28 - Pagine aziendali di projects chiuse, un difetto di md-unwrap, template di nuovo avanti
 
 Ripresa dopo il limite di sessione che il 2026-09-24 aveva interrotto i due agenti delle pagine aziendali a metà. La misura su disco ha mostrato che avevano scritto tutte e dodici le pagine nelle tre lingue ma non le due pagine nuove, quindi prima di fidarsi le pagine sono state rilette una per una contro le decisioni dell'utente. Tre correzioni: tolto dal backend di integrazione il conteggio dei commit dell'utente, che sminuiva il ruolo senza informare; corretta la pagina delle presenze, che attribuiva all'elettricista anche il firmware, mentre l'utente aveva detto solo che il firmware non era suo; corretto un accento nel modello di pagina.

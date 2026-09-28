@@ -1,6 +1,6 @@
 # Fonti web non recuperabili automaticamente
 
-> Regola modulare. Stabilisce cosa fare quando una fonte esiste ed è rilevante ma non si riesce a recuperarla con gli strumenti di sessione, così che il progetto non degradi silenziosamente una fonte a nota a margine. Vale per qualunque dominio, e usa Reddit e Discord come casi studiati perché sono quelli che si incontrano più spesso.
+> Riferimento normativo della skill `fonti-non-recuperabili`, che lo carica su richiesta invece di tenerlo in contesto a ogni sessione. Stabilisce cosa fare quando una fonte esiste ed è rilevante ma non si riesce a recuperarla con gli strumenti di sessione, così che il progetto non degradi silenziosamente una fonte a nota a margine. Vale per qualunque dominio, e usa Reddit e Discord come casi studiati perché sono quelli che si incontrano più spesso.
 
 ## Il principio
 
@@ -13,6 +13,8 @@ Da qui la regola in due parti. La prima è che ogni voce non letta va etichettat
 La prima via è il recupero locale con `curl` dal terminale. Vale la pena provarla sempre, perché è indipendente dal crawler del modello: sono due agenti diversi, con due indirizzi diversi e due reputazioni diverse, e capita spesso che un dominio blocchi l'uno e non l'altro. Molti siti rispondono a `curl` solo con uno user agent da browser.
 
 La seconda via, quando la fonte è una piattaforma abbastanza grande da averne uno, è un archivio pubblico di terze parti che ne esponga il contenuto con un'API propria. È la meno cara di tutte quelle che richiedono qualcosa, perché non chiede credenziali, non apre schede nel browser di nessuno e non consuma il tempo dell'utente, e va quindi provata subito dopo `curl`. Il suo costo non è di allestimento ma di fedeltà, e sta più sotto nel caso Reddit: un archivio ha latenza verso il presente e memoria di ciò che l'originale ha cancellato, quindi ciò che se ne ricava si annota come tratto da un archivio e non dalla fonte viva.
+
+Per un sito che respinge `curl` con una verifica anti-bot, anche sul testo grezzo della pagina, la stessa via esiste in una forma che non dipende dalla piattaforma: la Wayback Machine dell'Internet Archive. L'elenco delle copie si chiede all'interfaccia CDX, `http://web.archive.org/cdx/search/cdx?url=<indirizzo>&output=json`, che risponde anche quando l'interfaccia di disponibilità dice che non c'è nulla. La copia si scarica con il suffisso `id_` dopo la data, `http://web.archive.org/web/<data>id_/<indirizzo>`, che restituisce i byte originali senza la barra dell'archivio. Quei byte possono arrivare compressi con gzip anche quando l'indirizzo dice HTML, e prima di leggerli va controllato che il titolo non sia quello della pagina di verifica. Caso osservato il 2026-09-25 in un progetto istanziato: una pagina di un'enciclopedia collaborativa respingeva `curl` sia sull'indirizzo normale sia sul testo grezzo, e aveva copie d'archivio di un mese prima; la copia letta è stata registrata con la sua data d'archivio accanto.
 
 La terza via è l'automazione del browser reale dell'utente, dove è disponibile. È la via che funziona su quasi tutto, perché è un browser vero con la sessione dell'utente, e per questo va usata con misura: apre schede nel browser della persona e richiede che i permessi per quel sito siano concessi. Si chiede prima, non si fa e poi si dice.
 

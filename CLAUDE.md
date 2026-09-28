@@ -74,6 +74,7 @@ tools/latest-screenshot.ps1   percorso dell'ultimo screenshot, per la revisione 
 tools/lint-memoria.py         segnala i commit su codice senza voce di work-log (pacchetto memoria-di-progetto)
 tools/Test-Anonymization.py   cerca dati identificanti reali nei file pubblicabili, valori in _notes/ (pacchetto anonymization)
 tools/lint-prosa.py           segnala i segni del testo generato, senza riscrivere (pacchetto anti-slop, guida in docs/anti-slop/)
+tools/misura-istruzioni.py    misura i caratteri caricati a ogni sessione e fallisce oltre la soglia di 100.000
 ```
 
 Skill richiamabili, sotto `.claude/skills/`.
@@ -89,14 +90,24 @@ Skill richiamabili, sotto `.claude/skills/`.
 .claude/skills/gate-pacchetti/SKILL.md gate dei pacchetti opzionali del template, invocato dall'utente
 .claude/skills/separazione-ambienti/SKILL.md  gate della separazione fra test e produzione, invocato dall'utente
 .claude/skills/init-project-system/SKILL.md   inizializzazione e allineamento al sistema di progetto
+.claude/skills/prove-che-misurano/           norma su richiesta, con RIFERIMENTO.md
+.claude/skills/fonti-non-recuperabili/       norma su richiesta, con RIFERIMENTO.md
+.claude/skills/alberi-di-lavoro/             norma su richiesta, con RIFERIMENTO.md
 ```
 
-Standard del sistema di progetto, importato da `E:\template-claude-developing` il 2026-09-24 e da riallineare quando il template avanza.
+Norme caricate su richiesta, una riga per situazione con le parole con cui si presenta. Dal 2026-09-28 non stanno più sotto `.claude/rules/`, dove entrerebbero in contesto a ogni sessione: vivono come `RIFERIMENTO.md` dentro la propria skill, e questo indice dice quando invocarla.
+
+- Si scrive o si valuta una prova automatica, si chiude un difetto, una verifica manuale smentisce una suite verde, si sta per aggiungere una guardia o un'esclusione a uno strumento, si sta per dichiarare completo un intervento il cui scopo era un effetto misurabile: skill `prove-che-misurano`.
+- Un recupero web fallisce con 403 o con una pagina di verifica anti-bot, la fonte sta su Reddit o su Discord, serve la trascrizione di un video, si sta per annotare una fonte non letta: skill `fonti-non-recuperabili`.
+- `git worktree list` mostra più di un albero, se ne crea o se ne rimuove uno, si deve decidere da dove leggere la memoria versionata: skill `alberi-di-lavoro`.
+- Si inizializza o si allinea il progetto, oppure cambia il modo in cui si prova e si rilascia, e va deciso come separare test e produzione: skill `separazione-ambienti`, che porta la norma nel proprio `RIFERIMENTO.md`.
+
+Standard del sistema di progetto, importato da `E:\template-claude-developing` il 2026-09-24 e riallineato il 2026-09-28 al commit `9c54063` con `.claude/templates/tools/allinea-dal-template.py` (ADR-016). Per riallinearlo quando il template avanza si lancia quello strumento prima a vuoto e poi con `--applica --rimuovi`; restano a mano questo indice e la memoria.
 
 ```
 .claude/PROJECT-SYSTEM.md    la fonte di verità della procedura (anatomia, motore, memoria, ripresa)
 .claude/templates/           scheletri e pacchetti opzionali, da cui si istanziano schede e strumenti
-.claude/rules/               le undici regole del template, identiche, più anonymization.md istanziata dal pacchetto
+.claude/rules/               le sette regole sempre attive del template, identiche, più anonymization.md istanziata dal pacchetto
 ```
 
 ## Vincoli di team

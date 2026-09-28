@@ -6,7 +6,7 @@
 
 ```
 Branch attivo:         main
-Commit di riferimento: 1d7047f (2026-09-24, "Gate pacchetti: memoria, anonimizzazione e anti-slop; ADR-014")
+Commit di riferimento: 0fb8afc (2026-09-28, "Separazione ambienti, schede rigenerate, memoria del 24-28 settembre")
 Data snapshot:         2026-09-28
 ```
 
@@ -38,7 +38,7 @@ Meta-stato, sotto `.claude/memory/`, fuori dalla tabella perché non porta front
 
 ## Punto di ripresa
 
-Fatto nuovo del 2026-09-28, da leggere per primo. Il template è di nuovo avanti di dodici commit (`9c54063`), con due cambi di forma: le norme lunghe diventano skill su richiesta, ed esiste lo strumento `chiudi-sessione`. L'allineamento è il primo lavoro della prossima sessione, da fare dopo che l'utente avrà aggiornato il template, come ha detto il 2026-09-28, quindi il divario va rimisurato e non ripreso da qui; il prompt di ripresa privato `_notes/resume-prompt.md` ne porta l'elenco completo misurato. Sul lato `projects` la passata sulle pagine è chiusa, salvo le decisioni di privacy sui repository sorgente e cinque domande sulle pagine accademiche, raccolte in `E:\projects\_notes\audit-2026-09-24\DECISIONI.md`.
+Fatto nuovo del 2026-09-28, da leggere per primo. Il progetto è riallineato al template al commit `9c54063`, con lo strumento deterministico `allinea-dal-template.py` (ADR-016): le quattro norme lunghe `prove-che-misurano`, `fonti-non-recuperabili`, `alberi-di-lavoro` e `separazione-ambienti` sono ora skill su richiesta con `RIFERIMENTO.md`, richiamate dalle righe di innesco del `CLAUDE.md`, e il carico degli instruction file è sceso da 156.656 a 88.719 caratteri. Le modifiche sono non committate alla chiusura della sessione. Nel template restano non committati lo strumento nuovo e la correzione di `fix-dashes.py` sui percorsi di un'altra unità. Da correggere, a cura dell'utente, il `CLAUDE.md` globale dell'account, che dice che il wipe preserva `D--` ed `E--` mentre l'insieme vuoto è voluto. I gate `/gate-pacchetti` e `/separazione-ambienti` restano da lanciare dall'utente, senza presupposti cambiati. Dettaglio nella voce omonima di `progress.md`.
 
 Fatto nuovo del 2026-09-24, da leggere prima degli altri. Il progetto ha adottato il sistema del template per intero (`PROJECT-SYSTEM.md`, `templates/`, sei skill del motore) ed è allineato al commit `1e52808` del template; il grafo di architettura si rigenera da solo all'apertura; per ADR-014 la memoria si aggiorna a ogni giro di lavoro senza chiedere. Il gate dei pacchetti è chiuso lo stesso giorno con tre pacchetti attivati, `memoria-di-progetto`, `anonymization` e `anti-slop`, e anche il gate `/separazione-ambienti` è chiuso, con il modello in uso confermato in ADR-015. L'allineamento al template è quindi completo. Dettaglio nella voce del 2026-09-24 di `progress.md`.
 

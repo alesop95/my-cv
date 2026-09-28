@@ -549,6 +549,19 @@ def raccogli(percorsi, estensioni):
     file = []
     for p in percorsi:
         ap = p if os.path.isabs(p) else os.path.join(ROOT, p)
+        if not os.path.exists(ap):
+            # C-52: un percorso relativo si cercava soltanto dalla radice del progetto, e se non
+            # esisteva os.walk non produceva niente e lo strumento rispondeva "0 file esaminati, 0
+            # da modificare", cioe' un successo vuoto. Lanciato da un'altra cartella, anche un file
+            # vero spariva cosi'. Ora si cerca anche dalla cartella corrente, e se non esiste in
+            # nessuno dei due posti lo strumento si ferma invece di dichiarare che va tutto bene.
+            dal_cwd = os.path.abspath(p)
+            if os.path.exists(dal_cwd):
+                ap = dal_cwd
+            else:
+                print("percorso inesistente: {} (cercato dalla radice del progetto e dalla "
+                      "cartella corrente)".format(p), file=sys.stderr)
+                sys.exit(2)
         if os.path.isfile(ap):
             if sotto_templates(ap) and not MODELLI_AMMESSI:
                 print(f"rifiutato, sta sotto .claude/templates/: {p}", file=sys.stderr)
@@ -856,7 +869,7 @@ def main():
     # In modalita' di verifica l'esito e' anche un codice di uscita, non solo un rapporto. Senza
     # questa riga lo strumento usciva zero pure elencando i file da correggere, e chiunque lo
     # usasse come controllo, l'hook pre-commit o una persona che concatena i comandi, otteneva un
-    # via libera indistinguibile da quello vero: il difetto che `prove-che-misurano.md` chiama
+    # via libera indistinguibile da quello vero: il difetto che `skills/prove-che-misurano/RIFERIMENTO.md` chiama
     # vacuita', qui non in una prova ma nel controllo stesso. Fa fede `cambiati`, cioe' cio' che
     # lo strumento sa correggere da se'; le forme ambigue e i residui restano un avviso, perche'
     # nessuno puo' deciderli meccanicamente e farne cadere il controllo lo bloccherebbe per
