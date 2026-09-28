@@ -4,6 +4,34 @@
 
 ---
 
+## 2026-09-28 - Prima passata su tutti i progetti: velocità, consenso, due difetti
+
+La prima passata a vuoto sui 35 progetti istanziati ha richiesto circa venti secondi a progetto; il profilo ha mostrato 528 processi `git cat-file` da 35 ms l'uno. Sostituiti da un solo processo `git cat-file --batch` con cache: 18,7 secondi diventano 0,6 a parità di conteggi, e l'intera passata dura 28 secondi. Esito della prima passata: 24 progetti con conflitti, quasi tutti sugli stessi quattro file. L'analisi delle righe in conflitto ha mostrato che erano righe di una versione del template anteriore alla sua storia git, identiche in molti progetti: da qui due criteri deterministici, entrambi applicati solo quando il merge fallisce, cioè SUPERATO per un file senza righe assenti dalla storia, e il consenso di `allinea-tutti.ps1` per le righe assenti dalla storia ma identiche in almeno tre progetti. Il consenso ha riconosciuto 9 righe in 4 file, rilette una per una: la vecchia mappatura degli account e i due profili SSH concreti della vecchia regola sull'identità, che la regola attuale ha sostituito con il rilevamento. Nuovo esito: 1 allineato (`my-cv`), 19 pronti, 9 con modifiche non committate, 6 con conflitti veri, cioè righe proprie del progetto.
+
+Difetti trovati e corretti. `docs/README.md` di un progetto veniva abbinato a `templates/README.md`: ora da `docs/` si considerano solo le guide sotto `docs/<pacchetto>/`. La prima stesura di SUPERATO scattava prima del merge, e su due file che si fondevano puliti avrebbe perso righe tolte di proposito: spostato dopo il merge fallito. Il blocco di una corsa interrotta ora porta il PID e si riprende da solo, provato con un PID inesistente.
+
+File toccati: nel template `allinea-dal-template.py`, `allinea-tutti.ps1`, `README.md` sotto `.claude/templates/tools/`, copiati qui; `progress.md`.
+
+---
+
+## 2026-09-28 - allinea-tutti.ps1 diventa lo strumento del template per ogni sua evoluzione
+
+Su richiesta dell'utente `allinea-tutti.ps1` è stato riscritto come strumento generico del template, da lanciare ogni volta che il template avanza: scopre da solo i progetti con `.claude/PROJECT-SYSTEM.md` sotto `D:` ed `E:`, senza nominarli. Guardie iniziali: git e python presenti, template riconosciuto, `.claude` del template committato (con `-Applica` è un arresto), `_notes/` del template ignorato, un solo processo per volta con file di blocco. Guardie per progetto: repository git, albero principale e non worktree aggiuntivo (norma `alberi-di-lavoro`), non clone del template per commit radice condiviso, nessuna operazione git a metà, branch in uscita, albero pulito, strumento senza errori, nessun conflitto. Verifiche dopo la scrittura: seconda misura a zero file da trattare, nessun file cambiato fuori da `.claude/`, `tools/`, `docs/`; solo allora il marcatore `.claude/allineamento-template.json` nel progetto, con commit e albero `.claude` del template. Avvisi: norme su richiesta non nominate nel `CLAUDE.md`, carico istruzioni oltre soglia. Registro privato in `_notes/allineamento/registro.json` del template, con log e rapporti per corsa. `allinea-dal-template.py` ora esce con 2 per un errore, distinto dall'1 dei conflitti.
+
+Provato su una radice usa e getta nello scratchpad con tre cloni: un clone del template (saltato), un progetto al commit precedente l'allineamento (applicato, marcatore scritto, avviso sulle tre righe di innesco mancanti, seconda misura a zero) e lo stesso con un file non tracciato (albero sporco, non scritto). La guardia sul template sporco ha fermato `-Applica`. Due difetti trovati dalla prova e corretti: la funzione di supporto chiamata `Git` copriva `git.exe` e ricorreva all'infinito, e un riferimento `$blocco:` non era valido in PowerShell. Documentati entrambi gli strumenti in `templates/tools/README.md` del template.
+
+File toccati: nel template `allinea-tutti.ps1`, `allinea-dal-template.py`, `README.md` sotto `.claude/templates/tools/`, copiati qui; `progress.md`, `_notes/resume-prompt.md`.
+
+---
+
+## 2026-09-28 - Allineamento in blocco di tutti i progetti
+
+Commit dell'allineamento fatti dall'utente (`5be1949` qui, e nel template). Aggiunto al template `allinea-tutti.ps1`, che percorre le radici `D:` ed `E:`, prende i progetti con `.claude/PROJECT-SYSTEM.md` (35 esclusi il template, contati il 2026-09-28) e lancia su ciascuno `allinea-dal-template.py`: a vuoto per default, e con `-Applica` scrive solo dove l'albero git è pulito e non ci sono conflitti. Prova a vuoto su tre progetti: `my-cv` pronto, `blog-alessio` 6 conflitti su 82 file vecchi e 180 nuovi, `lettore-doc` saltato perché ha modifiche non committate. Aggiunto allo strumento l'esito ADATTATO, per un file modificato localmente che contiene già tutte le modifiche del template: su `my-cv` erano tre MERGE che si ripresentavano a ogni corsa senza niente da scrivere (`onboard`, `latest-screenshot.ps1`, `lint-memoria.py`, più `fix-dashes.py` fino al commit del template). Ora la corsa su `my-cv` stampa soltanto i totali.
+
+File toccati: nel template `allinea-tutti.ps1` e `allinea-dal-template.py`, copiati in `.claude/templates/tools/`; `progress.md`, `_notes/resume-prompt.md`.
+
+---
+
 ## 2026-09-28 - Allineamento al template con uno strumento deterministico
 
 Allineamento seguendo `PROMPT-allinea-progetto-esistente.md` al commit `9c54063` del template. Su richiesta dell'utente, che vuole riusare la procedura su tutti i progetti di `D:\` ed `E:\` senza spendere token, il confronto è diventato uno strumento, `allinea-dal-template.py` (ADR-016), provato prima su un clone del repository nello scratchpad. Esito misurato su 339 file del perimetro: 267 uguali, 49 copie vecchie e intatte aggiornate, 14 nuovi, 5 fusioni a tre vie pulite, 4 norme spostate da `rules/` a `skills/*/RIFERIMENTO.md` e rimosse, 2 file solo locali lasciati (`anonymization.md`, `templates/CLAUDE.local.md`), 0 conflitti. La prima corsa aveva dato un conflitto su `tools/dashes-exclude.txt`, che è un file di dati del progetto: da lì lo strumento considera sotto `tools/` solo il codice. Nessuna delle quattro norme era stata estesa qui; `web-sources-not-fetchable.md` era soltanto più vecchia della versione spostata.
