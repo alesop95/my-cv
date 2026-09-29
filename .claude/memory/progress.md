@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-09-29 - md-unwrap riconosce i riquadri MkDocs, frase sul wipe corretta
+
+Voce 26 corretta nel template, non ancora committata. Prova prima: fixture `riquadro-mkdocs` in `.claude/templates/md-unwrap/tests/fixtures/`, con un riquadro `!!!` subito dopo un paragrafo senza riga vuota, un `???` e un `???+`; sulla versione precedente falliva (paragrafo, titolo e corpo uniti su una riga), suite 108 su 109. Correzione in `tools/md-unwrap.py` del pacchetto: `RE_ADMONITION`, il tipo `admonition` fra quelli che interrompono un paragrafo, e `consume_admonition`, che emette verbatim il titolo e il corpo rientrato di almeno quattro spazi. Dopo: suite 109 su 109, `--check` sul template 0 da modificare su 181 file, `--check` su `E:/projects/docs/company` 0 da modificare su 49 file. Il corpo del riquadro resta verbatim, cioè non viene srotolato: scelta prudente, dichiarata qui.
+
+Corretta alla riga 42 del `CLAUDE.md` globale di account3 la frase del promemoria per cui il wipe preservava i progetti `D--*` ed `E--*`: le trascrizioni si cancellano tutte, di D: ed E: restano solo permessi e fiducia. La frase compariva una volta sola, non due come detto in chat. Nella sessione il classificatore della modalità auto ha bloccato quella modifica come auto-modifica e poi anche letture successive; risolto dall'utente cambiando modalità. I `settings.json` degli account non sono stati toccati, per scelta dell'utente.
+
+File toccati: nel template `md-unwrap.py` e la fixture nuova; qui `tools/roadmap-items.yml` (voce 26), `progress.md`, `_notes/RESUME-PROMPT.md`; `C:/Users/Utente/.claude-account3/CLAUDE.md`.
+
+---
+
+## 2026-09-29 - Ripresa dopo la passata -Applica di allinea-tutti
+
+Misurato all'apertura, dal registro `E:/template-claude-developing/_notes/allineamento/registro.json` (ultima corsa 2026-09-29 15:12, template a `6f1c257`): 29 progetti applicati, 4 reali fermi per albero sporco (`my-wedding-day`, `civitanext`, `retrogame-mod-pok-dev`, `network-design`), 2 esclusi per decisione del proprietario in `esclusi.txt` (`API_intrawelt`, `scenia®`). Il registro contiene anche tre voci di prova con percorsi nello scratchpad di una sessione precedente (`radice-prova/...`): le prove di `allinea-tutti.ps1` scrivono nel registro reale, difetto da correggere nel template. my-cv ha ricevuto tre commit di allineamento (`258c1b6`, `f5fd811`, `a64d6ac`), albero pulito, i quattro controlli di apertura passano. `/roadmap`: 18 voci aperte, nessuna chiusa dalla misura, schede indietro di 11 commit. Voce 26 ancora aperta: nessun commit del template tocca `md-unwrap` dopo il 2026-09-28. La frase sul wipe nel `CLAUDE.md` globale di account3 dice ancora che si preservano i progetti `D--*` ed `E--*`.
+
+File toccati: `progress.md`, `_notes/RESUME-PROMPT.md`.
+
+---
+
 ## 2026-09-28 - Prima passata su tutti i progetti: velocità, consenso, due difetti
 
 La prima passata a vuoto sui 35 progetti istanziati ha richiesto circa venti secondi a progetto; il profilo ha mostrato 528 processi `git cat-file` da 35 ms l'uno. Sostituiti da un solo processo `git cat-file --batch` con cache: 18,7 secondi diventano 0,6 a parità di conteggi, e l'intera passata dura 28 secondi. Esito della prima passata: 24 progetti con conflitti, quasi tutti sugli stessi quattro file. L'analisi delle righe in conflitto ha mostrato che erano righe di una versione del template anteriore alla sua storia git, identiche in molti progetti: da qui due criteri deterministici, entrambi applicati solo quando il merge fallisce, cioè SUPERATO per un file senza righe assenti dalla storia, e il consenso di `allinea-tutti.ps1` per le righe assenti dalla storia ma identiche in almeno tre progetti. Il consenso ha riconosciuto 9 righe in 4 file, rilette una per una: la vecchia mappatura degli account e i due profili SSH concreti della vecchia regola sull'identità, che la regola attuale ha sostituito con il rilevamento. Nuovo esito: 1 allineato (`my-cv`), 19 pronti, 9 con modifiche non committate, 6 con conflitti veri, cioè righe proprie del progetto.

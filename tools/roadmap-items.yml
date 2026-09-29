@@ -197,5 +197,5 @@ voci:
     dove: template-claude-developing
     titolo: md-unwrap unisce il corpo dei riquadri MkDocs al titolo
     stato: Trovato il 2026-09-28 su projects. Un riquadro scritto come titolo seguito da righe rientrate viene srotolato su una riga sola, e MkDocs smette di riconoscerlo. L'oracolo di rendering non se ne accorge, perché markdown-it non conosce i riquadri. La pagina di Scenia era rotta così da agosto nelle tre lingue.
-    passo: Correggere md-unwrap nel template, con una prova che fallisca sulla versione attuale, poi riportarlo qui e nei progetti istanziati. Fino ad allora non lanciarlo in scrittura su docs/company di projects.
+    passo: "Corretto nel template il 2026-09-29 (riconoscimento di !!!, ??? e ???+ con corpo rientrato verbatim; fixture riquadro-mkdocs fallita prima e passata dopo, suite 109 su 109, check su docs/company di projects: 0 da modificare), non ancora committato. Resta: commit del template, poi allinea-tutti -Applica per portarlo qui e nei progetti; fino ad allora non lanciare md-unwrap in scrittura su docs/company di projects."
     fonte: "tools/md-unwrap.py; projects/docs/company/translation-service-portal.md"
