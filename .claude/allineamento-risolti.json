@@ -1,0 +1,10 @@
+{
+  ".claude/skills/onboard/SKILL.md": {
+    "testa": "f123e1c44711252e2ac7e39f749183990cb5410c",
+    "il": "2026-09-29"
+  },
+  "tools/lint-memoria.py": {
+    "testa": "01128d88d66bc3b2b55cff7ed282238d1d6d89ff",
+    "il": "2026-09-29"
+  }
+}
