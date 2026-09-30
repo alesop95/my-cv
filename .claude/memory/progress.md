@@ -4,6 +4,14 @@
 
 ---
 
+## 2026-09-30 - Passata allinea-tutti al template ec124d7
+
+Lanciata dall'utente `allinea-tutti.ps1 -Applica` con il template a `ec124d7`, che porta la correzione di `md-unwrap` sui riquadri MkDocs (`67e6408`) e la norma fonti aggiornata. Esito: 30 applicati, 2 con albero sporco (`network-design`, `retrogame-mod-pok-dev`), 1 con conflitti (`my-wedding-day`), 2 esclusi (`API_intrawelt`, `scenia®`). Verificato prima dei commit che nei 30 applicati, tutti sul ramo `main`, le modifiche siano le stesse sei: `allineamento-template.json`, i due `RIFERIMENTO.md` delle norme, `md-unwrap.py` nel pacchetto e in `tools/`, la fixture `riquadro-mkdocs`. Due progetti superano la soglia di 100.000 caratteri caricati: `compilatore-documenti` (109.914) e `blog-alessio` (107.439). Voce 26 della roadmap: resta da chiudere quando i commit sono fatti.
+
+File toccati: `progress.md`.
+
+---
+
 ## 2026-09-29 - md-unwrap riconosce i riquadri MkDocs, frase sul wipe corretta
 
 Voce 26 corretta nel template, non ancora committata. Prova prima: fixture `riquadro-mkdocs` in `.claude/templates/md-unwrap/tests/fixtures/`, con un riquadro `!!!` subito dopo un paragrafo senza riga vuota, un `???` e un `???+`; sulla versione precedente falliva (paragrafo, titolo e corpo uniti su una riga), suite 108 su 109. Correzione in `tools/md-unwrap.py` del pacchetto: `RE_ADMONITION`, il tipo `admonition` fra quelli che interrompono un paragrafo, e `consume_admonition`, che emette verbatim il titolo e il corpo rientrato di almeno quattro spazi. Dopo: suite 109 su 109, `--check` sul template 0 da modificare su 181 file, `--check` su `E:/projects/docs/company` 0 da modificare su 49 file. Il corpo del riquadro resta verbatim, cioè non viene srotolato: scelta prudente, dichiarata qui.
