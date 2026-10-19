@@ -1,5 +1,11 @@
 # Pacchetto doc-ingest
 
+## Cache compatta e verificata
+
+La modalità `--compression auto` confronta testo semplice, gzip, BZip2 e XZ e conserva il più piccolo con decodifica verificata. I mirror invariati possono essere migrati senza nuova estrazione, l'indice espone il percorso effettivo e `--read-cache` legge il risultato senza creare una copia estratta. Il comportamento storico `plain` resta predefinito. Il programma di supporto `cache-storage.py` misura e comprime cache di testo esistenti su NTFS senza cambiare percorsi o byte, ottimizza PNG grigi derivati senza modificare pixel o metadati e fornisce un encoder senza perdita per i nuovi raster. Strategia, limiti, comandi e prove sono in [STORAGE.md](STORAGE.md).
+
+Istanziare insieme `doc-ingest.py` e `cache-storage.py` in `tools/`; il secondo usa soltanto la libreria standard per testo e NTFS, e Pillow quando si elaborano raster. Originali, memoria e backup mantengono il proprio ruolo: il pacchetto interviene sulle rappresentazioni derivate. Non avvia installazioni, GPU o servizi esterni.
+
 > Pacchetto opzionale del sistema di progetto. Estrae un corpus di documenti voluminosi, in `.pdf`, `.docx`, `.pptx`, `.xlsx` o `.html`, in una cache Markdown locale e ignorata da git, con ingest incrementale a content-hash e un indice di Livello 1 rigenerato a ogni corsa. Zero consumo di token: l'estrazione è interamente locale e deterministica, nessuna chiamata LLM. Si offre al gate dei pacchetti (vedi ../PACKAGES.md) ai progetti che hanno o riceveranno più documenti voluminosi da consultare durante il lavoro, senza bisogno di versionarli. Non si propone dove basta l'ingestione manuale di un singolo documento già descritta nel README di radice, ne dove serve produrre una documentazione tecnica versionata da un `.docx`: per quel caso c'è il pacchetto `docx-to-docs`.
 
 ## Rapporto con l'ingestione manuale e con docx-to-docs
@@ -11,7 +17,8 @@ Tre strumenti distinti coprono lo stesso principio, la disclosure progressiva de
 L'istanziazione copia lo script nella cartella `tools/` del progetto; la cache si crea alla prima esecuzione, sotto `_notes/`, già ignorato da git secondo `.claude/PROJECT-SYSTEM.md`.
 
 ```
-templates/doc-ingest/doc-ingest.py  ->  <radice>/tools/doc-ingest.py        (tracciato)
+templates/doc-ingest/doc-ingest.py     ->  <radice>/tools/doc-ingest.py        (tracciato)
+templates/doc-ingest/cache-storage.py  ->  <radice>/tools/cache-storage.py     (tracciato)
 (cache generata dallo script)           <radice>/_notes/.tmp-doc-cache/     (locale, ignorata)
 ```
 
@@ -35,6 +42,14 @@ python tools/doc-ingest.py percorso/al/corpus --engine docling
 python tools/doc-ingest.py percorso/al/corpus --ocr
 python tools/doc-ingest.py percorso/al/corpus --force
 ```
+
+Su un corpus che può contenere documenti personali, come un archivio di studio con le pratiche amministrative nelle stesse cartelle, si aggiunge `--esclusi` con un file di schemi, e i file che vi corrispondono si saltano prima di aprirli, come vuole la regola `documenti-personali.md`. Il file di partenza è `esclusi-personali.esempio.txt`, da copiare in un file locale ignorato da git, perché gli schemi adattati possono rivelare dati personali. Se il file indicato manca lo strumento si ferma.
+
+```bash
+python tools/doc-ingest.py percorso/al/corpus --esclusi _notes/privacy/esclusi-personali.txt
+```
+
+`python tools/doc-ingest.py --autotest` prova l'elenco di esempio su un albero temporaneo con nomi di file nelle forme reali, trattini bassi, spazi, maiuscole e cartelle annidate, e controlla che si saltino tutti e soli i personali; `chiudi` la esegue a ogni commit. Un elenco locale adattato si prova allo stesso modo prima di usarlo su un corpus.
 
 Il comando e ripetibile: rieseguito senza modifiche ai sorgenti non riconverte nulla e si limita a confermare l'indice. `--force` ignora il manifest e riconverte l'intero corpus, utile dopo un aggiornamento del motore di estrazione. La cartella sorgente dei documenti, la cache e il manifest restano locali e ignorati da git; solo lo script si versiona.
 

@@ -13,8 +13,10 @@
 #      l'agente prepara a fine lavoro, oppure si chiede; poi chiede conferma, salvo -Si;
 #   4. verifica che il push sia arrivato, cioe' che HEAD coincida con il ramo remoto;
 #   5. registra l'impronta di ripresa con verifica-ripresa.py --registra;
-#   6. wipe: esegue session-end-wipe.ps1 di ogni account che ne ha uno installato, ma solo se
-#      nessuna sessione Claude Code da terminale o da editor e' ancora aperta.
+#   6. wipe: esegue session-end-wipe.ps1 di ogni account che ne ha uno installato; dal
+#      2026-10-09 il wipe toglie da se' cio' che appartiene a sessioni chiuse e conserva quelle
+#      aperte, quindi si esegue anche con altre sessioni vive. In coda stampa con
+#      stato-magazzino.ps1 che cosa resta in ogni account e quali sessioni lo trattengono.
 #
 # Commit e push restano un gesto dell'utente: e' l'utente a lanciare lo script e a confermare
 # dopo aver visto file e messaggio. L'agente, Claude Code o Codex, prepara il messaggio, non lo usa.
@@ -23,7 +25,7 @@
 # lascia lavorare invece di duplicarlo.
 #   - git-commands-format.md, contesto dichiarato: cartella, ramo e stato si stampano prima di
 #     tutto; con HEAD staccato ci si ferma.
-#   - git-identity-and-repo.md: senza user.name e user.email locali ci si ferma prima del commit,
+#   - skill identita-git (RIFERIMENTO.md): senza user.name e user.email locali ci si ferma prima del commit,
 #     e l'identita' con cui si firmera' si stampa accanto al messaggio.
 #   - git-commands-format.md, messaggio di commit: una riga sola, nessuna attribuzione a un agente,
 #     al massimo 72 caratteri. Lo fa rispettare l'hook .githooks/commit-msg, che vale per ogni
@@ -37,6 +39,7 @@
 #   .\tools\chiudi-sessione.ps1 -Si                     senza conferma
 #   .\tools\chiudi-sessione.ps1 -SoloControlli          stato e controlli, nient'altro
 #   .\tools\chiudi-sessione.ps1 -NoWipe                 salta il wipe
+#   .\tools\chiudi-sessione.ps1 -NoPush                 committa ma non pusha; l'impronta si registra sul commit locale
 #   .\tools\chiudi-sessione.ps1 -Account account2       wipe del solo .claude-account2
 #
 # Nel template lo script vive in .claude\templates\tools\ e riconosce da solo di essere nel
@@ -47,6 +50,7 @@ param(
     [switch]$Si,
     [switch]$SoloControlli,
     [switch]$NoWipe,
+    [switch]$NoPush,
     [string]$Account = "",
     [string]$Radice = ""
 )
@@ -61,7 +65,9 @@ function Nota([string]$t) { Write-Host "   $t" -ForegroundColor DarkGray }
 
 # Radice del repository: quella indicata, altrimenti quella che contiene lo script, cosi' il
 # comando funziona da qualunque cartella sia aperto il terminale.
-if (-not $Radice) { $Radice = (& git -C $PSScriptRoot rev-parse --show-toplevel 2>$null) }
+# git scrive il percorso in UTF-8: senza questa impostazione PowerShell 5.1 lo decodifica con la
+# codifica OEM e un accento nel nome della cartella diventa un percorso inesistente (2026-10-12).
+if (-not $Radice) { $codificaPrec = [Console]::OutputEncoding; [Console]::OutputEncoding = [Text.Encoding]::UTF8; try { $Radice = (& git -C $PSScriptRoot rev-parse --show-toplevel 2>$null) } finally { [Console]::OutputEncoding = $codificaPrec } }
 if (-not $Radice) { Write-Host "Non trovo il repository: passare -Radice." -ForegroundColor Red; exit 2 }
 Set-Location $Radice
 # Il bundle si riconosce da due file insieme. PACKAGES.md da solo non basta: la procedura di
@@ -76,7 +82,8 @@ $bundle = (Test-Path ".claude\templates\PACKAGES.md") -and (Test-Path ".claude\P
 # .claude\templates\ sono pacchetti non ancora adottati, e lanciarli come controlli del progetto
 # fermerebbe il commit per strumenti che nessuno ha scelto.
 $cartelle = if ($bundle) { @("tools", ".claude\templates\tools", ".claude\templates\md-unwrap\tools",
-              ".claude\templates\readme-sync\tools", ".claude\templates\fix-typography\tools") } else { @("tools") }
+              ".claude\templates\readme-sync\tools", ".claude\templates\fix-typography\tools",
+              ".claude\templates\verifica-link\tools") } else { @("tools", "scripts") }
 function Trova([string]$nome) {
     foreach ($c in $cartelle) { $p = Join-Path $c $nome; if (Test-Path $p) { return $p } }
     return $null
@@ -129,17 +136,31 @@ $controlli = @(
     @{ n = "md-unwrap.py";            a = @("--check", "--only-tracked") + $o + @(".") },
     @{ n = "sync-readme.py";          a = @("--check") + $b; serve = "README.md" },
     @{ n = "lint-md-commands.py";     a = @(".") },
+    # Pacchetto anonymization: il suo README lo istanzia in tools oppure in scripts.
+    @{ n = "Test-Anonymization.py";   a = @("--quiet") },
+    # Le prove della regola documenti-personali, dal 2026-10-07: i riconoscitori di IBAN e carte,
+    # e l'esclusione dei documenti personali, dove doc-ingest e' istanziato. Nel bundle le lancia
+    # test-documenti-personali.py, perche' i pacchetti stanno in cartelle che qui non si percorrono.
+    @{ n = "Test-Anonymization.py";   a = @("--autotest") },
+    @{ n = "doc-ingest.py";           a = @("--autotest") },
     @{ n = "lint-doc-references.py";  a = @("--solo-vivi") + $b },
     @{ n = "check-eol.py";            a = @(".") },
     @{ n = "misura-istruzioni.py";    a = @() },
+    @{ n = "verifica-schede.py";      a = @(); serve = ".claude\context" },
+    @{ n = "lint-didattica.py";       a = @(); serve = ".claude\context\studio-didattico-master.md" },
     @{ n = "fix-accents.py";          a = @("--check") + $m + @(".") },
     @{ n = "fix-dashes.py";           a = @("--check") + $m + @(".") },
     @{ n = "fix-missing-accents.py";  a = @("--check") + $m + @(".") },
     @{ n = "sync-codex-skills.py";    a = @("--project-root", ".", "--check"); serve = ".claude\skills" },
+    # Pacchetto verifica-link: istanziato se c'e' la sua configurazione; senza rete, perche' un
+    # controllo prima del commit non deve dipendere dalla rete. Nel bundle girano le sole prove.
+    @{ n = "verifica-link-progetto.py"; a = @("--check", "--senza-rete"); serve = "tools\verifica-link-progetto.json" },
     @{ n = "check-copie-modelli.py";  a = @(); solobundle = $true },
     @{ n = "check-catalogo.py";       a = @(); solobundle = $true },
     @{ n = "check-raggiungibilita.py"; a = @(); solobundle = $true },
-    @{ n = "test-tipografia.py";      a = @(); solobundle = $true }
+    @{ n = "test-tipografia.py";      a = @(); solobundle = $true },
+    @{ n = "test-documenti-personali.py"; a = @(); solobundle = $true },
+    @{ n = "verifica-link-progetto.py"; a = @("--prova"); solobundle = $true }
 )
 
 $falliti = @()
@@ -183,14 +204,15 @@ if ($cambi.Count -gt 0) {
     if (-not $Messaggio) { Write-Host "Messaggio vuoto: mi fermo." -ForegroundColor Red; exit 1 }
     $nome = (& git config --local user.name); $email = (& git config --local user.email)
     if (-not $nome -or -not $email) {
-        Write-Host "Identita' git locale non impostata (git-identity-and-repo.md): impostare user.name e user.email del repository e rilanciare." -ForegroundColor Red
+        Write-Host "Identita' git locale non impostata (skill identita-git): impostare user.name e user.email del repository e rilanciare." -ForegroundColor Red
         exit 1
     }
     Write-Host "   $($cambi.Count) file  ->  `"$Messaggio`""
     Write-Host "   autore: $nome <$email>"
 
     if (-not $Si) {
-        $r = Read-Host "   Committo tutto e pusho su '$ramo'? [s/N]"
+        $azione = if ($NoPush) { "Committo tutto, senza push," } else { "Committo tutto e pusho" }
+        $r = Read-Host "   $azione su '$ramo'? [s/N]"
         if ($r -notmatch '^(s|si|y|yes)$') { Write-Host "Annullato: niente e' stato committato." -ForegroundColor Yellow; exit 1 }
     }
 
@@ -203,14 +225,30 @@ if ($cambi.Count -gt 0) {
 
 # ---------------------------------------------------------------------------------------------
 Titolo "Push"
-if (-not $haOrigin) {
+# -NoPush (2026-10-16, da un progetto istanziato): quando un push ha un costo da rimandare, per
+# esempio un monte di minuti di CI quasi finito, la chiusura si faceva a mano commit per commit
+# perche' questo script pusha sempre. Il commit resta locale e l'impronta lo registra: la ripresa
+# confronta HEAD e albero di lavoro, non il remoto.
+if ($NoPush) {
+    Nota "push saltato su richiesta (-NoPush): il commit resta locale su '$ramo'"
+} elseif (-not $haOrigin) {
     Nota "nessun remoto 'origin': push saltato, il commit resta locale"
 } elseif (-not (& git rev-parse -q --verify HEAD)) {
     Nota "nessun commit sul ramo: niente da pushare"
 } else {
     # Destinazione esplicita: un upstream diverso da origin non deve deviare la chiusura.
-    & git push -u origin "HEAD:refs/heads/$ramo"
-    if ($LASTEXITCODE -ne 0) { Write-Host "Push fallito: l'impronta non si registra finche' il remoto non e' allineato." -ForegroundColor Red; exit 1 }
+    # Un push caduto sulla rete non e' un push rifiutato, e la differenza conta:
+    # il 2026-10-13, su due tornate di chiusura, dieci push sono caduti su timeout
+    # SSH verso GitHub e ogni volta bastava rilanciare. La ripetizione sta qui
+    # invece che nelle dita di chi chiude.
+    $attese = @(5, 15)
+    for ($t = 1; $t -le 3; $t++) {
+        & git push -u origin "HEAD:refs/heads/$ramo"
+        if ($LASTEXITCODE -eq 0) { break }
+        if ($t -eq 3) { Write-Host "Push fallito: l'impronta non si registra finche' il remoto non e' allineato." -ForegroundColor Red; exit 1 }
+        Nota ("push caduto, ritento fra {0} secondi (tentativo {1} di 3)" -f $attese[$t - 1], ($t + 1))
+        Start-Sleep -Seconds $attese[$t - 1]
+    }
     $locale = (& git rev-parse HEAD)
     $refRemota = (& git ls-remote --exit-code origin "refs/heads/$ramo")
     if ($LASTEXITCODE -ne 0 -or -not $refRemota) { Ko "verifica del ramo remoto fallita"; exit 1 }
@@ -262,14 +300,24 @@ $script = @(Get-ChildItem $env:USERPROFILE -Directory -Filter ".claude*" -Force 
 
 if ($script.Count -eq 0) {
     Nota "nessuno script di wipe installato negli account: passo saltato"
-} elseif ($aperte.Count -gt 0) {
-    Write-Host "   $($aperte.Count) processi Claude Code ancora aperti (CLI o editor): wipe rimandato. Chiuderli e lanciare:" -ForegroundColor Yellow
-    $script | ForEach-Object { Write-Host "   powershell -NoProfile -ExecutionPolicy Bypass -File `"$_`"" }
 } else {
+    if ($aperte.Count -gt 0) {
+        Write-Host "   $($aperte.Count) processi Claude Code ancora aperti (CLI o editor): il wipe conserva le loro sessioni e toglie tutte le altre. Una copia del wipe anteriore al 2026-10-09 invece rimanda tutto." -ForegroundColor Yellow
+    }
     foreach ($s in $script) {
         & powershell -NoProfile -ExecutionPolicy Bypass -File $s
         if ($LASTEXITCODE -eq 0) { Ok $s } else { Ko "$s (uscita $LASTEXITCODE)" }
     }
 }
+
+# Che cosa resta dopo il wipe, o dopo il suo rinvio: senza questo resoconto un rinvio si
+# leggeva solo nel diario dell'account, che nessuno apre. Lo strumento e' in sola lettura;
+# si cerca accanto a questo script e, in un progetto che non lo ha, nelle home degli account.
+$stato = @((Join-Path $PSScriptRoot 'stato-magazzino.ps1')) +
+    @(Get-ChildItem $env:USERPROFILE -Directory -Filter ".claude*" -Force -ErrorAction SilentlyContinue |
+      ForEach-Object { Join-Path $_.FullName "hooks\stato-magazzino.ps1" }) |
+    Where-Object { Test-Path $_ } | Select-Object -First 1
+if ($stato) { & powershell -NoProfile -ExecutionPolicy Bypass -File $stato }
+else { Nota "stato-magazzino.ps1 non trovato: resoconto dei residui saltato" }
 
 Fine ""

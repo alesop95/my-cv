@@ -40,7 +40,7 @@ ESTENSIONI = {".md", ".py", ".sh", ".ps1", ".json", ".txt", ".toml", ".yml", ".y
 
 # Cartelle da non percorrere: metadati di git, materiale locale non versionato,
 # e le fixture di md-unwrap, che sono miste di proposito.
-CARTELLE_ESCLUSE = {".git", "_notes", "__pycache__", "node_modules", "fixtures"}
+CARTELLE_ESCLUSE = {".git", "_notes", "__pycache__", "node_modules", "fixtures", ".venv", "venv"}
 
 
 def conta(percorso: Path) -> tuple[int, int]:
@@ -55,10 +55,22 @@ def candidati(radice: Path):
     if radice.is_file():
         yield radice
         return
+    # Una cartella che porta il marcatore .md-unwrap-ignore contiene materiale esterno o
+    # generato, copiato tale e quale: md-unwrap non la riformatta, e per la stessa ragione
+    # non se ne pretende la coerenza delle fini riga, che appartiene alla fonte.
+    marcate = {m.parent for m in radice.rglob(".md-unwrap-ignore")}
     for p in sorted(radice.rglob("*")):
-        if not p.is_file() or p.suffix not in ESTENSIONI:
+        # Prima i filtri sul nome, che non toccano il disco: una cartella esclusa puo'
+        # contenere voci che il sistema rifiuta di leggere, come i collegamenti di un
+        # pacchetto per macOS estratto su Windows, e interrogarle farebbe cadere il controllo.
+        if p.suffix not in ESTENSIONI or CARTELLE_ESCLUSE & set(p.parts):
             continue
-        if CARTELLE_ESCLUSE & set(p.parts):
+        try:
+            if not p.is_file():
+                continue
+        except OSError:
+            continue
+        if any(m == p.parent or m in p.parents for m in marcate):
             continue
         yield p
 

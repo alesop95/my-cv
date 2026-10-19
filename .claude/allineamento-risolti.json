@@ -1,7 +1,15 @@
 {
+  ".claude/skills/latex-build/SKILL.md": {
+    "testa": "b0e224c7889cfc13eef5675f8ddb4150e29bcc32",
+    "il": "2026-10-19"
+  },
   ".claude/skills/onboard/SKILL.md": {
     "testa": "f123e1c44711252e2ac7e39f749183990cb5410c",
     "il": "2026-09-29"
+  },
+  ".claude/skills/roadmap/SKILL.md": {
+    "testa": "599aff6d3d25ace44071b3a46a4f64b44fef5ca4",
+    "il": "2026-10-19"
   },
   "tools/lint-memoria.py": {
     "testa": "01128d88d66bc3b2b55cff7ed282238d1d6d89ff",
