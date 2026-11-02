@@ -188,7 +188,7 @@ voci:
     livello: 2
     dove: projects
     titolo: Passata sulle pagine di projects, restano le decisioni che solo l'utente può prendere
-    stato: Pagine personali, accademiche, dei corsi e aziendali riscritte fra il 2026-09-24 e il 2026-09-28, con generatore corretto, sei pagine nuove e indici rigenerati. Restano aperte otto decisioni di privacy sui repository sorgente (sezione A di DECISIONI.md, la più urgente export-teams-chat con l'ID del tenant) e cinque domande sulle pagine accademiche e dei corsi.
+    stato: Pagine personali, accademiche, dei corsi e aziendali riscritte fra il 2026-09-24 e il 2026-09-28, con generatore corretto, sei pagine nuove e indici rigenerati. Restano aperte otto decisioni di privacy sui repository sorgente (sezione A di DECISIONI.md) e cinque domande sulle pagine accademiche e dei corsi.
     passo: Rispondere alle domande aperte di DECISIONI.md; per la privacy, verificare prima la visibilità di ciascun repository su GitHub.
     fonte: "projects/_notes/audit-2026-09-24/DECISIONI.md"
 
