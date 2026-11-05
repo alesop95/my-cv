@@ -47,4 +47,4 @@ Dal browser si stampa con la funzione di stampa, che legge il foglio di stile de
 
 ## Dove finisce questa lista e dove comincia la memoria
 
-Questa skill non scrive in alcun file tracciato e non aggiorna le schede. Quando una voce viene davvero chiusa, le due cose da fare sono toglierla da `tools/roadmap-items.yml` e aggiornare a mano la scheda che la citava, tipicamente `.claude/memory/index.md` per i difetti noti o la mappa dello stato in testa a `.claude/context/roadmap.md`. La regola di team resta quella: l'agente non scrive nei file di memoria e di contesto senza richiesta esplicita.
+Questa skill non scrive in alcun file tracciato e non aggiorna le schede. Quando una voce viene davvero chiusa, le due cose da fare sono toglierla da `tools/roadmap-items.yml` e aggiornare a mano la scheda che la citava, tipicamente `.claude/memory/index.md` per i difetti noti o la mappa dello stato in testa a `.claude/context/roadmap.md`. La persistenza di memoria e contesto segue la regola canonica `.claude/rules/chat-non-e-memoria.md`, senza ripeterne qui una versione che possa divergere.

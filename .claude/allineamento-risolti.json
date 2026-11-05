@@ -1,18 +1,22 @@
 {
   ".claude/skills/latex-build/SKILL.md": {
     "testa": "b0e224c7889cfc13eef5675f8ddb4150e29bcc32",
-    "il": "2026-10-19"
+    "il": "2026-11-04",
+    "locale_sha256_lf": "1eeb4836fc6cc425a09a5f02c276ac23069859bab8d400481720f7b3f2f3afca"
   },
   ".claude/skills/onboard/SKILL.md": {
     "testa": "7a2276534ffacf3e75d4d1eb9a643caf5f1da0fc",
-    "il": "2026-10-19"
+    "il": "2026-11-04",
+    "locale_sha256_lf": "0d1cd39b1db8f8e54cbc921ea34ecca121c7de08ac9ab17808247f91d6e5fc6c"
   },
   ".claude/skills/roadmap/SKILL.md": {
     "testa": "599aff6d3d25ace44071b3a46a4f64b44fef5ca4",
-    "il": "2026-10-19"
+    "il": "2026-11-04",
+    "locale_sha256_lf": "e4e77b3caae67a644321868188db0cbcadee97e6fbd4d6a56eb31aaf52c53e84"
   },
   "tools/lint-memoria.py": {
     "testa": "01128d88d66bc3b2b55cff7ed282238d1d6d89ff",
-    "il": "2026-09-29"
+    "il": "2026-11-04",
+    "locale_sha256_lf": "62552eb0a603747041a7432402f4ca73967b1d821390af5c58774415659731f3"
   }
 }
